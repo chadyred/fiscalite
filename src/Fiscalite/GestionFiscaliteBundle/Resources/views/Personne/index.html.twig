@@ -1,0 +1,88 @@
+{% extends 'FiscaliteGestionFiscaliteBundle::layout.html.twig' %}
+
+{% block contenu %}
+       <div class="container-fluid">
+            <div class="row">
+              <div class="sidebar content-tab col-xs-6 col-sm-8 col-md-6 col-lg-3">
+        <form  class=" form-horizontal" method="get" {{ form_enctype(form) }}>
+        <div class="form-group "> 
+        {# Génération du label. #}
+  	{{ form_label(form.numerosequentiel, "Numéro Séquentiel : ",{ 'label_attr': { 'class': 'col-sm-6'} }) }}
+        <div class="col-sm-6">        
+  	{# Affichage des erreurs pour ce champ précis. #}
+  	{{ form_errors(form.numerosequentiel,{ 'attr': { 'class': 'col-sm-12 col-xs-12' } }) }}
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.numerosequentiel,{ 'attr': { 'class': 'col-sm-12 col-xs-12' } }) }}
+                        </div></div>
+        <div class="form-group ">         
+        {# Génération du label. #}
+  	{{ form_label(form.nomprenom, "Nom et prénom : ",{ 'label_attr': { 'class': 'col-sm-6'} }) }}
+  	{# Affichage des erreurs pour ce champ précis. #}
+        <div class="col-sm-6">        
+  	{{ form_errors(form.nomprenom,{ 'attr': { 'class': 'col-sm-12 col-xs-12' } }) }}
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.nomprenom,{ 'attr': { 'class': 'col-sm-12 col-xs-12' } }) }}
+                        </div></div>
+
+        <div class="form-group "> 
+        {# Génération du label. #}
+  	{{ form_label(form.adresse, "Adresse : ",{ 'label_attr': { 'class': 'col-sm-6'} }) }}
+  	{# Affichage des erreurs pour ce champ précis. #}
+                <div class="col-xs-12 col-sm-6">
+  	{{ form_errors(form.adresse,{ 'attr': { 'class': 'col-sm-12 col-xs-12' } }) }}
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.adresse,{ 'attr': { 'class': 'col-sm-12  col-xs-12' } }) }}
+                        </div></div>
+
+        <div class="form-group ">         
+        {# Génération du label. #}
+  	{{ form_label(form.fichier, "Année de taxation : ",{ 'label_attr': { 'class': 'col-sm-6'} }) }}
+  	{# Affichage des erreurs pour ce champ précis. #}
+                <div class="col-sm-6">
+  	{{ form_errors(form.fichier,{ 'attr': { 'class': 'col-sm-12 col-xs-12' } }) }}
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.fichier,{ 'attr': { 'class': 'col-sm-12 col-xs-12' } }) }}
+        </div></div>
+        <div class="form-group"> 
+        {{ form_rest(form) }} 
+                </div>
+       <div class="form-group">  
+        <input class="btn btn-primary col-xs-offset-6" type="submit" value="Rechercher" />
+         </div>
+</form> 
+      </div>          
+         <div class="body-content content-tab col-xs-12 col-sm-12 col-md-12  col-lg-8">
+                   <div> <h5>{{ "Résultat : "~ pagination.getTotalItemCount ~" article(s) trouvé(s)."}}</h5></div>
+            <table class="table table-striped table-hover">
+              <thead>  
+                  <tr>
+                    <th>Numéro séquentiel</th><th>Nom Prénom</th><th>Adresse</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for article in pagination %}
+                <tr>
+                    <td><a href="{{ path('articleTH',{'id': article.getNumerosequentiel()}) }}">{{article.getNumerosequentiel()}}</a></td>
+                    <td><a href="{{ path('articleTH',{'id': article.getNumerosequentiel()}) }}">{{article.nomprenom~ " "~ article.suitenom}}</a></td>
+                    <td>{% if article.getAdresse() == NULL %}
+                            {{"Non disponible"}}
+                        {%else%} 
+                            {{article.adresse.getCodevoie() ~" "~article.adresse.getNumeroimmeubleaft() ~" "~article.adresse.getIndicederepetition() ~" "~article.adresse.getLibellevoieaft()}}
+                        {% endif %}</td>
+                </tr>
+                
+                {% endfor %}
+                </tbody> 
+            </table>
+                    <div class="navigation pagination">
+                {{ knp_pagination_render(pagination,null, {}, {'alignment': 'center'}) }}
+                    </div>
+               </div>
+          </div>   
+   </div>   
+
+
+{% endblock %}
+{% block footer %}
+{{ parent() }}
+{% endblock %}

@@ -1,0 +1,315 @@
+{% extends 'FiscaliteGestionFiscaliteBundle::layout.html.twig' %}
+{% block javascript  %}
+   {{ parent() }}
+{% endblock %}
+
+{% block contenu %}
+{{ parent() }}
+      <div class="container-fluid base">
+            <div class="row-fluid">
+                <div class="span12"> 
+                    <div class="body-content span12">
+                   <div> <h5> Article Commune IFP {{ "Résultat : "~ pagination.getTotalItemCount ~" article(s) trouvé(s)."}}</h5></div>
+                <table class="table table-striped table-hover ">
+                <thead>
+                <tr>
+                    <th class="text-center">Type de traitement</th>
+                    <th class="text-center">Libellé de la commune</th>
+                    <th class="text-center">Numéro de rôle</th>
+                    <th class="text-center">Date de mise en recouvrement</th>
+                    <th class="text-center">Date de majoration</th>
+                    <th class="text-center">libellé du syndicat gestionnaire TEOM</th>
+                    <th class="text-center">Taux non bati de la taxe additionnelle a la taxe fonciere sur le propietes non baties</th>
+                    <th class="text-center">Taux bati / commune</th>
+                    <th class="text-center">Taux bati / syndicat</th>
+                    <th class="text-center">Taux bati / Intercommunalite</th>
+                    <th class="text-center">Taux TSE bati Grand Paris seulement</th>
+                    <th class="text-center">Attention TSE bati amalgamé en RIF (TSE Autre)</th>
+                    <th class="text-center">Taux TOM-P</th>
+                    <th class="text-center">Taux TOM-RA</th>
+                    <th class="text-center">Taux TOM-RB</th>
+                    <th class="text-center">Taux TOM-RC</th>
+                    <th class="text-center">Taux TOM-RD</th>
+                </tr>
+                </thead>
+               <tbody> {% for TFarticleCommuneIFP in pagination %}
+                <tr>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTypeTraitement()}}</td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getLibCommunne()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getN0Role()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getDMER()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getDMajo()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getLibSyndicatTEOM()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXNTATFPNB()/100000}}% </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXBC()/100000}}% </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXBS()/100000}} %</td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXBIC()/100000}}% </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXBTSEGP()/100000}}% </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXBTSEF()/100000}}% </td>
+                    <td class="text-center"> {{(TFarticleCommuneIFP.getTXBTOMP())/100000}}% </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXBTOMRA()/100000}}% </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXBTOMRB()/100000}}% </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXBTOMRC()/100000}}% </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXBTOMRD()/100000}}% </td>
+                    
+                </tr>
+                {% endfor %}
+                    </tbody>
+            </table>
+            <table class="table table-striped table-hover ">
+                <thead>
+                <tr>
+                    <th class="text-center">Type BENEF-OM</th>                    
+                    <th class="text-center">Taux non bati /commune</th>
+                    <th class="text-center">Taux non bati / syndicat</th>
+                    <th class="text-center">taux non bati /ic</th>
+                    <th class="text-center">Taux TSE non bati Grand Paris seulement</th>
+                    <th class="text-center">Taux TSE non bati unique non amalgalmé </th>
+                    <th class="text-center">Taux non bati / droit Proportionnel de la CAAA</th>
+                    <th class="text-center">Libellé intercommunalité à laquelle adhère la commune</th>
+                    <th class="text-center">Option support role de l'intercommunalité C/V</th>
+                    <th class="text-center">Option support role de la commune C/V</th>
+                    <th class="text-center">Option support role du departement</th>
+                    <th class="text-center">Code du bénéficiaire OM</th>
+                    <th class="text-center">SIREN</th>
+                    <th class="text-center">Code Kxxxn syndicat gestionnaire TEOM</th>
+                    <th class="text-center">C+com xxx si commune bénéficiaire ou lettre intercommunalite</th>
+                    <th class="text-center">Intégration fiscale progressive des taux bati EPCI en cours</th>
+                    <th class="text-center">Intégration fiscale progressive des taux non bati EPCI en cours</th>
+                </tr>
+                </thead>
+               <tbody> {% for TFarticleCommuneIFP in pagination %}
+               
+                <tr>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTypeBENEFOM()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXNC()/100000}}% </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXNS()/100000}}% </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXNIC()/100000}}% </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXNTSEGP()/100000}}% </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXNTSEF()/100000}}% </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getTXNCAAA()/100000}}% </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getLibelleICAdhC()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getOptionSupportIC()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getOptionSupportC()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getOptionSupportDept()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getCodeBeneficiaireOM()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getSIREN()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getCodeKSyndicatBeneficiaireTEOM()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getCodeBeneficiaireTATFPNB()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getBatiEPCI()}} </td>
+                    <td class="text-center"> {{TFarticleCommuneIFP.getNonBatiEPCI()}} </td>
+                </tr>
+                {% endfor %}
+                    </tbody>
+            </table>       
+            <div class="navigation pagination">
+                {{ knp_pagination_render(pagination,null, {}, {'alignment': 'center'}) }}
+            </div>
+               </div>
+                </div>
+                    <div class="row-fluid">
+                    <div class="span12"> 
+                    <div class="body-content span12">
+                   <div> <h5>Article Compte {{ "Résultat : "~ pagination2.getTotalItemCount ~" article(s) trouvé(s)."}}</h5></div>
+                <table class="table table-striped table-hover ">
+                <thead>
+                <tr>
+                    <th class="text-center">N° de role</th>
+                    <th class="text-center">Code trésorerie (locale) ou SIP</th>
+                    <th class="text-center">Code SAGES (CICB) du CDIF ou du SIP si fusion CDI/CDIF/SIP</th>
+                    <th class="text-center">Code du secteur Foncier (ouSAID si fusion CDI/CDIF/SIP</th>
+                    <th class="text-center">Somme à payer</th>
+                    <th class="text-center"><strong>Cotisation/ Niveau de compte</strong>Somme à payer</th>
+                    <th class="text-center">Cotisation < 12€</th>
+                    <th class="text-center">Frais de Fiscalité directe locale</th>
+                    <th class="text-center"><strong>Premier débiteur : 6 lignes adresse</strong>titre et désignation</th>
+                    <th class="text-center">suite et désignation</th>
+                    <th class="text-center">Complément d'adresse</th>
+                    <th class="text-center">voie</th>
+                    <th class="text-center">Lieu-dit</th>
+                    <th class="text-center">Code postal et Commune</th>
+                    <th class="text-center">Droit Réel I/S/ou blanc</th>
+                    <th class="text-center">Base totale en exonération ECF</th>
+                    <th class="text-center">Dégrèvement "habitation principale"</th>
+                    <th class="text-center">Code structure en base de l'article TF</th>
+                    <th class="text-center">Code structure en cotisation de l'article TF</th>
+
+                </tr>
+                </thead>
+               <tbody> {% for TFarticleTaxationCompte in pagination2 %}
+                <tr>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getNumeroRole()}}</td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getCTresorerie()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getCCDIF()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getCSecteur()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getSommeAPayer()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getCotisationInferieur12()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getFraisDeFDL()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getTitreEtDesignation()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getSuiteDesignation()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getComplementAdresse()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getLigneVoie()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getLigneLieuDit()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getLigneCodePostalEtCommune()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getCodeDR()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getCodeDEM()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getBaseECF()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getDECHABPLE()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getHCNT()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationCompte.getBOND()}} </td>
+
+                    
+                </tr>
+                {% endfor %}
+                    </tbody>
+            </table>
+            <div class="navigation pagination">
+                {{ knp_pagination_render(pagination2,null, {}, {'alignment': 'center'}) }}
+            </div>
+                 </div>
+                 </div>
+               </div>
+                    
+                    <div class="row-fluid">
+                    <div class="span12"> 
+                    <div class="body-content span12">
+                   <div> <h5>Article Non Bati {{ "Résultat : "~ pagination3.getTotalItemCount ~" article(s) trouvé(s)."}}</h5></div>
+                <table class="table table-striped table-hover ">
+                <thead>
+                <tr>
+                    <th class="text-center">Base commune NTA</th>
+                    <th class="text-center">Base IC</th>
+                    <th class="text-center">Base Taxe additionnelle au non bati</th>
+                    <th class="text-center">Base TSE Base = TSE NTA</th>
+                    <th class="text-center">Base Chambre d'agriculture</th>
+                    <th class="text-center">Base Caisse d'assurance Accidents Agricoles</th>
+                    <th class="text-center">Base "terrains constructible"</th>
+                    <th class="text-center">Cotisation commune</th>
+                    <th class="text-center">Cotisation syndicat</th>
+                    <th class="text-center">Cotisation Intercommunalité</th>
+                    <th class="text-center">Cotisation Taxe additionnelle au onon bati</th>
+                    <th class="text-center">Cotisation TSE non bati</th>
+                    <th class="text-center">Cotisation TSE</th>
+                    <th class="text-center">Cotisation Chambre d'agriculture</th>
+                    <th class="text-center">Cotisation CAAA Droit Fixe</th>
+                    <th class="text-center">Cotisation CAAA Droit proportionnel</th>
+                    <th class="text-center">Total des cotisations non baties (hors frais)</th>
+                    <th class="text-center"><strong>Dégrèvement Jeune agriculteur-CL</strong>Base-JA / Commune</th>
+                    <th class="text-center">Base-JA / Syndicat</th>
+                    <th class="text-center">Base-JA / Intercommunalité</th>
+                    <th class="text-center"><strong>Dégrèvement Jeune agriculteur-Etat</strong>Base-JA / Commune</th>
+                    <th class="text-center">Base-JA / Syndicat</th>
+                    <th class="text-center">Base-JA / Intercommunalité</th>
+                    <th class="text-center">Total du dégrèvement JA-CL à charge des collectivités optantes (hors frais)</th>
+                    <th class="text-center">Total du dégrèvement JA-Etat à la charge de l'Etat incluant les frais correspondants aux 2 dégrèvements JA</th>
+                    <th class="text-center">Base imposable TA Commune et Syndicat</th>
+                    <th class="text-center">Base imposable TA Intercommunalité</th>
+                    <th class="text-center">Base imposable TA Chambre d'agriculture</th>
+                    <th class="text-center">Base imposable TA CAAA</th>
+                    <th class="text-center">Montant total TSE bati et non bati de la seule TSE Grand Paris</th>
+                </tr>
+                </thead>
+               <tbody> {% for TFarticleTaxationNonBati in pagination3 %}
+                <tr>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseC()}}</td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseIC()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseTATFPNB()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseTSE()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseCA()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseCAAA()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseTerrainsConstr()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getCotisationC()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getCotisationS()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getCotisationIC()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getCotisationTATFPNB()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getCotisationTSE()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getCotisationTSEF()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getCotisationCA()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getCotisationCAAADF()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getCotisationCAAADP()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getTotal()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseJACLC()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseJACLS()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseJACLIC()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseJAEC()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseJAES()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseJAEIC()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getCotisationJACL()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getCotisationJAEtat()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseImposableTACetSyndicat()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseImposableTAIC()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseImposableTAChambreAgriculture()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getBaseImposableTACAAA()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationNonBati.getCotisationGlobaleTSE()}} </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="navigation pagination">
+                {{ knp_pagination_render(pagination3,null, {}, {'alignment': 'center'}) }}
+            </div>
+                 </div>
+                 </div>
+               </div>
+
+                    <div class="row-fluid">
+                    <div class="span12"> 
+                    <div class="body-content span12">
+                   <div> <h5>Article Bati {{ "Résultat : "~ pagination4.getTotalItemCount ~" article(s) trouvé(s)."}}</h5></div>
+                <table class="table table-striped table-hover ">
+                <thead>
+                <tr>
+                    <th class="text-center">Libellé de la voie de l'adresse de taxation du ou des locaux</th>
+                    <th class="text-center">Base Commune</th>
+                    <th class="text-center">Base syndicat</th>
+                    <th class="text-center">Base Intercommunalité</th>
+                    <th class="text-center">Base Département</th>
+                    <th class="text-center">Base TSE bati</th>
+                    <th class="text-center">Base TEOM</th>
+                    <th class="text-center">Cotisation commune</th>
+                    <th class="text-center">Cotisation syndicat</th>
+                    <th class="text-center">Cotisation Intercommunalité</th>
+                    <th class="text-center">Cotisation Département</th>
+                    <th class="text-center">Cotisation TSE bati et non bati de la seule TSE Grand</th>
+                    <th class="text-center">Cotisation TSE bati agrégée = TSE + TSE Grand Paris</th>
+                    <th class="text-center">Cotiastion TOM</th>
+                    <th class="text-center">Total des cotisations baties (hors frais)</th>
+                    <th class="text-center">Code taux OM utilisé (P,RA,RB,RC,RD)</th>
+                </tr>
+                </thead>
+               <tbody> {% for TFarticleTaxationBati in pagination4 %}
+                <tr>
+                    <td class="text-center"> {{TFarticleTaxationBati.getLibVoie()}}</td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getBaseC()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getBaseS()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getBaseIC()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getBaseD()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getBaseTSE()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getBaseOM()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getCotisationC()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getCotisationS()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getCotisationIC()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getCotisationD()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getCotisationTSE()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getCotisationTSEetTSEGP()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getCotisationOM()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getTotalCotisationBatiesHorsFrais()}} </td>
+                    <td class="text-center"> {{TFarticleTaxationBati.getCodeOM()}} </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            <div class="navigation pagination">
+                {{ knp_pagination_render(pagination4,null, {}, {'alignment': 'center'}) }}
+            </div>
+                 </div>
+                 </div>
+               </div>
+                    
+                </div>        
+            </div>
+
+{% endblock %}
+{% block footer %}
+{{ parent() }}
+{% endblock %}

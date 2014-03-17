@@ -1,0 +1,134 @@
+{% extends 'FiscaliteGestionFiscaliteBundle::layout.html.twig' %}
+{% block javascript  %}
+   {{ parent() }}
+{% endblock %}
+
+{% block contenu %}
+{{ parent() }}
+<div class="container base">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12"> 
+            <div class="row">
+                <div class="col-sm-7 col-md-7 col-lg-7 col-md-offset-3">
+                    <div class="sidebar-article col-sm-12 col-md-12 col-lg-12">
+                        <form  class="form-horizontal" method="POST" {{ form_enctype(form) }}>
+                            <fieldset>
+                                <legend>Simulation</legend>
+        <div class="form-group"> 
+        {# Génération du label. #}
+  	{{ form_label(form.nomSimulation, "Nom de la simulation",{ 'label_attr': { 'class': 'col-sm-6' } })}}
+        <div class="col-sm-6">
+        {# Génération de l'input. #}
+  	{{ form_widget(form.nomSimulation,{ 'attr': { 'class': 'col-sm-12' } }) }} 
+        {# Affichage des erreurs pour ce champ précis. #}
+  	{{ form_errors(form.nomSimulation,{ 'attr': { 'class': 'col-sm-12' } }) }}
+        </div>
+        </div>  
+        <div class="form-group"> 
+        <div class="row col-sm-12 col-md-12  col-lg-12">
+            <p class="col-sm-12 col-md-12  col-lg-12">Abattement</p></div>
+        {# Génération du label. #}
+  	{{ form_label(form.abattementgeneralbasecommunale, "Général à la base communal appliqué : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
+        <div class="col-sm-6">
+        {# Génération de l'input. #}
+  	{{ form_widget(form.abattementgeneralbasecommunale,{ 'attr': { 'class': 'col-sm-12' } }) }} 
+        {# Affichage des erreurs pour ce champ précis. #}
+  	{{ form_errors(form.abattementgeneralbasecommunale,{ 'attr': { 'class': 'col-sm-12' } }) }}
+        </div>
+        </div>        
+        <div class="form-group">                          
+        {# Génération du label. #}
+  	{{ form_label(form.abattementpersonneschargecommunal12, "Personne à charge entre 1 et 2 : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
+        {# Affichage des erreurs pour ce champ précis. #}
+        <div class="col-sm-6">        
+  	{{ form_errors(form.abattementpersonneschargecommunal12,{ 'attr': { 'class': 'col-sm-12' } }) }}                   
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.abattementpersonneschargecommunal12,{ 'attr': { 'class': 'col-sm-12' } }) }}  
+        </div>
+        </div> 
+        <div class="form-group">                          
+        {# Génération du label. #}
+  	{{ form_label(form.abattementpersonneschargecommunal3, "Personne à charge entre 3+ : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
+        <div class="col-sm-6"> 
+        {# Affichage des erreurs pour ce champ précis. #}
+  	{{ form_errors(form.abattementpersonneschargecommunal3,{ 'attr': { 'class': 'col-sm-12' } }) }}           
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.abattementpersonneschargecommunal3,{ 'attr': { 'class': 'col-sm-12' } }) }}  
+        </div>
+        </div>                                 
+        <div class="form-group">                            
+        {# Génération du label. #}
+  	{{ form_label(form.abattementspecialbasecommunal, "Spécial à la base communal appliqué : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
+        {# Affichage des erreurs pour ce champ précis. #}
+        <div class="col-sm-6">        
+  	{{ form_errors(form.abattementspecialbasecommunal,{ 'attr': { 'class': 'col-sm-12' } }) }}
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.abattementspecialbasecommunal,{ 'attr': { 'class': 'col-sm-12' } }) }} 
+        </div>
+        </div> 
+        <div class="form-group">
+        {# Génération du label. #}  	
+        {{ form_label(form.abattementspecialhandicapebasecommunal, "Spécial handicapé communal appliqué : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
+        {# Affichage des erreurs pour ce champ précis. #}
+        <div class="col-sm-6">
+  	{{ form_errors(form.abattementspecialhandicapebasecommunal,{ 'attr': { 'class': 'col-sm-12' } }) }}
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.abattementspecialhandicapebasecommunal,{ 'attr': { 'class': 'col-sm-12' } }) }} 
+        </div>
+        </div> 
+        <div class="form-group">
+        <div class="row col-sm-12 col-md-12 col-lg-12">
+        <p class="col-sm-12 col-md-12 col-lg-12">Taux d'imposition commune</p></div>     
+        {# Génération du label. #}
+  	{{ form_label(form.tauximpositioncommune, "Taux d'imposition commune : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
+        <div class="col-sm-6">
+        {# Affichage des erreurs pour ce champ précis. #}
+  	{{ form_errors(form.tauximpositioncommune,{ 'attr': { 'class': 'col-sm-12' } }) }}
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.tauximpositioncommune,{ 'attr': { 'class': 'col-sm-12' } }) }}  
+        </div>
+        </div> 
+        <div class="form-group">  
+        {# Génération du label. #}
+        <div class="row col-sm-12 col-md-12 col-lg-12">
+            <p class="col-sm-12 col-md-12 col-lg-12">Information sur un personne</p></div>                        
+  	{{ form_label(form.nom, "Nom : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
+        <div class="col-sm-6">
+        {# Affichage des erreurs pour ce champ précis. #}
+  	{{ form_errors(form.nom,{ 'attr': { 'class': 'col-sm-12' } }) }}
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.nom,{ 'attr': { 'class': 'col-sm-12' } }) }}  
+        </div>
+        </div> 
+        <div class="form-group">
+        {# Génération du label. #}
+  	{{ form_label(form.prenom, "Prénom : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
+        <div class="col-sm-6">        
+        {# Affichage des erreurs pour ce champ précis. #}
+  	{{ form_errors(form.prenom,{ 'attr': { 'class': 'col-sm-12' } }) }}
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.prenom,{ 'attr': { 'class': 'col-sm-12' } }) }}   
+        </div>
+        </div>  
+        <div class="form-group">
+        <div class="col-sm-6">  
+        {{ form_rest(form) }} 
+        </div>
+        </div>                
+        <div class="form-group"> 
+        <div class="col-sm-6">  
+        <input class="btn btn-primary pull-right" type="submit" value="Simulation" />
+        </div>
+        </div>     
+        </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>                      
+        </div>                            
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{{ parent() }}
+{% endblock %}

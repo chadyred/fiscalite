@@ -1,0 +1,10 @@
+mkdir -p web/bootstrap/css
+cd web/bootstrap/css
+ln -s ../../../vendor/twitter/bootstrap/docs/assets/css/bootstrap.css bootstrap.css
+ln -s ../../../vendor/twitter/bootstrap/docs/assets/css/bootstrap-responsive.css bootstrap-responsive.css
+cd ..
+mkdir -p js
+cd js
+ln -s ../../../vendor/twitter/bootstrap/docs/assets/js/bootstrap.min.js bootstrap.min.js
+cd ..
+ln -s ../../vendor/twitter/bootstrap/img img

@@ -1,0 +1,63 @@
+fiscalite_new:
+    pattern:  /new/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Index:new }
+    requirements: { _method: get }
+personne:
+    pattern:  /personne
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Personne:index }
+taxefonciere:
+    pattern:  /taxefonciere
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeFonciere:index }
+pdf:
+    pattern:  /pdf/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeHabitation:pdf }
+    requirements: { _method: get }
+csv:
+    pattern:  /csv/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeHabitation:csv }
+    requirements: { _method: get }  
+taxehabitationliste:
+    pattern:  /taxehabitationliste
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeHabitation:liste }
+articleTH:
+    pattern:  /articleTH/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeHabitation:article }
+    requirements: { _method: get }    
+taxefonciereliste:
+    pattern:  /taxefonciereliste
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeFonciere:liste } 
+articleTF:    
+    pattern:  /articleTF/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeFonciere:article }
+    requirements: { _method: get }
+simulationTH:
+    pattern:  /simulationTH
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Simulation:simulationTH }   
+    requirements: { _method: GET|POST }
+resultatTH:
+    pattern:  /resultatTH/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Simulation:resultatTH }  
+    requirements: { _method: GET|POST }
+secteur:
+    pattern:  /secteur
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Secteur:liste }  
+newsecteur:
+    pattern:  /newsecteur
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Secteur:new }  
+    requirements: { _method: GET|POST }
+articlesecteur:
+    pattern:  /articlesecteur/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Secteur:article }  
+    requirements: { _method: GET|POST }
+    
+fiscalite_ajaxNompersonne:
+    pattern: /fiscalite_ajaxNompersonne
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeHabitation:getAjaxResultsNompersonne}
+    requirements:
+        _method: GET  
+
+fiscalite_ajaxTitreEtDesignation:
+    pattern: /fiscalite_ajaxTitreEtDesignation
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeHabitation:getAjaxResultsTitreEtDesignation}
+    requirements:
+        _method: GET          

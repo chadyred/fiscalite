@@ -1,0 +1,128 @@
+# Acme/DemoBundle/Resources/config/admin.yml
+services:
+    sonata.admin.user:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\UserAdmin
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "fiscalite.admin.group.user"
+              label: "Utilisateurs"
+              label_catalogue: "Fiscalite"      
+        arguments:
+            - ~
+            - Fiscalite\GestionFiscaliteBundle\Entity\User
+            - ~
+        calls:
+            - [ setTranslationDomain, [FiscaliteGestionFiscalite]]
+    sonata.admin.article:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\ArticleAdmin
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "fiscalite.admin.group.article"
+              label: "Articles"
+              label_catalogue: "Fiscalite"      
+        arguments:
+            - ~
+            - Fiscalite\GestionFiscaliteBundle\Entity\Article
+            - ~
+        calls:
+            - [ setTranslationDomain, [FiscaliteGestionFiscalite]]
+    sonata.admin.base:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\BaseAdmin
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "fiscalite.admin.group.base"
+              label: "Bases"
+              label_catalogue: "Fiscalite"      
+        arguments:
+            - ~
+            - Fiscalite\GestionFiscaliteBundle\Entity\Base
+            - ~
+        calls:
+            - [ setTranslationDomain, [FiscaliteGestionFiscalite]]
+    sonata.admin.fichier:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\FichierAdmin
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "fiscalite.admin.group.commune"
+              label: "Fichiers"
+              label_catalogue: "Fiscalite"      
+        arguments:
+            - ~
+            - Fiscalite\GestionFiscaliteBundle\Entity\Fichier
+            - ~
+        calls:
+            - [ setTranslationDomain, [FiscaliteGestionFiscalite]]
+    sonata.admin.commune:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\CommuneAdmin
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "fiscalite.admin.group.commune"
+              label: "Communes"
+              label_catalogue: "Fiscalite"      
+        arguments:
+            - ~
+            - Fiscalite\GestionFiscaliteBundle\Entity\Commune
+            - ~
+        calls:
+            - [ setTranslationDomain, [FiscaliteGestionFiscalite]] 
+    sonata.admin.articlecommune:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\ArticleCommuneAdmin
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "fiscalite.admin.group.commune"
+              label: "Articles Communes"
+              label_catalogue: "Fiscalite"      
+        arguments:
+            - ~
+            - Fiscalite\GestionFiscaliteBundle\Entity\ArticleCommune
+            - ~
+        calls:
+            - [ setTranslationDomain, [FiscaliteGestionFiscalite]]    
+    sonata.admin.abattement:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\AbattementAdmin
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "fiscalite.admin.group.article"
+              label: "Abattements"
+              label_catalogue: "Fiscalite"      
+        arguments:
+            - ~
+            - Fiscalite\GestionFiscaliteBundle\Entity\Abattement
+            - ~
+        calls:
+            - [ setTranslationDomain, [FiscaliteGestionFiscalite]]    
+    sonata.admin.cotisation:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\CotisationAdmin
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "fiscalite.admin.group.article"
+              label: "Cotisations"
+              label_catalogue: "Fiscalite"      
+        arguments:
+            - ~
+            - Fiscalite\GestionFiscaliteBundle\Entity\Cotisation
+            - ~
+        calls:
+            - [ setTranslationDomain, [FiscaliteGestionFiscalite]]   
+    sonata.admin.adresse:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\AdresseAdmin
+        tags:
+            - name: sonata.admin
+              manager_type: orm
+              group: "fiscalite.admin.group.article"
+              label: "Adresses"
+              label_catalogue: "Fiscalite"      
+        arguments:
+            - ~
+            - Fiscalite\GestionFiscaliteBundle\Entity\Adresse
+            - ~
+        calls:
+            - [ setTranslationDomain, [FiscaliteGestionFiscalite]]              

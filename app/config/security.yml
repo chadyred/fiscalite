@@ -1,0 +1,52 @@
+security:
+    encoders:
+        FOS\UserBundle\Model\UserInterface: sha512
+    role_hierarchy:
+        ROLE_UTILISATEUR: ROLE_USER
+        ROLE_ADMIN:       ROLE_UTILISATEUR
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        fos_userbundle:
+            id: fos_user.user_provider.username
+    firewalls:
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern: ^/
+            provider: main
+            form_login:
+              provider:       fos_userbundle
+              login_path:     /login
+              always_use_default_target_path: true
+              default_target_path: /fiscalite
+              failure_path:   /fiscalite
+              use_forward:    false
+              check_path:     /login_check
+            logout:       
+              path:   /logout
+              target: /fiscalite
+              invalidate_session: false
+            anonymous:    true
+            remember_me:
+                path: /fiscalite
+                lifetime: 5000
+                key:        %secret% 
+    access_control:
+        - { path: ^/fiscalite, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: ROLE_UTILISATEUR }
+        - { path: ^/logout, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_wdt, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_profiler, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        # -> custom access control for the admin area of the URL
+        - { path: ^/admin/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/logout$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/admin/login-check$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        # -> end
+        - { path: ^/, role: ROLE_UTILISATEUR }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

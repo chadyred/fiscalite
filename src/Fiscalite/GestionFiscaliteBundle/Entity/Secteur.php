@@ -40,7 +40,7 @@ class Secteur {
     private $nombreIndividu;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TypeRue",cascade={"persist","remove"})
+     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TypeRue", cascade={"persist","remove"})
      */
     private $typerue;
 
@@ -77,7 +77,6 @@ class Secteur {
     public function newSecteur($nom, $nombreIndividu) {
         $this->setNom($nom);
         $this->setNombreIndividu($nombreIndividu);
- 
         return $this;
     }
 
@@ -85,7 +84,7 @@ class Secteur {
      * Constructor
      */
     public function __construct() {
-        
+        $this->typerue = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

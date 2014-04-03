@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTHRepository")
  */
-class RechercheArticleTH
-{
+class RechercheArticleTH {
     /**
      * @var integer
      *
@@ -21,12 +20,19 @@ class RechercheArticleTH
      */
     private $id;
 
-    /**
+   /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(name="nompersonne", type="string", length=255)
      */
-    private $nom;
+    private $nompersonne;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nbpersonnesacharge", type="integer")
+     */
+    private $nbpersonnesacharge;
 
     /**
      * @var integer
@@ -48,20 +54,34 @@ class RechercheArticleTH
      * @ORM\Column(name="basenettemax", type="integer")
      */
     private $basenettemax;
-    
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="montantnetapayermin", type="integer")
-     */
-    private $montantnetapayermin;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="montantnetapayermax", type="integer")
+     * @ORM\Column(name="abattementgeneralbasecommunale", type="integer")
      */
-    private $montantnetapayermax;
+    private $abattementgeneralbasecommunale;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="abattementpersonneschargecommunnal", type="integer")
+     */
+    private $abattementpersonneschargecommunnal;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="abattementspecialbasecommunal", type="integer")
+     */
+    private $abattementspecialbasecommunal;
+    
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="abattementspecialhandicapecommunal", type="integer")
+     */
+    private $abattementspecialhandicapecommunal;
     
     /**
      * @var integer
@@ -76,29 +96,22 @@ class RechercheArticleTH
      * @ORM\Column(name="cotisationcommunalemax", type="integer")
      */
     private $cotisationcommunalemax;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="montantnetapayermin", type="integer")
+     */
+    private $montantnetapayermin;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="montantnetapayermax", type="integer")
+     */
+    private $montantnetapayermax;
+
     
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="cotisationintercommunalitemin", type="integer")
-     */
-    private $cotisationintercommunalitemin;
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="cotisationintercommunalitemax", type="integer")
-     */
-    private $cotisationintercommunalitemax;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="nompersonne", type="string", length=255)
-     */
-    private $nompersonne;
-
-
     /**
      * Get id
      *
@@ -110,38 +123,61 @@ class RechercheArticleTH
     }
 
     /**
-     * Set nom
+     * Set nompersonne
      *
-     * @param string $nom
-     * @return RechercheBase
+     * @param string $nompersonne
+     * @return RechercheArticleTH
      */
-    public function setNom($nom)
+    public function setNompersonne($nompersonne)
     {
-        $this->nom = $nom;
-    
+        $this->nompersonne = $nompersonne;
+
         return $this;
     }
 
     /**
-     * Get nom
+     * Get nompersonne
      *
      * @return string 
      */
-    public function getNom()
+    public function getNompersonne()
     {
-        return $this->nom;
+        return $this->nompersonne;
+    }
+
+    /**
+     * Set nbpersonnesacharge
+     *
+     * @param integer $nbpersonnesacharge
+     * @return RechercheArticleTH
+     */
+    public function setNbpersonnesacharge($nbpersonnesacharge)
+    {
+        $this->nbpersonnesacharge = $nbpersonnesacharge;
+
+        return $this;
+    }
+
+    /**
+     * Get nbpersonnesacharge
+     *
+     * @return integer 
+     */
+    public function getNbpersonnesacharge()
+    {
+        return $this->nbpersonnesacharge;
     }
 
     /**
      * Set anneetaxation
      *
      * @param integer $anneetaxation
-     * @return RechercheBase
+     * @return RechercheArticleTH
      */
     public function setAnneetaxation($anneetaxation)
     {
         $this->anneetaxation = $anneetaxation;
-    
+
         return $this;
     }
 
@@ -159,12 +195,12 @@ class RechercheArticleTH
      * Set basenettemin
      *
      * @param integer $basenettemin
-     * @return RechercheBase
+     * @return RechercheArticleTH
      */
     public function setBasenettemin($basenettemin)
     {
         $this->basenettemin = $basenettemin;
-    
+
         return $this;
     }
 
@@ -187,7 +223,7 @@ class RechercheArticleTH
     public function setBasenettemax($basenettemax)
     {
         $this->basenettemax = $basenettemax;
-    
+
         return $this;
     }
 
@@ -202,72 +238,95 @@ class RechercheArticleTH
     }
 
     /**
-     * Set nompersonne
+     * Set abattementgeneralbasecommunale
      *
-     * @param string $nompersonne
+     * @param integer $abattementgeneralbasecommunale
      * @return RechercheArticleTH
      */
-    public function setNompersonne($nompersonne)
+    public function setAbattementgeneralbasecommunale($abattementgeneralbasecommunale)
     {
-        $this->nompersonne = $nompersonne;
-    
+        $this->abattementgeneralbasecommunale = $abattementgeneralbasecommunale;
+
         return $this;
     }
 
     /**
-     * Get nompersonne
-     *
-     * @return string 
-     */
-    public function getNompersonne()
-    {
-        return $this->nompersonne;
-    }
-
-    /**
-     * Set montantnetapayermin
-     *
-     * @param integer $montantnetapayermin
-     * @return RechercheArticleTH
-     */
-    public function setMontantnetapayermin($montantnetapayermin)
-    {
-        $this->montantnetapayermin = $montantnetapayermin;
-    
-        return $this;
-    }
-
-    /**
-     * Get montantnetapayermin
+     * Get abattementgeneralbasecommunale
      *
      * @return integer 
      */
-    public function getMontantnetapayermin()
+    public function getAbattementgeneralbasecommunale()
     {
-        return $this->montantnetapayermin;
+        return $this->abattementgeneralbasecommunale;
     }
 
     /**
-     * Set montantnetapayermax
+     * Set abattementpersonneschargecommunnal
      *
-     * @param integer $montantnetapayermax
+     * @param integer $abattementpersonneschargecommunnal
      * @return RechercheArticleTH
      */
-    public function setMontantnetapayermax($montantnetapayermax)
+    public function setAbattementpersonneschargecommunnal($abattementpersonneschargecommunnal)
     {
-        $this->montantnetapayermax = $montantnetapayermax;
-    
+        $this->abattementpersonneschargecommunnal = $abattementpersonneschargecommunnal;
+
         return $this;
     }
 
     /**
-     * Get montantnetapayermax
+     * Get abattementpersonneschargecommunnal
      *
      * @return integer 
      */
-    public function getMontantnetapayermax()
+    public function getAbattementpersonneschargecommunnal()
     {
-        return $this->montantnetapayermax;
+        return $this->abattementpersonneschargecommunnal;
+    }
+
+    /**
+     * Set abattementspecialbasecommunal
+     *
+     * @param integer $abattementspecialbasecommunal
+     * @return RechercheArticleTH
+     */
+    public function setAbattementspecialbasecommunal($abattementspecialbasecommunal)
+    {
+        $this->abattementspecialbasecommunal = $abattementspecialbasecommunal;
+
+        return $this;
+    }
+
+    /**
+     * Get abattementspecialbasecommunal
+     *
+     * @return integer 
+     */
+    public function getAbattementspecialbasecommunal()
+    {
+        return $this->abattementspecialbasecommunal;
+    }
+
+    /**
+     * Set abattementspecialhandicapecommunal
+     *
+     * @param integer $abattementspecialhandicapecommunal
+     * @return RechercheArticleTH
+     */
+    public function setAbattementspecialhandicapecommunal($abattementspecialhandicapecommunal)
+    {
+        $this->abattementspecialhandicapecommunal = $abattementspecialhandicapecommunal;
+
+        return $this;
+    }
+
+    /**
+     * Get abattementspecialhandicapecommunal
+     *
+     * @return integer 
+     */
+    public function getAbattementspecialhandicapecommunal()
+    {
+        return $this->abattementspecialhandicapecommunal;
     }
 
     /**
@@ -279,7 +338,7 @@ class RechercheArticleTH
     public function setCotisationcommunalemin($cotisationcommunalemin)
     {
         $this->cotisationcommunalemin = $cotisationcommunalemin;
-    
+
         return $this;
     }
 
@@ -302,7 +361,7 @@ class RechercheArticleTH
     public function setCotisationcommunalemax($cotisationcommunalemax)
     {
         $this->cotisationcommunalemax = $cotisationcommunalemax;
-    
+
         return $this;
     }
 
@@ -317,48 +376,48 @@ class RechercheArticleTH
     }
 
     /**
-     * Set cotisationintercommunalitemin
+     * Set montantnetapayermin
      *
-     * @param integer $cotisationintercommunalitemin
+     * @param integer $montantnetapayermin
      * @return RechercheArticleTH
      */
-    public function setCotisationintercommunalitemin($cotisationintercommunalitemin)
+    public function setMontantnetapayermin($montantnetapayermin)
     {
-        $this->cotisationintercommunalitemin = $cotisationintercommunalitemin;
-    
+        $this->montantnetapayermin = $montantnetapayermin;
+
         return $this;
     }
 
     /**
-     * Get cotisationintercommunalitemin
+     * Get montantnetapayermin
      *
      * @return integer 
      */
-    public function getCotisationintercommunalitemin()
+    public function getMontantnetapayermin()
     {
-        return $this->cotisationintercommunalitemin;
+        return $this->montantnetapayermin;
     }
 
     /**
-     * Set cotisationintercommunalitemax
+     * Set montantnetapayermax
      *
-     * @param integer $cotisationintercommunalitemax
+     * @param integer $montantnetapayermax
      * @return RechercheArticleTH
      */
-    public function setCotisationintercommunalitemax($cotisationintercommunalitemax)
+    public function setMontantnetapayermax($montantnetapayermax)
     {
-        $this->cotisationintercommunalitemax = $cotisationintercommunalitemax;
-    
+        $this->montantnetapayermax = $montantnetapayermax;
+
         return $this;
     }
 
     /**
-     * Get cotisationintercommunalitemax
+     * Get montantnetapayermax
      *
      * @return integer 
      */
-    public function getCotisationintercommunalitemax()
+    public function getMontantnetapayermax()
     {
-        return $this->cotisationintercommunalitemax;
+        return $this->montantnetapayermax;
     }
 }

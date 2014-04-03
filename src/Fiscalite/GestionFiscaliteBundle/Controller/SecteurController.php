@@ -6,20 +6,28 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Fiscalite\GestionFiscaliteBundle\Entity\Secteur;
 use Fiscalite\GestionFiscaliteBundle\Entity\SecteurRepository;
 use Fiscalite\GestionFiscaliteBundle\Form\SecteurType;
+use Fiscalite\GestionFiscaliteBundle\Entity\RechercheSecteur;
+use Fiscalite\GestionFiscaliteBundle\Form\RechercheSecteurType;
+use Symfony\Component\HttpFoundation\Request;
 
 class SecteurController extends Controller {
 
-    public function listeAction() {
-        $secteur = new Secteur;
-        $form = $this->createForm(new SecteurType, $secteur);
+    public function listeAction(Request $request) {
+        $secteur = new RechercheSecteur;
+        $form = $this->createForm(new RechercheSecteurType(), $secteur, array(
+            'action' => $this->generateUrl('secteur'),
+            'method' => 'POST',
+        ));
+        $form->handleRequest($request);
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Secteur');
-        if ($this->getRequest()->isMethod('POST')) {
-            $form->bind($this->getRequest());
-            if ($form->isValid()) {
-                $nom = $form->get('nom')->getData();
-                $nombreIndividu = $form->get('nombreIndividu')->getData();
-                $adresses = $form->get('adresses')->getData();
+        if ($form->isValid()) {
+            $nom = $form->get('nom')->getData();
+            $nombreIndividu = $form->get('nombreIndividu')->getData();
+            $adresses = $form->get('right_name')->getData();
+            if ($nom != NULL OR $nombreIndividu != NULL OR $adresses != NULL) {
                 $liste_secteur = $repository->findSecteur($nom, $nombreIndividu, $adresses);
+            } else {
+                $liste_secteur = $repository->findAll();
             }
         } else {
             $liste_secteur = $repository->findAll();
@@ -27,6 +35,18 @@ class SecteurController extends Controller {
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($liste_secteur, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
         return $this->render('FiscaliteGestionFiscaliteBundle:Secteur:liste.html.twig', array('form' => $form->createView(), 'pagination' => $pagination));
+    }
+    
+    public function getAjaxResultsTypeRueAction() {
+        $request = $this->container->get('request');
+        if ($request->isXmlHttpRequest()) {
+            $term = $request->query->get('term');
+            $array = $this->getDoctrine()
+                    ->getManager()
+                    ->getRepository('FiscaliteGestionFiscaliteBundle:TypeRue')
+                    ->listeTypeRue($term);
+            return new JsonResponse($array);
+        }
     }
 
     public function newAction() {
@@ -37,12 +57,13 @@ class SecteurController extends Controller {
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $secteur->setNombreIndividuRue();
+                foreach ($form->get('typerue') as $typerue)
+                    $secteur->addTyperue($typerue);
                 $em->persist($secteur);
                 $em->flush();
                 $this->get('session')->getFlashBag()->add('notice', "Secteur crée avec succès ");
                 return $this->redirect($this->generateUrl('secteur'));
-            }
-            else
+            } else
                 $this->get('session')->getFlashBag()->add('notice', "Erreur de création de secteur");
         }
 
@@ -65,4 +86,3 @@ class SecteurController extends Controller {
     }
 
 }
-

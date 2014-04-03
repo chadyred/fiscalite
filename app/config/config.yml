@@ -135,13 +135,13 @@ sonata_block:
         sonata.block.service.rss:    
         
 sonata_admin:
-    title:      FiscaliteBundle
+    title:      Fiscalite
     title_logo: bundles/fiscalitegestionfiscalite/images/lohp_mdl_sprite.png 
     templates:
         layout:  SonataAdminBundle::standard_layout.html.twig
         ajax:    SonataAdminBundle::ajax_layout.html.twig
         list:    SonataAdminBundle:CRUD:list.html.twig
-        show:    SonataAdminBundle:CRUD:show.html.twig
+        show:    FiscaliteGestionFiscaliteBundle:Admin:show.html.twig
         edit:    SonataAdminBundle:CRUD:edit.html.twig
         history: SonataAdminBundle:CRUD:history.html.twig
         preview: SonataAdminBundle:CRUD:preview.html.twig
@@ -169,21 +169,36 @@ sonata_admin:
                 label: Utilisateurs
                 label_catalogue: Fiscalite
                 items:
-                    - sonata.admin.user
+                    - fiscalite_gestion_fiscalite.admin.user
             fiscalite.admin.group.commune:
                 label: Commune
                 items:
                     - sonata.admin.fichier
                     - sonata.admin.commune
-                    - sonata.admin.articlecommune                            
-            fiscalite.admin.group.article:
-                label: Article
+                    - sonata.admin.articlecommune
+                    - fiscalite_gestion_fiscalite.admin.th_article_commune_ifpa3
+                    - fiscalite_gestion_fiscalite.admin.tf_article_commune_en_tete
+                    - fiscalite_gestion_fiscalite.admin.tf_article_commune_ifp
+                    - fiscalite_gestion_fiscalite.admin.tf_article_commune_sra2
+                    - fiscalite_gestion_fiscalite.admin.tf_article_commune_sra3
+            fiscalite.admin.group.taxehabitation:
+                label: Taxe d'habitation
                 items:
-                    - sonata.admin.article
+                    - fiscalite_gestion_fiscalite.admin.article_th
                     - sonata.admin.base
                     - sonata.admin.abattement
                     - sonata.admin.cotisation
-                    - sonata.admin.adresse                    
+                    - sonata.admin.adresse
+                    - fiscalite_gestion_fiscalite.admin.secteur
+                    - fiscalite_gestion_fiscalite.admin.type_rue
+                    - fiscalite_gestion_fiscalite.admin.simulation_article_th
+            fiscalite.admin.group.taxefonciere:
+                label: Taxe foncière
+                items:
+                    - fiscalite_gestion_fiscalite.admin.article_tf
+                    - fiscalite_gestion_fiscalite.admin.tf_article_taxation_bati
+                    - fiscalite_gestion_fiscalite.admin.tf_article_taxation_non_bati
+                    - fiscalite_gestion_fiscalite.admin.simulation_article_tf
             fiscalite.admin.group.misc: ~  
         blocks:
             -
@@ -195,20 +210,11 @@ sonata_admin:
                 settings:
                     content: >
                         <h2>Gestion Fiscalité</h2>
-                        <p>Gérer la base de données Fiscalité.</p> 
+                        <p>Gérer la base de données Fiscalité.</p>
+                        <small><a href="/web/fiscalite">Retour à l'application</a></small>
                         
 fos_user:
     db_driver:     orm                        
     firewall_name: main                       
     user_class:    Fiscalite\GestionFiscaliteBundle\Entity\User 
-    registration:
-        form:
-          type: fiscalite_user_registration
-          
-services:
-  fiscalite_user_registration:
-    class: Fiscalite\GestionFiscaliteBundle\Form\RegistrationFormType
-    argument: %fos_user.model.user.class%
-    tags:
-       -  {name : form.type}
-                        
+    

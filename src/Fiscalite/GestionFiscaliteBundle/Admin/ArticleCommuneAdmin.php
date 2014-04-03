@@ -18,10 +18,10 @@ class ArticleCommuneAdmin extends Admin
         ->add('vlmCne')
         ->add('vlmICO')
         ->add('vlmDept')
-        ->add('TauxImpositionCommune') 
-        ->add('TauxImpositionSyndicats')
-        ->add('TauxImpositionIntercommunalite')
-        ->add('TauxImpositionTSE'); 
+        ->add('tauxImpositionCommune') 
+        ->add('tauxImpositionSyndicats')
+        ->add('tauxImpositionIntercommunalite')
+        ->add('tauxImpositionTSE'); 
     }
 
     // Fields to be shown on filter forms
@@ -32,10 +32,10 @@ class ArticleCommuneAdmin extends Admin
         ->add('vlmCne')
         ->add('vlmICO')
         ->add('vlmDept')
-        ->add('TauxImpositionCommune') 
-        ->add('TauxImpositionSyndicats')
-        ->add('TauxImpositionIntercommunalite')
-        ->add('TauxImpositionTSE'); 
+        ->add('tauxImpositionCommune') 
+        ->add('tauxImpositionSyndicats')
+        ->add('tauxImpositionIntercommunalite')
+        ->add('tauxImpositionTSE'); 
     }
 
     // Fields to be shown on lists
@@ -46,9 +46,9 @@ class ArticleCommuneAdmin extends Admin
         ->add('vlmCne')
         ->add('vlmICO')
         ->add('vlmDept')
-        ->add('TauxImpositionCommune') 
-        ->add('TauxImpositionSyndicats')
-        ->add('TauxImpositionIntercommunalite')
-        ->add('TauxImpositionTSE'); 
+        ->add('tauxImpositionCommune') 
+        ->add('tauxImpositionSyndicats')
+        ->add('tauxImpositionIntercommunalite')
+        ->add('tauxImpositionTSE'); 
     }
 }

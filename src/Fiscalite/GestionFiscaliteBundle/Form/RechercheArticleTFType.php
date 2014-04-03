@@ -9,6 +9,10 @@ use Doctrine\ORM\EntityRepository;
 
 class RechercheArticleTFType extends AbstractType {
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('anneetaxation', 'entity', array(
@@ -18,22 +22,29 @@ class RechercheArticleTFType extends AbstractType {
                     'required' => false,
                     'empty_value' => 'Année de taxation',
                     'empty_data' => null, 'query_builder' => function(EntityRepository $er) {
-                        return $er->createQueryBuilder('c')->orderBy('c.anneetaxation', 'ASC')->groupby('c.anneetaxation');
-                    },
-                    'attr' => array('class' => 'col-lg-7')))
+                return $er->createQueryBuilder('c')->orderBy('c.anneetaxation', 'ASC')->groupby('c.anneetaxation');
+            },
+                    'attr' => array('class' => 'col-sm-12')))
+                ->add('sommeapayermin', 'integer', array('required' => false, 'attr' => array('placeholder' => 'min €', 'class' => 'col-sm-12')))
+                ->add('sommeapayermax', 'integer', array('required' => false, 'attr' => array('placeholder' => 'max €', 'class' => 'col-sm-12')))
+                ->add('adresse', 'text', array('required' => false))
                 ->add('titreetdesignation', 'text', array('required' => false))
-                ->add('sommeapayermin', 'integer', array('required' => false, 'attr' => array('placeholder' => 'min €', 'class' => 'col-lg-7')))
-                ->add('sommeapayermax', 'integer', array('required' => false, 'attr' => array('placeholder' => 'max €', 'class' => 'col-lg-7')))
 
         ;
     }
 
+    /**
+     * @param OptionsResolverInterface $resolver
+     */
     public function setDefaultOptions(OptionsResolverInterface $resolver) {
         $resolver->setDefaults(array(
             'data_class' => 'Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTF'
         ));
     }
 
+    /**
+     * @return string
+     */
     public function getName() {
         return 'fiscalite_gestionfiscalitebundle_recherchearticletftype';
     }

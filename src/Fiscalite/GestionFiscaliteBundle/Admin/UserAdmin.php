@@ -16,12 +16,7 @@ class UserAdmin extends Admin
         $formMapper
             ->add('id')
             ->add('username')
-            ->add('password')
-            ->add('salt')
             ->add('roles')
-            ->add('nom')
-            ->add('prenom')
-            ->add('numTel')
             ->add('email');
     }
 
@@ -31,12 +26,7 @@ class UserAdmin extends Admin
         $datagridMapper
             ->add('id')
             ->add('username')
-            ->add('password')
-            ->add('salt')
             ->add('roles')
-            ->add('nom')
-            ->add('prenom')
-            ->add('numTel')
             ->add('email');
     }
 
@@ -46,12 +36,7 @@ class UserAdmin extends Admin
         $listMapper
             ->add('id')
             ->add('username')
-            ->add('password')
-            ->add('salt')
             ->add('roles')
-            ->add('nom')
-            ->add('prenom')
-            ->add('numTel')
             ->add('email');
     }
 }

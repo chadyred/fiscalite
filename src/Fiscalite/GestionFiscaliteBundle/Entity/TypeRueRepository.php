@@ -12,4 +12,21 @@ use Doctrine\ORM\EntityRepository;
  */
 class TypeRueRepository extends EntityRepository
 {
+    
+    public function listeTypeRue($term) {
+        $qb = $this->createQueryBuilder('c');
+        $qb->select('c.libelle')
+                ->where('c.libelle LIKE :term1')
+                ->setParameter('term1', '%' . $term . '%');
+        $arrayAss = $qb->getQuery()
+                ->getArrayResult();
+
+        // Transformer le tableau associatif en un tableau standard
+        $array = array();
+        foreach ($arrayAss as $data) {
+            $array[] = $data['libelle'];
+        }
+
+        return $array;
+    }
 }

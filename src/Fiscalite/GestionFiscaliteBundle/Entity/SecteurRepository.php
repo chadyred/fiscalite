@@ -13,25 +13,26 @@ use Doctrine\ORM\EntityRepository;
 class SecteurRepository extends EntityRepository {
 
     public function findSecteur($nom, $nombreIndividu, $adresses) {
-        $qb = $this->createQueryBuilder('a');
+        $qb = $this->createQueryBuilder('s');
         if ($nom != NULL) {
-            $qb->andWhere('a.nom LIKE :nom')
+            $qb->andWhere('s.nom LIKE :nom')
                     ->setParameter('nom', '%' . $nom . '%');
         }
         if ($nombreIndividu != NULL) {
-            $qb->andWhere('a.nombreIndividu =:nombreIndividu')
+            $qb->andWhere('s.nombreIndividu =:nombreIndividu')
                     ->setParameter('nombreIndividu', $nombreIndividu);
         }
         if ($adresses != NULL) {
+            $j = 0;
             foreach ($adresses as $adresse) {
-                $qb->join('a.typerue', 'typerue');
-                
+                $qb->leftJoin('s.typerue', 'st' . $j)
+                        ->andWhere('st' . $j . '.libelle LIKE :libelle')
+                        ->setParameter('libelle', '%' .$adresse. '%');
+                $j++;
             }
-            $qb->andWhere('a.sommeAPayer >= :sommeAPayer1')
-                    ->setParameter('sommeAPayer1', $dataSommeAPayermin);
         }
-  
-        $qb->orderBy('a.nom', 'ASC');
+
+        $qb->orderBy('s.nom', 'ASC');
         return $qb->getQuery()->getResult();
     }
 

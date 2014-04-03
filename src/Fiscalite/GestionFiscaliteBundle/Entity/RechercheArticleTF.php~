@@ -48,7 +48,12 @@ class RechercheArticleTF
      * @ORM\Column(name="sommeapayermax", type="integer")
      */
     private $sommeapayermax;
-
+/**
+     * @var string
+     *
+     * @ORM\Column(name="adresse", type="string", length=255)
+     */
+    private $adresse;
 
     /**
      * Get id
@@ -150,5 +155,28 @@ class RechercheArticleTF
     public function getSommeapayermax()
     {
         return $this->sommeapayermax;
+    }
+
+    /**
+     * Set adresse
+     *
+     * @param string $adresse
+     * @return RechercheArticleTF
+     */
+    public function setAdresse($adresse)
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    /**
+     * Get adresse
+     *
+     * @return string 
+     */
+    public function getAdresse()
+    {
+        return $this->adresse;
     }
 }

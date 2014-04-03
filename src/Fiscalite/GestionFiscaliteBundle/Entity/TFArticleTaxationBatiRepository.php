@@ -12,4 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class TFArticleTaxationBatiRepository extends EntityRepository
 {
+    public function listeAdresse($term) {
+        $qb = $this->createQueryBuilder('c');
+        $qb->select('c.libVoie')
+                ->where('c.libVoie LIKE :term1')
+                ->setParameter('term1', '%' . $term . '%');
+        $arrayAss = $qb->getQuery()
+                ->getArrayResult();
+
+        // Transformer le tableau associatif en un tableau standard
+        $array = array();
+        foreach ($arrayAss as $data) {
+            $array[] = $data['libVoie'];
+        }
+
+        return $array;
+    }
 }

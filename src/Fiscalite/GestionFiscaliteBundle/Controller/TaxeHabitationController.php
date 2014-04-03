@@ -243,31 +243,41 @@ class TaxeHabitationController extends Controller {
         ));
         $form->add('submit', 'submit', array('label' => 'Rechercher', 'attr' => array('class' => 'btn btn-primary btn-large')));
         $form->handleRequest($request);
-            if ($form->isValid()) {
-                $dataAnneetaxation = $form->get('anneetaxation')->getData();
-                $dataNompersonne = $form->get('nompersonne')->getData();
-                $dataBasenettemin = $form->get('basenettemin')->getData();
-                $dataBasenettemax = $form->get('basenettemax')->getData();
-                $dataMontantnetapayermin = $form->get('montantnetapayermin')->getData();
-                $dataMontantnetapayermax = $form->get('montantnetapayermax')->getData();
-                $dataCotisationcommunalemin = $form->get('cotisationcommunalemin')->getData();
-                $dataCotisationcommunalemax = $form->get('cotisationcommunalemax')->getData();
-                $dataCotisationintercommunalitemin = $form->get('cotisationintercommunalitemin')->getData();
-                $dataCotisationintercommunalitemax = $form->get('cotisationintercommunalitemax')->getData();
-
-                if ($dataAnneetaxation != NULL OR $dataNompersonne != NULL OR $dataBasenettemin != NULL OR $dataBasenettemax != NULL OR $dataMontantnetapayermin != NULL OR $dataMontantnetapayermax != NULL OR $dataCotisationcommunalemin != NULL OR $dataCotisationcommunalemax != NULL OR $dataCotisationintercommunalitemin != NULL OR
-                        $dataCotisationintercommunalitemax != NULL) {
-                    $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
-                    $list_articleTH = $repository->searchListTH($dataAnneetaxation, $dataNompersonne, $dataBasenettemin, $dataBasenettemax, $dataMontantnetapayermin, $dataMontantnetapayermax, $dataCotisationcommunalemin, $dataCotisationcommunalemax, $dataCotisationintercommunalitemin, $dataCotisationintercommunalitemax);
-                    $paginator = $this->get('knp_paginator');
-                    $pagination = $paginator->paginate($list_articleTH, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
-                } else {
-                    $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
-                    $list_articleTH = $repository->findAllOrderbynomprenom();
-                    $paginator = $this->get('knp_paginator');
-                    $pagination = $paginator->paginate($list_articleTH, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
-                }
-                $sommemontantnondeduit = 0;
+        if ($form->isValid()) {
+            $dataAnneetaxation = $form->get('anneetaxation')->getData();
+            $dataNompersonne = $form->get('nompersonne')->getData();
+            $dataNbpersonnesacharge = $form->get('nbpersonnesacharge')->getData();
+            $dataBasenettemin = $form->get('basenettemin')->getData();
+            $dataBasenettemax = $form->get('basenettemax')->getData();
+            $dataAbattementgeneralbasecommunale = $form->get('abattementgeneralbasecommunale')->getData();
+            $dataAbattementpersonneschargecommunal = $form->get('abattementpersonneschargecommunnal')->getData();
+            $dataAbattementspecialbasecommunal = $form->get('abattementspecialbasecommunal')->getData();
+            $dataAbattementspecialhandicapecommunal = $form->get('abattementspecialhandicapecommunal')->getData();
+            $dataCotisationcommunalemin = $form->get('cotisationcommunalemin')->getData();
+            $dataCotisationcommunalemax = $form->get('cotisationcommunalemax')->getData();
+            $dataMontantnetapayermin = $form->get('montantnetapayermin')->getData();
+            $dataMontantnetapayermax = $form->get('montantnetapayermax')->getData();
+            if ($dataAnneetaxation != NULL OR $dataNompersonne != NULL 
+                    OR $dataNbpersonnesacharge != NULL OR $dataBasenettemin != NULL 
+                    OR $dataBasenettemax != NULL OR $dataAbattementgeneralbasecommunale !=NULL
+                    OR $dataAbattementpersonneschargecommunal != NULL OR $dataAbattementspecialbasecommunal != NULL
+                    OR $dataAbattementspecialhandicapecommunal != NULL 
+                    OR $dataMontantnetapayermin != NULL OR $dataMontantnetapayermax != NULL 
+                    OR $dataCotisationcommunalemin != NULL OR $dataCotisationcommunalemax != NULL) {
+                $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
+                $list_articleTH = $repository->searchListTH($dataAnneetaxation, $dataNompersonne, $dataNbpersonnesacharge
+                        ,$dataBasenettemin, $dataBasenettemax,$dataAbattementgeneralbasecommunale,$dataAbattementpersonneschargecommunal,
+                        $dataAbattementspecialbasecommunal,$dataAbattementspecialhandicapecommunal,
+                        $dataCotisationcommunalemin, $dataCotisationcommunalemax,$dataMontantnetapayermin, $dataMontantnetapayermax);
+                $paginator = $this->get('knp_paginator');
+                $pagination = $paginator->paginate($list_articleTH, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
+            } else {
+                $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
+                $list_articleTH = $repository->findAllOrderbynomprenom();
+                $paginator = $this->get('knp_paginator');
+                $pagination = $paginator->paginate($list_articleTH, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
+            }
+            $sommemontantnondeduit = 0;
 //                foreach ($list_articleTH as $article)
 //                $sommemontantnondeduit += $article->getMontantnonvaleureventuelle();         
         } else {
@@ -281,7 +291,7 @@ class TaxeHabitationController extends Controller {
 //            $sommemontantnondeduit += $article->getMontantnonvaleureventuelle();
         return $this->render('FiscaliteGestionFiscaliteBundle:TaxeHabitation:liste.html.twig', array('sommemontantnondeduit' => $sommemontantnondeduit, 'form' => $form->createView(), 'pagination' => $pagination));
     }
-    
+
     public function getAjaxResultsNompersonneAction() {
         $request = $this->container->get('request');
         if ($request->isXmlHttpRequest()) {
@@ -293,7 +303,5 @@ class TaxeHabitationController extends Controller {
             return new JsonResponse($array);
         }
     }
-    
-            
 
 }

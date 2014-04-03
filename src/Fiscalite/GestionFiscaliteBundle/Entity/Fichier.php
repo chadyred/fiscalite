@@ -51,16 +51,6 @@ class Fichier
      * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Article", mappedBy="fichier")
      */
     private $articles;
-        
-    /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationNonBati", mappedBy="fichier")
-     */
-    private $tfarticletaxationnonbatis;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationBati", mappedBy="fichier")
-     */
-    private $tfarticletaxationbatis;
     
     // ManyToOne //
     /**
@@ -76,6 +66,10 @@ class Fichier
      */
     private $THArticleCommuneIFPA3;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete", mappedBy="fichier")
+     */
+    private $tFarticlesCommuneEnTete;
     /**
      * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneIFP", mappedBy="fichier")
      */
@@ -497,5 +491,38 @@ class Fichier
     public function getTHArticleCommuneIFPA3()
     {
         return $this->THArticleCommuneIFPA3;
+    }
+
+    /**
+     * Add tFarticlesCommuneEnTete
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete $tFarticlesCommuneEnTete
+     * @return Fichier
+     */
+    public function addTFarticlesCommuneEnTete(\Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete $tFarticlesCommuneEnTete)
+    {
+        $this->tFarticlesCommuneEnTete[] = $tFarticlesCommuneEnTete;
+
+        return $this;
+    }
+
+    /**
+     * Remove tFarticlesCommuneEnTete
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete $tFarticlesCommuneEnTete
+     */
+    public function removeTFarticlesCommuneEnTete(\Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete $tFarticlesCommuneEnTete)
+    {
+        $this->tFarticlesCommuneEnTete->removeElement($tFarticlesCommuneEnTete);
+    }
+
+    /**
+     * Get tFarticlesCommuneEnTete
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTFarticlesCommuneEnTete()
+    {
+        return $this->tFarticlesCommuneEnTete;
     }
 }

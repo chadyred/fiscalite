@@ -35,26 +35,57 @@ class ArticleTHRepository extends EntityRepository {
         return $qb->getQuery()->getResult();
     }
 
-    public function searchListTH($dataAnneetaxation, $dataNompersonne, $dataBasenettemin, $dataBasenettemax, $dataMontantnetapayermin, $dataMontantnetapayermax, $dataCotisationcommunalemin, $dataCotisationcommunalemax, $dataCotisationintercommunalitemin, $dataCotisationintercommunalitemax) {
+    public function searchListTH($dataAnneetaxation, $dataNompersonne, $dataNbpersonnesacharge
+                        ,$dataBasenettemin, $dataBasenettemax,$dataAbattementgeneralbasecommunale,
+            $dataAbattementpersonneschargecommunal,$dataAbattementspecialbasecommunal,
+            $dataAbattementspecialhandicapecommunal,$dataCotisationcommunalemin, $dataCotisationcommunalemax,
+            $dataMontantnetapayermin, $dataMontantnetapayermax) {
         $qb = $this->createQueryBuilder('a');
         if ($dataAnneetaxation != NULL) {
+            foreach ($dataAnneetaxation as $annee){
             $qb->join('a.fichier', 'f1');
             $qb->andWhere('f1.anneetaxation =:ann')
-                    ->setParameter('ann', $dataAnneetaxation->getAnneetaxation());
+                    ->setParameter('ann', $annee->getAnneetaxation());
+            }
         }
         if ($dataNompersonne != NULL) {
             $qb->andWhere('a.nomprenom LIKE :nom OR a.suitenom LIKE :nom')
                     ->setParameter('nom', '%' . $dataNompersonne . '%');
         }
+        if ($dataNbpersonnesacharge != NULL) {
+            $qb->join('a.cotisation', 'c3');
+            $qb->andWhere('c3.nbpersonnesacharge = :nbpersonnesacharge')
+                    ->setParameter('nbpersonnesacharge', $dataNbpersonnesacharge);
+        }
         if ($dataBasenettemin != NULL) {
-            $qb->join('a.base', 'b');
-            $qb->andWhere('b.basenettecommunale >= :basenette1')
+            $qb->join('a.base', 'b1');
+            $qb->andWhere('b1.basenettecommunale >= :basenette1')
                     ->setParameter('basenette1', $dataBasenettemin);
         }
         if ($dataBasenettemax != NULL) {
-            $qb->join('a.base', 'b');
-            $qb->andWhere('b.basenettecommunale <= :basenette2')
+            $qb->join('a.base', 'b2');
+            $qb->andWhere('b2.basenettecommunale <= :basenette2')
                     ->setParameter('basenette2', $dataBasenettemax);
+        }
+        if ($dataAbattementgeneralbasecommunale != NULL) {
+            $qb->join('a.abattement', 'a1');
+            $qb->andWhere('a1.abattementgeneralbasecommunale = :abattementgeneralbasecommunale')
+                    ->setParameter('abattementgeneralbasecommunale', $dataAbattementgeneralbasecommunale);
+        }
+        if ($dataAbattementpersonneschargecommunal != NULL) {
+            $qb->join('a.abattement', 'a2');
+            $qb->andWhere('a2.abattementpersonneschargecommunnal = :abattementpersonneschargecommunnal')
+                    ->setParameter('abattementpersonneschargecommunnal', $dataAbattementpersonneschargecommunal);
+        }
+        if ($dataAbattementspecialbasecommunal != NULL) {
+            $qb->join('a.abattement', 'a3');
+            $qb->andWhere('a3.abattementspecialbasecommunal = :abattementspecialbasecommunal')
+                    ->setParameter('abattementspecialbasecommunal', $dataAbattementspecialbasecommunal);
+        }
+        if ($dataAbattementspecialhandicapecommunal != NULL) {
+            $qb->join('a.abattement', 'a4');
+            $qb->andWhere('a4.abattementspecialhandicapecommunal = :abattementspecialhandicapecommunal')
+                    ->setParameter('abattementspecialhandicapecommunal', $dataAbattementspecialhandicapecommunal);
         }
         if ($dataMontantnetapayermin != NULL) {
             $qb->andWhere('a.montantnetapayer >= :montantnetapayer1')
@@ -66,23 +97,13 @@ class ArticleTHRepository extends EntityRepository {
         }
         if ($dataCotisationcommunalemin != NULL) {
             $qb->join('a.cotisation', 'c1')
-                    ->andWhere('c1.cotisationcommunale >= cotisationcommunale1')
+                    ->andWhere('c1.cotisationcommunale >= :cotisationcommunale1')
                     ->setParameter('cotisationcommunale1', $dataCotisationcommunalemin);
         }
         if ($dataCotisationcommunalemax != NULL) {
             $qb->join('a.cotisation', 'c2')
                     ->andWhere('c2.cotisationcommunale <= :cotisationcommunale2')
                     ->setParameter('cotisationcommunale2', $dataCotisationcommunalemax);
-        }
-        if ($dataCotisationintercommunalitemin != NULL) {
-            $qb->join('a.cotisation', 'c3')
-                    ->andWhere('c3.cotisationintercommunalite >= :cotisationintercommunalite1')
-                    ->setParameter('cotisationintercommunalite1', $dataCotisationintercommunalitemin);
-        }
-        if ($dataCotisationintercommunalitemax != NULL) {
-            $qb->join('a.cotisation', 'c4')
-                    ->andWhere('c4.cotisationintercommunalite <= :cotisationintercommunalite2')
-                    ->setParameter('cotisationintercommunalite2', $dataCotisationintercommunalitemax);
         }
         $qb->orderBy('a.nomprenom', 'ASC');
         return $qb->getQuery()->getResult();

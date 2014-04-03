@@ -2,9 +2,6 @@ fiscalite_new:
     pattern:  /new/{id}
     defaults: { _controller: FiscaliteGestionFiscaliteBundle:Index:new }
     requirements: { _method: get }
-personne:
-    pattern:  /personne
-    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Personne:index }
 taxefonciere:
     pattern:  /taxefonciere
     defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeFonciere:index }
@@ -38,6 +35,14 @@ resultatTH:
     pattern:  /resultatTH/{id}
     defaults: { _controller: FiscaliteGestionFiscaliteBundle:Simulation:resultatTH }  
     requirements: { _method: GET|POST }
+simulationTF:
+    pattern:  /simulationTF
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Simulation:simulationTF }   
+    requirements: { _method: GET|POST }
+resultatTF:
+    pattern:  /resultatTF/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Simulation:resultatTF }  
+    requirements: { _method: GET|POST }    
 secteur:
     pattern:  /secteur
     defaults: { _controller: FiscaliteGestionFiscaliteBundle:Secteur:liste }  
@@ -55,9 +60,45 @@ fiscalite_ajaxNompersonne:
     defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeHabitation:getAjaxResultsNompersonne}
     requirements:
         _method: GET  
-
 fiscalite_ajaxTitreEtDesignation:
     pattern: /fiscalite_ajaxTitreEtDesignation
-    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeHabitation:getAjaxResultsTitreEtDesignation}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeFonciere:getAjaxResultsTitreEtDesignation}
     requirements:
-        _method: GET          
+        _method: GET  
+fiscalite_ajaxAdresse:
+    pattern: /fiscalite_ajaxAdresse
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeFonciere:getAjaxResultsAdresse}
+    requirements:
+        _method: GET   
+fiscalite_ajaxTypeRue:
+    pattern: /fiscalite_ajaxTypeRue
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Secteur:getAjaxResultsTypeRue}
+    requirements:
+        _method: GET  
+csvListeTF:
+    pattern:  /csvListeTF
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeFonciere:csvListeTF }
+    
+pdfArticleTF:   
+    pattern:  /pdfArticleTF/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeFonciere:pdfArticleTF }
+    requirements: { _method: get }
+
+csvArticleTF:
+    pattern:  /csvArticleTF/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeFonciere:csvArticleTF }
+    requirements: { _method: get }
+
+simulationarticletfpdf:   
+    pattern:  /simulationarticletfpdf/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Simulation:simulationarticletfpdf }
+    requirements: { _method: get }
+
+simulationarticletfcsv:
+    pattern:  /simulationarticletfcsv/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Simulation:simulationarticletfcsv }    
+    requirements: { _method: get }
+
+rapportfichier:
+    pattern:  /rapportfichier
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Index:rapportfichier }

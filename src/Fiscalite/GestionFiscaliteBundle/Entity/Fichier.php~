@@ -77,6 +77,10 @@ class Fichier
     private $THArticleCommuneIFPA3;
     
     /**
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete", mappedBy="fichier")
+     */
+    private $tFarticlesCommuneEnTete;
+    /**
      * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneIFP", mappedBy="fichier")
      */
     private $tFarticlesCommuneIFP;

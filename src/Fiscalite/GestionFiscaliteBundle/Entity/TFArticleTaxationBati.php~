@@ -52,7 +52,7 @@ class TFArticleTaxationBati {
     /**
      * @var string
      *
-     * @ORM\Column(name="LibVoie", type="string", length=30)
+     * @ORM\Column(name="libVoie", type="string", length=30)
      */
     private $libVoie;
 

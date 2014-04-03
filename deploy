@@ -1,0 +1,5 @@
+sudo app/console doctrine:schema:update --force
+sudo app/console assets:install web --symlink
+sudo app/console assetic:dump --force
+./cacheclear
+sudo chmod -R 777 *

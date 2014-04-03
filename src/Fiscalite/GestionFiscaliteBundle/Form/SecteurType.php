@@ -11,8 +11,8 @@ class SecteurType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('nom', 'text', array('required' => true, 'attr' => array('class' => 'col-sm-12')))
-                ->add('nombreIndividu', 'text', array('required' => false, 'attr' => array('class' => 'col-sm-12')))
+                ->add('nom', 'text', array('required' => false, 'attr' => array('class' => 'col-xs-12')))
+                ->add('nombreIndividu', 'text', array('required' => false, 'attr' => array('class' => 'col-xs-12')))
                 ->add('typerue', 'entity', array('attr' => array('class' => 'secteurtyperue'),
                     'class' => 'FiscaliteGestionFiscaliteBundle:TypeRue',
                     'property' => 'libelle',
@@ -21,8 +21,8 @@ class SecteurType extends AbstractType {
                     'empty_value' => 'Adresse',
                     'empty_data' => null,
                     'query_builder' => function(EntityRepository $er) {
-                        return $er->createQueryBuilder('c')->orderBy('c.libelle', 'ASC');
-                    },
+                return $er->createQueryBuilder('c')->orderBy('c.libelle', 'ASC');
+            },
                     'attr' => array('class' => 'col-sm-12')))
         ;
     }
@@ -34,7 +34,7 @@ class SecteurType extends AbstractType {
     }
 
     public function getName() {
-        return 'fiscalite_gestionfiscalitebundle_secteurtype';
+        return 'fiscalite';
     }
 
 }

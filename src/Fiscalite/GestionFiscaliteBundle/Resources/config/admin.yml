@@ -125,4 +125,94 @@ services:
             - Fiscalite\GestionFiscaliteBundle\Entity\Adresse
             - ~
         calls:
-            - [ setTranslationDomain, [FiscaliteGestionFiscalite]]              
+            - [ setTranslationDomain, [FiscaliteGestionFiscalite]]
+
+    fiscalite_gestion_fiscalite.admin.article:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\ArticleAdmin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\Article, FiscaliteGestionFiscaliteBundle:ArticleAdmin]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Article}
+
+    fiscalite_gestion_fiscalite.admin.article_tf:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\ArticleTFAdmin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\ArticleTF, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: ArticleTF}
+
+    fiscalite_gestion_fiscalite.admin.article_th:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\ArticleTHAdmin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\ArticleTH, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: ArticleTH}
+
+    fiscalite_gestion_fiscalite.admin.secteur:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\SecteurAdmin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\Secteur, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: Secteur}
+
+    fiscalite_gestion_fiscalite.admin.simulation_article_tf:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\SimulationArticleTFAdmin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTF, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: SimulationArticleTF}
+
+    fiscalite_gestion_fiscalite.admin.simulation_article_th:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\SimulationArticleTHAdmin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTH, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: SimulationArticleTH}
+
+    fiscalite_gestion_fiscalite.admin.tf_article_commune_en_tete:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\TFArticleCommuneEnTeteAdmin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: TFArticleCommuneEnTete}
+
+    fiscalite_gestion_fiscalite.admin.tf_article_commune_ifp:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\TFArticleCommuneIFPAdmin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneIFP, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: TFArticleCommuneIFP}
+
+    fiscalite_gestion_fiscalite.admin.tf_article_commune_sra2:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\TFArticleCommuneSRA2Admin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneSRA2, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: TFArticleCommuneSRA2}
+
+    fiscalite_gestion_fiscalite.admin.tf_article_commune_sra3:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\TFArticleCommuneSRA3Admin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneSRA3, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: TFArticleCommuneSRA3}
+
+    fiscalite_gestion_fiscalite.admin.tf_article_taxation_bati:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\TFArticleTaxationBatiAdmin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationBati, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: TFArticleTaxationBati}
+
+    fiscalite_gestion_fiscalite.admin.tf_article_taxation_non_bati:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\TFArticleTaxationNonBatiAdmin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationNonBati, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: TFArticleTaxationNonBati}
+
+    fiscalite_gestion_fiscalite.admin.th_article_commune_ifpa3:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\THArticleCommuneIFPA3Admin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\THArticleCommuneIFPA3, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: THArticleCommuneIFPA3}
+
+    fiscalite_gestion_fiscalite.admin.type_rue:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\TypeRueAdmin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\TypeRue, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: TypeRue}
+
+    fiscalite_gestion_fiscalite.admin.user:
+        class: Fiscalite\GestionFiscaliteBundle\Admin\UserAdmin
+        arguments: [~, Fiscalite\GestionFiscaliteBundle\Entity\User, SonataAdminBundle:CRUD]
+        tags:
+            - {name: sonata.admin, manager_type: orm, group: admin, label: User}

@@ -1,0 +1,29 @@
+{% trans_default_domain 'FOSUserBundle' %}
+<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
+    <div class="form-group "> 
+        {# Génération du label. #}
+  	{{ form_label(form.email, "Email : ") }}
+  	{# Affichage des erreurs pour ce champ précis. #}
+  	{{ form_errors(form.email) }}
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.email) }}
+    </div>
+    <div class="form-group "> 
+        {# Génération du label. #}
+  	{{ form_label(form.username, "Nom d'utilisateur : ") }}
+  	{# Affichage des erreurs pour ce champ précis. #}
+  	{{ form_errors(form.username) }}
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.username) }}
+    </div>
+    <div class="form-group "> 
+        {# Génération du label. #}
+  	{{ form_label(form.plainPassword, " ") }}
+  	{# Affichage des erreurs pour ce champ précis. #}
+  	{{ form_errors(form.plainPassword) }}
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.plainPassword) }}
+    </div>
+   
+        <input type="submit"  class="btn btn-success" value="{{ 'registration.submit'|trans }}" />
+</form>

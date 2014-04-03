@@ -1,0 +1,117 @@
+<pdf Author="Direction Finances" Title="Rapport du fichier Document">
+    <dynamic-page>
+{% block contenu %}
+        <h1>TAXE FONCIÈRE</h1>
+
+        <table>
+{% for TFarticleCommuneIFP in ListeTFArticleCommuneIFP %}
+            <tr>
+                <td>
+                    <h5 text-align="center">Libellé de la commune : {{TFarticleCommuneIFP.getLibCommunne()}}</h5>
+                </td>
+                <td>
+                    <h5 text-align="center">Libellé intercommunalité à laquelle adhère la commune : {{TFarticleCommuneIFP.getLibelleICAdhC()}}</h5>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p text-align="center">Taux bâti/Commune : {{TFarticleCommuneIFP.getTXBC()|number_format(2,',',' ')}}% </p>
+                </td>  
+                <td>
+                    <p text-align="center">Taux non bâti/Commune : {{TFarticleCommuneIFP.getTXNC()|number_format(2,',',' ')}}% </p>
+                </td> 
+            </tr>
+{% endfor %}
+        </table>
+        <table>
+{% for TFarticleCommuneSRA2 in ListeTFArticleCommuneSRA2 %}
+            <tr>
+                <td>
+                    <p text-align="center">Total base bâti/Commune : {{TFarticleCommuneSRA2.getTotBBC()|number_format(0,'',' ')}}€ </p>
+                </td>  
+                <td>
+                    <p text-align="center">Total cotisation bâti/Commune : {{TFarticleCommuneSRA2.getTotCBC()|number_format(0,'',' ')}}€ </p>
+                </td> 
+            </tr>
+{% endfor %}
+        </table>
+        <table>
+{% for TFarticleCommuneSRA3 in ListeTFArticleCommuneSRA3 %}
+            <tr>
+                <td>
+                    <p text-align="center">Total base non bâti/Commune : {{TFarticleCommuneSRA3.getTotBNC()|number_format(0,'',' ')}}€ </p>
+                </td>  
+                <td>
+                    <p text-align="center">Total cotisation non bâti/Commune : {{TFarticleCommuneSRA3.getTotCNC()|number_format(0,'',' ')}}€ </p>
+                </td> 
+            </tr>
+{% endfor %}
+        </table>
+        <h1>TAXE D'HABITATION</h1>
+        <table>
+{% for THArticleCommune in ListeTHArticleCommune %}
+            <tr>
+                <td>
+                    <p text-align="center">VLM Commune : {{THArticleCommune.getVlmCne()|number_format(0,'',' ')}} </p>
+                </td>  
+                <td>
+                    <p text-align="center">VLM ICO : {{THArticleCommune.getVlmICO()|number_format(0,'',' ')}} </p>
+                </td> 
+                <td>
+                    <p text-align="center">VLM Dept : {{THArticleCommune.getVlmDept()|number_format(0,'',' ')}} </p>
+                </td> 
+                <td text-align="center"></td>
+            </tr>
+            <tr>
+                <td>
+                    <p text-align="center">Taux d'imposition Commune  : {{THArticleCommune.getTauxImpositionCommune()|number_format(2,',',' ')}}% </p>
+                </td>
+                <td>
+                    <p text-align="center">Taux d'imposition Syndicats  : {{THArticleCommune.getTauxImpositionSyndicats()|number_format(2,',',' ')}}% </p>
+                </td> 
+                <td>
+                    <p text-align="center">Taux d'imposition Intercommunalité  : {{THArticleCommune.getTauxImpositionIntercommunalite()|number_format(2,',',' ')}}% </p>
+                </td> 
+                <td>
+                    <p text-align="center">Taux d'imposition TSE  : {{THArticleCommune.getTauxImpositionTSE()|number_format(2,',',' ')}}% </p>
+                </td> 
+            </tr>
+
+{% endfor %}
+        </table>
+        <table>
+{% for THArticleCommuneIFPA3 in ListeTHArticleCommuneIFPA3 %}      
+            <tr>
+                <td>
+                    <p text-align="center">Total Base Nette Commune : {{THArticleCommuneIFPA3.getTotBaseNetteCommune()|number_format(0,'',' ')}} </p>
+                </td>  
+                <td>
+                    <p text-align="center">Total Base Nette Syndicale : {{THArticleCommuneIFPA3.getTotBaseNetteSyndicale()|number_format(0,'',' ')}} </p>
+                </td> 
+                <td>
+                    <p text-align="center">Total Base Nette InterCommunalité : {{THArticleCommuneIFPA3.getTotBaseNetteInterCommunale()|number_format(0,'',' ')}} </p>
+                </td> 
+                <td>
+                    <p text-align="center">Total Base Nette TSE : {{THArticleCommuneIFPA3.getTotBaseNetteTSE()|number_format(0,'',' ')}} </p>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <p text-align="center">Total Cotisation Commune : {{THArticleCommuneIFPA3.getTotCotisationCommune()|number_format(0,'',' ')}} </p>
+                </td>  
+                <td>
+                    <p text-align="center">Total Cotisation Syndicale : {{THArticleCommuneIFPA3.getTotCotisationSyndicale()|number_format(0,'',' ')}} </p>
+                </td> 
+                <td>
+                    <p text-align="center">Total Cotisation InterCommunalité : {{THArticleCommuneIFPA3.getTotCotisationInterCommunale()|number_format(0,'',' ')}} </p>
+                </td> 
+                <td>
+                    <p text-align="center">Total Cotisation TSE hors GP : {{THArticleCommuneIFPA3.getTotCotisationTSEhorsGP()|number_format(0,'',' ')}} </p>
+                </td>
+            </tr>
+{% endfor %}
+        </table>
+
+{% endblock %}
+    </dynamic-page>
+</pdf> 

@@ -1,0 +1,82 @@
+{% extends '::base.html.twig' %}
+{% block javascript  %}
+   {{ parent() }}
+{% endblock %}
+
+{% block contenu %}
+{{ parent() }}
+<div class="container base">
+    <div class="row">
+        <div class="col-sm-12 col-md-12 col-lg-12"> 
+            <div class="row">
+                <div class="col-sm-7 col-md-7 col-lg-7 col-md-offset-3">
+                    <div class="sidebar-article col-sm-12 col-md-12 col-lg-12">
+                        <form  class="form-horizontal" method="POST" {{ form_enctype(form) }}>
+                            <fieldset>
+                                <legend>Simulation</legend>
+        <div class="form-group"> 
+        {# Génération du label. #}
+  	{{ form_label(form.nomSimulation, "Nom de la simulation",{ 'label_attr': { 'class': 'col-sm-6' } })}}
+        <div class="col-sm-6">
+        {# Génération de l'input. #}
+  	{{ form_widget(form.nomSimulation,{ 'attr': { 'class': 'col-sm-12' } }) }} 
+        {# Affichage des erreurs pour ce champ précis. #}
+  	{{ form_errors(form.nomSimulation,{ 'attr': { 'class': 'col-sm-12' } }) }}
+        </div>
+        </div>  
+        <div class="form-group"> 
+        <div class="row col-sm-12 col-md-12  col-lg-12">
+            <p class="col-sm-12 col-md-12  col-lg-12">Taux votés</p></div>
+        {# Génération du label. #}
+  	{{ form_label(form.tauxBatiCommune, "Taux Bâti de la Commune : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
+        <div class="col-sm-6">
+        {# Génération de l'input. #}
+  	{{ form_widget(form.tauxBatiCommune,{ 'attr': { 'class': 'col-sm-12' } }) }} 
+        {# Affichage des erreurs pour ce champ précis. #}
+  	{{ form_errors(form.tauxBatiCommune,{ 'attr': { 'class': 'col-sm-12' } }) }}
+        </div>
+        </div>        
+        <div class="form-group">                          
+        {# Génération du label. #}
+  	{{ form_label(form.tauxNonBatiCommune, "Taux Non Bâti de la Commune : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
+        {# Affichage des erreurs pour ce champ précis. #}
+        <div class="col-sm-6">        
+  	{{ form_errors(form.tauxNonBatiCommune,{ 'attr': { 'class': 'col-sm-12' } }) }}                   
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.tauxNonBatiCommune,{ 'attr': { 'class': 'col-sm-12' } }) }}  
+        </div>
+        </div>
+        <div class="form-group">  
+        {# Génération du label. #}
+        <div class="row col-sm-12 col-md-12 col-lg-12">
+            <p class="col-sm-12 col-md-12 col-lg-12">Information sur une personne</p></div>                        
+  	{{ form_label(form.nom, "Nom et/ou prénom : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
+        <div class="col-sm-6">
+        {# Affichage des erreurs pour ce champ précis. #}
+  	{{ form_errors(form.nom,{ 'attr': { 'class': 'col-sm-12' } }) }}
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.nom,{ 'attr': { 'class': 'col-sm-12' } }) }}  
+        </div>
+        </div>
+        <div class="form-group">
+        <div class="col-sm-6">  
+        {{ form_rest(form) }} 
+        </div>
+        </div>                
+        <div class="form-group"> 
+        <div class="col-sm-6">  
+        <input class="btn btn-primary pull-right" type="submit" value="Simulation" />
+        </div>
+        </div>     
+        </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>                      
+        </div>                            
+    </div>
+</div>
+{% endblock %}
+{% block footer %}
+{{ parent() }}
+{% endblock %}

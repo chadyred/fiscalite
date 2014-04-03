@@ -1,0 +1,601 @@
+{% extends '::base.html.twig' %}
+{% block contenu %}
+<div class="container-fluid page-container">
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <h1 class="text-center">TAXES FONCIÈRES  
+                <small> 
+                    <ul class="nav nav-pills">
+                        <li><a href="{{ path('simulationarticletfpdf',{'id':id }) }}" target="_blank">
+                                <img class="img-pdf" src="{{ asset('bundles/fiscalitegestionfiscalite/images/pdf.png') }}" alt="PDF" /> 
+                            </a>
+                        </li>
+                        <li><a href="{{ path('simulationarticletfcsv',{'id':id }) }}" target="_blank">
+                                <img class="img-csv" src="{{ asset('bundles/fiscalitegestionfiscalite/images/ods.png') }}" alt="CSV" /> 
+                            </a>
+                        </li>        
+                    </ul>
+                </small>
+            </h1>
+
+        </div>
+    </div>
+   {# <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th>I A - PROPRIÉTÉS BÂTIES : PARTIES D'ÉVALUATION (PEV) IMPOSÉES.</th>
+                    <th>NOMBRE DE COMPTES DE PROPRIÉTAIRE</th>
+                    <th>NOMBRE DE PEV</th>
+                    <th>BASE IMPOSÉE</th>
+                    <th>MONTANT NET REVENANT À LA COLLECTIVITÉ</th>
+                </tr>
+                <tr>
+                    <td>Locaux d'habitation</td>
+                    <td>{{simulation.getNombredecomptesdeproprietaireLocauxdhabitationordinaire()|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.getNombredepevLocauxdhabitationordinaire()|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.getBaseimposeeLocauxdhabitationordinaire()|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.getMontantnetrevenantalacollectiviteLocauxdhabitationordinaire()|number_format(0, ',', ' ')}}</td>
+                </tr>   
+                <tr>
+                    <td>TOTAL</td>
+                    <td></td>
+                    <td>{{simulation.getNombredepevTotal()|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.getBaseimposeeTotal()|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.getMontantnetrevenantalacollectiviteTotal()|number_format(0, ',', ' ')}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th>I B - PROPRIÉTÉS NON BÂTIES : SUBDIVISIONS FISCALES (SUF) IMPOSÉS</th>
+                    <th>NOMBRE DE COMPTES DE PROPRIÉTAIRE</th>
+                    <th>BASE IMPOSÉE</th>
+                    <th>MONTANT NET REVENANT À LA COLLECTIVITÉ</th>
+                </tr>
+                <tr>
+                    <td>Terre agricoles</td>
+                    <td>{{simulation.test13}}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>dont bois</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Terrains à bâtir et assimilés</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Autres propriétés non bâties</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>TOTAL (lignes 1+3+4)</td>
+                    <td>{{simulation.test1}}</td>
+                    <td>{{simulation.test16}}</td>
+                    <td>{{simulation.test15}}</td>
+                </tr>
+                <tr>
+                    <td>dont propriétés soumises à majoration "terrains constructibles"</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th>II - TAXE ENELÈVEMENT ORDURES MÉNGÈRES</th>
+                    <th>NOMBRE DE COMPTES DE PROPRIÉTAIRE</th>
+                    <th>NOMBRE DE PEV</th>
+                    <th>BASE IMPOSÉE</th>
+                    <th>MONTANT NET REVENANT À LA COLLECTIVITÉ</th>
+                </tr>
+                <tr>
+                    <td>Locaux soumis à la TEOM</td>
+                    <td>EPCI</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>#}
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-12  col-lg-12">
+            <h3 class="text-center">VENTILATION DU MONTANT DES COTISATIONS PAR TRANCHES ET COLLECTIVITÉS</h3>
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th>III - TYPE ET TRANCHE DE COTISATIONS</th>
+                    <th>NOMBRE D'ARTICLES DE RÔLE</th>
+                    <th>COTISATIONS</th>
+                    <th>COMMUNE</th>
+                    <th>SYNDICATS SANS FISCALITÉ</th>
+                    <th>INTERCOMMUNALITÉ</th>
+                    <th>DEPARTEMENT BATI TAXE ADDITIONNELLE NON BATI</th>
+                    <th>TSE</th>
+                    <th>TSE Grand Paris</th>
+                    <th>IIIA - TAXE D'ENLÈVEMENT DES ORDURES MÉNAGÈRES IIIB - CHAMBRE D'AGRIC.</th>
+                    <th>IIIA - TEOM Taux RA</th>
+                    <th>IIIA - TEOM Taux RB+RC+RD IIIB - CAAA</th>
+                </tr>
+                <tr>
+                    <td colspan="2">III - A - PROPRIÉTÉS BÂTIES</td>
+                    <td class="text-right">{{simulation.getVecteur(1,3)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(1,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(1,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(1,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(1,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(1,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(1,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(1,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(1,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(1,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">SANS COTE BÂTIE</td>
+                    <td rowspan="2">{{simulation.getVecteur(2,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(2,3)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(2,4)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(2,5)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(2,6)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(2,7)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(2,8)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(2,9)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(2,10)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(2,11)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(2,12)|number_format(3, '.', ',')~ " %"}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">{{simulation.getVecteur(3,3)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(3,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(3,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(3,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(3,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(3,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(3,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(3,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(3,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(3,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">0</td>
+                    <td class="text-right">{{simulation.getVecteur(4,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right"></td>
+                    <td class="text-right"></td>
+                    <td class="text-right"></td>
+                    <td class="text-right"></td>
+                    <td class="text-right"></td>
+                    <td class="text-right"></td>
+                    <td class="text-right"></td>
+                    <td class="text-right"></td>
+                    <td class="text-right"></td>
+                    <td class="text-right"></td>
+                </tr>
+                <tr>
+                    <td class="text-right">1-11</td>
+                    <td class="text-right">{{simulation.getVecteur(5,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(5,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(5,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(5,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(5,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(5,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(5,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(5,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(5,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(5,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(5,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">12-149</td>
+                    <td class="text-right">{{simulation.getVecteur(6,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(6,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(6,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(6,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(6,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(6,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(6,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(6,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(6,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(6,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(6,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">150-449</td>
+                    <td class="text-right">{{simulation.getVecteur(7,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(7,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(7,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(7,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(7,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(7,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(7,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(7,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(7,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(7,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(7,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">450-749</td>
+                    <td class="text-right">{{simulation.getVecteur(8,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(8,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(8,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(8,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(8,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(8,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(8,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(8,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(8,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(8,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(8,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">750-1524</td>
+                    <td class="text-right">{{simulation.getVecteur(9,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(9,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(9,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(9,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(9,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(9,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(9,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(9,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(9,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(9,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(9,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">>=1525</td>
+                    <td class="text-right">{{simulation.getVecteur(10,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(10,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(10,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(10,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(10,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(10,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(10,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(10,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(10,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(10,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(10,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">TOTAL</td>
+                    <td class="text-right">{{simulation.getVecteur(11,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(11,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(11,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(11,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(11,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(11,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(11,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(11,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(11,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(11,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(11,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td colspan="2">III - A - PROPRIÉTÉS NON BÂTIES</td>
+                    <td class="text-right">{{simulation.getVecteur(12,3)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(12,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(12,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(12,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(12,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(12,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(12,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(12,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(12,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(12,12)|number_format(0, ',', ' ')}}</td>
+
+                </tr>
+                <tr>
+                    <td rowspan="2">SANS COTE NON BÂTIE</td>
+                    <td rowspan="2">{{simulation.getVecteur(13,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(13,3)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(13,4)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(13,5)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(13,6)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(13,7)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(13,8)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(13,9)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(13,10)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(13,11)|number_format(3, '.', ',')~ " %"}}</td>
+                    <td class="text-right">{{simulation.getVecteur(13,12)|number_format(3, '.', ',')~ " %"}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">{{simulation.getVecteur(14,3)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(14,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(14,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(14,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(14,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(14,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(14,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(14,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(14,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(14,12)|number_format(0, ',', ' ')}}</td>
+
+                </tr>
+                <tr>
+                    <td class="text-right">0</td>
+                    <td class="text-right">{{simulation.getVecteur(15,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(15,3)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(15,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(15,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(15,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(15,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(15,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(15,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(15,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(15,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(15,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">1-11</td>
+                    <td class="text-right">{{simulation.getVecteur(16,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(16,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(16,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(16,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(16,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(16,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(16,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(16,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(16,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(16,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(16,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">12-74</td>
+                    <td class="text-right">{{simulation.getVecteur(17,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(17,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(17,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(17,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(17,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(17,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(17,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(17,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(17,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(17,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(17,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">75-299</td>
+                    <td class="text-right">{{simulation.getVecteur(18,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(18,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(18,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(18,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(18,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(18,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(18,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(18,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(18,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(18,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(18,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">300-749</td>
+                    <td class="text-right">{{simulation.getVecteur(19,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(19,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(19,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(19,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(19,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(19,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(19,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(19,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(19,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(19,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(19,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">>=750</td>
+                    <td class="text-right">{{simulation.getVecteur(20,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(20,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(20,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(20,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(20,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(20,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(20,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(20,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(20,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(20,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(20,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">TOTAL</td>
+                    <td class="text-right">{{simulation.getVecteur(21,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(21,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(21,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(21,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(21,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(21,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(21,8)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(21,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(21,10)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(21,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(21,12)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">dont MAJORATION "terrains constructibles"</td>
+                    <td class="text-right">{{simulation.getVecteur(22,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(22,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(22,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(22,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">BASE COMMUNALE SUPPLÉMENTAIRE</td>
+                    <td class="text-right">{{simulation.getVecteur(22,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">TARIF DE LA MAJORATION (par m2)</td>
+                    <td class="text-right">{{simulation.getVecteur(22,9)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">IV - DÉGRÈVEMENT BÂTI (articles 1391B et 1391B bis du CGI) NOMBRE D'ARTICLES RÔLE</td>
+                    <td class="text-right">DÉGRÈVEMENT ACCORDÉ</td>
+                    <td class="text-right">NOMBRE DE PEV</td>
+                </tr>
+                <tr>
+                    <td class="text-right">III - DÉGRÈVEMENT JA COLL.</td>
+                    <td class="text-right">{{simulation.getVecteur(23,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(23,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(23,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(23,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(23,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(23,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">dont FRAIS SUR DÉGRÈVEMENT COLLECTIVITÉ INCLUS DANS DÉGRÈVEMENT ÉTAT</td>
+                    <td class="text-right">NOMBRE D'ARTICLES BFF SEULS</td>
+                    <td class="text-right">{{simulation.getVecteur(23,10)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(23,11)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(23,12)}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">DÉGRÈVEMENT JA ÉTAT</td>
+                    <td class="text-right">{{simulation.getVecteur(24,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(24,3)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(24,4)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(24,5)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(24,6)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(24,7)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(24,8)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(24,9)}}</td>
+                    <td colspan="3"></td>
+
+                </tr>
+            </table>
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th class="text-center">V -FRAIS DE GESTION DE LA FISCALITÉ DIRECTE LOCALE (voir décomposition cadre V bis)</th>
+                </tr>
+                <tr>
+                    <td class="text-center">{{simulation.getVecteur(25,1)|number_format(0, ',', ' ')}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <h5 class="text-center">V BIS - DÉCOMPOSTION DES FRAIS DE GESTION DE LA FISCALITÉ DIRECTE LOCALE </h5>
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th class="text-center">BÂTI 3%</th>
+                    <th class="text-center">BÂTI 8%</th>
+                    <th class="text-center">BÂTI TSE 9%</th>
+                    <th class="text-center">Non Bâti TF Taxe addit 3%</th>
+                    <th class="text-center">Non Bâti 8% (CA + Syndicat)</th>
+                    <th class="text-center">Non Bâti TSE 9%</th>
+                    <th class="text-center">DÉPARTEMENTS HAUT-RHIN, BAS-RHIN, MOSELLE</th>
+                    <th class="text-center">CAAA 7,81%</th>
+                </tr>
+                <tr>
+                    <td class="text-center">{{simulation.getVecteur(26,1)}}</td>
+                    <td class="text-center">{{simulation.getVecteur(26,2)}}</td>
+                    <td class="text-center">{{simulation.getVecteur(26,3)}}</td>
+                    <td class="text-center">{{simulation.getVecteur(26,4)}}</td>
+                    <td class="text-center">{{simulation.getVecteur(26,5)}}</td>
+                    <td class="text-center">{{simulation.getVecteur(26,6)}}</td>
+                    <td class="text-center">{{simulation.getVecteur(26,7)}}</td>
+                    <td class="text-center">{{simulation.getVecteur(26,8)}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <h5 class="text-center">VI - MONTANT MIS EN RECOUVREMENT</h5>
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th>NOMBRE D'ARTICLES DE RÔLE</th>
+                    <th>COTISATIONS</th>                    
+                </tr>
+                <tr>
+                    <td class="text-center">{{simulation.getVecteur(27,1)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-center">{{simulation.getVecteur(27,2)|number_format(0, ',', ' ')}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <h5 class="text-center">VII - DÉCOMPOSTION DES ARTICLES DE RÔLE EN NOMBRE ET EN MONTANT</h5>
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th class="text-center">avec AVIS</th>
+                    <th class="text-center">dont SANS TEOM</th>
+                    <th class="text-center">MONTANT</th>
+                    <th class="text-center">sans AVIS</th>
+                    <th class="text-center">dont COTIS. NULLE</th>
+                    <th class="text-center">dont 0 < COTIS. < 12</th>
+                    <th class="text-center">MONTANT</th>
+                </tr>
+                <tr>
+                    <td class="text-center">{{simulation.getVecteur(28,1)}}</td>
+                    <td class="text-center">{{simulation.getVecteur(28,2)}}</td>
+                    <td class="text-center">{{simulation.getVecteur(28,3)}}</td>
+                    <td class="text-center">{{simulation.getVecteur(28,4)}}</td>
+                    <td class="text-center">{{simulation.getVecteur(28,5)}}</td>
+                    <td class="text-center">{{simulation.getVecteur(28,6)}}</td>
+                    <td class="text-center">{{simulation.getVecteur(28,7)}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <h5 class="text-center">VIII - RÉPARTITION PAR TRANCHES DE COTISATION</h5>
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th class="text-center">TRANCHES</th>
+                    <th class="text-center">DU NOMBRES D'ARTICLES</th>
+                    <th class="text-center">DU MONTANT DES COTISATIONS DE TAXES FONCIERES</th>
+                </tr>
+                <tr>
+                    <td class="text-right">{{simulation.getVecteur(29,1)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(29,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(29,3)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">{{simulation.getVecteur(30,1)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(30,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(30,3)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">{{simulation.getVecteur(31,1)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(31,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(31,3)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">{{simulation.getVecteur(32,1)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(32,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(32,3)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">{{simulation.getVecteur(33,1)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(33,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(33,3)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">{{simulation.getVecteur(34,1)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(34,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(34,3)|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td class="text-right">{{simulation.getVecteur(35,1)}}</td>
+                    <td class="text-right">{{simulation.getVecteur(35,2)|number_format(0, ',', ' ')}}</td>
+                    <td class="text-right">{{simulation.getVecteur(35,3)|number_format(0, ',', ' ')}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>     
+{% endblock %}
+{% block footer %}
+{{ parent() }}
+{% endblock %}

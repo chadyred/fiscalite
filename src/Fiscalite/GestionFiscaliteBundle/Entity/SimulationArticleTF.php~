@@ -1,0 +1,184 @@
+<?php
+
+namespace Fiscalite\GestionFiscaliteBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * SimulationArticleTF
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTFRepository")
+ */
+class SimulationArticleTF
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tauxBatiCommune", type="float")
+     */
+    private $tauxBatiCommune;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="tauxNonBatiCommune", type="float")
+     */
+    private $tauxNonBatiCommune;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nomSimulation", type="string", length=255)
+     */
+    private $nomSimulation;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=255)
+     */
+    private $nom;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="prenom", type="string", length=255)
+     */
+    private $prenom;
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set tauxBatiCommune
+     *
+     * @param float $tauxBatiCommune
+     * @return SimulationArticleTF
+     */
+    public function setTauxBatiCommune($tauxBatiCommune)
+    {
+        $this->tauxBatiCommune = $tauxBatiCommune;
+
+        return $this;
+    }
+
+    /**
+     * Get tauxBatiCommune
+     *
+     * @return float 
+     */
+    public function getTauxBatiCommune()
+    {
+        return $this->tauxBatiCommune;
+    }
+
+    /**
+     * Set tauxNonBatiCommune
+     *
+     * @param float $tauxNonBatiCommune
+     * @return SimulationArticleTF
+     */
+    public function setTauxNonBatiCommune($tauxNonBatiCommune)
+    {
+        $this->tauxNonBatiCommune = $tauxNonBatiCommune;
+
+        return $this;
+    }
+
+    /**
+     * Get tauxNonBatiCommune
+     *
+     * @return float 
+     */
+    public function getTauxNonBatiCommune()
+    {
+        return $this->tauxNonBatiCommune;
+    }
+
+    /**
+     * Set nomSimulation
+     *
+     * @param string $nomSimulation
+     * @return SimulationArticleTF
+     */
+    public function setNomSimulation($nomSimulation)
+    {
+        $this->nomSimulation = $nomSimulation;
+
+        return $this;
+    }
+
+    /**
+     * Get nomSimulation
+     *
+     * @return string 
+     */
+    public function getNomSimulation()
+    {
+        return $this->nomSimulation;
+    }
+
+    /**
+     * Set nom
+     *
+     * @param string $nom
+     * @return SimulationArticleTF
+     */
+    public function setNom($nom)
+    {
+        $this->nom = $nom;
+
+        return $this;
+    }
+
+    /**
+     * Get nom
+     *
+     * @return string 
+     */
+    public function getNom()
+    {
+        return $this->nom;
+    }
+
+    /**
+     * Set prenom
+     *
+     * @param string $prenom
+     * @return SimulationArticleTF
+     */
+    public function setPrenom($prenom)
+    {
+        $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    /**
+     * Get prenom
+     *
+     * @return string 
+     */
+    public function getPrenom()
+    {
+        return $this->prenom;
+    }
+}

@@ -20,7 +20,6 @@ class TypeRue
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * @var string
      *
@@ -34,7 +33,7 @@ class TypeRue
     private $adresses;
     
    /**
-    * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Secteur", inversedBy="typerue", cascade={"persist","remove"})
+    * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Secteur", cascade={"persist","remove"})
     */
     private $secteur;
     /**
@@ -141,5 +140,9 @@ class TypeRue
     public function getSecteur()
     {
         return $this->secteur;
+    }
+    
+    public function __toString() {
+        return $this->libelle;
     }
 }

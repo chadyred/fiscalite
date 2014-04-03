@@ -18,12 +18,13 @@ security:
             provider: main
             form_login:
               provider:       fos_userbundle
-              login_path:     /login
+              login_path:     fos_user_security_login
               always_use_default_target_path: true
               default_target_path: /fiscalite
               failure_path:   /fiscalite
               use_forward:    false
               check_path:     /login_check
+              remember_me : true
             logout:       
               path:   /logout
               target: /fiscalite
@@ -33,10 +34,35 @@ security:
                 path: /fiscalite
                 lifetime: 5000
                 key:        %secret% 
+                
     access_control:
+        - { path: ^/error403$, roles: [ ROLE_INACTIVE, ROLE_ACTIVE_CC_PROBLEM, ROLE_ACTIVE_NO_ACCESS ] }
         - { path: ^/fiscalite, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/_sonata_admin, role: ROLE_ADMIN }
+        - { path: ^/simulationTH, role: ROLE_ADMIN }
+        - { path: ^/simulationTF, role: ROLE_ADMIN }
+        - { path: ^/taxefonciere, role: ROLE_UTILISATEUR }
+        - { path: ^/pdf/$, role: ROLE_UTILISATEUR }
+        - { path: ^/csv/$, role: ROLE_UTILISATEUR }
+        - { path: ^/taxehabitationliste, role: ROLE_UTILISATEUR }
+        - { path: ^/articleTH/$, role: ROLE_UTILISATEUR }
+        - { path: ^/articleTF/$, role: ROLE_UTILISATEUR }
+        - { path: ^/taxefonciereliste, role: ROLE_UTILISATEUR }
+        - { path: ^/resultatTH/$, role: ROLE_ADMIN }
+        - { path: ^/resultatTF/$, role: ROLE_ADMIN }
+        - { path: ^/secteur, role: ROLE_UTILISATEUR }
+        - { path: ^/newsecteur, role: ROLE_UTILISATEUR }
+        - { path: ^/articlesecteur/$, role: ROLE_UTILISATEUR }
+        - { path: ^/csvListeTF, role: ROLE_UTILISATEUR }
+        - { path: ^/pdfArticleTF, role: ROLE_UTILISATEUR }
+        - { path: ^/csvArticleTF, role: ROLE_UTILISATEUR }
+        - { path: ^/simulationarticletfpdf, role: ROLE_ADMIN }
+        - { path: ^/simulationarticletfcsv, role: ROLE_ADMIN }
+        - { path: ^/rapportfichier, role: ROLE_UTILISATEUR }
+        - { path: ^/admin/$, roles: ROLE_ADMIN }
+        - { path: ^/admin/dashboard, roles: ROLE_ADMIN }
+        - { path: ^/admin/$, roles: ROLE_ADMIN }
         - { path: ^/.*, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: ROLE_UTILISATEUR }

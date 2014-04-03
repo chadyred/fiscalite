@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{% block title %}Fiscalité {% endblock %}</title>
+        <link rel="shortcut icon" href="{{ asset('bundles/fiscalitegestionfiscalite/images/favicon.ico') }}" />
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+      	{#ajout de tous les css #}
+		{% stylesheets filter='cssrewrite'
+		'@FiscaliteGestionFiscaliteBundle/Resources/public/css/style.css'
+		'@FiscaliteGestionFiscaliteBundle/Resources/public/css/jquery-ui.css'
+                '@FiscaliteGestionFiscaliteBundle/Resources/public/css/bootstrap.min.css'
+		'@FiscaliteGestionFiscaliteBundle/Resources/public/css/bootstrap-theme.min.css'
+		%}		
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" media="all"/>
+		{% endstylesheets %}
+      	{#ajout de la datatable et du calendrier en javascript #}
+
+		{% block javascripts  %}
+		{% javascripts
+		'@FiscaliteGestionFiscaliteBundle/Resources/public/js/jquery-1.10.2.js'
+		'@FiscaliteGestionFiscaliteBundle/Resources/public/js/jquery-ui.js'
+                '@FiscaliteGestionFiscaliteBundle/Resources/public/js/bootstrap.min.js'
+                '@FiscaliteGestionFiscaliteBundle/Resources/public/js/jquery-v1.7.2.js'
+                '@FiscaliteGestionFiscaliteBundle/Resources/public/js/jquery-ui-1.10.4.custom.min.js'
+  		%} 
+        <script type="text/javascript" src="{{ asset_url }}"></script> 
+		{% endjavascripts %}
+
+		{% endblock %}		
+
+    </head> 
+    <body>
+        <section class="post-wrapper-top">
+            <div class="container">
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 tab-content">
+                    <ul class="breadcrumb">
+                        <li><a href="{{path('fiscalite')}}">Accueil</a></li>
+                        <li>404 - Not Found</li>
+                    </ul>
+                    <h2>404 - NOT FOUND</h2>
+                </div>
+            </div>
+        </section><!-- end post-wrapper-top -->
+        <section class="section1">
+            <div class="container clearfix">
+                <div class="content col-lg-12 col-md-12 col-sm-12 clearfix tab-content">
+                    <div class="notfound">
+                        <h1 class="big-title">Êtes-vous perdu ?</h1>
+                        <h4 class="small-title">La page que vous voulez voir n'existe pas.<br>
+                            Peut-être vous pouvez retourner sur la page d'accueil <br>
+                            et voir si vous trouvez ce que vous êtiez en train de chercher.
+                        </h4>
+                        <a class="button" href="{{path('fiscalite')}}">Revenir à la page d'accueil</a>
+                    </div><!-- end message -->
+                </div><!-- end content -->
+            </div><!-- end container -->
+        </section><!-- end section -->
+    </body>
+</html>

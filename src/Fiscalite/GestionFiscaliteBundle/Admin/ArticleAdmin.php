@@ -16,10 +16,8 @@ class ArticleAdmin extends Admin
         $formMapper
         ->add('id')
         ->add('numerosequentiel')
-        ->add('nomprenom')
-        ->add('suitenom')
-        ->add('montantnetapayer') 
-        ->add('montantdesfraisderole');         
+        ->add('codeArticle')
+        ;
     }
 
     // Fields to be shown on filter forms
@@ -28,10 +26,8 @@ class ArticleAdmin extends Admin
         $datagridMapper
         ->add('id')
         ->add('numerosequentiel')
-        ->add('nomprenom')
-        ->add('suitenom')
-        ->add('montantnetapayer') 
-        ->add('montantdesfraisderole'); 
+        ->add('codeArticle')
+        ;
     }
 
     // Fields to be shown on lists
@@ -40,9 +36,7 @@ class ArticleAdmin extends Admin
         $listMapper
         ->add('id')
         ->add('numerosequentiel')
-        ->add('nomprenom')
-        ->add('suitenom')
-        ->add('montantnetapayer') 
-        ->add('montantdesfraisderole'); 
+        ->add('codeArticle')
+       ;
     }
 }

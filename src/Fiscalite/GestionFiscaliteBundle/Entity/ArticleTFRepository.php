@@ -41,6 +41,13 @@ class ArticleTFRepository extends EntityRepository {
         return $qb->getQuery()->getResult();
     }
 
+    public function findAllOrderbytitreEtDesignationlimit() {
+        $qb = $this->createQueryBuilder('a')
+                ->orderby('a.titreEtDesignation', 'ASC')
+                ->setMaxResults(50);
+        return $qb->getQuery()->getResult();
+    }
+
     public function rechercherArticleAnneePrecedente($articleTF) {
         $qb = $this->createQueryBuilder('a');
         if ($articleTF != NULL) {
@@ -61,7 +68,7 @@ class ArticleTFRepository extends EntityRepository {
     }
 
     function couperChaine($chaine, $nbrMotMax) {
-        
+
         $chaineNouvelle = "";
         $t_chaineNouvelle = explode(" ", $chaine);
         foreach ($t_chaineNouvelle as $cle => $mot) {
@@ -84,7 +91,7 @@ class ArticleTFRepository extends EntityRepository {
                 ->setParameter('nom', '%' . $chaineCouper . '%');
         return $qb->getQuery()->getResult();
     }
-    
+
     public function listeTitreEtDesignation($term) {
         $qb = $this->createQueryBuilder('c');
         $qb->select('c.titreEtDesignation')
@@ -92,14 +99,31 @@ class ArticleTFRepository extends EntityRepository {
                 ->setParameter('term1', '%' . $term . '%');
         $arrayAss = $qb->getQuery()
                 ->getArrayResult();
-
         // Transformer le tableau associatif en un tableau standard
         $array = array();
         foreach ($arrayAss as $data) {
             $array[] = $data['titreEtDesignation'];
         }
-
         return $array;
+    }
+
+    public function searchListTFSimulation($nom) {
+        $qb = $this->createQueryBuilder('a');
+        if ($nom != NULL) {
+            $qb->andWhere('a.titreEtDesignation LIKE :nom')
+                    ->setParameter('nom', '%' . $nom . '%');
+        }
+        if (($nom == NULL) || $qb->getQuery()->getResult() == NULL) {
+            $qb = $this->createQueryBuilder('n');
+            return $qb->getQuery()->getResult();
+        }
+        return $qb->getQuery()->getResult();
+    }
+
+    public function rechercherListeArticleTF($fichier) {
+        $qb = $this->createQueryBuilder('a')->join('a.fichier', 'f')
+                        ->andWhere('f.nom LIKE :file')->setParameter('file', $fichier->getNom());
+        return $qb->getQuery()->getResult();
     }
 
 }

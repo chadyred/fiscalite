@@ -28,7 +28,7 @@ class TypeRue
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Adresse", mappedBy="typerue")
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Adresse", mappedBy="typerue", cascade={"persist","remove"})
      */
     private $adresses;
     

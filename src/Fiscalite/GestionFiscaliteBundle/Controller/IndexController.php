@@ -35,7 +35,7 @@ class IndexController extends Controller {
         $TFArticleTaxationCompteC1 = null;
         $TFArticleTaxationCompteC2 = null;
         $fichier = new Fichier;
-        $form = $this->createFormBuilder($fichier)->add('file', 'file', array('label' => 'Importer un fichier : ', 'attr' => array('class' => 'span12 input-medium')))->getForm();
+        $form = $this->createFormBuilder($fichier)->add('file', 'file', array('label' => 'Importer un fichier : ', 'attr' => array('class' => 'col-xs-12 input-medium')))->getForm();
         if ($this->getRequest()->isMethod('POST')) {
             $form->bind($this->getRequest());
             if ($form->isValid()) {
@@ -96,7 +96,7 @@ class IndexController extends Controller {
                             $em->flush();
                             $em->detach($articlecommune);
                         } else if (substr($chaine, 17, 2) == "A3") {
-                            $THArticlecommuneIFPA3 = new THArticlecommuneIFPA3;
+                            $THArticlecommuneIFPA3 = new THArticleCommuneIFPA3;
                             $THArticlecommuneIFPA3->newTHArticlecommuneIFPA3($fichier->getAnneetaxation(), $chaine);
                             $THArticlecommuneIFPA3->setFichier($fichier);
                             $em->persist($THArticlecommuneIFPA3);
@@ -163,6 +163,7 @@ class IndexController extends Controller {
                                 $em->detach($typRue);
                             } else {
                                 $adresse->setTyperue($typeRue);
+                                $em->detach($typRue);
                             }
                             $em->persist($base);
                             $em->flush();
@@ -279,14 +280,14 @@ class IndexController extends Controller {
             $facade = $this->get('ps_pdf.facade');
             $response = new Response();
             $this->render('FiscaliteGestionFiscaliteBundle:Index:rapportfichier.html.twig', array('ListeTFArticleCommuneEnTete' => $TFArticleCommuneEnTete, 'ListeTFArticleCommuneIFP' => $TFArticleCommuneIFP,
-                'ListeTFArticleCommuneSRA2' => $TFArticleCommuneSRA2, 'ListeTFArticleCommuneSRA3' => $TFArticleCommuneSRA3,'ListeTHArticleCommune'=>$THArticleCommune,
-                  'ListeTHArticleCommuneIFPA3'=>$THArticleCommuneIFPA3  ), $response);
+                'ListeTFArticleCommuneSRA2' => $TFArticleCommuneSRA2, 'ListeTFArticleCommuneSRA3' => $TFArticleCommuneSRA3, 'ListeTHArticleCommune' => $THArticleCommune,
+                'ListeTHArticleCommuneIFPA3' => $THArticleCommuneIFPA3), $response);
             $xml = $response->getContent();
             $content = $facade->render($xml);
             return new Response($content, 200, array('content-type' => 'application/pdf'));
         } else {
             $this->get('session')->getFlashBag()->add('notice', "Aucun fichier enregistré");
-            return $this->render('FiscaliteGestionFiscaliteBundle:Index:index.html.twig');
+            return $this->redirect('fiscalite');
         }
     }
 

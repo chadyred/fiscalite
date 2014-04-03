@@ -152,7 +152,7 @@ class TFArticleCommuneSRA2 {
      */
     private $totCORD;
     /**
-    * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="tFarticlesCommuneSRA2", cascade={"persist"})
+    * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="tFarticlesCommuneSRA2", cascade={"persist","remove"})
     */
     private $fichier;
     

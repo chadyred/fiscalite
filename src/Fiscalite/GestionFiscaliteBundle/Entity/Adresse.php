@@ -50,13 +50,13 @@ class Adresse
     private $libellevoieaft;
     
     /**
-    * @ORM\OneToOne(targetEntity="ArticleTH",inversedBy="adresse", cascade={"persist"})
+    * @ORM\OneToOne(targetEntity="ArticleTH",inversedBy="adresse", cascade={"persist","remove"})
     */
     private $articleTH;
     
     // ManyToOne //
     /**
-     * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TypeRue", inversedBy="adresses", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TypeRue", inversedBy="adresses", cascade={"persist","remove"})
      */
     private $typerue;
     

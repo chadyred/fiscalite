@@ -162,7 +162,7 @@ class TFArticleTaxationBati {
     private $codeOM;
     // ManyToOne //
     /**
-     * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\ArticleTF", inversedBy="tfarticletaxationbatis", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\ArticleTF", inversedBy="tfarticletaxationbatis", cascade={"persist","remove"})
      */
     private $articleTF;
 

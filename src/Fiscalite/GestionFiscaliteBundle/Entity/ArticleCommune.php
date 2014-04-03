@@ -176,7 +176,7 @@ class ArticleCommune {
     private $quotiteAbattementSpecialHandicapeInterCoApresAjustement;
 
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="articlesCommune", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="articlesCommune", cascade={"persist","remove"})
      */
     private $fichier;
 

@@ -55,7 +55,7 @@ class Base
     
 
     /**
-    * @ORM\OneToOne(targetEntity="ArticleTH",inversedBy="base", cascade={"persist"})
+    * @ORM\OneToOne(targetEntity="ArticleTH", inversedBy="base", cascade={"persist","remove"})
     */
     private $articleTH;
     

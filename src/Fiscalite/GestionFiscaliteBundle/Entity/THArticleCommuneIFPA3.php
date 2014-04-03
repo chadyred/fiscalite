@@ -134,7 +134,7 @@ class THArticleCommuneIFPA3 {
     private $totNV;
 
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="THArticleCommuneIFPA3", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="THArticleCommuneIFPA3", cascade={"persist","remove"})
      */
     private $fichier;
 

@@ -141,7 +141,7 @@ class Cotisation {
     private $exoTSE;
 
     /**
-     * @ORM\OneToOne(targetEntity="ArticleTH",inversedBy="cotisation", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="ArticleTH",inversedBy="cotisation", cascade={"persist","remove"})
      */
     private $articleTH;
 

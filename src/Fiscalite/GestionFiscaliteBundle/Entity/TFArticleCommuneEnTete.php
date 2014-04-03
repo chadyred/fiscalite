@@ -71,7 +71,7 @@ class TFArticleCommuneEnTete {
     private $tXNCA;
     
      /**
-    * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="tFarticlesCommuneEnTete", cascade={"persist"})
+    * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="tFarticlesCommuneEnTete", cascade={"persist","remove"})
     */
     private $fichier;
 

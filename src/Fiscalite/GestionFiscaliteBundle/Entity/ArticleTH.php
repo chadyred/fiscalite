@@ -64,24 +64,37 @@ class ArticleTH extends Article {
     private $montantnonvaleureventuelle;
 
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Base", mappedBy="articleTH")
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Base", mappedBy="articleTH", cascade={"persist","remove"})
      */
     private $base;
 
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Cotisation", mappedBy="articleTH")
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Cotisation", mappedBy="articleTH", cascade={"persist","remove"})
      */
     private $cotisation;
 
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Abattement", mappedBy="articleTH")
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Abattement", mappedBy="articleTH", cascade={"persist","remove"})
      */
     private $abattement;
 
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Adresse", mappedBy="articleTH")
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Adresse", mappedBy="articleTH", cascade={"persist","remove"})
      */
     private $adresse;
+    
+    function __construct($nomprenom, $suitenom, $montantnetapayer, $montantdesfraisderole, $codeTAX, $montantnonvaleureventuelle, $base, $cotisation, $abattement, $adresse) {
+        $this->nomprenom = $nomprenom;
+        $this->suitenom = $suitenom;
+        $this->montantnetapayer = $montantnetapayer;
+        $this->montantdesfraisderole = $montantdesfraisderole;
+        $this->codeTAX = $codeTAX;
+        $this->montantnonvaleureventuelle = $montantnonvaleureventuelle;
+        $this->base = $base;
+        $this->cotisation = $cotisation;
+        $this->abattement = $abattement;
+        $this->adresse = $adresse;
+    }
 
     /**
      * Get id

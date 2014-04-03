@@ -48,38 +48,38 @@ class Fichier
     private $file;
     
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Article", mappedBy="fichier")
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Article", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $articles;
     
     // ManyToOne //
     /**
-    * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Commune", inversedBy="fichiers", cascade={"persist"})
+    * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Commune", inversedBy="fichiers", cascade={"persist","remove"})
     */
     private $commune;
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\ArticleCommune", mappedBy="fichier")
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\ArticleCommune", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $articlesCommune;
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\THArticleCommuneIFPA3", mappedBy="fichier")
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\THArticleCommuneIFPA3", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $THArticleCommuneIFPA3;
     
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete", mappedBy="fichier")
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $tFarticlesCommuneEnTete;
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneIFP", mappedBy="fichier")
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneIFP", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $tFarticlesCommuneIFP;
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneSRA2", mappedBy="fichier")
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneSRA2", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $tFarticlesCommuneSRA2;
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneSRA3", mappedBy="fichier")
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneSRA3", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $tFarticlesCommuneSRA3;
     /**

@@ -43,7 +43,7 @@ class Article {
     private $type;
     // ManyToOne //
     /**
-     * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="articles", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="articles", cascade={"persist","remove"})
      */
     private $fichier;
 

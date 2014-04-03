@@ -176,17 +176,17 @@ class ArticleTF extends Article {
     private $bOND;
 
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationNonBati", mappedBy="articleTF")
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationNonBati", mappedBy="articleTF", cascade={"persist","remove"})
      */
     private $tfarticletaxationnonbatis;
 
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationBati", mappedBy="articleTF")
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationBati", mappedBy="articleTF", cascade={"persist","remove"})
      */
     private $tfarticletaxationbatis;
 
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\ArticleTFC2", mappedBy="articleTF")
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\ArticleTFC2", mappedBy="articleTF", cascade={"persist","remove"})
      */
     private $articleTFC2;
 

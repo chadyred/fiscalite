@@ -50,7 +50,7 @@ class Commune
      */
     private $libelle;
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", mappedBy="commune")
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", mappedBy="commune", cascade={"persist","remove"})
      */
     private $fichiers;
 

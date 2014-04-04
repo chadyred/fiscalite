@@ -91,28 +91,24 @@ class IndexController extends Controller {
                     $chaine = $data[0]; //prend la permiere chaine
                     $chaine = substr($chaine, 0, 352); //selectionne la chaine de 0 à 352 car
                     if ($bool) {
-                        if (substr($chaine, 17, 2) == "C1" && substr($chaine, 7, 6) >= $articlebis[0]->getNumeroSequentiel() - 2) {
+                        if (substr($chaine, 17, 2) == "C1" && substr($chaine, 7, 6) >= $articlebis[0]->getNumeroSequentiel() - 1) {
                             $bool = false;
                             if ($fichier->getTypeimpot() == "TH") {
                                 $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
                                 $articledelete = $repository->findOneBy(array('numerosequentiel' => $articlebis[0]->getNumeroSequentiel() - 1));
                                 $articledelete2 = $repository->findOneBy(array('numerosequentiel' => $articlebis[0]->getNumeroSequentiel()));
                                 $em->remove($articledelete);
-                                $em->persist($articledelete);
-                                $em->detach($articledelete);
+                                $em->flush();
                                 $em->remove($articledelete2);
-                                $em->persist($articledelete2);
-                                $em->detach($articledelete2);
+                                $em->flush();
                             } else if ($fichier->getTypeimpot() == "TF") {
                                 $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
                                 $articledelete = $repository->findOneBy(array('numerosequentiel' => $articlebis[0]->getNumeroSequentiel() - 1));
-                                $articledelete = $repository->findOneBy(array('numerosequentiel' => $articlebis[0]->getNumeroSequentiel()));
+                                $articledelete2 = $repository->findOneBy(array('numerosequentiel' => $articlebis[0]->getNumeroSequentiel()));
                                 $em->remove($articledelete);
-                                $em->persist($articledelete);
-                                $em->detach($articledelete);
+                                $em->flush();
                                 $em->remove($articledelete2);
-                                $em->persist($articledelete2);
-                                $em->detach($articledelete2);
+                                $em->flush();
                             }
                         }
                     } else {
@@ -155,8 +151,8 @@ class IndexController extends Controller {
                                 if ($repotypeRue == NULL) {
                                     $typeRue = new TypeRue;
                                     $typeRue->setLibelle($adresse->getLibellevoieaft());
-                                    $em->flush();
                                     $em->persist($typeRue);
+                                    $em->flush();
                                     $adresse->setTyperue($typeRue);
                                     $em->detach($typeRue);
                                 } else {
@@ -254,10 +250,6 @@ class IndexController extends Controller {
         }
 
         return $this->render('FiscaliteGestionFiscaliteBundle:Index:index.html.twig', array('form1' => $form->createView()));
-    }
-
-    public function ChargementTH() {
-        
     }
 
     public function newAction($id) {

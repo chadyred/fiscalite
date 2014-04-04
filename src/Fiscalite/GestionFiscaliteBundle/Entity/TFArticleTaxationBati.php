@@ -622,27 +622,6 @@ class TFArticleTaxationBati {
     }
 
     /**
-     * Set tfarticletaxationcompte
-     *
-     * @param \Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationCompte $tfarticletaxationcompte
-     * @return TFArticleTaxationBati
-     */
-    public function setTfarticletaxationcompte(\Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationCompte $tfarticletaxationcompte = null) {
-        $this->tfarticletaxationcompte = $tfarticletaxationcompte;
-
-        return $this;
-    }
-
-    /**
-     * Get tfarticletaxationcompte
-     *
-     * @return \Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationCompte 
-     */
-    public function getTfarticletaxationcompte() {
-        return $this->tfarticletaxationcompte;
-    }
-
-    /**
      * Set articleTF
      *
      * @param \Fiscalite\GestionFiscaliteBundle\Entity\ArticleTF $articleTF

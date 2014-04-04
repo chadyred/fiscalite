@@ -126,4 +126,14 @@ class ArticleTFRepository extends EntityRepository {
         return $qb->getQuery()->getResult();
     }
 
+    public function getArticleStop($relatedfichier) {
+        $qb = $this->createQueryBuilder('a');
+        $qb->join('a.fichier', 'f')
+                ->andWhere('f.nom LIKE :nom ')
+                ->setParameter('nom', '%' . $relatedfichier . '%')
+                ->addOrderBy('a.numerosequentiel', 'DESC')
+                ->setMaxResults(1);
+        return $qb->getQuery()->getResult();
+    }
+
 }

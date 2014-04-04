@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Fiscalite\GestionFiscaliteBundle\Entity\CommuneRepository")
  */
-class Commune
-{
+class Commune {
+
     /**
      * @var integer
      *
@@ -27,7 +27,7 @@ class Commune
      * @ORM\Column(name="code", type="string", length=3)
      */
     private $code;
-    
+
     /**
      * @var string
      *
@@ -41,14 +41,14 @@ class Commune
      * @ORM\Column(name="codeintercommunalite", type="string", length=4)
      */
     private $codeintercommunalite;
-    
-    
+
     /**
      * @var string
      *
      * @ORM\Column(name="libelle", type="string", length=65)
      */
     private $libelle;
+
     /**
      * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", mappedBy="commune", cascade={"persist","remove"})
      */
@@ -59,8 +59,7 @@ class Commune
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -70,10 +69,9 @@ class Commune
      * @param string $code
      * @return Commune
      */
-    public function setCode($code)
-    {
+    public function setCode($code) {
         $this->code = $code;
-    
+
         return $this;
     }
 
@@ -82,8 +80,7 @@ class Commune
      *
      * @return string 
      */
-    public function getCode()
-    {
+    public function getCode() {
         return $this->code;
     }
 
@@ -93,10 +90,9 @@ class Commune
      * @param string $codeintercommunalite
      * @return Commune
      */
-    public function setCodeintercommunalite($codeintercommunalite)
-    {
+    public function setCodeintercommunalite($codeintercommunalite) {
         $this->codeintercommunalite = $codeintercommunalite;
-    
+
         return $this;
     }
 
@@ -105,8 +101,7 @@ class Commune
      *
      * @return string 
      */
-    public function getCodeintercommunalite()
-    {
+    public function getCodeintercommunalite() {
         return $this->codeintercommunalite;
     }
 
@@ -116,10 +111,9 @@ class Commune
      * @param string $libelle
      * @return Commune
      */
-    public function setLibelle($libelle)
-    {
+    public function setLibelle($libelle) {
         $this->libelle = $libelle;
-    
+
         return $this;
     }
 
@@ -128,28 +122,26 @@ class Commune
      *
      * @return string 
      */
-    public function getLibelle()
-    {
+    public function getLibelle() {
         return $this->libelle;
     }
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->fichiers = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Add fichiers
      *
      * @param \Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichiers
      * @return Commune
      */
-    public function addFichier(\Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichiers)
-    {
+    public function addFichier(\Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichiers) {
         $this->fichiers[] = $fichiers;
-    
+
         return $this;
     }
 
@@ -158,8 +150,7 @@ class Commune
      *
      * @param \Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichiers
      */
-    public function removeFichier(\Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichiers)
-    {
+    public function removeFichier(\Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichiers) {
         $this->fichiers->removeElement($fichiers);
     }
 
@@ -168,8 +159,7 @@ class Commune
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getFichiers()
-    {
+    public function getFichiers() {
         return $this->fichiers;
     }
 
@@ -179,10 +169,9 @@ class Commune
      * @param string $departement
      * @return Commune
      */
-    public function setDepartement($departement)
-    {
+    public function setDepartement($departement) {
         $this->departement = $departement;
-    
+
         return $this;
     }
 
@@ -191,8 +180,16 @@ class Commune
      *
      * @return string 
      */
-    public function getDepartement()
-    {
+    public function getDepartement() {
         return $this->departement;
     }
+
+    public function newCommune($chaine) {
+        $this->setCode(substr($chaine, 3, 3));
+        $this->setDepartement(substr($chaine, 0, 2));
+        $this->setCodeintercommunalite(substr($chaine, 13, 4));
+        $this->setLibelle(substr($chaine, 72, 65));
+        return $this;
+    }
+
 }

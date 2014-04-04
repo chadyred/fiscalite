@@ -283,39 +283,6 @@ class Fichier
     }
 
     /**
-     * Add tfarticletaxationcomptes
-     *
-     * @param \Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationCompte $tfarticletaxationcomptes
-     * @return Fichier
-     */
-    public function addTfarticletaxationcompte(\Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationCompte $tfarticletaxationcomptes)
-    {
-        $this->tfarticletaxationcomptes[] = $tfarticletaxationcomptes;
-
-        return $this;
-    }
-
-    /**
-     * Remove tfarticletaxationcomptes
-     *
-     * @param \Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationCompte $tfarticletaxationcomptes
-     */
-    public function removeTfarticletaxationcompte(\Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationCompte $tfarticletaxationcomptes)
-    {
-        $this->tfarticletaxationcomptes->removeElement($tfarticletaxationcomptes);
-    }
-
-    /**
-     * Get tfarticletaxationcomptes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTfarticletaxationcomptes()
-    {
-        return $this->tfarticletaxationcomptes;
-    }
-
-    /**
      * Add tfarticletaxationnonbatis
      *
      * @param \Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationNonBati $tfarticletaxationnonbatis

@@ -91,8 +91,29 @@ class IndexController extends Controller {
                     $chaine = $data[0]; //prend la permiere chaine
                     $chaine = substr($chaine, 0, 352); //selectionne la chaine de 0 à 352 car
                     if ($bool) {
-                        if ((substr($chaine, 17, 2) == "C1" || substr($chaine, 17, 2) == "P1" || substr($chaine, 17, 2) == "P2") && substr($chaine, 7, 6) >= $articlebis[0]->getNumeroSequentiel()) {
+                        if (substr($chaine, 17, 2) == "C1" && substr($chaine, 7, 6) >= $articlebis[0]->getNumeroSequentiel() - 2) {
                             $bool = false;
+                            if ($fichier->getTypeimpot() == "TH") {
+                                $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
+                                $articledelete = $repository->findOneBy(array('numerosequentiel' => $articlebis[0]->getNumeroSequentiel() - 1));
+                                $articledelete2 = $repository->findOneBy(array('numerosequentiel' => $articlebis[0]->getNumeroSequentiel()));
+                                $em->remove($articledelete);
+                                $em->persist($articledelete);
+                                $em->detach($articledelete);
+                                $em->remove($articledelete2);
+                                $em->persist($articledelete2);
+                                $em->detach($articledelete2);
+                            } else if ($fichier->getTypeimpot() == "TF") {
+                                $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
+                                $articledelete = $repository->findOneBy(array('numerosequentiel' => $articlebis[0]->getNumeroSequentiel() - 1));
+                                $articledelete = $repository->findOneBy(array('numerosequentiel' => $articlebis[0]->getNumeroSequentiel()));
+                                $em->remove($articledelete);
+                                $em->persist($articledelete);
+                                $em->detach($articledelete);
+                                $em->remove($articledelete2);
+                                $em->persist($articledelete2);
+                                $em->detach($articledelete2);
+                            }
                         }
                     } else {
                         if ($fichier->getTypeimpot() == "TH") {
@@ -115,49 +136,18 @@ class IndexController extends Controller {
                                     $em->detach($article);
                                 }
                                 $article = new ArticleTH;
-                                $article->setNumerosequentiel(substr($chaine, 7, 6));
-                                $article->setCodeArticle(substr($chaine, 17, 2));
-                                $article->setNomprenom(str_replace('-', ' ', substr($chaine, 63, 35)));
-                                $article->setSuitenom(str_replace('-', ' ', substr($chaine, 98, 32)));
-                                $article->setMontantnetapayer(substr($chaine, 41, 10));
-                                $article->setMontantdesfraisderole(substr($chaine, 53, 10));
-                                $article->setMontantnonvaleureventuelle(substr($chaine, 51, 2));
-                                $article->setCodeTAX(substr($chaine, 262, 1));
-                                $article->setFichier($fichier);
+                                $article->newArticle($chaine, $fichier);
                                 $em->persist($article);
                                 $em->flush();
                             } else if (substr($chaine, 17, 2) == "P1") {
                                 $cotisation = new Cotisation;
-                                $cotisation->setNumerosequentiel(substr($chaine, 7, 6));
-                                $cotisation->setCotisationcommunale(substr($chaine, 148, 9));
-                                $cotisation->setCotisationintercommunalite(substr($chaine, 166, 9));
-                                $cotisation->setCotisationsyndicats(substr($chaine, 157, 9));
-                                $cotisation->setCotisationtse(substr($chaine, 175, 9));
-                                $cotisation->setTotalcotisationsbrutes(substr($chaine, 210, 9));
-                                $cotisation->setMontantprelevementsurfortevl(substr($chaine, 219, 9));
-                                $cotisation->setMontantprelevementde15surths(substr($chaine, 228, 9));
-                                $cotisation->setTotaldesCotisationsFraisPrelevements(substr($chaine, 237, 9));
-                                $cotisation->setMontantdudegrevementouplafonnementeffectif(substr($chaine, 246, 9));
-                                $cotisation->setVlbruteimposeedeslocauxprincipaux(substr($chaine, 255, 10));
-                                $cotisation->setVlbruteexonereeloueemeubleeenZRRenTHP(substr($chaine, 265, 10));
-                                $cotisation->setVlimposeedeslocauxsecondaires(substr($chaine, 275, 10));
-                                $cotisation->setVlbruteexonereeloueemeubleeenZZRenTHS(substr($chaine, 285, 10));
-                                $cotisation->setNbpersonnesacharge(substr($chaine, 295, 2));
-                                $cotisation->setCodeRole(substr($chaine, 299, 2));
-                                $cotisation->setExoTSE(substr($chaine, 193, 1));
+                                $cotisation->newCotisation($chaine);
                                 $cotisation->setArticleTH($article);
                                 $base = new Base;
-                                $base->setNumerosequentiel(substr($chaine, 7, 6));
-                                $base->setBasenettecommunale(substr($chaine, 58, 10));
-                                $base->setBasenettesyndicats(substr($chaine, 68, 10));
-                                $base->setBasenetteintercommunalite(substr($chaine, 78, 10));
-                                $base->setBasenettetse(substr($chaine, 98, 10));
+                                $base->newBase($chaine);
                                 $base->setArticleTH($article);
                                 $adresse = new Adresse;
-                                $adresse->setCodevoie(substr($chaine, 19, 4));
-                                $adresse->setIndicederepetition(substr($chaine, 27, 1));
-                                $adresse->setLibellevoieaft(substr($chaine, 28, 30));
-                                $adresse->setNumeroimmeubleaft(substr($chaine, 23, 4));
+                                $adresse->newAdresse($chaine);
                                 $adresse->setArticleTH($article);
                                 $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TypeRue');
                                 $repotypeRue = NULL;

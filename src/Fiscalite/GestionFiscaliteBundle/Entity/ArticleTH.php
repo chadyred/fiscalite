@@ -82,7 +82,7 @@ class ArticleTH extends Article {
      * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Adresse", mappedBy="articleTH", cascade={"persist","remove"})
      */
     private $adresse;
-    
+
     function __construct($nomprenom, $suitenom, $montantnetapayer, $montantdesfraisderole, $codeTAX, $montantnonvaleureventuelle, $base, $cotisation, $abattement, $adresse) {
         $this->nomprenom = $nomprenom;
         $this->suitenom = $suitenom;
@@ -287,8 +287,7 @@ class ArticleTH extends Article {
                     $this->getAbattement()->getAbattementspecialhandicapeintercommunalite();
             $totalabattement = $totalabattementcommunale + $totalabattementsyndicats + $totalabattementintercommunalite;
             return $totalabattement;
-        }
-        else
+        } else
             return 0;
     }
 
@@ -299,8 +298,7 @@ class ArticleTH extends Article {
                     $this->getAbattement()->getAbattementspecialbasecommunal() +
                     $this->getAbattement()->getAbattementspecialhandicapecommunal();
             return $totalabattementcommunale;
-        }
-        else
+        } else
             return 0;
     }
 
@@ -311,8 +309,7 @@ class ArticleTH extends Article {
                     $this->getAbattement()->getAbattementspecialbasesyndicatstse() +
                     $this->getAbattement()->getAbattementspecialhandicapesyndicatstse();
             return $totalabattementsyndicats;
-        }
-        else
+        } else
             return 0;
     }
 
@@ -323,8 +320,7 @@ class ArticleTH extends Article {
                     $this->getAbattement()->getAbattementspecialbaseintercommunalite() +
                     $this->getAbattement()->getAbattementspecialhandicapeintercommunalite();
             return $totalabattementintercommunalite;
-        }
-        else
+        } else
             return 0;
     }
 
@@ -332,8 +328,7 @@ class ArticleTH extends Article {
         if ($this->getAbattement() != NULL) {
             $totalabattementintercommunalite = 0;
             return $totalabattementintercommunalite;
-        }
-        else
+        } else
             return 0;
     }
 
@@ -377,6 +372,19 @@ class ArticleTH extends Article {
      */
     public function getCodeTAX() {
         return $this->codeTAX;
+    }
+
+    public function newArticle($chaine, $fichier) {
+        $this->setNumerosequentiel(substr($chaine, 7, 6));
+        $this->setCodeArticle(substr($chaine, 17, 2));
+        $this->setNomprenom(str_replace('-', ' ', substr($chaine, 63, 35)));
+        $this->setSuitenom(str_replace('-', ' ', substr($chaine, 98, 32)));
+        $this->setMontantnetapayer(substr($chaine, 41, 10));
+        $this->setMontantdesfraisderole(substr($chaine, 53, 10));
+        $this->setMontantnonvaleureventuelle(substr($chaine, 51, 2));
+        $this->setCodeTAX(substr($chaine, 262, 1));
+        $this->setFichier($fichier);
+        return $this;
     }
 
     public function getRepartitionRole($simulation) {
@@ -1012,7 +1020,7 @@ class ArticleTH extends Article {
             $simulation->setMontantReelTHLVFrais8pourcent($simulation->getMontantReelTHLVFrais8pourcent() + $this->getMontantdesfraisderole());
             $simulation->setMontantReelTHLVCommune($simulation->getMontantReelTHLVCommune() + $this->getCotisation()->getCotisationcommunale());
             $simulation->setNombreArticlesTHLVTotal($simulation->getNombreArticlesTHLVTotal() + 1);
-            $simulation->setMontantReelTHLVTotal($simulation->getMontantReelTHLVTotal() + $simulation->getCotisationTH()->getTotalcotisationsbrutes()+$this->getMontantdesfraisderole());
+            $simulation->setMontantReelTHLVTotal($simulation->getMontantReelTHLVTotal() + $simulation->getCotisationTH()->getTotalcotisationsbrutes() + $this->getMontantdesfraisderole());
             $simulation->setMontantNetTHTHLVCommune($simulation->getMontantNetTHTHLVCommune() + $simulation->getCotisationTH()->getCotisationcommunale());
             $simulation->setMontantNetTHTHLVICO($simulation->getMontantNetTHTHLVICO() + $simulation->getCotisationTH()->getCotisationintercommunalite());
             $simulation->setMontantNetTHTHLVTSE($simulation->getMontantNetTHTHLVTSE() + $simulation->getCotisationTH()->getCotisationtse());
@@ -1020,4 +1028,3 @@ class ArticleTH extends Article {
     }
 
 }
-

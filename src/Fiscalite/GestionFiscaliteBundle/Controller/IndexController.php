@@ -160,18 +160,17 @@ class IndexController extends Controller {
                                 $adresse->setNumeroimmeubleaft(substr($chaine, 23, 4));
                                 $adresse->setArticleTH($article);
                                 $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TypeRue');
-                                $typeRue = null;
-                                $typeRue = $repository->findOneBy(array('libelle' => $adresse->getLibellevoieaft()));
-                                if ($typeRue == NULL) {
-                                    $typRue = new TypeRue;
-                                    $typRue->setLibelle($adresse->getLibellevoieaft());
+                                $repotypeRue = NULL;
+                                $repotypeRue = $repository->findOneBy(array('libelle' => $adresse->getLibellevoieaft()));
+                                if ($repotypeRue == NULL) {
+                                    $typeRue = new TypeRue;
+                                    $typeRue->setLibelle($adresse->getLibellevoieaft());
                                     $em->flush();
-                                    $em->persist($typRue);
-                                    $adresse->setTyperue($typRue);
-                                    $em->detach($typRue);
-                                } else {
+                                    $em->persist($typeRue);
                                     $adresse->setTyperue($typeRue);
                                     $em->detach($typeRue);
+                                } else {
+                                    $adresse->setTyperue($repotypeRue);
                                 }
                                 $em->persist($base);
                                 $em->flush();

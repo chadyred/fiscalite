@@ -36,16 +36,13 @@ class ArticleTHRepository extends EntityRepository {
     }
 
     public function searchListTH($dataAnneetaxation, $dataNompersonne, $dataNbpersonnesacharge
-                        ,$dataBasenettemin, $dataBasenettemax,$dataAbattementgeneralbasecommunale,
-            $dataAbattementpersonneschargecommunal,$dataAbattementspecialbasecommunal,
-            $dataAbattementspecialhandicapecommunal,$dataCotisationcommunalemin, $dataCotisationcommunalemax,
-            $dataMontantnetapayermin, $dataMontantnetapayermax) {
+    , $dataBasenettemin, $dataBasenettemax, $dataAbattementgeneralbasecommunale, $dataAbattementpersonneschargecommunal, $dataAbattementspecialbasecommunal, $dataAbattementspecialhandicapecommunal, $dataCotisationcommunalemin, $dataCotisationcommunalemax, $dataMontantnetapayermin, $dataMontantnetapayermax) {
         $qb = $this->createQueryBuilder('a');
         if ($dataAnneetaxation != NULL) {
-            foreach ($dataAnneetaxation as $annee){
-            $qb->join('a.fichier', 'f1');
-            $qb->andWhere('f1.anneetaxation =:ann')
-                    ->setParameter('ann', $annee->getAnneetaxation());
+            foreach ($dataAnneetaxation as $annee) {
+                $qb->join('a.fichier', 'f1');
+                $qb->andWhere('f1.anneetaxation =:ann')
+                        ->setParameter('ann', $annee->getAnneetaxation());
             }
         }
         if ($dataNompersonne != NULL) {
@@ -174,23 +171,22 @@ class ArticleTHRepository extends EntityRepository {
         return $qb->getQuery()->getOneOrNullResult();
     }
 
-    public function searchListTHSimulation($nom, $prenom) {
+    public function searchListTHSimulation($nom, $prenom, $dataAnneetaxation) {
         $qb = $this->createQueryBuilder('a');
+        $qb->join('a.fichier', 'f1');
+        $qb->andWhere('f1.anneetaxation =:ann')
+                ->setParameter('ann', $dataAnneetaxation);
         if ($nom != NULL) {
             $qb->andWhere('a.nomprenom LIKE :nom')
                     ->setParameter('nom', '%' . $nom . '%');
         }
-        if ($nom != NULL) {
+        if ($prenom != NULL) {
             $qb->andWhere('a.nomprenom LIKE :prenom')
                     ->setParameter('prenom', '%' . $prenom . '%');
         }
-        if (($nom == NULL && $prenom == NULL) || $qb->getQuery()->getResult() == NULL) {
-            $qb = $this->createQueryBuilder('n');
-            return $qb->getQuery()->getResult();
-        }
         return $qb->getQuery()->getResult();
     }
-    
+
     public function listeNompersonne($term) {
         $qb = $this->createQueryBuilder('c');
         $qb->select('c.nomprenom')
@@ -207,14 +203,15 @@ class ArticleTHRepository extends EntityRepository {
 
         return $array;
     }
-    
+
     public function getArticleStop($relatedfichier) {
         $qb = $this->createQueryBuilder('a');
         $qb->join('a.fichier', 'f')
                 ->andWhere('f.nom LIKE :nom ')
-                ->setParameter('nom', '%' .$relatedfichier.'%')
+                ->setParameter('nom', '%' . $relatedfichier . '%')
                 ->addOrderBy('a.numerosequentiel', 'DESC')
                 ->setMaxResults(1);
         return $qb->getQuery()->getResult();
     }
+
 }

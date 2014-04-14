@@ -74,6 +74,14 @@ class IndexController extends Controller {
                         $em->persist($fichier);
                         $em->flush();
                     }
+                    if ($fichier->getTypeimpot() == "TF") {
+                        $TFArticleCommuneEnTete = new TFArticleCommuneEnTete;
+                        $TFArticleCommuneEnTete->newTFArticleCommuneEnTete($chaine);
+                        $TFArticleCommuneEnTete->setFichier($fichier);
+                        $em->persist($TFArticleCommuneEnTete);
+                        $em->flush();
+                        $em->detach($TFArticleCommuneEnTete);
+                    }
                 }
                 if ($fichier->getTypeimpot() == "TH") {
                     $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
@@ -173,14 +181,7 @@ class IndexController extends Controller {
                                 $em->detach($abattement);
                             }
                         } else if ($fichier->getTypeimpot() == "TF") {
-                            if (substr($chaine, 17, 2) == "  ") {
-                                $TFArticleCommuneEnTete = new TFArticleCommuneEnTete;
-                                $TFArticleCommuneEnTete->newTFArticleCommuneEnTete($chaine);
-                                $TFArticleCommuneEnTete->setFichier($fichier);
-                                $em->persist($TFArticleCommuneEnTete);
-                                $em->flush();
-                                $em->detach($TFArticleCommuneEnTete);
-                            } else if (substr($chaine, 17, 2) == "A1") {
+                            if (substr($chaine, 17, 2) == "A1") {
                                 $TFArticleCommuneIFP = new TFArticleCommuneIFP;
                                 $TFArticleCommuneIFP->newTFArticleCommuneIFP($fichier->getAnneetaxation(), $chaine);
                                 $TFArticleCommuneIFP->setFichier($fichier);

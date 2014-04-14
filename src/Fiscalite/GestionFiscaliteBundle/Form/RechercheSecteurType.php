@@ -21,7 +21,7 @@ class RechercheSecteurType extends AbstractType {
                     'empty_value' => 'Adresse',
                     'empty_data' => null,
                     'query_builder' => function(EntityRepository $er) {
-                return $er->createQueryBuilder('c')->orderBy('c.libelle', 'ASC');
+                return $er->createQueryBuilder('c')->groupBy('c.libelle')->orderBy('c.libelle', 'ASC');
             },
                     'attr' => array('class' => 'col-sm-12')))
                 ->add('right_name', 'entity', array('attr' => array('class' => 'col-xs-12'),
@@ -33,7 +33,7 @@ class RechercheSecteurType extends AbstractType {
                     'empty_data' => null,
                     'required' => false,
                     'query_builder' => function(EntityRepository $er) {
-                return $er->createQueryBuilder('c')->orderBy('c.libelle', 'ASC');
+                return $er->createQueryBuilder('c')->groupBy('c.libelle')->orderBy('c.libelle', 'ASC');
             },
                     'attr' => array('class' => 'col-sm-12')))
         ;

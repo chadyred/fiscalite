@@ -107,15 +107,14 @@ class ArticleTFRepository extends EntityRepository {
         return $array;
     }
 
-    public function searchListTFSimulation($nom) {
+    public function searchListTFSimulation($nom,$dataAnneetaxation) {
         $qb = $this->createQueryBuilder('a');
+        $qb->join('a.fichier', 'f1');
+        $qb->andWhere('f1.anneetaxation =:ann')
+                ->setParameter('ann', $dataAnneetaxation);
         if ($nom != NULL) {
             $qb->andWhere('a.titreEtDesignation LIKE :nom')
                     ->setParameter('nom', '%' . $nom . '%');
-        }
-        if (($nom == NULL) || $qb->getQuery()->getResult() == NULL) {
-            $qb = $this->createQueryBuilder('n');
-            return $qb->getQuery()->getResult();
         }
         return $qb->getQuery()->getResult();
     }

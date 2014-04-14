@@ -13,15 +13,30 @@ use Doctrine\ORM\EntityRepository;
 class FichierRepository extends EntityRepository {
 
     public function rechercherDernierFichierTF() {
-        $value="TF";
+        $value = "TF";
         $qb = $this->createQueryBuilder('f')
-                ->andWhere('f.typeimpot = :string')->setParameter('string', $value)->orderby('f.id', 'DESC')->setMaxResults(1);
+                        ->andWhere('f.typeimpot = :string')->setParameter('string', $value)->orderby('f.id', 'DESC')->setMaxResults(1);
         return $qb->getQuery()->getResult();
     }
+
     public function rechercherDernierFichierTH() {
-        $value="TH";
+        $value = "TH";
         $qb = $this->createQueryBuilder('f')
-                ->andWhere('f.typeimpot = :string')->setParameter('string', $value)->orderby('f.id', 'DESC')->setMaxResults(1);
+                        ->andWhere('f.typeimpot = :string')->setParameter('string', $value)->orderby('f.id', 'DESC')->setMaxResults(1);
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getLastYear() {
+        $value = "TF";
+        $qb = $this->createQueryBuilder('f')
+                        ->andWhere('f.typeimpot = :string')->setParameter('string', $value)->groupBy('f.anneetaxation')->orderby('f.anneetaxation', 'DESC')->setMaxResults(1);
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getLastYearTH() {
+        $value = "TH";
+        $qb = $this->createQueryBuilder('f')
+                        ->andWhere('f.typeimpot = :string')->setParameter('string', $value)->groupBy('f.anneetaxation')->orderby('f.anneetaxation', 'DESC')->setMaxResults(1);
         return $qb->getQuery()->getResult();
     }
 

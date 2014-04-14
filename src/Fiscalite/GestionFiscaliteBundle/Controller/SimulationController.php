@@ -59,8 +59,10 @@ class SimulationController extends Controller {
     public function resultatTHAction($id) {
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:SimulationArticleTH');
         $SimulationArticleTH = $repository->findOneBy(array('id' => $id));
+        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Fichier');
+        $annee=$repository->getLastYearTH();
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
-        $list_articleTH = $repository->searchListTHSimulation($SimulationArticleTH->getNom(), $SimulationArticleTH->getPrenom());
+        $list_articleTH = $repository->searchListTHSimulation($SimulationArticleTH->getNom(), $SimulationArticleTH->getPrenom(),"".$annee[0]->getAnneetaxation());
         if ($list_articleTH != NULL) {
             $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleCommune');
             $articleCommuneTH = $repository->findOneBy(array('fichier' => $list_articleTH[0]->getFichier()->getId()));
@@ -161,8 +163,10 @@ class SimulationController extends Controller {
     public function resultatTFAction($id) {
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:SimulationArticleTF');
         $SimulationArticleTF = $repository->findOneBy(array('id' => $id));
+        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Fichier');
+        $annee=$repository->getLastYear();
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
-        $list_articleTF = $repository->searchListTFSimulation($SimulationArticleTF->getNom());
+        $list_articleTF = $repository->searchListTFSimulation($SimulationArticleTF->getNom(),"".$annee[0]->getAnneeTaxation());
         if ($list_articleTF != NULL) {
             $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneEnTete');
             $TFArticleCommuneEnTete = $repository->findOneBy(array('fichier' => $list_articleTF[0]->getFichier()->getId()));

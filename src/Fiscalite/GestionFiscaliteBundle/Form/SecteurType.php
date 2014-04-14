@@ -21,7 +21,7 @@ class SecteurType extends AbstractType {
                     'empty_value' => 'Adresse',
                     'empty_data' => null,
                     'query_builder' => function(EntityRepository $er) {
-                return $er->createQueryBuilder('c')->orderBy('c.libelle', 'ASC');
+                return $er->createQueryBuilder('c')->groupBy('c.libelle')->orderBy('c.libelle', 'ASC');
             },
                     'attr' => array('class' => 'col-sm-12')))
         ;

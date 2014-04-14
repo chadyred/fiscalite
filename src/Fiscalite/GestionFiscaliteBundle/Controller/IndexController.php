@@ -4,7 +4,6 @@ namespace Fiscalite\GestionFiscaliteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Fiscalite\GestionFiscaliteBundle\Entity\Fichier;
-use Fiscalite\GestionFiscaliteBundle\Entity\Article;
 use Fiscalite\GestionFiscaliteBundle\Entity\ArticleTH;
 use Fiscalite\GestionFiscaliteBundle\Entity\ArticleTF;
 use Fiscalite\GestionFiscaliteBundle\Entity\ArticleTFC2;
@@ -23,10 +22,6 @@ use Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneSRA2;
 use Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneSRA3;
 use Fiscalite\GestionFiscaliteBundle\Entity\TypeRue;
 use Symfony\Component\HttpFoundation\Response;
-use Ps\PdfBundle\Annotation\Pdf;
-use PHPPdf\Autoloader;
-use PHPPdf\Core\FacadeBuilder;
-use PHPPdf\DataSource\DataSource;
 
 class IndexController extends Controller {
 
@@ -36,7 +31,6 @@ class IndexController extends Controller {
         $TFArticleTaxationCompteC1 = null;
         $TFArticleTaxationCompteC2 = null;
         $fichier = new Fichier;
-        $commune = new Commune;
         $form = $this->createFormBuilder($fichier)->add('file', 'file', array('label' => 'Importer un fichier : ', 'attr' => array('class' => 'col-xs-12 input-medium')))->getForm();
         if ($this->getRequest()->isMethod('POST')) {
             $form->bind($this->getRequest());
@@ -56,6 +50,8 @@ class IndexController extends Controller {
                     $emf = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Fichier');
                     $relatedfichier = $emf->findOneBy(array('nom' => $nom));
                     $code = substr($chaine, 3, 3);
+                    $commune = new Commune;
+                    $commune->newCommune($chaine);
                     $emp = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Commune');
                     $relatedcommune = $emp->findOneBy(array('code' => $code));
                     if ($relatedcommune != null) {
@@ -63,6 +59,7 @@ class IndexController extends Controller {
                             $commune = $relatedcommune;
                         }
                     } else {
+                        $commune = new Commune;
                         $commune->newCommune($chaine);
                         $em->persist($commune);
                         $em->flush();
@@ -215,7 +212,6 @@ class IndexController extends Controller {
                                 $em->flush();
                             } else if (substr($chaine, 17, 2) == "C2") {
                                 $TFArticleTaxationCompteC2 = new ArticleTFC2;
-                                die('$articlebis');
                                 $TFArticleTaxationCompteC2->newTFArticleTaxationCompteC2($fichier->getAnneetaxation(), $chaine);
                                 $TFArticleTaxationCompteC2->setArticleTF($TFArticleTaxationCompteC1);
                                 $em->persist($TFArticleTaxationCompteC2);

@@ -83,19 +83,6 @@ class ArticleTH extends Article {
      */
     private $adresse;
 
-    function __construct($nomprenom, $suitenom, $montantnetapayer, $montantdesfraisderole, $codeTAX, $montantnonvaleureventuelle, $base, $cotisation, $abattement, $adresse) {
-        $this->nomprenom = $nomprenom;
-        $this->suitenom = $suitenom;
-        $this->montantnetapayer = $montantnetapayer;
-        $this->montantdesfraisderole = $montantdesfraisderole;
-        $this->codeTAX = $codeTAX;
-        $this->montantnonvaleureventuelle = $montantnonvaleureventuelle;
-        $this->base = $base;
-        $this->cotisation = $cotisation;
-        $this->abattement = $abattement;
-        $this->adresse = $adresse;
-    }
-
     /**
      * Get id
      *

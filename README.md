@@ -1,174 +1,95 @@
-Symfony Standard Edition
+Fiscalité sur Symfony Standard Edition
 ========================
 
-Welcome to the Symfony Standard Edition - a fully-functional Symfony2
-application that you can use as the skeleton for your new applications.
-
-This document contains information on how to download, install, and start
-using Symfony. For a more detailed explanation, see the [Installation][1]
-chapter of the Symfony Documentation.
-
-1) Installing the Standard Edition
+1) Installation de GestionFiscaliteBundle
 ----------------------------------
 
-When it comes to installing the Symfony Standard Edition, you have the
-following options.
+### Utiliser Composer (*recommandé*)
 
-### Use Composer (*recommended*)
-
-As Symfony uses [Composer][2] to manage its dependencies, the recommended way
-to create a new project is to use it.
-
-If you don't have Composer yet, download it following the instructions on
-http://getcomposer.org/ or just run the following command:
-
+Mettre à jour le dossier vendor et la version de Symfony 2
     curl -s http://getcomposer.org/installer | php
-
-Then, use the `create-project` command to generate a new Symfony application:
-
-    php composer.phar create-project symfony/framework-standard-edition path/to/install
-
-Composer will install Symfony and all its dependencies under the
-`path/to/install` directory.
-
-### Download an Archive File
-
-To quickly test Symfony, you can also download an [archive][3] of the Standard
-Edition and unpack it somewhere under your web server root directory.
-
-If you downloaded an archive "without vendors", you also need to install all
-the necessary dependencies. Download composer (see above) and run the
-following command:
-
     php composer.phar install
-
-2) Checking your System Configuration
+    php composer self-update
+    php composer update
+    
+2) Verifier le système de configuration app/config
 -------------------------------------
-
-Before starting coding, make sure that your local system is properly
-configured for Symfony.
-
-Execute the `check.php` script from the command line:
 
     php app/check.php
 
 Access the `config.php` script from a browser:
 
-    http://localhost/path/to/symfony/app/web/config.php
+    http://127.0.0.1:8020/fiscalite/app/config.php
+Commande à vérifier...
 
-If you get any warnings or recommendations, fix them before moving on.
+Vérifier surtout le dossier app/config
+Notamment le fichier 
+    parameters.yml
 
-3) Browsing the Demo Application
+    parameters:
+    database_driver:   pdo_mysql
+    database_host:     127.0.0.1
+    database_port:     ~
+    database_name:     fiscalite
+    database_user:     root
+    database_password: root
+
+    mailer_transport:  smtp
+    mailer_host:       127.0.0.1
+    mailer_user:       ~
+    mailer_password:   ~
+
+    locale:            fr
+    secret:            fiscalitekey
+
+
+3) Naviguer dans GestionFiscaliteBundle en mode développeur
 --------------------------------
 
-Congratulations! You're now ready to use Symfony.
+http://127.0.0.1:8020/web/app_dev.php/fiscalite
 
-From the `config.php` page, click the "Bypass configuration and go to the
-Welcome page" link to load up your first Symfony page.
-
-You can also use a web-based configurator by clicking on the "Configure your
-Symfony Application online" link of the `config.php` page.
-
-To see a real-live Symfony page in action, access the following page:
-
-    web/app_dev.php/demo/hello/Fabien
-
-4) Getting started with Symfony
+4) Naviguer dans GestionFiscaliteBundle en mode production
 -------------------------------
 
-This distribution is meant to be the starting point for your Symfony
-applications, but it also contains some sample code that you can learn from
-and play with.
+http://127.0.0.1:8020/web/fiscalite
 
-A great way to start learning Symfony is via the [Quick Tour][4], which will
-take you through all the basic features of Symfony2.
-
-Once you're feeling good, you can move onto reading the official
-[Symfony2 book][5].
-
-A default bundle, `AcmeDemoBundle`, shows you Symfony2 in action. After
-playing with it, you can remove it by following these steps:
-
-  * delete the `src/Acme` directory;
-
-  * remove the routing entries referencing AcmeBundle in
-    `app/config/routing_dev.yml`;
-
-  * remove the AcmeBundle from the registered bundles in `app/AppKernel.php`;
-
-  * remove the `web/bundles/acmedemo` directory;
-
-  * remove the `security.providers`, `security.firewalls.login` and
-    `security.firewalls.secured_area` entries in the `security.yml` file or
-    tweak the security configuration to fit your needs.
-
-What's inside?
+5) Déployer le projet 
 ---------------
 
-The Symfony Standard Edition is configured with the following defaults:
+Vider le cache
+    ./cacheClear
+c'est à dire ...
+    sudo rm -rf app/cache/*
+    sudo rm -rf app/logs/*
+    sudo chmod -R 777 app/cache
+    sudo chmod -R 777 app/logs
+    php app/console cache:clear
+    sudo chmod -R 777 app/cache
+    sudo chmod -R 777 app/logs
+    sudo chmod -R 777 app/cache/*
 
-  * Twig is the only configured template engine;
+Déployer
+    ./deploy
+c'est à dire ...
+    sudo app/console doctrine:schema:update --force
+    sudo app/console assets:install web --symlink
+    sudo app/console assetic:dump --force
+    sudo chmod -R 777 *
+    sudo rm -rf app/cache/*
+    sudo rm -rf app/logs/*
+    sudo chmod -R 777 app/cache
+    sudo chmod -R 777 app/logs
+    php app/console cache:clear
+    sudo chmod -R 777 app/cache
+    sudo chmod -R 777 app/logs
+    sudo chmod -R 777 app/cache/* 
 
-  * Doctrine ORM/DBAL is configured;
+Copier sur le serveur de production
+    scp -r src/* root@172.17.0.153:/home/prod2010/fiscalite/src/
 
-  * Swiftmailer is configured;
+6) Sauvegarde de sa base sql
+------------------------------- 
+    ssh -X root@172.17.0.153
+    cd /home/prod2010/fiscalite
+    mysqldump -h 127.0.0.1  -u root -ppass fiscalite > fiscalite_dump.sql
 
-  * Annotations for everything are enabled.
-
-It comes pre-configured with the following bundles:
-
-  * **FrameworkBundle** - The core Symfony framework bundle
-
-  * [**SensioFrameworkExtraBundle**][6] - Adds several enhancements, including
-    template and routing annotation capability
-
-  * [**DoctrineBundle**][7] - Adds support for the Doctrine ORM
-
-  * [**TwigBundle**][8] - Adds support for the Twig templating engine
-
-  * [**SecurityBundle**][9] - Adds security by integrating Symfony's security
-    component
-
-  * [**SwiftmailerBundle**][10] - Adds support for Swiftmailer, a library for
-    sending emails
-
-  * [**MonologBundle**][11] - Adds support for Monolog, a logging library
-
-  * [**AsseticBundle**][12] - Adds support for Assetic, an asset processing
-    library
-
-  * [**JMSSecurityExtraBundle**][13] - Allows security to be added via
-    annotations
-
-  * [**JMSDiExtraBundle**][14] - Adds more powerful dependency injection
-    features
-
-  * **WebProfilerBundle** (in dev/test env) - Adds profiling functionality and
-    the web debug toolbar
-
-  * **SensioDistributionBundle** (in dev/test env) - Adds functionality for
-    configuring and working with Symfony distributions
-
-  * [**SensioGeneratorBundle**][15] (in dev/test env) - Adds code generation
-    capabilities
-
-  * **AcmeDemoBundle** (in dev/test env) - A demo bundle with some example
-    code
-
-Enjoy!
-
-[1]:  http://symfony.com/doc/2.2/book/installation.html
-[2]:  http://getcomposer.org/
-[3]:  http://symfony.com/download
-[4]:  http://symfony.com/doc/2.2/quick_tour/the_big_picture.html
-[5]:  http://symfony.com/doc/2.2/index.html
-[6]:  http://symfony.com/doc/2.2/bundles/SensioFrameworkExtraBundle/index.html
-[7]:  http://symfony.com/doc/2.2/book/doctrine.html
-[8]:  http://symfony.com/doc/2.2/book/templating.html
-[9]:  http://symfony.com/doc/2.2/book/security.html
-[10]: http://symfony.com/doc/2.2/cookbook/email.html
-[11]: http://symfony.com/doc/2.2/cookbook/logging/monolog.html
-[12]: http://symfony.com/doc/2.2/cookbook/assetic/asset_management.html
-[13]: http://jmsyst.com/bundles/JMSSecurityExtraBundle/master
-[14]: http://jmsyst.com/bundles/JMSDiExtraBundle/master
-[15]: http://symfony.com/doc/2.2/bundles/SensioGeneratorBundle/index.html

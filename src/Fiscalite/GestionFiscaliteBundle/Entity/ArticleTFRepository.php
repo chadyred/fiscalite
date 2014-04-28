@@ -44,7 +44,7 @@ class ArticleTFRepository extends EntityRepository {
     public function findAllOrderbytitreEtDesignationlimit() {
         $qb = $this->createQueryBuilder('a')
                 ->orderby('a.titreEtDesignation', 'ASC')
-                ->setMaxResults(50);
+                ->setMaxResults(500);
         return $qb->getQuery()->getResult();
     }
 

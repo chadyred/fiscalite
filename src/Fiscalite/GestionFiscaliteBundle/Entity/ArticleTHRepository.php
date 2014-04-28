@@ -112,6 +112,12 @@ class ArticleTHRepository extends EntityRepository {
         return $qb->getQuery()->getResult();
     }
 
+    public function findAllOrderbynomprenomlimit() {
+        $qb = $this->createQueryBuilder('a');
+        $qb->orderby('a.nomprenom', 'ASC')->setMaxResults(500);
+        return $qb->getQuery()->getResult();
+    }
+
     public function searchAutreArticle($nomprenom, $suitenom, $libelleaft) {
         $qb = $this->createQueryBuilder('a');
         $year = date("Y") - 2;

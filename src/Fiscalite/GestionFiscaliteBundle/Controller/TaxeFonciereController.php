@@ -39,7 +39,7 @@ class TaxeFonciereController extends Controller {
     public function listeAction(Request $request) {
         $recherchearticleTF = new RechercheArticleTF;
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
-        $list_articleTF = $repository->findAllOrderbytitreEtDesignation();
+        $list_articleTF = $repository->findAllOrderbytitreEtDesignationlimit();
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneIFP');
         $list_articleCommuneIFP = $repository->findAll();
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneSRA2');
@@ -73,7 +73,7 @@ class TaxeFonciereController extends Controller {
                 $paginationC1 = $paginatorC1->paginate($list_articleTF, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
             } else {
                 $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
-                $list_articleTF = $repository->findAllOrderbytitreEtDesignation();
+                $list_articleTF = $repository->findAllOrderbytitreEtDesignationlimit();
                 $paginatorC1 = $this->get('knp_paginator');
                 $paginationC1 = $paginatorC1->paginate($list_articleTF, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
             }

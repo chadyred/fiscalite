@@ -273,7 +273,7 @@ class TaxeHabitationController extends Controller {
                 $pagination = $paginator->paginate($list_articleTH, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
             } else {
                 $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
-                $list_articleTH = $repository->findAllOrderbynomprenom();
+                $list_articleTH = $repository->findAllOrderbynomprenomlimit();
                 $paginator = $this->get('knp_paginator');
                 $pagination = $paginator->paginate($list_articleTH, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
             }
@@ -282,7 +282,7 @@ class TaxeHabitationController extends Controller {
 //                $sommemontantnondeduit += $article->getMontantnonvaleureventuelle();         
         } else {
             $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
-            $list_articleTH = $repository->findAllOrderbynomprenom();
+            $list_articleTH = $repository->findAllOrderbynomprenomlimit();
         }
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($list_articleTH, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);

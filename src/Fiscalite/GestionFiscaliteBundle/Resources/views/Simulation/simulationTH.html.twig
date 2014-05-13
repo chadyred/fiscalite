@@ -1,133 +1,169 @@
 {% extends '::base.html.twig' %}
-{% block javascript  %}
-   {{ parent() }}
-{% endblock %}
-
 {% block contenu %}
-{{ parent() }}
-<div class="container base">
+<div class="container-fluid page-container">
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12"> 
-            <div class="row">
-                <div class="col-sm-7 col-md-7 col-lg-7 col-md-offset-3">
-                    <div class="sidebar-article col-sm-12 col-md-12 col-lg-12">
-                        <form  class="form-horizontal" method="POST" {{ form_enctype(form) }}>
-                            <fieldset>
-                                <legend>Simulation</legend>
-        <div class="form-group"> 
+        <div class="sidebar content-tab col-sm-12 col-md-4 col-lg-4">
+            <form  class="form-horizontal" method="POST" {{ form_enctype(form) }}>
+                <fieldset>
+                    <legend>Simulation de taxe d'habitation</legend>
+                    <div class="form-group"> 
         {# Génération du label. #}
   	{{ form_label(form.nomSimulation, "Nom de la simulation",{ 'label_attr': { 'class': 'col-sm-6' } })}}
-        <div class="col-sm-6">
+                        <div class="col-sm-6">
         {# Génération de l'input. #}
   	{{ form_widget(form.nomSimulation,{ 'attr': { 'class': 'col-sm-12' } }) }} 
         {# Affichage des erreurs pour ce champ précis. #}
   	{{ form_errors(form.nomSimulation,{ 'attr': { 'class': 'col-sm-12' } }) }}
-        </div>
-        </div>  
-        <div class="form-group"> 
-        <div class="row col-sm-12 col-md-12  col-lg-12">
-            <p class="col-sm-12 col-md-12  col-lg-12">Abattement</p></div>
+                        </div>
+                    </div>  
+                    <div class="form-group"> 
+                        <div class="row col-sm-12 col-md-12  col-lg-12">
+                            <p class="col-sm-12 col-md-12  col-lg-12">Abattement</p></div>
         {# Génération du label. #}
   	{{ form_label(form.abattementgeneralbasecommunale, "Général à la base communal appliqué : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
-        <div class="col-sm-6">
+                        <div class="col-sm-6">
         {# Génération de l'input. #}
   	{{ form_widget(form.abattementgeneralbasecommunale,{ 'attr': { 'class': 'col-sm-12' } }) }} 
         {# Affichage des erreurs pour ce champ précis. #}
   	{{ form_errors(form.abattementgeneralbasecommunale,{ 'attr': { 'class': 'col-sm-12' } }) }}
-        </div>
-        </div>        
-        <div class="form-group">                          
+                        </div>
+                    </div>        
+                    <div class="form-group">                          
         {# Génération du label. #}
   	{{ form_label(form.abattementpersonneschargecommunal12, "Personne à charge entre 1 et 2 : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
         {# Affichage des erreurs pour ce champ précis. #}
-        <div class="col-sm-6">        
+                        <div class="col-sm-6">        
   	{{ form_errors(form.abattementpersonneschargecommunal12,{ 'attr': { 'class': 'col-sm-12' } }) }}                   
   	{# Génération de l'input. #}
   	{{ form_widget(form.abattementpersonneschargecommunal12,{ 'attr': { 'class': 'col-sm-12' } }) }}  
-        </div>
-        </div> 
-        <div class="form-group">                          
+                        </div>
+                    </div> 
+                    <div class="form-group">                          
         {# Génération du label. #}
   	{{ form_label(form.abattementpersonneschargecommunal3, "Personne à charge entre 3+ : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
-        <div class="col-sm-6"> 
+                        <div class="col-sm-6"> 
         {# Affichage des erreurs pour ce champ précis. #}
   	{{ form_errors(form.abattementpersonneschargecommunal3,{ 'attr': { 'class': 'col-sm-12' } }) }}           
   	{# Génération de l'input. #}
   	{{ form_widget(form.abattementpersonneschargecommunal3,{ 'attr': { 'class': 'col-sm-12' } }) }}  
-        </div>
-        </div>                                 
-        <div class="form-group">                            
+                        </div>
+                    </div>                                 
+                    <div class="form-group">                            
         {# Génération du label. #}
   	{{ form_label(form.abattementspecialbasecommunal, "Spécial à la base communal appliqué : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
         {# Affichage des erreurs pour ce champ précis. #}
-        <div class="col-sm-6">        
+                        <div class="col-sm-6">        
   	{{ form_errors(form.abattementspecialbasecommunal,{ 'attr': { 'class': 'col-sm-12' } }) }}
   	{# Génération de l'input. #}
   	{{ form_widget(form.abattementspecialbasecommunal,{ 'attr': { 'class': 'col-sm-12' } }) }} 
-        </div>
-        </div> 
-        <div class="form-group">
+                        </div>
+                    </div> 
+                    <div class="form-group">
         {# Génération du label. #}  	
         {{ form_label(form.abattementspecialhandicapebasecommunal, "Spécial handicapé communal appliqué : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
         {# Affichage des erreurs pour ce champ précis. #}
-        <div class="col-sm-6">
+                        <div class="col-sm-6">
   	{{ form_errors(form.abattementspecialhandicapebasecommunal,{ 'attr': { 'class': 'col-sm-12' } }) }}
   	{# Génération de l'input. #}
   	{{ form_widget(form.abattementspecialhandicapebasecommunal,{ 'attr': { 'class': 'col-sm-12' } }) }} 
-        </div>
-        </div> 
-        <div class="form-group">
-        <div class="row col-sm-12 col-md-12 col-lg-12">
-        <p class="col-sm-12 col-md-12 col-lg-12">Taux d'imposition commune</p></div>     
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <div class="row col-sm-12 col-md-12 col-lg-12">
+                            <p class="col-sm-12 col-md-12 col-lg-12">Taux d'imposition commune</p></div>     
         {# Génération du label. #}
   	{{ form_label(form.tauximpositioncommune, "Taux d'imposition commune : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
-        <div class="col-sm-6">
+                        <div class="col-sm-6">
         {# Affichage des erreurs pour ce champ précis. #}
   	{{ form_errors(form.tauximpositioncommune,{ 'attr': { 'class': 'col-sm-12' } }) }}
   	{# Génération de l'input. #}
   	{{ form_widget(form.tauximpositioncommune,{ 'attr': { 'class': 'col-sm-12' } }) }}  
-        </div>
-        </div> 
-        <div class="form-group">  
+                        </div>
+                    </div> 
+                    <div class="form-group">  
         {# Génération du label. #}
-        <div class="row col-sm-12 col-md-12 col-lg-12">
-            <p class="col-sm-12 col-md-12 col-lg-12">Information sur un personne</p></div>                        
+                        <div class="row col-sm-12 col-md-12 col-lg-12">
+                            <p class="col-sm-12 col-md-12 col-lg-12">Information sur un personne</p></div>                        
   	{{ form_label(form.nom, "Nom : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
-        <div class="col-sm-6">
+                        <div class="col-sm-6">
         {# Affichage des erreurs pour ce champ précis. #}
   	{{ form_errors(form.nom,{ 'attr': { 'class': 'col-sm-12' } }) }}
   	{# Génération de l'input. #}
   	{{ form_widget(form.nom,{ 'attr': { 'class': 'col-sm-12' } }) }}  
-        </div>
-        </div> 
-        <div class="form-group">
+                        </div>
+                    </div> 
+                    <div class="form-group">
         {# Génération du label. #}
   	{{ form_label(form.prenom, "Prénom : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
-        <div class="col-sm-6">        
+                        <div class="col-sm-6">        
         {# Affichage des erreurs pour ce champ précis. #}
   	{{ form_errors(form.prenom,{ 'attr': { 'class': 'col-sm-12' } }) }}
   	{# Génération de l'input. #}
   	{{ form_widget(form.prenom,{ 'attr': { 'class': 'col-sm-12' } }) }}   
-        </div>
-        </div>  
-        <div class="form-group">
-        <div class="col-sm-6">  
+                        </div>
+                    </div>  
+                    <div class="form-group">
+        {# Génération du label. #}
+  	{{ form_label(form.secteur, "Secteur(s) : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
+                        <div class="col-sm-6">        
+        {# Affichage des erreurs pour ce champ précis. #}
+  	{{ form_errors(form.secteur,{ 'attr': { 'class': 'col-sm-12' } }) }}
+  	{# Génération de l'input. #}
+  	{{ form_widget(form.secteur,{ 'attr': { 'class': 'col-sm-12' } }) }}   
+                        </div>
+                    </div>  
+                    <div class="form-group">
+                        <div class="col-sm-6">  
         {{ form_rest(form) }} 
+                        </div>
+                    </div>                
+                    <div class="form-group"> 
+                        <div class="col-sm-6">  
+                            <input class="btn btn-primary pull-right" type="submit" value="Simulation" />
+                        </div>
+                    </div>     
+                </fieldset>
+            </form>
         </div>
-        </div>                
-        <div class="form-group"> 
-        <div class="col-sm-6">  
-        <input class="btn btn-primary pull-right" type="submit" value="Simulation" />
+        <div class="col-sm-7 sidebar content-tab ">
+            <table class="table table-striped table-hover ">
+                <thead>
+                    <tr>
+                        <th class="text-center">Nom</th>
+                        <th class="text-center">Abatt général à la base</th>
+                        <th class="text-center">Abatt Prs à chrg. entre 1 et 2</th>
+                        <th class="text-center">Abatt Prs à chrg. 3+</th>
+                        <th class="text-center">Abatt Spécial à la base communal</th>
+                        <th class="text-center">Abatt Spécial handicapé communal</th>
+                        <th class="text-center">Taux d'imposition commune</th>
+                        <th class="text-center">Nom prénom</th>
+                        <th class="text-center">Secteur(s)</th>
+                        <th class="text-center">Suppr.</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    {% for simulationTH in pagination %}
+                    <tr>
+                        <td class="text-center"><a href="{{ path('resultatTH',{'id':simulationTH.getId() }) }}">{{simulationTH.nomSimulation}}</a></td>
+                        <td class="text-center">{{simulationTH.abattementgeneralbasecommunale}}%</td>
+                        <td class="text-center">{{simulationTH.abattementpersonneschargecommunal12}}%</td>
+                        <td class="text-center">{{simulationTH.abattementpersonneschargecommunal3}}%</td>
+                        <td class="text-center">{{simulationTH.abattementspecialbasecommunal}}%</td>
+                        <td class="text-center">{{simulationTH.abattementspecialhandicapebasecommunal}}%</td>
+                        <td class="text-center">{{simulationTH.tauximpositioncommune|number_format(2, ',', '.')}}%</td>
+                        <td class="text-center">{{simulationTH.nom}} {{simulationTH.prenom}}</td>
+                        <td class="text-center">{% for secteur in simulationTH.secteur %}{{secteur.nom}}{%endfor%}</td>
+                        <td class="text-center"><a class="btn btn-danger btn-xs" href="{{ path('supprimer_simulationTH',{'id':simulationTH.getId() }) }}"><i class="fa fa-trash-o "></i></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+             <div class="navigation pagination">
+                {{ knp_pagination_render(pagination,null, {}, {'alignment': 'center'}) }}
+            </div>
         </div>
-        </div>     
-        </fieldset>
-                        </form>
-                    </div>
-                </div>
-            </div>                      
-        </div>                            
-    </div>
-</div>
+    </div>                      
+</div>                            
 {% endblock %}
 {% block footer %}
 {{ parent() }}

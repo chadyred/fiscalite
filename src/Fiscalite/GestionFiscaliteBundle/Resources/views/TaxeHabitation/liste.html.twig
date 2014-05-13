@@ -2,13 +2,18 @@
 {% block contenu %}
 <div class="container-fluid page-container">
     <div class="row">
+        <div class="sidebar content-tab col-sm-12">
+             <h2 class="text-center">Taxe d'habitation</h2>
+        </div>  
+    </div>
+    <div class="row">
         <div class="sidebar content-tab col-sm-12 col-md-3 col-lg-3">
 {{ form_start(form, {'attr': {'class': 'form-horizontal'} }) }}
 {{ form_errors(form) }}
-            <div class="form-group">{{ form_label(form.anneetaxation, "Année de taxation : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
+            <div class="form-group">{{ form_label(form.fichier, "Année de taxation : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
                 <div class="col-sm-6">
-{{ form_widget(form.anneetaxation,{ 'attr': { 'class': 'col-sm-12' } }) }}
-{{ form_errors(form.anneetaxation,{ 'attr': { 'class': 'col-sm-12' } }) }}
+{{ form_widget(form.fichier,{ 'attr': { 'class': 'col-sm-12' } }) }}
+{{ form_errors(form.fichier,{ 'attr': { 'class': 'col-sm-12' } }) }}
                 </div>
             </div>
             <div class="form-group">{{ form_label(form.nompersonne, "Nom de la personne : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
@@ -32,28 +37,40 @@
 {{ form_errors(form.basenettemax,{ 'attr': { 'class': 'col-sm-12' } }) }}
                 </div>                
             </div>
-            <div class="form-group">{{ form_label(form.abattementgeneralbasecommunale, "Abattement général base communal : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
-                <div class="col-sm-6">
-{{ form_widget(form.abattementgeneralbasecommunale,{ 'attr': { 'class': 'col-sm-12' } }) }}
-{{ form_errors(form.abattementgeneralbasecommunale,{ 'attr': { 'class': 'col-sm-12' } }) }}
+            <div class="form-group">{{ form_label(form.abattementgeneralbasecommunalemin, "Abattement général base communal : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
+                <div class="col-sm-6">                 
+{{ form_widget(form.abattementgeneralbasecommunalemin,{ 'attr': { 'class': 'col-sm-4' } }) }}
+{{ form_label(form.abattementgeneralbasecommunalemax, "à",{ 'label_attr': { 'class': 'col-sm-4' } }) }}
+{{ form_widget(form.abattementgeneralbasecommunalemax,{ 'attr': { 'class': 'col-sm-4' } }) }}  
+{{ form_errors(form.abattementgeneralbasecommunalemin,{ 'attr': { 'class': 'col-sm-12' } }) }}
+{{ form_errors(form.abattementgeneralbasecommunalemax,{ 'attr': { 'class': 'col-sm-12' } }) }}
                 </div>                
             </div>
-            <div class="form-group">{{ form_label(form.abattementpersonneschargecommunnal, "Abattement personnes à charge communal : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
+            <div class="form-group">{{ form_label(form.abattementpersonneschargecommunnalmin, "Abattement personnes à charge communal : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
                 <div class="col-sm-6">
-{{ form_widget(form.abattementpersonneschargecommunnal,{ 'attr': { 'class': 'col-sm-12' } }) }}
-{{ form_errors(form.abattementpersonneschargecommunnal,{ 'attr': { 'class': 'col-sm-12' } }) }}
+{{ form_widget(form.abattementpersonneschargecommunnalmin,{ 'attr': { 'class': 'col-sm-4' } }) }}
+{{ form_label(form.abattementpersonneschargecommunnalmax, "à",{ 'label_attr': { 'class': 'col-sm-4' } }) }}
+{{ form_widget(form.abattementpersonneschargecommunnalmax,{ 'attr': { 'class': 'col-sm-4' } }) }}  
+{{ form_errors(form.abattementpersonneschargecommunnalmin,{ 'attr': { 'class': 'col-sm-12' } }) }}
+{{ form_errors(form.abattementpersonneschargecommunnalmax,{ 'attr': { 'class': 'col-sm-12' } }) }}
                 </div>                
             </div>
-            <div class="form-group">{{ form_label(form.abattementspecialbasecommunal, "Abattement spécial à la base communal : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
+            <div class="form-group">{{ form_label(form.abattementspecialbasecommunalmin, "Abattement spécial à la base communal : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
                 <div class="col-sm-6">
-{{ form_widget(form.abattementspecialbasecommunal,{ 'attr': { 'class': 'col-sm-12' } }) }}
-{{ form_errors(form.abattementspecialbasecommunal,{ 'attr': { 'class': 'col-sm-12' } }) }}
+{{ form_widget(form.abattementspecialbasecommunalmin,{ 'attr': { 'class': 'col-sm-4' } }) }}
+{{ form_label(form.abattementspecialbasecommunalmax, "à",{ 'label_attr': { 'class': 'col-sm-4' } }) }}
+{{ form_widget(form.abattementspecialbasecommunalmax,{ 'attr': { 'class': 'col-sm-4' } }) }}  
+{{ form_errors(form.abattementspecialbasecommunalmin,{ 'attr': { 'class': 'col-sm-12' } }) }}
+{{ form_errors(form.abattementspecialbasecommunalmax,{ 'attr': { 'class': 'col-sm-12' } }) }}
                 </div>                
             </div>
-            <div class="form-group">{{ form_label(form.abattementspecialhandicapecommunal, "Abattement spécial handicapé communal : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
+            <div class="form-group">{{ form_label(form.abattementspecialhandicapecommunalmin, "Abattement spécial handicapé communal : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
                 <div class="col-sm-6">
-{{ form_widget(form.abattementspecialhandicapecommunal,{ 'attr': { 'class': 'col-sm-12' } }) }}
-{{ form_errors(form.abattementspecialhandicapecommunal,{ 'attr': { 'class': 'col-sm-12' } }) }}
+{{ form_widget(form.abattementspecialhandicapecommunalmin,{ 'attr': { 'class': 'col-sm-4' } }) }}
+{{ form_label(form.abattementspecialhandicapecommunalmax, "à",{ 'label_attr': { 'class': 'col-sm-4' } }) }}
+{{ form_widget(form.abattementspecialhandicapecommunalmax,{ 'attr': { 'class': 'col-sm-4' } }) }}  
+{{ form_errors(form.abattementspecialhandicapecommunalmin,{ 'attr': { 'class': 'col-sm-12' } }) }}
+{{ form_errors(form.abattementspecialhandicapecommunalmax,{ 'attr': { 'class': 'col-sm-12' } }) }}
                 </div>                
             </div>
             <div class="form-group ">{{ form_label(form.cotisationcommunalemin, "Cotisation commune : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
@@ -78,23 +95,134 @@
 {{ form_end(form , {'attr': {'class': 'btn btn-default'} }) }}
             </div> 
         </div>
-        <div class="content-tab col-sm-12 col-md-12  col-lg-8">
-            <div> <h5>{{ "Résultat : "~ pagination.getTotalItemCount ~" article(s) trouvé(s)."}}</h5></div>
-            <table class="table table-striped table-hover ">
-                <thead>
-                    <tr>
-                        <th class="text-center">Année</th><th  class="text-center">{{ knp_pagination_sortable(pagination, 'Nom Prenom', 'a.nomprenom') }}</th>
-                        <th class="text-center">Adresse</th><th class="text-center">Base nette</th>
-                        <th class="text-center">Abattement total Communale</th><th class="text-center">Cotisation Communale</th>
-                        <th class="text-center">Montant net à payer</th>
-                    </tr>
-                </thead>
-                <tbody> {% for articleTH in pagination %}
+        <div class="content-tab col-sm-12 col-md-9  col-lg-8">{% for Commune in paginationCommune %}
+            <div class="row">
+                <div class="col-sm-6 col-md-6  col-lg-6">
+                    <h5>Libellé de la commune : {{Commune.libelle}}</h5>
+                </div>
+                <div class="col-sm-6 col-md-6  col-lg-6">
+                    <h5>Libellé intercommunalité à laquelle adhère la commune : {{Commune.codeintercommunalite}}</h5>
+                </div>
 
-                    <tr>
-                        <td class="text-right">{{articleTH.getFichier().getAnneeTaxation()}}</td>
-                        <td class="text-right"><a href="{{ path('articleTH',{'id': articleTH.getNumerosequentiel()}) }}">{{articleTH.getNomprenom() ~ articleTH.getSuitenom()}}</a></td>
-                        <td class="text-right">{% if articleTH.getAdresse() == NULL %}
+            </div>
+            {% endfor %}
+            <div class="row">
+                <div class="col-sm-3 col-md-3  col-lg-3">
+                    <p>Vlm Cne : </p>
+                    <p>
+                        {% for ArticleCommune in paginationArticleCommune %}
+                        {% if loop.first %} {{ArticleCommune.getVlmCne()|number_format(0,'',' ')~"€"}} {% endif %}
+                        {% if loop.last %} {{"("~ArticleCommune.getVlmCne()|number_format(0,'',' ')~"€)"}} {% endif %}
+                        {% endfor %}
+                    </p>
+
+                </div>
+                <div class="col-sm-3 col-md-3  col-lg-3">
+                    <p>Vlm ICO : </p>
+                    <p>
+                        {% for ArticleCommune in paginationArticleCommune %}
+                        {% if loop.first %} {{ArticleCommune.getVlmICO()|number_format(0,'',' ')~"€"}} {% endif %}
+                        {% if loop.last %} {{"("~ArticleCommune.getVlmICO()|number_format(0,'',' ')~"€)"}} {% endif %}
+                        {% endfor %}
+                    </p>
+                </div>
+                <div class="col-sm-3 col-md-3  col-lg-3">
+                    <p>Vlm Dept :   </p>
+                    <p>
+                    {% for ArticleCommune in paginationArticleCommune %}
+                    {% if loop.first %} {{ArticleCommune.getVlmDept()|number_format(0,'',' ')~"€"}} {% endif %}
+                    {% if loop.last %} {{"("~ArticleCommune.getVlmDept()|number_format(0,'',' ')~"€)"}} {% endif %}
+                    {% endfor %}
+                    </p>
+                </div>  
+            </div> 
+            <div class="row">
+                <div class="col-sm-3 col-md-3  col-lg-3">
+                    <p>Taux Imposition Commune : </p>
+                    <p>
+                        {% for ArticleCommune in paginationArticleCommune %}
+                        {% if loop.first %} {{ArticleCommune.TauxImpositionCommune|number_format(2,',','.')~"%"}} {% endif %}
+                        {% if loop.last %} {{"("~ArticleCommune.TauxImpositionCommune|number_format(2,',','.')~"%)"}} {% endif %}
+                        {% endfor %} 
+                    </p>
+                </div>
+                <div class="col-sm-3 col-md-3  col-lg-3">
+                    <p>Taux Imposition Syndicats : </p>
+                    <p>
+                        {% for ArticleCommune in paginationArticleCommune %}
+                        {% if loop.first %} {{ArticleCommune.TauxImpositionSyndicats|number_format(2,',','.')~"%"}} {% endif %}
+                        {% if loop.last %} {{"("~ArticleCommune.TauxImpositionSyndicats|number_format(2,',','.')~"%)"}} {% endif %}
+                        {% endfor %} 
+                    </p>
+                </div>
+                <div class="col-sm-3 col-md-3  col-lg-3">
+                    <p>Taux Imposition Intercommunalite : </p>
+                    <p>
+                        {% for ArticleCommune in paginationArticleCommune %}
+                        {% if loop.first %} {{ArticleCommune.TauxImpositionIntercommunalite|number_format(2,',','.')~"%"}} {% endif %}
+                        {% if loop.last %} {{"("~ArticleCommune.TauxImpositionIntercommunalite|number_format(2,',','.')~"%)"}} {% endif %}
+                        {% endfor %} 
+                    </p>
+                </div>
+                <div class="col-sm-3 col-md-3  col-lg-3">
+                    <p>Taux Imposition TSE : </p>
+                    <p>
+                        {% for ArticleCommune in paginationArticleCommune %}
+                        {% if loop.first %} {{ArticleCommune.TauxImpositionTSE|number_format(3,',','.')~"%"}} {% endif %}
+                        {% if loop.last %} {{"("~ArticleCommune.TauxImpositionTSE|number_format(3,',','.')~"%)"}} {% endif %}
+                        {% endfor %}                     
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3 col-md-3  col-lg-3">
+                    <p>Total Base Nette Commune	 : 
+                    </p>
+                    <p>
+                        {% for THArticleCommuneIFPA3 in paginationTHArticleCommuneIFPA3 %}
+                        {% if loop.first %} {{THArticleCommuneIFPA3.totBaseNetteCommune|number_format(0,'',' ')~"€"}} {% endif %}
+                        {% if loop.last %} {{"("~THArticleCommuneIFPA3.totBaseNetteCommune|number_format(0,'',' ')~"€)"}} {% endif %}
+                        {% endfor %} 
+                    </p>
+                </div>
+                <div class="col-sm-3 col-md-3  col-lg-3">
+                    <p>Total Cotisation Commune : </p>
+                    <p>
+                        {% for THArticleCommuneIFPA3 in paginationTHArticleCommuneIFPA3 %}
+                        {% if loop.first %} {{THArticleCommuneIFPA3.totCotisationCommune|number_format(0,'',' ')~"€"}} {% endif %}
+                        {% if loop.last %} {{"("~THArticleCommuneIFPA3.totCotisationCommune|number_format(0,'',' ')~"€)"}} {% endif %}
+                        {% endfor %} 
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12 col-md-12  col-lg-12">
+                    <p>
+                        <a href="{{ path('exportrequetetaxehabitationcsv',{'id': id}) }}" target="_blank">
+                            <img class="img-csv" src="{{ asset('bundles/fiscalitegestionfiscalite/images/ods.png') }}" alt="CSV" /> 
+                        </a>
+                    </p>
+                </div> 
+            </div>
+        </div>
+        <div class="row">
+            <div class="content-tab col-sm-12 col-md-12  col-lg-8">
+                <div> <h5>{{ "Résultat : "~ pagination.getTotalItemCount ~" article(s) trouvé(s)."}}</h5></div>
+                <table class="table table-striped table-hover ">
+                    <thead>
+                        <tr>
+                            <th class="text-center">Année</th><th  class="text-center">{{ knp_pagination_sortable(pagination, 'Nom Prenom', 'a.nomprenom') }}</th>
+                            <th class="text-center">Adresse</th><th class="text-center">Base nette</th>
+                            <th class="text-center">Abattement total Communale</th><th class="text-center">Cotisation Communale</th>
+                            <th class="text-center">Montant net à payer</th>
+                        </tr>
+                    </thead>
+                    <tbody> {% for articleTH in pagination %}
+
+                        <tr>
+                            <td class="text-right">{{articleTH.getFichier().getAnneeTaxation()}}</td>
+                            <td class="text-right"><a href="{{ path('articleTH',{'id': articleTH.getId()}) }}">{{articleTH.getNomprenom() ~ articleTH.getSuitenom()}}</a></td>
+                            <td class="text-right">{% if articleTH.getAdresse() == NULL %}
                             {{"Non renseigné"}}
                         {%else%} 
                             {%if articleTH.adresse.numeroimmeubleaft=="0000" %}
@@ -103,12 +231,12 @@
                                 {{articleTH.adresse.numeroimmeubleaft ~" "~articleTH.adresse.libellevoieaft }}
                             {%endif %}
                         {% endif %}</td>
-                        <td class="text-right">{% if articleTH.getBase().getBasenettecommunale() == NULL %}
+                            <td class="text-right">{% if articleTH.getBase().getBasenettecommunale() == NULL %}
                             {{"0 €"}}
                         {%else%} 
                             {{articleTH.getBase().getBasenettecommunale()|number_format(0, ',', ' ') ~" €"}}
                         {% endif %}</td>
-                        <td class="text-right">{% if articleTH.getAbattement() == NULL %}
+                            <td class="text-right">{% if articleTH.getAbattement() == NULL %}
                             {{"0"}}
                         {%else%} 
                             {{(articleTH.getAbattement().getAbattementgeneralbasecommunale()+
@@ -116,28 +244,29 @@
                                 articleTH.getAbattement().getAbattementspecialbasecommunal()+
                                 articleTH.getAbattement().getAbattementspecialhandicapecommunal())|number_format(0, ',', ' ')}}
                         {% endif %}
-                            €</td>
-                        <td class="text-right">{% if articleTH.getCotisation().getCotisationcommunale() == NULL %}
+                                €</td>
+                            <td class="text-right">{% if articleTH.getCotisation().getCotisationcommunale() == NULL %}
                             {{"0"}}
                         {%else%} 
                             {{articleTH.getCotisation().getCotisationcommunale()|number_format(0, ',', ' ')}}
                         {% endif %}
-                            €</td>
-                        <td class="text-right">{% if articleTH.getMontantnetapayer() == NULL %}
+                                €</td>
+                            <td class="text-right">{% if articleTH.getMontantnetapayer() == NULL %}
                             {{"0 €"}}
                         {%else%} 
                             {{articleTH.getMontantnetapayer()|number_format(0, ',', ' ') ~ '€'}}
                         {% endif %}</td>
-                    </tr>
+                        </tr>
                 {% endfor %}
-                </tbody>
-            </table>
-            <div class="navigation pagination">
+                    </tbody>
+                </table>
+                <div class="navigation pagination">
                 {{ knp_pagination_render(pagination,null, {}, {'alignment': 'center'}) }}
-            </div>
-        </div>    
-    </div>
-</div>                      
+                </div>
+            </div>    
+        </div>
+    </div>  
+</div>               
 <script>
     $(document).ready(function() {
         var attr = $('#fiscalite_gestionfiscalitebundle_recherchearticleth_nompersonne').attr('data-url');

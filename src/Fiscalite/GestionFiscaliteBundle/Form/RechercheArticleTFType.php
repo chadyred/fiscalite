@@ -15,10 +15,10 @@ class RechercheArticleTFType extends AbstractType {
      */
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('anneetaxation', 'entity', array(
+                ->add('fichier', 'entity', array(
                     'class' => 'FiscaliteGestionFiscaliteBundle:Fichier',
                     'property' => 'anneetaxation',
-                    'multiple' => false,
+                    'multiple' => true,
                     'required' => false,
                     'empty_value' => 'Année de taxation',
                     'empty_data' => null, 'query_builder' => function(EntityRepository $er) {

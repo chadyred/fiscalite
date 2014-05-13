@@ -48,50 +48,51 @@ class Fichier
     private $file;
     
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Article", mappedBy="fichier")
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Article", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $articles;
-        
-    /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationNonBati", mappedBy="fichier")
-     */
-    private $tfarticletaxationnonbatis;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationBati", mappedBy="fichier")
-     */
-    private $tfarticletaxationbatis;
     
     // ManyToOne //
     /**
-    * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Commune", inversedBy="fichiers", cascade={"persist"})
+    * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Commune", inversedBy="fichiers", cascade={"persist","remove"})
     */
     private $commune;
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\ArticleCommune", mappedBy="fichier")
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\ArticleCommune", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $articlesCommune;
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\THArticleCommuneIFPA3", mappedBy="fichier")
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\THArticleCommuneIFPA3", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $THArticleCommuneIFPA3;
     
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete", mappedBy="fichier")
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $tFarticlesCommuneEnTete;
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneIFP", mappedBy="fichier")
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneIFP", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $tFarticlesCommuneIFP;
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneSRA2", mappedBy="fichier")
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneSRA2", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $tFarticlesCommuneSRA2;
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneSRA3", mappedBy="fichier")
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneSRA3", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $tFarticlesCommuneSRA3;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTH", inversedBy="fichier", cascade={"persist"})
+     */
+    private $rechercheArticleTH;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTF", inversedBy="fichier", cascade={"persist"})
+     */
+    private $rechercheArticleTF;
+    
     /**
      * Get id
      *
@@ -293,39 +294,6 @@ class Fichier
     }
 
     /**
-     * Add tfarticletaxationcomptes
-     *
-     * @param \Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationCompte $tfarticletaxationcomptes
-     * @return Fichier
-     */
-    public function addTfarticletaxationcompte(\Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationCompte $tfarticletaxationcomptes)
-    {
-        $this->tfarticletaxationcomptes[] = $tfarticletaxationcomptes;
-
-        return $this;
-    }
-
-    /**
-     * Remove tfarticletaxationcomptes
-     *
-     * @param \Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationCompte $tfarticletaxationcomptes
-     */
-    public function removeTfarticletaxationcompte(\Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationCompte $tfarticletaxationcomptes)
-    {
-        $this->tfarticletaxationcomptes->removeElement($tfarticletaxationcomptes);
-    }
-
-    /**
-     * Get tfarticletaxationcomptes
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getTfarticletaxationcomptes()
-    {
-        return $this->tfarticletaxationcomptes;
-    }
-
-    /**
      * Add tfarticletaxationnonbatis
      *
      * @param \Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationNonBati $tfarticletaxationnonbatis
@@ -501,5 +469,38 @@ class Fichier
     public function getTHArticleCommuneIFPA3()
     {
         return $this->THArticleCommuneIFPA3;
+    }
+
+    /**
+     * Add tFarticlesCommuneEnTete
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete $tFarticlesCommuneEnTete
+     * @return Fichier
+     */
+    public function addTFarticlesCommuneEnTete(\Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete $tFarticlesCommuneEnTete)
+    {
+        $this->tFarticlesCommuneEnTete[] = $tFarticlesCommuneEnTete;
+
+        return $this;
+    }
+
+    /**
+     * Remove tFarticlesCommuneEnTete
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete $tFarticlesCommuneEnTete
+     */
+    public function removeTFarticlesCommuneEnTete(\Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneEnTete $tFarticlesCommuneEnTete)
+    {
+        $this->tFarticlesCommuneEnTete->removeElement($tFarticlesCommuneEnTete);
+    }
+
+    /**
+     * Get tFarticlesCommuneEnTete
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getTFarticlesCommuneEnTete()
+    {
+        return $this->tFarticlesCommuneEnTete;
     }
 }

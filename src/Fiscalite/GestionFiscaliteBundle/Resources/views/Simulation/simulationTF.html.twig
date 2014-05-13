@@ -5,75 +5,96 @@
 
 {% block contenu %}
 {{ parent() }}
-<div class="container base">
+<div class="container-fluid page-container">
     <div class="row">
-        <div class="col-sm-12 col-md-12 col-lg-12"> 
-            <div class="row">
-                <div class="col-sm-7 col-md-7 col-lg-7 col-md-offset-3">
-                    <div class="sidebar-article col-sm-12 col-md-12 col-lg-12">
-                        <form  class="form-horizontal" method="POST" {{ form_enctype(form) }}>
-                            <fieldset>
-                                <legend>Simulation</legend>
-        <div class="form-group"> 
+        <div class="sidebar content-tab col-sm-12 col-md-4 col-lg-4">
+            <form  class="form-horizontal" method="POST" {{ form_enctype(form) }}>
+                <fieldset>
+                    <legend>Simulation de taxes foncières</legend>
+                    <div class="form-group"> 
         {# Génération du label. #}
   	{{ form_label(form.nomSimulation, "Nom de la simulation",{ 'label_attr': { 'class': 'col-sm-6' } })}}
-        <div class="col-sm-6">
+                        <div class="col-sm-6">
         {# Génération de l'input. #}
   	{{ form_widget(form.nomSimulation,{ 'attr': { 'class': 'col-sm-12' } }) }} 
         {# Affichage des erreurs pour ce champ précis. #}
   	{{ form_errors(form.nomSimulation,{ 'attr': { 'class': 'col-sm-12' } }) }}
-        </div>
-        </div>  
-        <div class="form-group"> 
-        <div class="row col-sm-12 col-md-12  col-lg-12">
-            <p class="col-sm-12 col-md-12  col-lg-12">Taux votés</p></div>
+                        </div>
+                    </div>  
+                    <div class="form-group"> 
+                        <div class="row col-sm-12 col-md-12  col-lg-12">
+                            <p class="col-sm-12 col-md-12  col-lg-12">Taux votés</p></div>
         {# Génération du label. #}
   	{{ form_label(form.tauxBatiCommune, "Taux Bâti de la Commune : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
-        <div class="col-sm-6">
+                        <div class="col-sm-6">
         {# Génération de l'input. #}
   	{{ form_widget(form.tauxBatiCommune,{ 'attr': { 'class': 'col-sm-12' } }) }} 
         {# Affichage des erreurs pour ce champ précis. #}
   	{{ form_errors(form.tauxBatiCommune,{ 'attr': { 'class': 'col-sm-12' } }) }}
-        </div>
-        </div>        
-        <div class="form-group">                          
+                        </div>
+                    </div>        
+                    <div class="form-group">                          
         {# Génération du label. #}
   	{{ form_label(form.tauxNonBatiCommune, "Taux Non Bâti de la Commune : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
         {# Affichage des erreurs pour ce champ précis. #}
-        <div class="col-sm-6">        
+                        <div class="col-sm-6">        
   	{{ form_errors(form.tauxNonBatiCommune,{ 'attr': { 'class': 'col-sm-12' } }) }}                   
   	{# Génération de l'input. #}
   	{{ form_widget(form.tauxNonBatiCommune,{ 'attr': { 'class': 'col-sm-12' } }) }}  
-        </div>
-        </div>
-        <div class="form-group">  
+                        </div>
+                    </div>
+                    <div class="form-group">  
         {# Génération du label. #}
-        <div class="row col-sm-12 col-md-12 col-lg-12">
-            <p class="col-sm-12 col-md-12 col-lg-12">Information sur une personne</p></div>                        
+                        <div class="row col-sm-12 col-md-12 col-lg-12">
+                            <p class="col-sm-12 col-md-12 col-lg-12">Information sur une personne</p></div>                        
   	{{ form_label(form.nom, "Nom et/ou prénom : ",{ 'label_attr': { 'class': 'col-sm-6' } })}}
-        <div class="col-sm-6">
+                        <div class="col-sm-6">
         {# Affichage des erreurs pour ce champ précis. #}
   	{{ form_errors(form.nom,{ 'attr': { 'class': 'col-sm-12' } }) }}
   	{# Génération de l'input. #}
   	{{ form_widget(form.nom,{ 'attr': { 'class': 'col-sm-12' } }) }}  
-        </div>
-        </div>
-        <div class="form-group">
-        <div class="col-sm-6">  
-        {{ form_rest(form) }} 
-        </div>
-        </div>                
-        <div class="form-group"> 
-        <div class="col-sm-6">  
-        <input class="btn btn-primary pull-right" type="submit" value="Simulation" />
-        </div>
-        </div>     
-        </fieldset>
-                        </form>
+                        </div>
                     </div>
-                </div>
-            </div>                      
-        </div>                            
+                    <div class="form-group">
+                        <div class="col-sm-6">  
+        {{ form_rest(form) }} 
+                        </div>
+                    </div>                
+                    <div class="form-group"> 
+                        <div class="col-sm-6">  
+                            <input class="btn btn-primary pull-right" type="submit" value="Simulation" />
+                        </div>
+                    </div>     
+                </fieldset>
+            </form>
+        </div>
+        <div class="col-sm-7 content-tab ">
+            <table class="table table-striped table-hover ">
+                <thead>
+                    <tr>
+                        <th class="text-center">Nom</th>
+                        <th class="text-center">Taux bâti Commune</th>
+                        <th class="text-center">Taux non bâti Commune</th>
+                        <th class="text-center">Nom prénom</th>
+                        <th class="text-center">Suppr.</th>
+                    </tr>
+                </thead>
+                <tbody> 
+                    {% for simulationTF in pagination %}
+                    <tr>
+                        <td class="text-center"><a href="{{ path('resultatTF',{'id':simulationTF.getId() }) }}">{{simulationTF.nomSimulation}}</a></td>
+                        <td class="text-center"><a href="{{ path('resultatTF',{'id':simulationTF.getId() }) }}">{{simulationTF.tauxBatiCommune}}%</a></td>
+                        <td class="text-center"><a href="{{ path('resultatTF',{'id':simulationTF.getId() }) }}">{{simulationTF.tauxNonBatiCommune}}%</a></td>
+                        <td class="text-center"><a href="{{ path('resultatTF',{'id':simulationTF.getId() }) }}">{{simulationTF.nom}}</a></td>          
+                        <td class="text-center"><a class="btn btn-danger btn-xs" href="{{ path('supprimer_simulationTF',{'id':simulationTF.getId() }) }}"><i class="fa fa-trash-o "></i></a></td>          
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+             <div class="navigation pagination">
+                {{ knp_pagination_render(pagination,null, {}, {'alignment': 'center'}) }}
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

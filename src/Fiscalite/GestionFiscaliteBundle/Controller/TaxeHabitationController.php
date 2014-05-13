@@ -26,7 +26,7 @@ class TaxeHabitationController extends Controller {
 
     public function articleAction($id) {
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
-        $articleTH = $repository->findOneBy(array('numerosequentiel' => $id));
+        $articleTH = $repository->findOneBy(array('id' => $id));
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleCommune');
         $articleCommuneTH = $repository->searchbyfichier($articleTH->getFichier());
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleCommune');
@@ -188,7 +188,7 @@ class TaxeHabitationController extends Controller {
 
     public function pdfAction($id) {
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Base');
-        $base = $repository->findOneBy(array('numerosequentiel' => $id));
+        $base = $repository->findOneBy(array('id' => $id));
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleCommune');
         $articleCommune = $repository->searchbyfichier($base->getArticleTH()->getFichier());
         $articleCommuneanneeprecedente = $repository->searchbyfichierAnneePrecedente($base->getArticleTH()->getFichier());
@@ -206,7 +206,7 @@ class TaxeHabitationController extends Controller {
 
     public function csvAction($id) {
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Base');
-        $base = $repository->findOneBy(array('numerosequentiel' => $id));
+        $base = $repository->findOneBy(array('id' => $id));
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleCommune');
         $articleCommune = $repository->searchbyfichier($base->getArticleTH()->getFichier());
         $articleCommuneanneeprecedente = $repository->searchbyfichierAnneePrecedente($base->getArticleTH()->getFichier());
@@ -236,6 +236,19 @@ class TaxeHabitationController extends Controller {
     }
 
     public function listeAction(Request $request) {
+        $id = -1;
+        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Commune');
+        $list_Commune = $repository->findAll();
+        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleCommune');
+        $list_articleCommune = $repository->findLastArticleCommune();
+        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:THArticleCommuneIFPA3');
+        $list_articleCommuneIFPA3 = $repository->findAll();
+        $paginator1 = $this->get('knp_paginator');
+        $pagination1 = $paginator1->paginate($list_articleCommune, $this->get('request')->query->get('page', 1)/* page number */, 5/* limit per page */);
+        $paginator2 = $this->get('knp_paginator');
+        $pagination2 = $paginator2->paginate($list_articleCommuneIFPA3, $this->get('request')->query->get('page', 1)/* page number */, 5/* limit per page */);
+        $paginator3 = $this->get('knp_paginator');
+        $pagination3 = $paginator3->paginate($list_Commune, $this->get('request')->query->get('page', 1)/* page number */, 5/* limit per page */);
         $article = new RechercheArticleTH;
         $form = $this->createForm(new RechercheArticleTHType, $article, array(
             'action' => $this->generateUrl('taxehabitationliste'),
@@ -244,31 +257,36 @@ class TaxeHabitationController extends Controller {
         $form->add('submit', 'submit', array('label' => 'Rechercher', 'attr' => array('class' => 'btn btn-primary btn-large')));
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $dataAnneetaxation = $form->get('anneetaxation')->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $fichiers = $article->getFichier();
+            foreach ($fichiers as $fichier) {
+                $fichier->addRechercheArticleTH($article);
+                $em->persist($fichier);
+            }
+            $em->flush();
+            $id = $article->getId();
+            $dataAnneetaxation = $form->get('fichier')->getData();
             $dataNompersonne = $form->get('nompersonne')->getData();
             $dataNbpersonnesacharge = $form->get('nbpersonnesacharge')->getData();
             $dataBasenettemin = $form->get('basenettemin')->getData();
             $dataBasenettemax = $form->get('basenettemax')->getData();
-            $dataAbattementgeneralbasecommunale = $form->get('abattementgeneralbasecommunale')->getData();
-            $dataAbattementpersonneschargecommunal = $form->get('abattementpersonneschargecommunnal')->getData();
-            $dataAbattementspecialbasecommunal = $form->get('abattementspecialbasecommunal')->getData();
-            $dataAbattementspecialhandicapecommunal = $form->get('abattementspecialhandicapecommunal')->getData();
+            $dataAbattementgeneralbasecommunalemin = $form->get('abattementgeneralbasecommunalemin')->getData();
+            $dataAbattementgeneralbasecommunalemax = $form->get('abattementgeneralbasecommunalemax')->getData();
+            $dataAbattementpersonneschargecommunalmin = $form->get('abattementpersonneschargecommunnalmin')->getData();
+            $dataAbattementpersonneschargecommunalmax = $form->get('abattementpersonneschargecommunnalmax')->getData();
+            $dataAbattementspecialbasecommunalmin = $form->get('abattementspecialbasecommunalmin')->getData();
+            $dataAbattementspecialbasecommunalmax = $form->get('abattementspecialbasecommunalmax')->getData();
+            $dataAbattementspecialhandicapecommunalmin = $form->get('abattementspecialhandicapecommunalmin')->getData();
+            $dataAbattementspecialhandicapecommunalmax = $form->get('abattementspecialhandicapecommunalmax')->getData();
             $dataCotisationcommunalemin = $form->get('cotisationcommunalemin')->getData();
             $dataCotisationcommunalemax = $form->get('cotisationcommunalemax')->getData();
             $dataMontantnetapayermin = $form->get('montantnetapayermin')->getData();
             $dataMontantnetapayermax = $form->get('montantnetapayermax')->getData();
-            if ($dataAnneetaxation != NULL OR $dataNompersonne != NULL 
-                    OR $dataNbpersonnesacharge != NULL OR $dataBasenettemin != NULL 
-                    OR $dataBasenettemax != NULL OR $dataAbattementgeneralbasecommunale !=NULL
-                    OR $dataAbattementpersonneschargecommunal != NULL OR $dataAbattementspecialbasecommunal != NULL
-                    OR $dataAbattementspecialhandicapecommunal != NULL 
-                    OR $dataMontantnetapayermin != NULL OR $dataMontantnetapayermax != NULL 
-                    OR $dataCotisationcommunalemin != NULL OR $dataCotisationcommunalemax != NULL) {
+            if ($dataAnneetaxation != NULL OR $dataNompersonne != NULL OR $dataNbpersonnesacharge != NULL OR $dataBasenettemin != NULL OR $dataBasenettemax != NULL OR $dataAbattementgeneralbasecommunalemax != NULL OR $dataAbattementgeneralbasecommunalemin != NULL OR $dataAbattementpersonneschargecommunalmin OR $dataAbattementpersonneschargecommunalmax != NULL OR $dataAbattementspecialbasecommunalmin != NULL OR $dataAbattementspecialbasecommunalmax != NULL OR $dataAbattementspecialhandicapecommunalmin != NULL OR $dataAbattementspecialhandicapecommunalmax != NULL OR $dataMontantnetapayermin != NULL OR $dataMontantnetapayermax != NULL OR $dataCotisationcommunalemin != NULL OR $dataCotisationcommunalemax != NULL) {
                 $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
                 $list_articleTH = $repository->searchListTH($dataAnneetaxation, $dataNompersonne, $dataNbpersonnesacharge
-                        ,$dataBasenettemin, $dataBasenettemax,$dataAbattementgeneralbasecommunale,$dataAbattementpersonneschargecommunal,
-                        $dataAbattementspecialbasecommunal,$dataAbattementspecialhandicapecommunal,
-                        $dataCotisationcommunalemin, $dataCotisationcommunalemax,$dataMontantnetapayermin, $dataMontantnetapayermax);
+                        , $dataBasenettemin, $dataBasenettemax, $dataAbattementgeneralbasecommunalemin, $dataAbattementgeneralbasecommunalemax, $dataAbattementpersonneschargecommunalmin, $dataAbattementpersonneschargecommunalmax, $dataAbattementspecialbasecommunalmin, $dataAbattementspecialbasecommunalmax, $dataAbattementspecialhandicapecommunalmin, $dataAbattementspecialhandicapecommunalmax, $dataCotisationcommunalemin, $dataCotisationcommunalemax, $dataMontantnetapayermin, $dataMontantnetapayermax);
                 $paginator = $this->get('knp_paginator');
                 $pagination = $paginator->paginate($list_articleTH, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
             } else {
@@ -277,19 +295,18 @@ class TaxeHabitationController extends Controller {
                 $paginator = $this->get('knp_paginator');
                 $pagination = $paginator->paginate($list_articleTH, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
             }
-            $sommemontantnondeduit = 0;
-//                foreach ($list_articleTH as $article)
-//                $sommemontantnondeduit += $article->getMontantnonvaleureventuelle();         
         } else {
             $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
             $list_articleTH = $repository->findAllOrderbynomprenomlimit();
         }
         $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate($list_articleTH, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
-        $sommemontantnondeduit = 0;
-//        foreach ($list_articleTH as $article)
-//            $sommemontantnondeduit += $article->getMontantnonvaleureventuelle();
-        return $this->render('FiscaliteGestionFiscaliteBundle:TaxeHabitation:liste.html.twig', array('sommemontantnondeduit' => $sommemontantnondeduit, 'form' => $form->createView(), 'pagination' => $pagination));
+        return $this->render('FiscaliteGestionFiscaliteBundle:TaxeHabitation:liste.html.twig', array('form' => $form->createView(),
+                    'id' => $id,
+                    'pagination' => $pagination,
+                    'paginationArticleCommune' => $pagination1,
+                    'paginationTHArticleCommuneIFPA3' => $pagination2,
+                    'paginationCommune' => $pagination3));
     }
 
     public function getAjaxResultsNompersonneAction() {
@@ -302,6 +319,65 @@ class TaxeHabitationController extends Controller {
                     ->listeNompersonne($term);
             return new JsonResponse($array);
         }
+    }
+
+    public function exportrequetetaxehabitationcsvAction($id) {
+        if ($id == -1) {
+            $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Fichier');
+            $fichier = $repository->getLastYearTH();
+            if ($fichier == null)
+                $fichier[0] = NULL;
+            $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
+            $list_articleTH = $repository->searchListTH($fichier[0], NULL, NULL
+                    , NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+        } else {
+            $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:RechercheArticleTH');
+            $RechercheArticleTH = $repository->findOneBy(array('id' => $id));
+            $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
+            $list_articleTH = $repository->searchListTH($RechercheArticleTH->getFichier(), $RechercheArticleTH->getNompersonne(), $RechercheArticleTH->getNbpersonnesacharge()
+                    , $RechercheArticleTH->getBasenettemin(), $RechercheArticleTH->getBasenettemax(), $RechercheArticleTH->getAbattementgeneralbasecommunalemin(), $RechercheArticleTH->getAbattementgeneralbasecommunalemax(), $RechercheArticleTH->getAbattementpersonneschargecommunnalmin(), $RechercheArticleTH->getAbattementpersonneschargecommunnalmax(), $RechercheArticleTH->getAbattementspecialbasecommunalmin(), $RechercheArticleTH->getAbattementspecialbasecommunalmax(), $RechercheArticleTH->getAbattementspecialhandicapecommunalmin(), $RechercheArticleTH->getAbattementspecialhandicapecommunalmax(), $RechercheArticleTH->getCotisationcommunalemin(), $RechercheArticleTH->getCotisationcommunalemax(), $RechercheArticleTH->getMontantnetapayermin(), $RechercheArticleTH->getMontantnetapayermax());
+        }
+        $handle = fopen('php://memory', 'r+');
+        $header = array();
+        fputcsv($handle, array('Numéro séquentiel', 'Nom et prénom', 'suite du nom', 'numéro d\'immeuble', 'Libelle de la voie', 'Base communale', 'abattement general base communale', 'abattement personnes charge communale', 'abattement special base communale', 'abattement special handicape communale', 'Cotisation communale'));
+        foreach ($list_articleTH as $article) {
+            if ($article->getAbattement() == NULL) {
+                fputcsv($handle, array($article->getNumerosequentiel(),
+                    $article->getNomprenom(),
+                    $article->getSuitenom(),
+                    $article->getAdresse()->getNumeroimmeubleaft(),
+                    $article->getAdresse()->getLibellevoieaft(),
+                    $article->getBase()->getBasenettecommunale(),
+                    '',
+                    '',
+                    '',
+                    '',
+                    $article->getCotisation()->getCotisationcommunale()));
+            } else {
+                fputcsv($handle, array($article->getNumerosequentiel(),
+                    $article->getNomprenom(),
+                    $article->getSuitenom(),
+                    $article->getAdresse()->getNumeroimmeubleaft(),
+                    $article->getAdresse()->getLibellevoieaft(),
+                    $article->getBase()->getBasenettecommunale(),
+                    $article->getAbattement()->getAbattementgeneralbasecommunale(),
+                    $article->getAbattement()->getAbattementpersonneschargecommunnal(),
+                    $article->getAbattement()->getAbattementspecialbasecommunal(),
+                    $article->getAbattement()->getAbattementspecialhandicapecommunal(),
+                    $article->getCotisation()->getCotisationcommunale()));
+            }
+
+            $em = $this->getDoctrine()->getManager();
+            $em->detach($article);
+        }
+        rewind($handle);
+        $content = stream_get_contents($handle);
+        fclose($handle);
+
+        return new Response($content, 200, array(
+            'Content-Type' => 'application/force-download',
+            'Content-Disposition' => 'attachment; filename="requetelistetaxehabitation.csv"'
+        ));
     }
 
 }

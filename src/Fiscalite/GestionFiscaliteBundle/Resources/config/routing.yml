@@ -102,3 +102,26 @@ simulationarticletfcsv:
 rapportfichier:
     pattern:  /rapportfichier
     defaults: { _controller: FiscaliteGestionFiscaliteBundle:Index:rapportfichier }
+
+supprimer_simulationTF:
+    pattern:  /{id}/supprimerTF
+    defaults: { _controller: "FiscaliteGestionFiscaliteBundle:Simulation:supprimerTF" }
+    
+supprimer_simulationTH:
+    pattern:  /{id}/supprimerTH
+    defaults: { _controller: "FiscaliteGestionFiscaliteBundle:Simulation:supprimerTH" }    
+    
+csvSecteurArticleTH:
+    pattern:  /csvSecteurArticleTH/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:Secteur:csvSecteurArticleTH }
+    requirements: { _method: get }
+    
+exportrequetetaxehabitationcsv:
+    pattern:  /exportrequetetaxehabitationcsv/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeHabitation:exportrequetetaxehabitationcsv }
+    requirements: { _method: get }
+
+exportrequetetaxefoncierecsv:
+    pattern:  /exportrequetetaxefoncierecsv/{id}
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeFonciere:exportrequetetaxefoncierecsv }
+    requirements: { _method: get }    

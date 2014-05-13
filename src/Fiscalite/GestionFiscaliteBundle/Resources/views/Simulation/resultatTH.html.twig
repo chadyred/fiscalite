@@ -23,9 +23,9 @@
                                         placement: "left"
                                     });
                                 });</script>
-                            </div>
-                        </td>
-                        <td><div>
+                        </div>
+                    </td>
+                    <td><div>
                             <span id="ths" rel="popover">THE,THS</span>
                             <script>$(document).ready(function() {
                                     $("#ths").popover({
@@ -35,17 +35,17 @@
                                         placement: "bottom"
                                     });
                                 });</script>
-                            </div></td>
-                        <td></td>
-                        <td>Totale</td>
-                        <td>Dont bases exonérées</td>
+                        </div></td>
+                    <td></td>
+                    <td>Totale</td>
+                    <td>Dont bases exonérées</td>
 
-                    </tr>    
-                    <tr>
-                        <td>1.Ensemble des locaux et dépendances imposables</td>
-                        <td>{{simulation.nombrelocauxtaxesensembledeslocauxetdependancesimposablesTHP|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.nombrelocauxtaxesensembledeslocauxetdependancesimposablesTHE+simulation.nombrelocauxtaxesensembledeslocauxetdependancesimposablesTHS|number_format(0, ',', ' ')}}</td>
-                        <td><div>
+                </tr>    
+                <tr>
+                    <td>1.Ensemble des locaux et dépendances imposables</td>
+                    <td>{{simulation.nombrelocauxtaxesensembledeslocauxetdependancesimposablesTHP|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nombrelocauxtaxesensembledeslocauxetdependancesimposablesTHE+simulation.nombrelocauxtaxesensembledeslocauxetdependancesimposablesTHS|number_format(0, ',', ' ')}}</td>
+                    <td><div>
                             <span id="nombresarticlesdurolecorrespondantsensembledeslocauxetdependancesimposables" rel="popover">{{simulation.nombresarticlesdurolecorrespondantsensembledeslocauxetdependancesimposables|number_format(0, ',', ' ')}}</span>
                             <script>$(document).ready(function() {
                                     $("#nombresarticlesdurolecorrespondantsensembledeslocauxetdependancesimposables").popover({
@@ -55,15 +55,15 @@
                                         placement: "top"
                                     });
                                 });</script>
-                            </div></td>
-                        <td>{{simulation.valeurlocativebruterevaloriseetotaleensembledeslocauxetdependancesimposables|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.valeurlocativebruterevaloriseedontbasesexonereesensembledeslocauxetdependancesimposables|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                    <tr>
-                        <td>2. Locaux d'habitation proprement dits</td>
-                        <td></td>
-                        <td></td>
-                        <td><div>
+                        </div></td>
+                    <td>{{simulation.valeurlocativebruterevaloriseetotaleensembledeslocauxetdependancesimposables|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.valeurlocativebruterevaloriseedontbasesexonereesensembledeslocauxetdependancesimposables|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td>2. Locaux d'habitation proprement dits</td>
+                    <td></td>
+                    <td></td>
+                    <td><div>
                             <span id="nombresarticlesdurolecorrespondantslocauxhabitationproprementdits" rel="popover">{{simulation.nombresarticlesdurolecorrespondantslocauxhabitationproprementdits|number_format(0, ',', ' ')}}</span>
                             <script>$(document).ready(function() {
                                     $("#nombresarticlesdurolecorrespondantslocauxhabitationproprementdits").popover({
@@ -73,785 +73,830 @@
                                         placement: "bottom"
                                     });
                                 });</script>
-                            </div></td>
-                        <td>{{simulation.valeurlocativebruterevaloriseetotalelocauxhabitationproprementdits|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.valeurlocativebruterevaloriseedontbasesexonereeslocauxhabitationproprementdits|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="6">THLV</td>
-                    </tr>
-                    <tr>
-                        <td>3. Logements vacants imposés à la THLV sur délibération de la commune</td>
-                        <td>{{simulation.nombrelocauxtaxeslogementsvacantsimposesalaTHLVsurdeliberationdelacommuneTHP|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.nombrelocauxtaxeslogementsvacantsimposesalaTHLVsurdeliberationdelacommuneTHE|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.nombresarticlesdurolecorrespondantslogementsvacantsimposesalaTHLVsurdeliberationdelacommune|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.valeurlocativebruterevaloriseetotalelogementsvacantsimposesalaTHLVsurdeliberationdelacommune|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>4. Logements vacants imposés à la THLV sur délibération de l'EPCI</td>
-                        <td>{{simulation.nombrelocauxtaxeslogementsvacantsimposesalaTHLVsurdeliberationdelECPITHP|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.nombrelocauxtaxeslogementsvacantsimposesalaTHLVsurdeliberationdelECPITHS|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.valeurlocativebruterevaloriseetotalelogementsvacantsimposesalaTHLVsurdeliberationdelECPI|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.valeurlocativebruterevaloriseedontbasesexonereeslogementsvacantsimposesalaTHLVsurdeliberationdelECPI|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div>
-        </div>         
-        <div class="row">
-            <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
-                <h5>II. VLM, BASES EXONEREES ET BASES NETTES D'IMPOSITION TAXEES AU PROFIT DE :</h5>
-                <table class="table table-striped table-hover table-bordered">
-                    <tr>
-                        <th></th>
-                        <th>1-Commune</th>
-                        <th>2-Syndicats</th>
-                        <th>3-Intercommunalité</th>
-                        <th>4-VL des THS</th>  
-                    </tr>
-                    <tr>
-                        <td>VL moyenne</td>
-                        <td><div>
-                            <span id="VlmCne" rel="popover">
-{{simulation.VlmCne|number_format(0, ',', ' ')}}</span>
-                            <script>$(document).ready(function() {
-                                    $("#VlmCne").popover({
-                                        html: true,
-                                        animation: true,
-                                        content: "Valeur locative moyenne pour la commune dans l'article de la commune",
-                                        placement: "left"
-                                    });
-                                });</script>
-                            </div></td>
-                        <td></td>
-                        <td><div>
-                            <span id="VlmICO" rel="popover">
-{{simulation.VlmICO|number_format(0, ',', ' ')}}</span>
-                            <script>$(document).ready(function() {
-                                    $("#VlmICO").popover({
-                                        html: true,
-                                        animation: true,
-                                        content: "Valeur locative moyenne pour l'intercommunalité dans l'article de la commune",
-                                        placement: "left"
-                                    });
-                                });</script>
-                            </div></td>
-                        <td></td>
-                    </tr>    
-                    <tr>
-                        <td>VL moyenne retenue/abat</td>
-                        <td>{{simulation.VlmCneRetenueAbat|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td>{{simulation.VlmICORetenueAbat|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                    </tr>    
-                    <tr>
-                        <td>Base nette imposée ou dégrevée</td>
-                        <td>{{simulation.baseNetteCommune|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td>{{simulation.baseNetteICO|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.baseNetteTSE|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                    <tr>
-                        <td>Base nette sans ajustement</td>
-                        <td>{{simulation.baseNetteSansAjustementCommune|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td>{{simulation.baseNetteSansAjustementICO|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                    </tr>    
-                    <tr>
-                        <td>Base nette exo TSE(*)</td>
-                        <td>{{simulation.baseNetteExoTSECommune|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Base nette brutes exo ZRR</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div>
-        </div>         
-        <div class="row">
-            <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
-                <h5>III. ABATTEMENTS : QUOTITÉS ET POURCENTAGES</h5>
-                <table class="table table-striped table-hover table-bordered">
-                    <tr>
-                        <th rowspan="2"></th>
-                        <th colspan="3">Commune</th>
-                        <th colspan="3">Intercommunalité</th>
-                    </tr>
-                    <tr>
-                        <td>Quotité avant ajustement</td>
-                        <td>Quotité ajustée</td>
-                        <td>%</td>
-                        <td>Quotité avant ajustement</td>
-                        <td>Quotité ajustée</td>
-                        <td>%</td>
-                    </tr>    
-                    <tr>
-                        <td>1. Abattement général à la base</td>
-                        <td><div>
-                            <span id="quotiteAbattementGeneralBaseCommuneSansAjustement" rel="popover">
-{{simulation.quotiteAbattementGeneralBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-                            <script>$(document).ready(function() {
-                                    $("#quotiteAbattementGeneralBaseCommuneSansAjustement").popover({
-                                        html: true,
-                                        animation: true,
-                                        content: "Abattement général à la base communale x Valeur locative de la commune /  100",
-                                        placement: "left"
-                                    });
-                                });</script>
-                            </div></td>
-                        <td>{{simulation.quotiteAbattementGeneralBaseCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.simulationArticleTH.abattementgeneralbasecommunale|number_format(0, ',', ' ')}}</td>
-                        <td>CF. COMMUNE</td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>2. Abattement pour 1 personne à charges</td>
-                        <td><div>
-                            <span id="quotiteAbattementPAC1CommuneSansAjustement" rel="popover">
-{{simulation.quotiteAbattementPAC1CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-                            <script>$(document).ready(function() {
-                                    $("#quotiteAbattementPAC1CommuneSansAjustement").popover({
-                                        html: true,
-                                        animation: true,
-                                        content: "Abattement général à la base communale + Abattement pour 1 personne à charge x Valeur locative de la commune /  100",
-                                        placement: "left"
-                                    });
-                                });</script>
-                            </div></td>
-                        <td>{{simulation.quotiteAbattementPAC1CommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal12|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>    
-                    <tr>
-                        <td>3. Abattement pour 2 personnes à charges</td>
-                        <td><div>
-                            <span id="quotiteAbattementPAC2CommuneSansAjustement" rel="popover">
-{{simulation.quotiteAbattementPAC2CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-                            <script>$(document).ready(function() {
-                                    $("#quotiteAbattementPAC2CommuneSansAjustement").popover({
-                                        html: true,
-                                        animation: true,
-                                        content: "Abattement pour 1 personne à charge  + Abattement pour 2 personnes à charge x Valeur locative de la commune /  100",
-                                        placement: "left"
-                                    });
-                                });</script>
-                            </div></td>
-                        <td>{{simulation.quotiteAbattementPAC2CommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal12|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>4. Abattement pour 3 personnes à charges</td>
-                        <td><div>
-                            <span id="quotiteAbattementPAC3CommuneSansAjustement" rel="popover">
-{{simulation.quotiteAbattementPAC3CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-                            <script>$(document).ready(function() {
-                                    $("#quotiteAbattementPAC3CommuneSansAjustement").popover({
-                                        html: true,
-                                        animation: true,
-                                        content: "Abattement pour 3 personnes à charge x Valeur locative de la commune /  100",
-                                        placement: "left"
-                                    });
-                                });</script>
-                            </div></td>
-                        <td>{{simulation.quotiteAbattementPAC3CommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal3|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>    
-                    <tr>
-                        <td>5. Abattement supp. par pers. à charge à partir de la 4e</td>
-                        <td><div>
-                            <span id="quotiteAbattementPAC4SuppCommuneSansAjustement" rel="popover">
-{{simulation.quotiteAbattementPAC4SuppCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-                            <script>$(document).ready(function() {
-                                    $("#quotiteAbattementPAC4SuppCommuneSansAjustement").popover({
-                                        html: true,
-                                        animation: true,
-                                        content: "Abattement supplémentaire pour 3 personnes à charge x Valeur locative de la commune /  100",
-                                        placement: "left"
-                                    });
-                                });</script>
-                            </div></td>
-                        <td>{{simulation.quotiteAbattementPAC4SuppCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal3|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>6. Abattement spécial à la base</td>
-                        <td><div>
-                            <span id="quotiteAbattementSpecialBaseCommuneSansAjustement" rel="popover">
-{{simulation.quotiteAbattementSpecialBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-                            <script>$(document).ready(function() {
-                                    $("#quotiteAbattementSpecialBaseCommuneSansAjustement").popover({
-                                        html: true,
-                                        animation: true,
-                                        content: "NON VOTÉ",
-                                        placement: "left"
-                                    });
-                                });</script>
-                            </div></td>
-                        <td>{{simulation.quotiteAbattementSpecialBaseCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.simulationArticleTH.abattementspecialbasecommunal|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>    
-                    <tr>
-                        <td>7. Abattement spécial handicapé </td>
-                        <td><div>
-                            <span id="quotiteAbattementSpecialHandicapeCommuneSansAjustement" rel="popover">
-{{simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-                            <script>$(document).ready(function() {
-                                    $("#quotiteAbattementSpecialHandicapeCommuneSansAjustement").popover({
-                                        html: true,
-                                        animation: true,
-                                        content: "Abattement spécial handicapé x Valeur locative de la commune /  100",
-                                        placement: "left"
-                                    });
-                                });</script>
-                            </div></td>
-                        <td>{{simulation.quotiteAbattementSpecialHandicapeCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.simulationArticleTH.abattementspecialhandicapebasecommunal|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div>
-        </div>     
-        <div class="row">
-            <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
-                <h5>IV.REPARTITION DES ARTICLES DU ROLE EN FONCTION DU NOMBRE DE PERSONNES A CHARGES</h5>
-                <table class="table table-striped table-hover table-bordered">
-                    <tr>
-                        <td>Nb d'articles du rôle</td>
-                        <td>Afférents aux résidences secondaires</td>
-                        <td>Afférents aux dépendances principales isolées</td>
-                        <td>0 pers à charge</td>
-                        <td>1 pers à charge</td>
-                        <td>2 pers à charge</td>
-                        <td>3 pers à charge</td>
-                        <td>4 pers à charge</td>
-                        <td>5 pers et + à charge</td>
-                        <td>Total cumulé</td>
-                    </tr>
-                    <tr>
-                        <td>Imposés ou dégrevés</td>
-                        <td>{{simulation.afferentsresidencessecondaires}}</td>
-                        <td>{{simulation.afferentsdependancesprincipales}}</td>
-                        <td>{{simulation.nbpers0persacharge}}</td>
-                        <td>{{simulation.nbpers1persacharge}}</td>
-                        <td>{{simulation.nbpers2persacharge}}</td>
-                        <td>{{simulation.nbpers3persacharge}}</td>
-                        <td>{{simulation.nbpers4persacharge}}</td>
-                        <td>{{simulation.nbpers5persacharge}}</td>
-                        <td>{{simulation.nbperstotcumule}}</td>
-                    </tr>
-                    <tr>
-                        <td>Exonérés</td>
-                        <td></td>
-                        <td>{{simulation.afferentsdependancesprincipalesexoneres}}</td>
-                        <td>{{simulation.nbpers0persachargeexoneres}}</td>
-                        <td>{{simulation.nbpers1persachargeexoneres}}</td>
-                        <td>{{simulation.nbpers2persachargeexoneres}}</td>
-                        <td>{{simulation.nbpers3persachargeexoneres}}</td>
-                        <td>{{simulation.nbpers4persachargeexoneres}}</td>
-                        <td>{{simulation.nbpers5persachargeexoneres}}</td>
-                        <td>{{simulation.nbperstotcumuleexoneres}}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>    
-        <div class="row">
-            <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
-                <h5>V.ABATTEMENTS APPLIQUES DANS LE ROLE AUX ARTICLES IMPOSES</h5>
-                <table class="table table-striped table-hover table-bordered">
-                    <tr><th></th><th>Commune</th><th>Intercommunalité</th><th>Syndicat(s)</th><th>TSE</th></tr>
-                    <tr>
-                        <td colspan="5">Abattement général à la base </td>
-                    </tr>    
-                    <tr>
-                        <td>Nombre d'articles du rôle</td>
-                        <td>{{simulation.nbperstotcumule}}</td>
-                        <td>{{simulation.nbperstotcumule}}</td>
-                        <td></td>
-                        <td>{{simulation.nbperstotcumule}}</td>
-                    </tr>
-                    <tr>
-                        <td>Total des abattements</td>
-                        <td>{{simulation.abattementgeneralbasecommunale}}</td>
-                        <td>{{simulation.abattementgeneralbasecommunale}}</td>
-                        <td></td>
-                        <td>{{simulation.abattementgeneralbasecommunale}}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">Abattement pour charges de famille</td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">a. Personnes des deux premiers rangs (1re et 2e pers)</td>
-                    </tr>
-                    <tr>
-                        <td>Nombre de personnes</td>
-                        <td>{{simulation.nbabattementpersonneschargecommunal12}}</td>
-                        <td>{{simulation.nbabattementpersonneschargecommunal12}}</td>
-                        <td></td>
-                        <td>{{simulation.nbabattementpersonneschargecommunal12}}</td>
-                    </tr>
-                    <tr>
-                        <td>Total des abattements</td>
-                        <td>{{simulation.abattementpersonneschargecommunal12}}</td>
-                        <td>{{simulation.abattementpersonneschargecommunal12}}</td>
-                        <td></td>
-                        <td>{{simulation.abattementpersonneschargecommunal12}}</td>
-                    </tr>
-                    <tr>
-                        <td>b.Personnes à partir du 3e rang (3e pers. et au delà)</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Nombre de personnes</td>
-                        <td>{{simulation.nbabattementpersonneschargecommunal3}}</td>
-                        <td>{{simulation.nbabattementpersonneschargecommunal3}}</td>
-                        <td></td>
-                        <td>{{simulation.nbabattementpersonneschargecommunal3}}</td>
-                    </tr>
-                    <tr>
-                        <td>Total des abattements</td>
-                        <td>{{simulation.abattementpersonneschargecommunal3}}</td>
-                        <td>{{simulation.abattementpersonneschargecommunal3}}</td>
-                        <td></td>
-                        <td>{{simulation.abattementpersonneschargecommunal3}}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">Abattement spécial à la base</td>                        
-                    </tr>
-                    <tr>
-                        <td>Nombre de contribuables remplissant les conditions pour en bénéficier en 2012</td>
-                        <td>{{simulation.abattementegalenull}}{{simulation.nbabattementspecialbasecommunal}}</td>
-                        <td>{{simulation.nbabattementspecialbasecommunal}}</td>
-                        <td></td>
-                        <td>{{simulation.nbabattementspecialbasecommunal}}</td>
-                    </tr>
-                    <tr>
-                        <td>Total des abattements appliqués dans le rôle de 2012</td>
-                        <td>{{simulation.abattementspecialbasecommunal}}</td>
-                        <td>{{simulation.abattementspecialbasecommunal}}</td>
-                        <td></td>
-                        <td>{{simulation.abattementspecialbasecommunal}}</td>
-                    </tr>
-                    <tr>
-                        <td colspan="5">Abattement spécial handicapé</td>
-                    </tr>
-                    <tr>
-                        <td>Nombre de contribuables remplissant les conditions pour en bénéficier en 2012</td>
-                        <td>{{simulation.nbabattementspecialhandicapebasecommunal}}</td>
-                        <td>{{simulation.nbabattementspecialhandicapebasecommunal}}</td>
-                        <td></td>
-                        <td>{{simulation.nbabattementspecialhandicapebasecommunal}}</td>
-                    </tr>
-                    <tr>
-                        <td>Total des abattements appliqués dans le rôle de 2012</td>
-                        <td>{{simulation.abattementspecialhandicapebasecommunal}}</td>
-                        <td>{{simulation.abattementspecialhandicapebasecommunal}}</td>
-                        <td></td>
-                        <td>{{simulation.abattementspecialhandicapebasecommunal}}</td>
-                    </tr>
-                </table>
-            </div>
+                        </div></td>
+                    <td>{{simulation.valeurlocativebruterevaloriseetotalelocauxhabitationproprementdits|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.valeurlocativebruterevaloriseedontbasesexonereeslocauxhabitationproprementdits|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td colspan="6">THLV</td>
+                </tr>
+                <tr>
+                    <td>3. Logements vacants imposés à la THLV sur délibération de la commune</td>
+                    <td>{{simulation.nombrelocauxtaxeslogementsvacantsimposesalaTHLVsurdeliberationdelacommuneTHP|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nombrelocauxtaxeslogementsvacantsimposesalaTHLVsurdeliberationdelacommuneTHE|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nombresarticlesdurolecorrespondantslogementsvacantsimposesalaTHLVsurdeliberationdelacommune|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.valeurlocativebruterevaloriseetotalelogementsvacantsimposesalaTHLVsurdeliberationdelacommune|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>4. Logements vacants imposés à la THLV sur délibération de l'EPCI</td>
+                    <td>{{simulation.nombrelocauxtaxeslogementsvacantsimposesalaTHLVsurdeliberationdelECPITHP|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nombrelocauxtaxeslogementsvacantsimposesalaTHLVsurdeliberationdelECPITHS|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.valeurlocativebruterevaloriseetotalelogementsvacantsimposesalaTHLVsurdeliberationdelECPI|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.valeurlocativebruterevaloriseedontbasesexonereeslogementsvacantsimposesalaTHLVsurdeliberationdelECPI|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                </tr>
+            </table>
         </div>
-        <div class="row">
-            <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
-                <h5>VI. REPARTITION DU NOMBRE DU ROLE EN FONCTION DU MONTANT DES COTISATIONS BRUTES</h5>
-                <table class="table table-striped table-hover table-bordered">
-                    <tr><th>Tranches de cotisations (en euros)</th><th>Nombre d'articles du rôle</th>
-                        <th>Cotisations mises en recouvrement au profit des collectivités ci-après</th>
-                        <th>Répartition des cotisations brutes par collectivité Communes Syndicats et TSE</th>
-                        <th>Intercommunalité</th><th>Frais et prélèvements</th></tr>  
-                    <tr>
-                        <td>De 0 à 11</td>
-                        <td>{{ simulation.nombreArticlesDuRole011|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement011|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE011|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesICO011|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement011|number_format(0, ',', ' ')}}</td>
-                    </tr>    
-                    <tr>
-                        <td>De 12 à 99</td>
-                        <td>{{ simulation.nombreArticlesDuRole1299|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement1299|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1299|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesICO1299|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement1299|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                    <tr>
-                        <td>De 100 à 199</td>
-                        <td>{{ simulation.nombreArticlesDuRole100199|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement100199|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE100199|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesICO100199|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement100199|number_format(0, ',', ' ')}}</td>
-                    </tr>    
-                    <tr>
-                        <td>De 200 à 299</td>
-                        <td>{{ simulation.nombreArticlesDuRole200299|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement200299|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE200299|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesICO200299|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement200299|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                    <tr>
-                        <td>De 300 à 399</td>
-                        <td>{{ simulation.nombreArticlesDuRole300399|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement300399|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE300399|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesICO300399|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement300399|number_format(0, ',', ' ')}}</td>
-                    </tr>    
-                    <tr>
-                        <td>De 400 à 499</td>
-                        <td>{{ simulation.nombreArticlesDuRole400499|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement400499|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE400499|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesICO400499|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement400499|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                    <tr>
-                        <td>De 500 à 599</td>
-                        <td>{{ simulation.nombreArticlesDuRole500599|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement500599|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE500599|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesICO500599|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement500599|number_format(0, ',', ' ')}}</td>
-                    </tr>    
-                    <tr>
-                        <td>De 600 à 699</td>
-                        <td>{{ simulation.nombreArticlesDuRole600699|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement600699|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE600699|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesICO600699|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement600699|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                    <tr>
-                        <td>De 700 à 799</td>
-                        <td>{{ simulation.nombreArticlesDuRole700799|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement700799|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE700799|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesICO700799|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement700799|number_format(0, ',', ' ')}}</td>
-                    </tr>    
-                    <tr>
-                        <td>De 800 à 899</td>
-                        <td>{{ simulation.nombreArticlesDuRole800899|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement800899|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE800899|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesICO800899|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement800899|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                    <tr>
-                        <td>De 900 à 999</td>
-                        <td>{{ simulation.nombreArticlesDuRole900999|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement900999|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE900999|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesICO900999|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement900999|number_format(0, ',', ' ')}}</td>
-                    </tr>    
-                    <tr>
-                        <td>De 1000 et plus</td>
-                        <td>{{ simulation.nombreArticlesDuRole1000plus|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement1000plus|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1000plus|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesICO1000plus|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement1000plus|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                    <tr>
-                        <td>Total.....</td>
-                        <td>{{ simulation.nombreArticlesDuRoleTotal|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsMisesEnRecouvrementTotal|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSETotal|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesICOTotal|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevementTotal|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                </table>
-            </div>
-        </div>  
-        <div class="row">
-            <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
-                <h5>VII. EXONERATIONS/DEGREVEMENTS D'OFFICE (THP ET THE), NON-VALEURS (THP,E,S) ET ARTICLES NULS</h5>
-                <table class="table table-striped table-hover table-bordered">
-                    <tr>
-                        <th></th>
-                        <th>Code</th>
-                        <th>Nombre d'articles THP</th>
-                        <th>Nombre d'articles THE,S</th>
-                        <th>Dégrèvements Plafonnements</th>
-                        <th>Non-valeurs</th>
-                        <th>Bases nettes (l.1 à 5)/ Réductions (l.6a à 7)</th>
-                    </tr>
-                    <tr>
-                        <td>1. Exonération DOM (art. 332 ann. II)</td>
-                        <td>ED</td>
-                        <td>{{ simulation.nombreArticlesTHPExonerationDOM|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.nombreArticlesTHETHSExonerationDOM|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ simulation.basesNettesReductionsExonerationDOM|number_format(0, ',', ' ')}}</td>
-                    </tr>    
-                    <tr>
-                        <td>2. Exonération a. commune</td>
-                        <td>EX</td>
-                        <td>{{ simulation.nombreArticlesTHPCommune|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.nombreArticlesTHETHSCommune|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ simulation.basesNettesReductionsCommune|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                    <tr>
-                        <td>2. Exonération b. intercommunalité</td>
-                        <td>EX</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ simulation.basesNettesReductionsICO|number_format(0, ',', ' ')}}</td>
-                    </tr>    
-                    <tr>
-                        <td>3. Exonération TSE local HLM /SEM</td>
-                        <td>EX</td>
-                        <td>{{ simulation.nombreArticlesTHPTSElocalHLMSEM|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.nombreArticlesTHETHSTSElocalHLMSEM|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{ simulation.basesNettesReductionsTSElocalHLMSEM|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                    <tr>
-                        <td>4. Cotisations brutes nulles (articles nuls)</td>
-                        <td>"  "</td>
-                        <td>{{ simulation.nombreArticlesTHPCotisationsbrutesnulles|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>    
-                    <tr>
-                        <td>5. Dégrèvements totaux Gestionnaires</td>
-                        <td>DT</td>
-                        <td>{{ simulation.nombreArticlesTHPDegrevementstotaux|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td>{{ simulation.degrevementsPlafonnementsDegrevementstotaux|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td>{{ simulation.basesNettesReductionsDegrevementstotaux|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                    <tr>
-                        <td>6. Plafonnements a A total non réduit</td>
-                        <td>PA</td>
-                        <td>{{ simulation.nombreArticlesTHPPlafonnements|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.nombreArticlesTHETHSPlafonnements|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.degrevementsPlafonnementsPlafonnements|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td>{{ simulation.basesNettesReductionsPlafonnements|number_format(0, ',', ' ')}}</td>
-                    </tr> 
-                    <tr>
-                        <td>Non-valeurs</td>
-                        <td>NV</td>
-                        <td></td>
-                        <td>{{ simulation.nombreArticlesTHETHSNonValeurs|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td>{{ simulation.nonValeursNonValeurs|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Totaux :</td>
-                        <td></td>
-                        <td>{{ simulation.nombreArticlesTHPTotaux|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.nombreArticlesTHETHSTotaux|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.degrevementsPlafonnementsTotaux|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.nonValeursTotaux|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.basesNettesReductionsTotaux|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                </table>
-            </div>
-        </div> 
-        <div class="row">
-            <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
-                <h5>VIII. NOMBRE D'ARTICLES DU RÔLE COMPORTANT</h5>
-                <table class="table table-striped table-hover table-bordered">
-                    <tr>
-                        <th colspan="2">Une valeur locative brute positive</th>
-                        <th colspan="2">Une valeur locative nette pour les articles imposés</th>
-                        <th rowspan="2">La délivrance d'un avis d'imposition</th>
-                        <th rowspan="2">Un (des) local(aux) susceptibles(s) d'être exonéré(s) de TSE</th>
-                    </tr>
-                    <tr>
-                        <td>Articles imposés</td>
-                        <td>Articles exonérés</td>
-                        <td>Commune</td>
-                        <td>Intercommunalité</td>
-                    </tr>
-                    <tr>
-                        <td>{{ simulation.articlesImposes|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.articlesExoneres|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.vlnCommune|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.vlnICo|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.delivranceAvisimposition|number_format(0, ',', ' ')}}</td>
-                        <td>{{ simulation.lcxSusceptibleExonereTSE|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                </table>
-            </div>
-        </div> 
-        <div class="row">
-            <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
-                <h5>IX. TAUX ET PRODUITS PAR COLLECTIVITÉ</h5>
-                <table class="table table-striped table-hover table-bordered">
-                    <tr>
-                        <th></th>
-                        <th>Taux d'imposition</th>
-                        <th>Taux {{"now"|date('Y')-1}}</th>
-                        <th>Nombre d'articles TH</th>
-                        <th>Montant réel TH</th>
-                        <th>Nombre d'articles THLV</th>
-                        <th>Montant réel THLV</th>
-                        <th>Montant net (TH + THLV)</th>
-                    </tr>
-                    <tr>
-                        <td>1. Commune</td>
-                        <td>{{simulation.getSimulationArticleTH().getTauximpositioncommune()|number_format(5, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{simulation.getMontantReelTHCommune()|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td>{{simulation.getMontantReelTHLVCommune()|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.getMontantNetTHTHLVCommune()|number_format(0, ',', ' ')}}</td>
-                    </tr>    
-                    <tr>
-                        <td>2. Syndicats de communes (taux global)</td>
-                        <td>{{simulation.getArticleCommuneTH().getTauxImpositionSyndicats()|number_format(5, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>3. Intercommunalité</td>
-                        <td>{{simulation.getArticleCommuneTH().getTauxImpositionIntercommunalite()|number_format(5, '.', ',')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{simulation.getMontantReelTHICO()|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{simulation.getMontantNetTHTHLVICO()|number_format(0, ',', ' ')}}</td>
-                    </tr>
-                    <tr>
-                        <td>4. TSE a (art. 1607 bis à 1609 F du CGI)</td>
-                        <td>{{simulation.getArticleCommuneTH().getTauxImpositionTSE()|number_format(5, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{simulation.getMontantReelTHTSE()|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{simulation.getMontantNetTHTHLVTSE()|number_format(0, ',', ' ')}}</td>
-                    </tr>    
-                    <tr>
-                        <td>5. TSE Société du Grand Paris</td>
-                        <td>{{0|number_format(5, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>6. Frais (THP THE)</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{simulation.getNombreArticlesTHFraisTHPTHE()|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.getMontantReelTHFraisTHPTHE()|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>    
-                    <tr>
-                        <td>7. Frais (THS)</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{simulation.getNombreArticlesTHFraisTHS()|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.getMontantReelTHFraisTHS()|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>8. Frais à 8% (THLV)</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>{{simulation.getNombreArticlesTHLVFrais8pourcent()|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.getMontantReelTHLVFrais8pourcent()|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                    </tr>  
-                    <tr>
-                        <td>9. Prélevement (art. 1641-I-3)</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{simulation.getNombreArticlesTHPrelt1()|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.getMontantReelTHPrelt1()|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>10. Prélevement supplémentaire (THS)</td>
-                        <td>1,5%</td>
-                        <td></td>
-                        <td>{{simulation.getNombreArticlesTHPreltSupplementaireTHS()|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.getMontantReelTHPreltSupplementaireTHS()|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>11. TOTAL</td>
-                        <td></td>
-                        <td></td>
-                        <td>{{simulation.getNombreArticlesTHTotal()|number_format(0, ',', ' ')}}</td>
-                        <td>{{(simulation.getMontantReelTHCommune()
+    </div>         
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <h5>II. VLM, BASES EXONEREES ET BASES NETTES D'IMPOSITION TAXEES AU PROFIT DE :</h5>
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th></th>
+                    <th>1-Commune</th>
+                    <th>2-Syndicats</th>
+                    <th>3-Intercommunalité</th>
+                    <th>4-VL des THS</th>  
+                </tr>
+                <tr>
+                    <td>VL moyenne</td>
+                    <td><div>
+                                 {% if simulation.VlmCne >= articleCommuneTH.getVlmCne() %}
+                            <span class="label-success" id="VlmCne" rel="popover">
+                               {% else %}
+                                <span class="label-danger" id="VlmCne" rel="popover">
+                                {% endif %}
+{{simulation.VlmCne|number_format(0, ',', ' ')}}</span>  <span class="label-default">{{"("~articleCommuneTH.getVlmCne()|number_format(0, ',', ' ')~")"}}</span>
+                                <script>$(document).ready(function() {
+                                        $("#VlmCne").popover({
+                                            html: true,
+                                            animation: true,
+                                            content: "Valeur locative moyenne pour la commune dans l'article de la commune",
+                                            placement: "left"
+                                        });
+                                    });</script>
+                        </div> </td>
+                    <td></td>
+                    <td><div>
+                            {% if simulation.VlmICO >= articleCommuneTH.getVlmICO() %}
+                            <span class="label-success" id="VlmICO" rel="popover">
+                               {% else %}
+                                <span class="label-danger" id="VlmICO" rel="popover">    
+                                    {% endif %}
+{{simulation.VlmICO|number_format(0, ',', ' ')}}</span>  <span class="label-default">{{"("~articleCommuneTH.getVlmICO()|number_format(0, ',', ' ')~")"}}</span>
+                                <script>$(document).ready(function() {
+                                        $("#VlmICO").popover({
+                                            html: true,
+                                            animation: true,
+                                            content: "Valeur locative moyenne pour l'intercommunalité dans l'article de la commune",
+                                            placement: "left"
+                                        });
+                                    });</script>
+                        </div></td>
+                    <td></td>
+                </tr>    
+                <tr>
+                    <td>VL moyenne retenue/abat</td>
+                    <td>{{simulation.VlmCneRetenueAbat|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td>{{simulation.VlmICORetenueAbat|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                </tr>    
+                <tr>
+                    <td>Base nette imposée ou dégrevée</td>
+                    <td>{{simulation.baseNetteCommune|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td>{{simulation.baseNetteICO|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.baseNetteTSE|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td>Base nette sans ajustement</td>
+                    <td>{{simulation.baseNetteSansAjustementCommune|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td>{{simulation.baseNetteSansAjustementICO|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                </tr>    
+                <tr>
+                    <td>Base nette exo TSE(*)</td>
+                    <td>{{simulation.baseNetteExoTSECommune|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Base nette brutes exo ZRR</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>         
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <h5>III. ABATTEMENTS : QUOTITÉS ET POURCENTAGES</h5>
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th rowspan="2"></th>
+                    <th colspan="3">Commune</th>
+                    <th colspan="3">Intercommunalité</th>
+                </tr>
+                <tr>
+                    <td>Quotité avant ajustement</td>
+                    <td>Quotité ajustée</td>
+                    <td>%</td>
+                    <td>Quotité avant ajustement</td>
+                    <td>Quotité ajustée</td>
+                    <td>%</td>
+                </tr>    
+                <tr>
+                    <td>1. Abattement général à la base</td>
+                    <td><div>
+                                  {% if simulation.quotiteAbattementGeneralBaseCommuneSansAjustement >= articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement %}
+                            <span class="label-success" id="quotiteAbattementGeneralBaseCommuneSansAjustement" rel="popover">
+                               {% else %}
+                                <span class="label-danger" id="quotiteAbattementGeneralBaseCommuneSansAjustement" rel="popover">
+                                {% endif %}
+{{simulation.quotiteAbattementGeneralBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>  
+                                <span class="label-default">{{"("~articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement|number_format(0, ',', ' ')~")"}}</span>
+                                <script>$(document).ready(function() {
+                                        $("#quotiteAbattementGeneralBaseCommuneSansAjustement").popover({
+                                            html: true,
+                                            animation: true,
+                                            content: "Abattement général à la base communale x Valeur locative de la commune /  100",
+                                            placement: "left"
+                                        });
+                                    });</script>
+                        </div></td>
+                    <td>{{simulation.quotiteAbattementGeneralBaseCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.simulationArticleTH.abattementgeneralbasecommunale|number_format(0, ',', ' ')}}</td>
+                    <td>CF. COMMUNE</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>2. Abattement pour 1 personne à charges</td>
+                    <td><div>
+                            {% if simulation.quotiteAbattementPAC1CommuneSansAjustement >= articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement %}
+                            <span class="label-success" id="quotiteAbattementPAC1CommuneSansAjustement" rel="popover">
+                               {% else %}
+                                <span class="label-danger" id="quotiteAbattementPAC1CommuneSansAjustement" rel="popover">
+                                {% endif %}
+{{simulation.quotiteAbattementPAC1CommuneSansAjustement|number_format(0, ',', ' ')}}</span>  
+                                <span class="label-default">{{"("~(simulation.quotiteAbattementGeneralBaseCommuneSansAjustement
++articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+                                <script>$(document).ready(function() {
+                                        $("#quotiteAbattementPAC1CommuneSansAjustement").popover({
+                                            html: true,
+                                            animation: true,
+                                            content: "Abattement général à la base communale + Abattement pour 1 personne à charge x Valeur locative de la commune /  100",
+                                            placement: "left"
+                                        });
+                                    });</script>
+                        </div></td>
+                    <td>{{simulation.quotiteAbattementPAC1CommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal12|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>    
+                <tr>
+                    <td>3. Abattement pour 2 personnes à charges</td>
+                    <td><div>
+{% if simulation.quotiteAbattementPAC2CommuneSansAjustement >= articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement) %}
+                            <span class="label-success" id="quotiteAbattementPAC2CommuneSansAjustement" rel="popover">
+{% else %}
+                                <span class="label-danger" id="quotiteAbattementPAC2CommuneSansAjustement" rel="popover">
+{% endif %}
+{{simulation.quotiteAbattementPAC2CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
+                                <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement))|number_format(0, ',', ' ')~")"}}</span>
+                                <script>$(document).ready(function() {
+                                        $("#quotiteAbattementPAC2CommuneSansAjustement").popover({
+                                            html: true,
+                                            animation: true,
+                                            content: "Abattement pour 1 personne à charge  + Abattement pour 2 personnes à charge x Valeur locative de la commune /  100",
+                                            placement: "left"
+                                        });
+                                    });</script>
+                        </div></td>
+                    <td>{{simulation.quotiteAbattementPAC2CommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal12|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>4. Abattement pour 3 personnes à charges</td>
+                    <td><div>
+{% if simulation.quotiteAbattementPAC3CommuneSansAjustement >= articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)+articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement %}
+                            <span class="label-success" id="quotiteAbattementPAC3CommuneSansAjustement" rel="popover">
+{% else %}
+                                <span class="label-danger" id="quotiteAbattementPAC3CommuneSansAjustement" rel="popover">
+{% endif %}
+{{simulation.quotiteAbattementPAC3CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
+                                <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)+articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+
+                                <script>$(document).ready(function() {
+                                        $("#quotiteAbattementPAC3CommuneSansAjustement").popover({
+                                            html: true,
+                                            animation: true,
+                                            content: "Abattement pour 3 personnes à charge x Valeur locative de la commune /  100",
+                                            placement: "left"
+                                        });
+                                    });</script>
+                        </div></td>
+                    <td>{{simulation.quotiteAbattementPAC3CommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal3|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>    
+                <tr>
+                    <td>5. Abattement supp. par pers. à charge à partir de la 4e</td>
+                    <td><div>
+{% if simulation.quotiteAbattementPAC4SuppCommuneSansAjustement >= articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement %}
+                            <span class="label-success" id="quotiteAbattementPAC4SuppCommuneSansAjustement" rel="popover">
+{% else %}
+                                <span class="label-danger" id="quotiteAbattementPAC4SuppCommuneSansAjustement" rel="popover">
+{% endif %}                                                
+{{simulation.quotiteAbattementPAC4SuppCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
+                                <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+                                <script>$(document).ready(function() {
+                                        $("#quotiteAbattementPAC4SuppCommuneSansAjustement").popover({
+                                            html: true,
+                                            animation: true,
+                                            content: "Abattement supplémentaire pour 3 personnes à charge x Valeur locative de la commune /  100",
+                                            placement: "left"
+                                        });
+                                    });</script>
+                        </div></td>
+                    <td>{{simulation.quotiteAbattementPAC4SuppCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal3|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>6. Abattement spécial à la base</td>
+                    <td><div>
+{% if simulation.quotiteAbattementSpecialBaseCommuneSansAjustement >= articleCommuneTH.quotiteAbattementSpecialBaseCommuneSansAjustement %}
+                            <span class="label-success" id="quotiteAbattementSpecialBaseCommuneSansAjustement" rel="popover">
+{% else %}
+                                <span class="label-danger" id="quotiteAbattementSpecialBaseCommuneSansAjustement" rel="popover">
+{% endif %}                             
+{{simulation.quotiteAbattementSpecialBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
+                                <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementSpecialBaseCommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+                                <script>$(document).ready(function() {
+                                        $("#quotiteAbattementSpecialBaseCommuneSansAjustement").popover({
+                                            html: true,
+                                            animation: true,
+                                            content: "NON VOTÉ",
+                                            placement: "left"
+                                        });
+                                    });</script>
+                        </div></td>
+                    <td>{{simulation.quotiteAbattementSpecialBaseCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.simulationArticleTH.abattementspecialbasecommunal|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>    
+                <tr>
+                    <td>7. Abattement spécial handicapé </td>
+                    <td><div>
+{% if simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement >= articleCommuneTH.quotiteAbattementSpecialHandicapeCommuneSansAjustement %}
+                            <span class="label-success" id="quotiteAbattementSpecialHandicapeCommuneSansAjustement" rel="popover">
+{% else %}
+                                <span class="label-danger" id="quotiteAbattementSpecialHandicapeCommuneSansAjustement" rel="popover">
+{% endif %}                                 
+{{simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
+                                <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementSpecialHandicapeCommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+                                <script>$(document).ready(function() {
+                                        $("#quotiteAbattementSpecialHandicapeCommuneSansAjustement").popover({
+                                            html: true,
+                                            animation: true,
+                                            content: "Abattement spécial handicapé x Valeur locative de la commune /  100",
+                                            placement: "left"
+                                        });
+                                    });</script>
+                        </div></td>
+                    <td>{{simulation.quotiteAbattementSpecialHandicapeCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.simulationArticleTH.abattementspecialhandicapebasecommunal|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>     
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <h5>IV.REPARTITION DES ARTICLES DU ROLE EN FONCTION DU NOMBRE DE PERSONNES A CHARGES</h5>
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <td>Nb d'articles du rôle</td>
+                    <td>Afférents aux résidences secondaires</td>
+                    <td>Afférents aux dépendances principales isolées</td>
+                    <td>0 pers à charge</td>
+                    <td>1 pers à charge</td>
+                    <td>2 pers à charge</td>
+                    <td>3 pers à charge</td>
+                    <td>4 pers à charge</td>
+                    <td>5 pers et + à charge</td>
+                    <td>Total cumulé</td>
+                </tr>
+                <tr>
+                    <td>Imposés ou dégrevés</td>
+                    <td>{{simulation.afferentsresidencessecondaires}}</td>
+                    <td>{{simulation.afferentsdependancesprincipales}}</td>
+                    <td>{{simulation.nbpers0persacharge}}</td>
+                    <td>{{simulation.nbpers1persacharge}}</td>
+                    <td>{{simulation.nbpers2persacharge}}</td>
+                    <td>{{simulation.nbpers3persacharge}}</td>
+                    <td>{{simulation.nbpers4persacharge}}</td>
+                    <td>{{simulation.nbpers5persacharge}}</td>
+                    <td>{{simulation.nbperstotcumule}}</td>
+                </tr>
+                <tr>
+                    <td>Exonérés</td>
+                    <td></td>
+                    <td>{{simulation.afferentsdependancesprincipalesexoneres}}</td>
+                    <td>{{simulation.nbpers0persachargeexoneres}}</td>
+                    <td>{{simulation.nbpers1persachargeexoneres}}</td>
+                    <td>{{simulation.nbpers2persachargeexoneres}}</td>
+                    <td>{{simulation.nbpers3persachargeexoneres}}</td>
+                    <td>{{simulation.nbpers4persachargeexoneres}}</td>
+                    <td>{{simulation.nbpers5persachargeexoneres}}</td>
+                    <td>{{simulation.nbperstotcumuleexoneres}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>    
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <h5>V.ABATTEMENTS APPLIQUES DANS LE ROLE AUX ARTICLES IMPOSES</h5>
+            <table class="table table-striped table-hover table-bordered">
+                <tr><th></th><th>Commune</th><th>Intercommunalité</th><th>Syndicat(s)</th><th>TSE</th></tr>
+                <tr>
+                    <td colspan="5">Abattement général à la base </td>
+                </tr>    
+                <tr>
+                    <td>Nombre d'articles du rôle</td>
+                    <td>{{simulation.nbperstotcumule}}</td>
+                    <td>{{simulation.nbperstotcumule}}</td>
+                    <td></td>
+                    <td>{{simulation.nbperstotcumule}}</td>
+                </tr>
+                <tr>
+                    <td>Total des abattements</td>
+                    <td>{{simulation.abattementgeneralbasecommunale}}</td>
+                    <td>{{simulation.abattementgeneralbasecommunale}}</td>
+                    <td></td>
+                    <td>{{simulation.abattementgeneralbasecommunale}}</td>
+                </tr>
+                <tr>
+                    <td colspan="5">Abattement pour charges de famille</td>
+                </tr>
+                <tr>
+                    <td colspan="5">a. Personnes des deux premiers rangs (1re et 2e pers)</td>
+                </tr>
+                <tr>
+                    <td>Nombre de personnes</td>
+                    <td>{{simulation.nbabattementpersonneschargecommunal12}}</td>
+                    <td>{{simulation.nbabattementpersonneschargecommunal12}}</td>
+                    <td></td>
+                    <td>{{simulation.nbabattementpersonneschargecommunal12}}</td>
+                </tr>
+                <tr>
+                    <td>Total des abattements</td>
+                    <td>{{simulation.abattementpersonneschargecommunal12}}</td>
+                    <td>{{simulation.abattementpersonneschargecommunal12}}</td>
+                    <td></td>
+                    <td>{{simulation.abattementpersonneschargecommunal12}}</td>
+                </tr>
+                <tr>
+                    <td>b.Personnes à partir du 3e rang (3e pers. et au delà)</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Nombre de personnes</td>
+                    <td>{{simulation.nbabattementpersonneschargecommunal3}}</td>
+                    <td>{{simulation.nbabattementpersonneschargecommunal3}}</td>
+                    <td></td>
+                    <td>{{simulation.nbabattementpersonneschargecommunal3}}</td>
+                </tr>
+                <tr>
+                    <td>Total des abattements</td>
+                    <td>{{simulation.abattementpersonneschargecommunal3}}</td>
+                    <td>{{simulation.abattementpersonneschargecommunal3}}</td>
+                    <td></td>
+                    <td>{{simulation.abattementpersonneschargecommunal3}}</td>
+                </tr>
+                <tr>
+                    <td colspan="5">Abattement spécial à la base</td>                        
+                </tr>
+                <tr>
+                    <td>Nombre de contribuables remplissant les conditions pour en bénéficier en 2012</td>
+                    <td>{{simulation.abattementegalenull}}{{simulation.nbabattementspecialbasecommunal}}</td>
+                    <td>{{simulation.nbabattementspecialbasecommunal}}</td>
+                    <td></td>
+                    <td>{{simulation.nbabattementspecialbasecommunal}}</td>
+                </tr>
+                <tr>
+                    <td>Total des abattements appliqués dans le rôle de 2012</td>
+                    <td>{{simulation.abattementspecialbasecommunal}}</td>
+                    <td>{{simulation.abattementspecialbasecommunal}}</td>
+                    <td></td>
+                    <td>{{simulation.abattementspecialbasecommunal}}</td>
+                </tr>
+                <tr>
+                    <td colspan="5">Abattement spécial handicapé</td>
+                </tr>
+                <tr>
+                    <td>Nombre de contribuables remplissant les conditions pour en bénéficier en 2012</td>
+                    <td>{{simulation.nbabattementspecialhandicapebasecommunal}}</td>
+                    <td>{{simulation.nbabattementspecialhandicapebasecommunal}}</td>
+                    <td></td>
+                    <td>{{simulation.nbabattementspecialhandicapebasecommunal}}</td>
+                </tr>
+                <tr>
+                    <td>Total des abattements appliqués dans le rôle de 2012</td>
+                    <td>{{simulation.abattementspecialhandicapebasecommunal}}</td>
+                    <td>{{simulation.abattementspecialhandicapebasecommunal}}</td>
+                    <td></td>
+                    <td>{{simulation.abattementspecialhandicapebasecommunal}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <h5>VI. REPARTITION DU NOMBRE DU ROLE EN FONCTION DU MONTANT DES COTISATIONS BRUTES</h5>
+            <table class="table table-striped table-hover table-bordered">
+                <tr><th>Tranches de cotisations (en euros)</th><th>Nombre d'articles du rôle</th>
+                    <th>Cotisations mises en recouvrement au profit des collectivités ci-après</th>
+                    <th>Répartition des cotisations brutes par collectivité Communes Syndicats et TSE</th>
+                    <th>Intercommunalité</th><th>Frais et prélèvements</th></tr>  
+                <tr>
+                    <td>De 0 à 11</td>
+                    <td>{{ simulation.nombreArticlesDuRole011|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement011|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE011|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesICO011|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement011|number_format(0, ',', ' ')}}</td>
+                </tr>    
+                <tr>
+                    <td>De 12 à 99</td>
+                    <td>{{ simulation.nombreArticlesDuRole1299|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement1299|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1299|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesICO1299|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement1299|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td>De 100 à 199</td>
+                    <td>{{ simulation.nombreArticlesDuRole100199|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement100199|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE100199|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesICO100199|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement100199|number_format(0, ',', ' ')}}</td>
+                </tr>    
+                <tr>
+                    <td>De 200 à 299</td>
+                    <td>{{ simulation.nombreArticlesDuRole200299|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement200299|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE200299|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesICO200299|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement200299|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td>De 300 à 399</td>
+                    <td>{{ simulation.nombreArticlesDuRole300399|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement300399|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE300399|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesICO300399|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement300399|number_format(0, ',', ' ')}}</td>
+                </tr>    
+                <tr>
+                    <td>De 400 à 499</td>
+                    <td>{{ simulation.nombreArticlesDuRole400499|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement400499|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE400499|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesICO400499|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement400499|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td>De 500 à 599</td>
+                    <td>{{ simulation.nombreArticlesDuRole500599|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement500599|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE500599|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesICO500599|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement500599|number_format(0, ',', ' ')}}</td>
+                </tr>    
+                <tr>
+                    <td>De 600 à 699</td>
+                    <td>{{ simulation.nombreArticlesDuRole600699|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement600699|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE600699|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesICO600699|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement600699|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td>De 700 à 799</td>
+                    <td>{{ simulation.nombreArticlesDuRole700799|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement700799|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE700799|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesICO700799|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement700799|number_format(0, ',', ' ')}}</td>
+                </tr>    
+                <tr>
+                    <td>De 800 à 899</td>
+                    <td>{{ simulation.nombreArticlesDuRole800899|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement800899|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE800899|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesICO800899|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement800899|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td>De 900 à 999</td>
+                    <td>{{ simulation.nombreArticlesDuRole900999|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement900999|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE900999|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesICO900999|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement900999|number_format(0, ',', ' ')}}</td>
+                </tr>    
+                <tr>
+                    <td>De 1000 et plus</td>
+                    <td>{{ simulation.nombreArticlesDuRole1000plus|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement1000plus|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1000plus|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesICO1000plus|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement1000plus|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td>Total.....</td>
+                    <td>{{ simulation.nombreArticlesDuRoleTotal|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrementTotal|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSETotal|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesICOTotal|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevementTotal|number_format(0, ',', ' ')}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>  
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <h5>VII. EXONERATIONS/DEGREVEMENTS D'OFFICE (THP ET THE), NON-VALEURS (THP,E,S) ET ARTICLES NULS</h5>
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th></th>
+                    <th>Code</th>
+                    <th>Nombre d'articles THP</th>
+                    <th>Nombre d'articles THE,S</th>
+                    <th>Dégrèvements Plafonnements</th>
+                    <th>Non-valeurs</th>
+                    <th>Bases nettes (l.1 à 5)/ Réductions (l.6a à 7)</th>
+                </tr>
+                <tr>
+                    <td>1. Exonération DOM (art. 332 ann. II)</td>
+                    <td>ED</td>
+                    <td>{{ simulation.nombreArticlesTHPExonerationDOM|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.nombreArticlesTHETHSExonerationDOM|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ simulation.basesNettesReductionsExonerationDOM|number_format(0, ',', ' ')}}</td>
+                </tr>    
+                <tr>
+                    <td>2. Exonération a. commune</td>
+                    <td>EX</td>
+                    <td>{{ simulation.nombreArticlesTHPCommune|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.nombreArticlesTHETHSCommune|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ simulation.basesNettesReductionsCommune|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td>2. Exonération b. intercommunalité</td>
+                    <td>EX</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ simulation.basesNettesReductionsICO|number_format(0, ',', ' ')}}</td>
+                </tr>    
+                <tr>
+                    <td>3. Exonération TSE local HLM /SEM</td>
+                    <td>EX</td>
+                    <td>{{ simulation.nombreArticlesTHPTSElocalHLMSEM|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.nombreArticlesTHETHSTSElocalHLMSEM|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ simulation.basesNettesReductionsTSElocalHLMSEM|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td>4. Cotisations brutes nulles (articles nuls)</td>
+                    <td>"  "</td>
+                    <td>{{ simulation.nombreArticlesTHPCotisationsbrutesnulles|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>    
+                <tr>
+                    <td>5. Dégrèvements totaux Gestionnaires</td>
+                    <td>DT</td>
+                    <td>{{ simulation.nombreArticlesTHPDegrevementstotaux|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td>{{ simulation.degrevementsPlafonnementsDegrevementstotaux|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td>{{ simulation.basesNettesReductionsDegrevementstotaux|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td>6. Plafonnements a A total non réduit</td>
+                    <td>PA</td>
+                    <td>{{ simulation.nombreArticlesTHPPlafonnements|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.nombreArticlesTHETHSPlafonnements|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.degrevementsPlafonnementsPlafonnements|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td>{{ simulation.basesNettesReductionsPlafonnements|number_format(0, ',', ' ')}}</td>
+                </tr> 
+                <tr>
+                    <td>Non-valeurs</td>
+                    <td>NV</td>
+                    <td></td>
+                    <td>{{ simulation.nombreArticlesTHETHSNonValeurs|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td>{{ simulation.nonValeursNonValeurs|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Totaux :</td>
+                    <td></td>
+                    <td>{{ simulation.nombreArticlesTHPTotaux|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.nombreArticlesTHETHSTotaux|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.degrevementsPlafonnementsTotaux|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.nonValeursTotaux|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.basesNettesReductionsTotaux|number_format(0, ',', ' ')}}</td>
+                </tr>
+            </table>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <h5>VIII. NOMBRE D'ARTICLES DU RÔLE COMPORTANT</h5>
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th colspan="2">Une valeur locative brute positive</th>
+                    <th colspan="2">Une valeur locative nette pour les articles imposés</th>
+                    <th rowspan="2">La délivrance d'un avis d'imposition</th>
+                    <th rowspan="2">Un (des) local(aux) susceptibles(s) d'être exonéré(s) de TSE</th>
+                </tr>
+                <tr>
+                    <td>Articles imposés</td>
+                    <td>Articles exonérés</td>
+                    <td>Commune</td>
+                    <td>Intercommunalité</td>
+                </tr>
+                <tr>
+                    <td>{{ simulation.articlesImposes|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.articlesExoneres|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.vlnCommune|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.vlnICo|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.delivranceAvisimposition|number_format(0, ',', ' ')}}</td>
+                    <td>{{ simulation.lcxSusceptibleExonereTSE|number_format(0, ',', ' ')}}</td>
+                </tr>
+            </table>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="content-tab col-sm-12 col-md-10  col-lg-10 col-md-offset-1">
+            <h5>IX. TAUX ET PRODUITS PAR COLLECTIVITÉ</h5>
+            <table class="table table-striped table-hover table-bordered">
+                <tr>
+                    <th></th>
+                    <th>Taux d'imposition</th>
+                    <th>Taux {{"now"|date('Y')-1}}</th>
+                    <th>Nombre d'articles TH</th>
+                    <th>Montant réel TH</th>
+                    <th>Nombre d'articles THLV</th>
+                    <th>Montant réel THLV</th>
+                    <th>Montant net (TH + THLV)</th>
+                </tr>
+                <tr>
+                    <td>1. Commune</td>
+                    <td>{{simulation.getSimulationArticleTH().getTauximpositioncommune()|number_format(5, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{simulation.getMontantReelTHCommune()|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td>{{simulation.getMontantReelTHLVCommune()|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.getMontantNetTHTHLVCommune()|number_format(0, ',', ' ')}}</td>
+                </tr>    
+                <tr>
+                    <td>2. Syndicats de communes (taux global)</td>
+                    <td>{{simulation.getArticleCommuneTH().getTauxImpositionSyndicats()|number_format(5, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>3. Intercommunalité</td>
+                    <td>{{simulation.getArticleCommuneTH().getTauxImpositionIntercommunalite()|number_format(5, '.', ',')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{simulation.getMontantReelTHICO()|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{simulation.getMontantNetTHTHLVICO()|number_format(0, ',', ' ')}}</td>
+                </tr>
+                <tr>
+                    <td>4. TSE a (art. 1607 bis à 1609 F du CGI)</td>
+                    <td>{{simulation.getArticleCommuneTH().getTauxImpositionTSE()|number_format(5, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{simulation.getMontantReelTHTSE()|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{simulation.getMontantNetTHTHLVTSE()|number_format(0, ',', ' ')}}</td>
+                </tr>    
+                <tr>
+                    <td>5. TSE Société du Grand Paris</td>
+                    <td>{{0|number_format(5, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>6. Frais (THP THE)</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{simulation.getNombreArticlesTHFraisTHPTHE()|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.getMontantReelTHFraisTHPTHE()|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>    
+                <tr>
+                    <td>7. Frais (THS)</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{simulation.getNombreArticlesTHFraisTHS()|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.getMontantReelTHFraisTHS()|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>8. Frais à 8% (THLV)</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{simulation.getNombreArticlesTHLVFrais8pourcent()|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.getMontantReelTHLVFrais8pourcent()|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                </tr>  
+                <tr>
+                    <td>9. Prélevement (art. 1641-I-3)</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{simulation.getNombreArticlesTHPrelt1()|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.getMontantReelTHPrelt1()|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>10. Prélevement supplémentaire (THS)</td>
+                    <td>1,5%</td>
+                    <td></td>
+                    <td>{{simulation.getNombreArticlesTHPreltSupplementaireTHS()|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.getMontantReelTHPreltSupplementaireTHS()|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>11. TOTAL</td>
+                    <td></td>
+                    <td></td>
+                    <td>{{simulation.getNombreArticlesTHTotal()|number_format(0, ',', ' ')}}</td>
+                    <td>{{(simulation.getMontantReelTHCommune()
 +simulation.getMontantReelTHICO()+
 simulation.getMontantReelTHTSE()+
 simulation.getMontantReelTHFraisTHPTHE()
 +simulation.getMontantReelTHFraisTHS()+
 simulation.getMontantReelTHPrelt1()+simulation.getMontantReelTHPreltSupplementaireTHS())|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.getNombreArticlesTHLVTotal()|number_format(0, ',', ' ')}}</td>
-                        <td>{{simulation.getMontantReelTHLVTotal()|number_format(0, ',', ' ')}}</td>
-                        <td></td>
-                    </tr>
-                </table>
-            </div>
-        </div>     
-    </div>                            
+                    <td>{{simulation.getNombreArticlesTHLVTotal()|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.getMontantReelTHLVTotal()|number_format(0, ',', ' ')}}</td>
+                    <td></td>
+                </tr>
+            </table>
+        </div>
+    </div>     
+</div>                            
 {% endblock %}
 {% block footer %}
 {{ parent() }}

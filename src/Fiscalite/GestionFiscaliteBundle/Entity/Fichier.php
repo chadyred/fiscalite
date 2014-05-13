@@ -82,6 +82,17 @@ class Fichier
      * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TFArticleCommuneSRA3", mappedBy="fichier", cascade={"persist","remove"})
      */
     private $tFarticlesCommuneSRA3;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTH", inversedBy="fichier", cascade={"persist"})
+     */
+    private $rechercheArticleTH;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTF", inversedBy="fichier", cascade={"persist"})
+     */
+    private $rechercheArticleTF;
+    
     /**
      * Get id
      *
@@ -491,5 +502,71 @@ class Fichier
     public function getTFarticlesCommuneEnTete()
     {
         return $this->tFarticlesCommuneEnTete;
+    }
+
+    /**
+     * Add rechercheArticleTH
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTH $rechercheArticleTH
+     * @return Fichier
+     */
+    public function addRechercheArticleTH(\Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTH $rechercheArticleTH)
+    {
+        $this->rechercheArticleTH[] = $rechercheArticleTH;
+
+        return $this;
+    }
+
+    /**
+     * Remove rechercheArticleTH
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTH $rechercheArticleTH
+     */
+    public function removeRechercheArticleTH(\Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTH $rechercheArticleTH)
+    {
+        $this->rechercheArticleTH->removeElement($rechercheArticleTH);
+    }
+
+    /**
+     * Get rechercheArticleTH
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRechercheArticleTH()
+    {
+        return $this->rechercheArticleTH;
+    }
+
+    /**
+     * Add rechercheArticleTF
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTF $rechercheArticleTF
+     * @return Fichier
+     */
+    public function addRechercheArticleTF(\Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTF $rechercheArticleTF)
+    {
+        $this->rechercheArticleTF[] = $rechercheArticleTF;
+
+        return $this;
+    }
+
+    /**
+     * Remove rechercheArticleTF
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTF $rechercheArticleTF
+     */
+    public function removeRechercheArticleTF(\Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTF $rechercheArticleTF)
+    {
+        $this->rechercheArticleTF->removeElement($rechercheArticleTF);
+    }
+
+    /**
+     * Get rechercheArticleTF
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRechercheArticleTF()
+    {
+        return $this->rechercheArticleTF;
     }
 }

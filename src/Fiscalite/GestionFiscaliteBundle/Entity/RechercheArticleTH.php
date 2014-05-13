@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTHRepository")
  */
 class RechercheArticleTH {
+
     /**
      * @var integer
      *
@@ -20,98 +21,132 @@ class RechercheArticleTH {
      */
     private $id;
 
-   /**
+    /**
      * @var string
      *
-     * @ORM\Column(name="nompersonne", type="string", length=255)
+     * @ORM\Column(name="nompersonne", type="string", length=255, nullable=true)
      */
     private $nompersonne;
-    
+
     /**
      * @var integer
      *
-     * @ORM\Column(name="nbpersonnesacharge", type="integer")
+     * @ORM\Column(name="nbpersonnesacharge", type="integer", nullable=true)
      */
     private $nbpersonnesacharge;
 
     /**
-     * @var integer
-     *
-     * @ORM\Column(name="anneetaxation", type="integer")
+     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", mappedBy="rechercheArticleTH", cascade={"persist"})
      */
-    private $anneetaxation;
+    private $fichier;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="basenettemin", type="integer")
+     * @ORM\Column(name="basenettemin", type="integer", nullable=true)
      */
     private $basenettemin;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="basenettemax", type="integer")
+     * @ORM\Column(name="basenettemax", type="integer", nullable=true)
      */
     private $basenettemax;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="abattementgeneralbasecommunale", type="integer")
+     * @ORM\Column(name="abattementgeneralbasecommunalemin", type="integer", nullable=true)
      */
-    private $abattementgeneralbasecommunale;
-    
+    private $abattementgeneralbasecommunalemin;
+
     /**
      * @var integer
      *
-     * @ORM\Column(name="abattementpersonneschargecommunnal", type="integer")
+     * @ORM\Column(name="abattementgeneralbasecommunalemax", type="integer", nullable=true)
      */
-    private $abattementpersonneschargecommunnal;
-    
+    private $abattementgeneralbasecommunalemax;
+
     /**
      * @var integer
      *
-     * @ORM\Column(name="abattementspecialbasecommunal", type="integer")
+     * @ORM\Column(name="abattementpersonneschargecommunnalmin", type="integer", nullable=true)
      */
-    private $abattementspecialbasecommunal;
-    
+    private $abattementpersonneschargecommunnalmin;
+
     /**
      * @var integer
      *
-     * @ORM\Column(name="abattementspecialhandicapecommunal", type="integer")
+     * @ORM\Column(name="abattementpersonneschargecommunnalmax", type="integer", nullable=true)
      */
-    private $abattementspecialhandicapecommunal;
-    
+    private $abattementpersonneschargecommunnalmax;
+
     /**
      * @var integer
      *
-     * @ORM\Column(name="cotisationcommunalemin", type="integer")
+     * @ORM\Column(name="abattementspecialbasecommunalmin", type="integer", nullable=true)
+     */
+    private $abattementspecialbasecommunalmin;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="abattementspecialbasecommunalmax", type="integer", nullable=true)
+     */
+    private $abattementspecialbasecommunalmax;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="abattementspecialhandicapecommunalmin", type="integer", nullable=true)
+     */
+    private $abattementspecialhandicapecommunalmin;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="abattementspecialhandicapecommunalmax", type="integer", nullable=true)
+     */
+    private $abattementspecialhandicapecommunalmax;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="cotisationcommunalemin", type="integer", nullable=true)
      */
     private $cotisationcommunalemin;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="cotisationcommunalemax", type="integer")
+     * @ORM\Column(name="cotisationcommunalemax", type="integer", nullable=true)
      */
     private $cotisationcommunalemax;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="montantnetapayermin", type="integer")
+     * @ORM\Column(name="montantnetapayermin", type="integer", nullable=true)
      */
     private $montantnetapayermin;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="montantnetapayermax", type="integer")
+     * @ORM\Column(name="montantnetapayermax", type="integer", nullable=true)
      */
     private $montantnetapayermax;
 
-    
+ 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->fichier = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
     /**
      * Get id
      *
@@ -169,29 +204,6 @@ class RechercheArticleTH {
     }
 
     /**
-     * Set anneetaxation
-     *
-     * @param integer $anneetaxation
-     * @return RechercheArticleTH
-     */
-    public function setAnneetaxation($anneetaxation)
-    {
-        $this->anneetaxation = $anneetaxation;
-
-        return $this;
-    }
-
-    /**
-     * Get anneetaxation
-     *
-     * @return integer 
-     */
-    public function getAnneetaxation()
-    {
-        return $this->anneetaxation;
-    }
-
-    /**
      * Set basenettemin
      *
      * @param integer $basenettemin
@@ -238,95 +250,187 @@ class RechercheArticleTH {
     }
 
     /**
-     * Set abattementgeneralbasecommunale
+     * Set abattementgeneralbasecommunalemin
      *
-     * @param integer $abattementgeneralbasecommunale
+     * @param integer $abattementgeneralbasecommunalemin
      * @return RechercheArticleTH
      */
-    public function setAbattementgeneralbasecommunale($abattementgeneralbasecommunale)
+    public function setAbattementgeneralbasecommunalemin($abattementgeneralbasecommunalemin)
     {
-        $this->abattementgeneralbasecommunale = $abattementgeneralbasecommunale;
+        $this->abattementgeneralbasecommunalemin = $abattementgeneralbasecommunalemin;
 
         return $this;
     }
 
     /**
-     * Get abattementgeneralbasecommunale
+     * Get abattementgeneralbasecommunalemin
      *
      * @return integer 
      */
-    public function getAbattementgeneralbasecommunale()
+    public function getAbattementgeneralbasecommunalemin()
     {
-        return $this->abattementgeneralbasecommunale;
+        return $this->abattementgeneralbasecommunalemin;
     }
 
     /**
-     * Set abattementpersonneschargecommunnal
+     * Set abattementgeneralbasecommunalemax
      *
-     * @param integer $abattementpersonneschargecommunnal
+     * @param integer $abattementgeneralbasecommunalemax
      * @return RechercheArticleTH
      */
-    public function setAbattementpersonneschargecommunnal($abattementpersonneschargecommunnal)
+    public function setAbattementgeneralbasecommunalemax($abattementgeneralbasecommunalemax)
     {
-        $this->abattementpersonneschargecommunnal = $abattementpersonneschargecommunnal;
+        $this->abattementgeneralbasecommunalemax = $abattementgeneralbasecommunalemax;
 
         return $this;
     }
 
     /**
-     * Get abattementpersonneschargecommunnal
+     * Get abattementgeneralbasecommunalemax
      *
      * @return integer 
      */
-    public function getAbattementpersonneschargecommunnal()
+    public function getAbattementgeneralbasecommunalemax()
     {
-        return $this->abattementpersonneschargecommunnal;
+        return $this->abattementgeneralbasecommunalemax;
     }
 
     /**
-     * Set abattementspecialbasecommunal
+     * Set abattementpersonneschargecommunnalmin
      *
-     * @param integer $abattementspecialbasecommunal
+     * @param integer $abattementpersonneschargecommunnalmin
      * @return RechercheArticleTH
      */
-    public function setAbattementspecialbasecommunal($abattementspecialbasecommunal)
+    public function setAbattementpersonneschargecommunnalmin($abattementpersonneschargecommunnalmin)
     {
-        $this->abattementspecialbasecommunal = $abattementspecialbasecommunal;
+        $this->abattementpersonneschargecommunnalmin = $abattementpersonneschargecommunnalmin;
 
         return $this;
     }
 
     /**
-     * Get abattementspecialbasecommunal
+     * Get abattementpersonneschargecommunnalmin
      *
      * @return integer 
      */
-    public function getAbattementspecialbasecommunal()
+    public function getAbattementpersonneschargecommunnalmin()
     {
-        return $this->abattementspecialbasecommunal;
+        return $this->abattementpersonneschargecommunnalmin;
     }
 
     /**
-     * Set abattementspecialhandicapecommunal
+     * Set abattementpersonneschargecommunnalmax
      *
-     * @param integer $abattementspecialhandicapecommunal
+     * @param integer $abattementpersonneschargecommunnalmax
      * @return RechercheArticleTH
      */
-    public function setAbattementspecialhandicapecommunal($abattementspecialhandicapecommunal)
+    public function setAbattementpersonneschargecommunnalmax($abattementpersonneschargecommunnalmax)
     {
-        $this->abattementspecialhandicapecommunal = $abattementspecialhandicapecommunal;
+        $this->abattementpersonneschargecommunnalmax = $abattementpersonneschargecommunnalmax;
 
         return $this;
     }
 
     /**
-     * Get abattementspecialhandicapecommunal
+     * Get abattementpersonneschargecommunnalmax
      *
      * @return integer 
      */
-    public function getAbattementspecialhandicapecommunal()
+    public function getAbattementpersonneschargecommunnalmax()
     {
-        return $this->abattementspecialhandicapecommunal;
+        return $this->abattementpersonneschargecommunnalmax;
+    }
+
+    /**
+     * Set abattementspecialbasecommunalmin
+     *
+     * @param integer $abattementspecialbasecommunalmin
+     * @return RechercheArticleTH
+     */
+    public function setAbattementspecialbasecommunalmin($abattementspecialbasecommunalmin)
+    {
+        $this->abattementspecialbasecommunalmin = $abattementspecialbasecommunalmin;
+
+        return $this;
+    }
+
+    /**
+     * Get abattementspecialbasecommunalmin
+     *
+     * @return integer 
+     */
+    public function getAbattementspecialbasecommunalmin()
+    {
+        return $this->abattementspecialbasecommunalmin;
+    }
+
+    /**
+     * Set abattementspecialbasecommunalmax
+     *
+     * @param integer $abattementspecialbasecommunalmax
+     * @return RechercheArticleTH
+     */
+    public function setAbattementspecialbasecommunalmax($abattementspecialbasecommunalmax)
+    {
+        $this->abattementspecialbasecommunalmax = $abattementspecialbasecommunalmax;
+
+        return $this;
+    }
+
+    /**
+     * Get abattementspecialbasecommunalmax
+     *
+     * @return integer 
+     */
+    public function getAbattementspecialbasecommunalmax()
+    {
+        return $this->abattementspecialbasecommunalmax;
+    }
+
+    /**
+     * Set abattementspecialhandicapecommunalmin
+     *
+     * @param integer $abattementspecialhandicapecommunalmin
+     * @return RechercheArticleTH
+     */
+    public function setAbattementspecialhandicapecommunalmin($abattementspecialhandicapecommunalmin)
+    {
+        $this->abattementspecialhandicapecommunalmin = $abattementspecialhandicapecommunalmin;
+
+        return $this;
+    }
+
+    /**
+     * Get abattementspecialhandicapecommunalmin
+     *
+     * @return integer 
+     */
+    public function getAbattementspecialhandicapecommunalmin()
+    {
+        return $this->abattementspecialhandicapecommunalmin;
+    }
+
+    /**
+     * Set abattementspecialhandicapecommunalmax
+     *
+     * @param integer $abattementspecialhandicapecommunalmax
+     * @return RechercheArticleTH
+     */
+    public function setAbattementspecialhandicapecommunalmax($abattementspecialhandicapecommunalmax)
+    {
+        $this->abattementspecialhandicapecommunalmax = $abattementspecialhandicapecommunalmax;
+
+        return $this;
+    }
+
+    /**
+     * Get abattementspecialhandicapecommunalmax
+     *
+     * @return integer 
+     */
+    public function getAbattementspecialhandicapecommunalmax()
+    {
+        return $this->abattementspecialhandicapecommunalmax;
     }
 
     /**
@@ -419,5 +523,38 @@ class RechercheArticleTH {
     public function getMontantnetapayermax()
     {
         return $this->montantnetapayermax;
+    }
+
+    /**
+     * Add fichier
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier
+     * @return RechercheArticleTH
+     */
+    public function addFichier(\Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier)
+    {
+        $this->fichier[] = $fichier;
+
+        return $this;
+    }
+
+    /**
+     * Remove fichier
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier
+     */
+    public function removeFichier(\Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier)
+    {
+        $this->fichier->removeElement($fichier);
+    }
+
+    /**
+     * Get fichier
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFichier()
+    {
+        return $this->fichier;
     }
 }

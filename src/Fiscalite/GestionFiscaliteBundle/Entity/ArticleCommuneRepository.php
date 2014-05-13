@@ -28,13 +28,21 @@ class ArticleCommuneRepository extends EntityRepository {
 
         return $qb->getQuery()->getResult();
     }
-    
-       public function rechercherFichierAvecAnnee($fichier) {
+
+    public function rechercherFichierAvecAnnee($fichier) {
         $qb = $this->createQueryBuilder('a');
         $qb->join('a.fichier', 'f')
                 ->andWhere('f.anneetaxation =:anneetaxation')
                 ->setParameter('anneetaxation', $fichier->getAnneeTaxation());
-        
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findLastArticleCommune() {
+        $qb = $this->createQueryBuilder('a');
+        $qb->join('a.fichier', 'f')
+                ->addOrderBy('f.anneetaxation','DESC')
+                ->setMaxResults(2);
         return $qb->getQuery()->getResult();
     }
 

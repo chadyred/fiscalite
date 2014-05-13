@@ -35,7 +35,7 @@
     <body>
 
 {% block header %}
-        <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
             <div class="navbar-header navigation">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
                     <span class="sr-only">Toggle navigation</span>
@@ -44,7 +44,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand"  href="{{ path('fiscalite') }}">
-                    <img src="{{ asset('bundles/fiscalitegestionfiscalite/images/logo.png') }}" alt="Mairie de Voreppe" /> 
+                    <img class="img-responsive" src="{{ asset('bundles/fiscalitegestionfiscalite/images/logo.jpg') }}" alt="Mairie de Voreppe" /> 
                 </a>
             </div>    
             <div class="navbar-collapse collapse" id="navbar-collapse-1">
@@ -130,9 +130,7 @@
             <div class="container">
                 <div class="row">
                     <ul>
-                        <li>À propos</li>
-                        <li>Aide</li>
-                        <li>Confidentialité</li>
+                        <li><a href="/web/documentation_utilisateur_fiscalite.pdf">Aide</a></li>
                         <li><span id="developpeurs" rel="popover">Développeurs</span></li>
                             <script>$(document).ready(function() {
                                     $("#developpeurs").popover({

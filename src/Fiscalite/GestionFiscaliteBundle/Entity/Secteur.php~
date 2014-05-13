@@ -40,9 +40,14 @@ class Secteur {
     private $nombreIndividu;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TypeRue",cascade={"persist","remove"})
+     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TypeRue", cascade={"persist","remove"})
      */
     private $typerue;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTH", inversedBy="secteur", cascade={"persist","remove"})
+     */
+    private $simulationArticleTH;
 
     /**
      * Get id
@@ -77,7 +82,6 @@ class Secteur {
     public function newSecteur($nom, $nombreIndividu) {
         $this->setNom($nom);
         $this->setNombreIndividu($nombreIndividu);
- 
         return $this;
     }
 
@@ -85,7 +89,8 @@ class Secteur {
      * Constructor
      */
     public function __construct() {
-        
+        $this->typerue = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->simulationArticleTH = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -139,13 +144,44 @@ class Secteur {
         return $this->typerue;
     }
 
-    public function setNombreIndividuRue(){
-        $i=0;
-        foreach ($this->getTyperue() as $typerue){
+    public function setNombreIndividuRue() {
+        $i = 0;
+        foreach ($this->getTyperue() as $typerue) {
             foreach ($typerue->getAdresses() as $adr)
                 $i++;
         }
         $this->setNombreIndividu($i);
         return $this;
     }
+
+    /**
+     * Add simulationArticleTH
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTH $simulationArticleTH
+     * @return Secteur
+     */
+    public function addSimulationArticleTH(\Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTH $simulationArticleTH) {
+        $this->simulationArticleTH[] = $simulationArticleTH;
+
+        return $this;
+    }
+
+    /**
+     * Remove simulationArticleTH
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTH $simulationArticleTH
+     */
+    public function removeSimulationArticleTH(\Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTH $simulationArticleTH) {
+        $this->simulationArticleTH->removeElement($simulationArticleTH);
+    }
+
+    /**
+     * Get simulationArticleTH
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSimulationArticleTH() {
+        return $this->simulationArticleTH;
+    }
+
 }

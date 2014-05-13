@@ -196,7 +196,7 @@ class ArticleTF extends Article {
      * @return integer 
      */
     public function getId() {
-        return $this->id;
+        return parent::getId();
     }
 
     /**

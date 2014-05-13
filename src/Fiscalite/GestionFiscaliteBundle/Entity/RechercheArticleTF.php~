@@ -21,39 +21,47 @@ class RechercheArticleTF
      */
     private $id;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="anneetaxation", type="integer")
-     */
-    private $anneetaxation;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="titreetdesignation", type="string", length=255)
+     * @ORM\Column(name="titreetdesignation", type="string", length=255, nullable=true)
      */
     private $titreetdesignation;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="sommeapayermin", type="integer")
+     * @ORM\Column(name="sommeapayermin", type="integer", nullable=true)
      */
     private $sommeapayermin;
 
     /**
      * @var integer
      *
-     * @ORM\Column(name="sommeapayermax", type="integer")
+     * @ORM\Column(name="sommeapayermax", type="integer", nullable=true)
      */
     private $sommeapayermax;
 /**
      * @var string
      *
-     * @ORM\Column(name="adresse", type="string", length=255)
+     * @ORM\Column(name="adresse", type="string", length=255, nullable=true)
      */
     private $adresse;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", mappedBy="rechercheArticleTF", cascade={"persist"})
+     */
+    private $fichier;
+
+    
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->fichier = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -63,29 +71,6 @@ class RechercheArticleTF
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set anneetaxation
-     *
-     * @param integer $anneetaxation
-     * @return RechercheArticleTF
-     */
-    public function setAnneetaxation($anneetaxation)
-    {
-        $this->anneetaxation = $anneetaxation;
-
-        return $this;
-    }
-
-    /**
-     * Get anneetaxation
-     *
-     * @return integer 
-     */
-    public function getAnneetaxation()
-    {
-        return $this->anneetaxation;
     }
 
     /**
@@ -178,5 +163,38 @@ class RechercheArticleTF
     public function getAdresse()
     {
         return $this->adresse;
+    }
+
+    /**
+     * Add fichier
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier
+     * @return RechercheArticleTF
+     */
+    public function addFichier(\Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier)
+    {
+        $this->fichier[] = $fichier;
+
+        return $this;
+    }
+
+    /**
+     * Remove fichier
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier
+     */
+    public function removeFichier(\Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier)
+    {
+        $this->fichier->removeElement($fichier);
+    }
+
+    /**
+     * Get fichier
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFichier()
+    {
+        return $this->fichier;
     }
 }

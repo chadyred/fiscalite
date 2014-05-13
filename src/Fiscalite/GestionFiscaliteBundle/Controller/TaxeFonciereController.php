@@ -15,28 +15,8 @@ use PHPPdf\DataSource\DataSource;
 
 class TaxeFonciereController extends Controller {
 
-    public function indexAction() {
-        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneIFP');
-        $list_articleCommuneIFP = $repository->findAll();
-        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleTaxationCompte');
-        $list_articleTaxationCompte = $repository->findAll();
-        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleTaxationNonBati');
-        $list_articleTaxationNonBati = $repository->findAll();
-        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleTaxationBati');
-        $list_articleTaxationBati = $repository->findAll();
-        $paginator = $this->get('knp_paginator');
-        $pagination = $paginator->paginate($list_articleCommuneIFP, $this->get('request')->query->get('page', 1)/* page number */, 5/* limit per page */);
-        $paginator2 = $this->get('knp_paginator');
-        $pagination2 = $paginator2->paginate($list_articleTaxationCompte, $this->get('request')->query->get('page', 1)/* page number */, 5/* limit per page */);
-        $paginator3 = $this->get('knp_paginator');
-        $pagination3 = $paginator3->paginate($list_articleTaxationNonBati, $this->get('request')->query->get('page', 1)/* page number */, 5/* limit per page */);
-        $paginator4 = $this->get('knp_paginator');
-        $pagination4 = $paginator4->paginate($list_articleTaxationBati, $this->get('request')->query->get('page', 1)/* page number */, 5/* limit per page */);
-
-        return $this->render('FiscaliteGestionFiscaliteBundle:TaxeFonciere:index.html.twig', array('pagination' => $pagination, 'pagination2' => $pagination2, 'pagination3' => $pagination3, 'pagination4' => $pagination4));
-    }
-
     public function listeAction(Request $request) {
+        $id = -1;
         $recherchearticleTF = new RechercheArticleTF;
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
         $list_articleTF = $repository->findAllOrderbytitreEtDesignationlimit();
@@ -61,7 +41,16 @@ class TaxeFonciereController extends Controller {
         $form->add('submit', 'submit', array('label' => 'Rechercher', 'attr' => array('class' => 'btn btn-primary btn-large')));
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $dataAnneetaxation = $form->get('anneetaxation')->getData();
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($recherchearticleTF);
+            $fichiers = $recherchearticleTF->getFichier();
+            foreach ($fichiers as $fichier) {
+                $fichier->addRechercheArticleTF($recherchearticleTF);
+                $em->persist($fichier);
+            }
+            $em->flush();
+            $id = $recherchearticleTF->getId();
+            $dataAnneetaxation = $form->get('fichier')->getData();
             $dataTitreEtDesignation = $form->get('titreetdesignation')->getData();
             $dataSommeAPayermin = $form->get('sommeapayermin')->getData();
             $dataSommeAPayermax = $form->get('sommeapayermax')->getData();
@@ -78,7 +67,7 @@ class TaxeFonciereController extends Controller {
                 $paginationC1 = $paginatorC1->paginate($list_articleTF, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
             }
         }
-        return $this->render('FiscaliteGestionFiscaliteBundle:TaxeFonciere:liste.html.twig', array('form' => $form->createView(), 'paginationIFP' => $paginationIFP, 'paginationSRA2' => $paginationSRA2, 'paginationSRA3' => $paginationSRA3, 'paginationC1' => $paginationC1));
+        return $this->render('FiscaliteGestionFiscaliteBundle:TaxeFonciere:liste.html.twig', array('id' => $id,'form' => $form->createView(), 'paginationIFP' => $paginationIFP, 'paginationSRA2' => $paginationSRA2, 'paginationSRA3' => $paginationSRA3, 'paginationC1' => $paginationC1));
     }
 
     public function getAjaxResultsTitreEtDesignationAction() {
@@ -107,9 +96,9 @@ class TaxeFonciereController extends Controller {
 
     public function articleAction($id) {
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
-        $articleTFC1 = $repository->findOneBy(array('numerosequentiel' => $id));
+        $articleTFC1 = $repository->findOneBy(array('id' => $id));
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTFC2');
-        $articleTFC2 = $repository->findOneBy(array('numerosequentiel' => $id));
+        $articleTFC2 = $repository->findOneBy(array('id' => $id));
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneIFP');
         $commune = $repository->findAll();
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneIFP');
@@ -268,32 +257,48 @@ class TaxeFonciereController extends Controller {
                     'articleCommune' => $articleCommuneTH, 'autreArticle' => $autreArticleTH, 'articleCommuneanneeprecedente' => $articleCommuneanneeprecedente));
     }
 
-    public function csvListeTFAction() {
+    public function exportrequetetaxefoncierecsvAction($id) {
+        if ($id == -1) {
+            $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Fichier');
+            $fichier = $repository->getLastYear();
+            if ($fichier == null)
+                $fichier[0] = NULL;
+            $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
+            $list_articleTF = $repository->search($fichier[0], NULL, NULL, NULL,NULL);
+        } else {
+            $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:RechercheArticleTF');
+            $RechercheArticleTF = $repository->findOneBy(array('id' => $id));
+            $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
+            $list_articleTF = $repository->search($RechercheArticleTF->getFichier(), 
+                    $RechercheArticleTF->getTitreetdesignation(), 
+                    $RechercheArticleTF->getSommeapayermin()
+                   , $RechercheArticleTF->getSommeapayermax(), 
+                    $RechercheArticleTF->getAdresse());
+        }
         $em = $this->getDoctrine()->getManager();
-        $iterableResult = $em->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF')->createQueryBuilder('a')->getQuery()->iterate();
         $handle = fopen('php://memory', 'r+');
         $header = array();
         $bati = null;
         fputcsv($handle, array('Numéro séquentiel', 'Année', 'Titre et désignation', 'Somme à payer', 'Libellé de la voie'));
-        while (false !== ($row = $iterableResult->next())) {
+        foreach ($list_articleTF as $articleTF) {
             $batis = null;
             $nonbatis = null;
-            $batis = $row[0]->getTfarticletaxationbatis();
-            $nonbatis = $row[0]->getTfarticletaxationnonbatis();
+            $batis = $articleTF->getTfarticletaxationbatis();
+            $nonbatis = $articleTF->getTfarticletaxationnonbatis();
             foreach ($batis as $bati) {
-                fputcsv($handle, array($row[0]->getNumerosequentiel(),
-                    $row[0]->getFichier()->getAnneetaxation(), $row[0]->getTitreEtDesignation(),
-                    $row[0]->getSommeAPayer(), $bati->getLibVoie()));
+                fputcsv($handle, array($articleTF->getNumerosequentiel(),
+                    $articleTF->getFichier()->getAnneetaxation(), $articleTF->getTitreEtDesignation(),
+                    $articleTF->getSommeAPayer(), $bati->getLibVoie()));
                 $em->detach($bati);
             }
             foreach ($nonbatis as $nonbati) {
-                fputcsv($handle, array($row[0]->getNumerosequentiel(),
-                    $row[0]->getFichier()->getAnneetaxation(), $row[0]->getTitreEtDesignation(),
-                    $row[0]->getSommeAPayer(), 'non bâti'));
+                fputcsv($handle, array($articleTF->getNumerosequentiel(),
+                    $articleTF->getFichier()->getAnneetaxation(), $articleTF->getTitreEtDesignation(),
+                    $articleTF->getSommeAPayer(), 'non bâti'));
                 $em->detach($nonbati);
             }
 
-            $em->detach($row[0]);
+            $em->detach($articleTF);
         }
         rewind($handle);
         $content = stream_get_contents($handle);
@@ -301,7 +306,7 @@ class TaxeFonciereController extends Controller {
 
         return new Response($content, 200, array(
             'Content-Type' => 'application/force-download',
-            'Content-Disposition' => 'attachment; filename="taxefonciereliste.csv"'
+            'Content-Disposition' => 'attachment; filename="requetelistetaxefonciere.csv"'
         ));
     }
 
@@ -475,9 +480,9 @@ class TaxeFonciereController extends Controller {
 
     public function csvArticleTFAction($id) {
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
-        $articleTFC1 = $repository->findOneBy(array('numerosequentiel' => $id));
+        $articleTFC1 = $repository->findOneBy(array('id' => $id));
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTFC2');
-        $articleTFC2 = $repository->findOneBy(array('numerosequentiel' => $id));
+        $articleTFC2 = $repository->findOneBy(array('id' => $id));
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneIFP');
         $commune = $repository->findAll();
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneIFP');

@@ -45,6 +45,11 @@ class Secteur {
     private $typerue;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTH", mappedBy="fichier", cascade={"persist","remove"})
+     */
+    private $simulationArticleTH;
+
+    /**
      * Get id
      *
      * @return integer 
@@ -85,6 +90,7 @@ class Secteur {
      */
     public function __construct() {
         $this->typerue = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->simulationArticleTH = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -138,13 +144,44 @@ class Secteur {
         return $this->typerue;
     }
 
-    public function setNombreIndividuRue(){
-        $i=0;
-        foreach ($this->getTyperue() as $typerue){
+    public function setNombreIndividuRue() {
+        $i = 0;
+        foreach ($this->getTyperue() as $typerue) {
             foreach ($typerue->getAdresses() as $adr)
                 $i++;
         }
         $this->setNombreIndividu($i);
         return $this;
     }
+
+    /**
+     * Add simulationArticleTH
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTH $simulationArticleTH
+     * @return Secteur
+     */
+    public function addSimulationArticleTH(\Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTH $simulationArticleTH) {
+        $this->simulationArticleTH[] = $simulationArticleTH;
+
+        return $this;
+    }
+
+    /**
+     * Remove simulationArticleTH
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTH $simulationArticleTH
+     */
+    public function removeSimulationArticleTH(\Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTH $simulationArticleTH) {
+        $this->simulationArticleTH->removeElement($simulationArticleTH);
+    }
+
+    /**
+     * Get simulationArticleTH
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSimulationArticleTH() {
+        return $this->simulationArticleTH;
+    }
+
 }

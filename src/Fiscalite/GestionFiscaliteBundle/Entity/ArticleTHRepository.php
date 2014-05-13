@@ -36,13 +36,15 @@ class ArticleTHRepository extends EntityRepository {
     }
 
     public function searchListTH($dataAnneetaxation, $dataNompersonne, $dataNbpersonnesacharge
-    , $dataBasenettemin, $dataBasenettemax, $dataAbattementgeneralbasecommunale, $dataAbattementpersonneschargecommunal, $dataAbattementspecialbasecommunal, $dataAbattementspecialhandicapecommunal, $dataCotisationcommunalemin, $dataCotisationcommunalemax, $dataMontantnetapayermin, $dataMontantnetapayermax) {
+    , $dataBasenettemin, $dataBasenettemax, $dataAbattementgeneralbasecommunalemin, $dataAbattementgeneralbasecommunalemax, $dataAbattementpersonneschargecommunalmin, $dataAbattementpersonneschargecommunalmax, $dataAbattementspecialbasecommunalmin, $dataAbattementspecialbasecommunalmax, $dataAbattementspecialhandicapecommunalmin, $dataAbattementspecialhandicapecommunalmax, $dataCotisationcommunalemin, $dataCotisationcommunalemax, $dataMontantnetapayermin, $dataMontantnetapayermax) {
         $qb = $this->createQueryBuilder('a');
         if ($dataAnneetaxation != NULL) {
+            $i = 1;
             foreach ($dataAnneetaxation as $annee) {
-                $qb->join('a.fichier', 'f1');
-                $qb->andWhere('f1.anneetaxation =:ann')
+                $qb->join('a.fichier', 'f'.$i.'');
+                $qb->orWhere('f'.$i.'.anneetaxation =:ann')
                         ->setParameter('ann', $annee->getAnneetaxation());
+                $i++;
             }
         }
         if ($dataNompersonne != NULL) {
@@ -64,25 +66,45 @@ class ArticleTHRepository extends EntityRepository {
             $qb->andWhere('b2.basenettecommunale <= :basenette2')
                     ->setParameter('basenette2', $dataBasenettemax);
         }
-        if ($dataAbattementgeneralbasecommunale != NULL) {
+        if ($dataAbattementgeneralbasecommunalemin != NULL) {
             $qb->join('a.abattement', 'a1');
-            $qb->andWhere('a1.abattementgeneralbasecommunale = :abattementgeneralbasecommunale')
-                    ->setParameter('abattementgeneralbasecommunale', $dataAbattementgeneralbasecommunale);
+            $qb->andWhere('a1.abattementgeneralbasecommunale >= :abattementgeneralbasecommunale1')
+                    ->setParameter('abattementgeneralbasecommunale1', $dataAbattementgeneralbasecommunalemin);
         }
-        if ($dataAbattementpersonneschargecommunal != NULL) {
+        if ($dataAbattementgeneralbasecommunalemax != NULL) {
             $qb->join('a.abattement', 'a2');
-            $qb->andWhere('a2.abattementpersonneschargecommunnal = :abattementpersonneschargecommunnal')
-                    ->setParameter('abattementpersonneschargecommunnal', $dataAbattementpersonneschargecommunal);
+            $qb->andWhere('a2.abattementgeneralbasecommunale <= :abattementgeneralbasecommunale2')
+                    ->setParameter('abattementgeneralbasecommunale2', $dataAbattementgeneralbasecommunalemax);
         }
-        if ($dataAbattementspecialbasecommunal != NULL) {
+        if ($dataAbattementpersonneschargecommunalmin != NULL) {
             $qb->join('a.abattement', 'a3');
-            $qb->andWhere('a3.abattementspecialbasecommunal = :abattementspecialbasecommunal')
-                    ->setParameter('abattementspecialbasecommunal', $dataAbattementspecialbasecommunal);
+            $qb->andWhere('a3.abattementpersonneschargecommunnal >= :abattementpersonneschargecommunnal1')
+                    ->setParameter('abattementpersonneschargecommunnal1', $dataAbattementpersonneschargecommunalmin);
         }
-        if ($dataAbattementspecialhandicapecommunal != NULL) {
+        if ($dataAbattementpersonneschargecommunalmax != NULL) {
             $qb->join('a.abattement', 'a4');
-            $qb->andWhere('a4.abattementspecialhandicapecommunal = :abattementspecialhandicapecommunal')
-                    ->setParameter('abattementspecialhandicapecommunal', $dataAbattementspecialhandicapecommunal);
+            $qb->andWhere('a4.abattementpersonneschargecommunnal <= :abattementpersonneschargecommunnal2')
+                    ->setParameter('abattementpersonneschargecommunnal2', $dataAbattementpersonneschargecommunalmax);
+        }
+        if ($dataAbattementspecialbasecommunalmin != NULL) {
+            $qb->join('a.abattement', 'a5');
+            $qb->andWhere('a5.abattementspecialbasecommunal >= :abattementspecialbasecommunal1')
+                    ->setParameter('abattementspecialbasecommunal1', $dataAbattementspecialbasecommunalmin);
+        }
+        if ($dataAbattementspecialbasecommunalmax != NULL) {
+            $qb->join('a.abattement', 'a6');
+            $qb->andWhere('a6.abattementspecialbasecommunal <= :abattementspecialbasecommunal2')
+                    ->setParameter('abattementspecialbasecommunal2', $dataAbattementspecialbasecommunalmax);
+        }
+        if ($dataAbattementspecialhandicapecommunalmin != NULL) {
+            $qb->join('a.abattement', 'a7');
+            $qb->andWhere('a7.abattementspecialhandicapecommunal >= :abattementspecialhandicapecommunal1')
+                    ->setParameter('abattementspecialhandicapecommunal1', $dataAbattementspecialhandicapecommunalmin);
+        }
+        if ($dataAbattementspecialhandicapecommunalmax != NULL) {
+            $qb->join('a.abattement', 'a8');
+            $qb->andWhere('a8.abattementspecialhandicapecommunal <= :abattementspecialhandicapecommunal2')
+                    ->setParameter('abattementspecialhandicapecommunal2', $dataAbattementspecialhandicapecommunalmax);
         }
         if ($dataMontantnetapayermin != NULL) {
             $qb->andWhere('a.montantnetapayer >= :montantnetapayer1')
@@ -177,7 +199,7 @@ class ArticleTHRepository extends EntityRepository {
         return $qb->getQuery()->getOneOrNullResult();
     }
 
-    public function searchListTHSimulation($nom, $prenom, $dataAnneetaxation) {
+    public function searchListTHSimulation($secteur, $nom, $prenom, $dataAnneetaxation) {
         $qb = $this->createQueryBuilder('a');
         $qb->join('a.fichier', 'f1');
         $qb->andWhere('f1.anneetaxation =:ann')
@@ -189,6 +211,23 @@ class ArticleTHRepository extends EntityRepository {
         if ($prenom != NULL) {
             $qb->andWhere('a.nomprenom LIKE :prenom')
                     ->setParameter('prenom', '%' . $prenom . '%');
+        }
+        if ($secteur != NULL) {
+            foreach ($secteur as $s) {
+                $typeRues = $s->getTypeRue();
+                if ($typeRues != NULL) {
+                    foreach ($typeRues as $typeRue) {
+                        $adresses = $typeRue->getAdresses();
+                        foreach ($adresses as $adresse) {
+                            $article[] = $adresse->getArticleTH();
+                        }
+                    }
+                }
+                foreach ($article as $entity) {
+                    $qb->andWhere('a.nomprenom LIKE :nomprenom')
+                            ->setParameter('nomprenom', '%' . $entity->getNomprenom() . '%');
+                }
+            }
         }
         return $qb->getQuery()->getResult();
     }

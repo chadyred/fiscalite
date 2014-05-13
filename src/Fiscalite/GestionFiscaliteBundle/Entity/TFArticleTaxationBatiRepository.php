@@ -16,7 +16,8 @@ class TFArticleTaxationBatiRepository extends EntityRepository
         $qb = $this->createQueryBuilder('c');
         $qb->select('c.libVoie')
                 ->where('c.libVoie LIKE :term1')
-                ->setParameter('term1', '%' . $term . '%');
+                ->setParameter('term1', '%' . $term . '%')->addGroupBy('c.libVoie');
+        
         $arrayAss = $qb->getQuery()
                 ->getArrayResult();
 

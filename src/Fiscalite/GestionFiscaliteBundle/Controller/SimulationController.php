@@ -2,6 +2,7 @@
 
 namespace Fiscalite\GestionFiscaliteBundle\Controller;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Fiscalite\GestionFiscaliteBundle\Entity\Fichier;
 use Fiscalite\GestionFiscaliteBundle\Entity\Article;
@@ -28,6 +29,10 @@ use PHPPdf\DataSource\DataSource;
 class SimulationController extends Controller {
 
     public function simulationTHAction() {
+        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:SimulationArticleTH');
+        $listeSimulationArticleTH = $repository->findAll();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($listeSimulationArticleTH, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
         $nom = NULL;
         $prenom = NULL;
         $list_articleTH = NULL;
@@ -43,26 +48,30 @@ class SimulationController extends Controller {
                 $abattementspecialbasecommunal = $form->get('abattementspecialbasecommunal')->getData();
                 $abattementspecialhandicapebasecommunal = $form->get('abattementspecialhandicapebasecommunal')->getData();
                 $tauximpositioncommune = $form->get('tauximpositioncommune')->getData();
-                $nom = $form->get('nom')->getData();
-                $prenom = $form->get('prenom')->getData();
-                $simulationTH->newSimulationArticleTH($nomSimulation, $abattementgeneralbasecommunale, $abattementpersonneschargecommunal12, $abattementpersonneschargecommunal3, $abattementspecialbasecommunal, $abattementspecialhandicapebasecommunal, $tauximpositioncommune, $nom, $prenom);
+                $simulationTH->newSimulationArticleTH($nomSimulation, $abattementgeneralbasecommunale, $abattementpersonneschargecommunal12, $abattementpersonneschargecommunal3, $abattementspecialbasecommunal, $abattementspecialhandicapebasecommunal, $tauximpositioncommune, $nom, $prenom, $secteur);
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($simulationTH);
+                $secteurs = $simulationTH->getSecteur();
+                foreach ($secteurs as $secteur) {
+                    $secteur->addSimulationArticleTH($simulationTH);
+                    $em->persist($secteur);
+                }
                 $em->flush();
+
                 return $this->redirect($this->generateUrl('resultatTH', array('id' => $simulationTH->getId())));
             }
         }
 
-        return $this->render('FiscaliteGestionFiscaliteBundle:Simulation:simulationTH.html.twig', array('form' => $form->createView()));
+        return $this->render('FiscaliteGestionFiscaliteBundle:Simulation:simulationTH.html.twig', array('pagination' => $pagination, 'form' => $form->createView()));
     }
 
     public function resultatTHAction($id) {
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:SimulationArticleTH');
         $SimulationArticleTH = $repository->findOneBy(array('id' => $id));
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Fichier');
-        $annee=$repository->getLastYearTH();
+        $annee = $repository->getLastYearTH();
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
-        $list_articleTH = $repository->searchListTHSimulation($SimulationArticleTH->getNom(), $SimulationArticleTH->getPrenom(),"".$annee[0]->getAnneetaxation());
+        $list_articleTH = $repository->searchListTHSimulation($SimulationArticleTH->getSecteur(), $SimulationArticleTH->getNom(), $SimulationArticleTH->getPrenom(), "" . $annee[0]->getAnneetaxation());
         if ($list_articleTH != NULL) {
             $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleCommune');
             $articleCommuneTH = $repository->findOneBy(array('fichier' => $list_articleTH[0]->getFichier()->getId()));
@@ -137,6 +146,10 @@ class SimulationController extends Controller {
     }
 
     public function simulationTFAction() {
+        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:SimulationArticleTF');
+        $listeSimulationArticleTF = $repository->findAll();
+        $paginator = $this->get('knp_paginator');
+        $pagination = $paginator->paginate($listeSimulationArticleTF, $this->get('request')->query->get('page', 1)/* page number */, 20/* limit per page */);
         $nom = NULL;
         $prenom = NULL;
         $list_articleTF = NULL;
@@ -157,16 +170,16 @@ class SimulationController extends Controller {
             }
         }
 
-        return $this->render('FiscaliteGestionFiscaliteBundle:Simulation:simulationTF.html.twig', array('form' => $form->createView()));
+        return $this->render('FiscaliteGestionFiscaliteBundle:Simulation:simulationTF.html.twig', array('pagination' => $pagination, 'form' => $form->createView()));
     }
 
     public function resultatTFAction($id) {
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:SimulationArticleTF');
         $SimulationArticleTF = $repository->findOneBy(array('id' => $id));
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Fichier');
-        $annee=$repository->getLastYear();
+        $annee = $repository->getLastYear();
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
-        $list_articleTF = $repository->searchListTFSimulation($SimulationArticleTF->getNom(),"".$annee[0]->getAnneeTaxation());
+        $list_articleTF = $repository->searchListTFSimulation($SimulationArticleTF->getNom(), "" . $annee[0]->getAnneeTaxation());
         if ($list_articleTF != NULL) {
             $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneEnTete');
             $TFArticleCommuneEnTete = $repository->findOneBy(array('fichier' => $list_articleTF[0]->getFichier()->getId()));
@@ -204,9 +217,9 @@ class SimulationController extends Controller {
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:SimulationArticleTF');
         $SimulationArticleTF = $repository->findOneBy(array('id' => $id));
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Fichier');
-        $annee=$repository->getLastYear();
+        $annee = $repository->getLastYear();
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
-        $list_articleTF = $repository->searchListTFSimulation($SimulationArticleTF->getNom(),"".$annee[0]->getAnneeTaxation());
+        $list_articleTF = $repository->searchListTFSimulation($SimulationArticleTF->getNom(), "" . $annee[0]->getAnneeTaxation());
         if ($list_articleTF != NULL) {
             $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneEnTete');
             $TFArticleCommuneEnTete = $repository->findOneBy(array('fichier' => $list_articleTF[0]->getFichier()->getId()));
@@ -286,9 +299,9 @@ class SimulationController extends Controller {
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:SimulationArticleTF');
         $SimulationArticleTF = $repository->findOneBy(array('id' => $id));
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Fichier');
-        $annee=$repository->getLastYear();
+        $annee = $repository->getLastYear();
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
-        $list_articleTF = $repository->searchListTFSimulation($SimulationArticleTF->getNom(),"".$annee[0]->getAnneeTaxation());
+        $list_articleTF = $repository->searchListTFSimulation($SimulationArticleTF->getNom(), "" . $annee[0]->getAnneeTaxation());
         if ($list_articleTF != NULL) {
             $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneEnTete');
             $TFArticleCommuneEnTete = $repository->findOneBy(array('fichier' => $list_articleTF[0]->getFichier()->getId()));
@@ -322,6 +335,38 @@ class SimulationController extends Controller {
         $xml = $response->getContent();
         $content = $facade->render($xml);
         return new Response($content, 200, array('content-type' => 'application/pdf'));
+    }
+
+    public function supprimerTFAction($id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('FiscaliteGestionFiscaliteBundle:SimulationArticleTF')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find simulationTF entity.');
+        }
+
+        $em->remove($entity);
+        $em->flush();
+
+
+        return $this->redirect($this->generateUrl('simulationTF'));
+    }
+
+    public function supprimerTHAction($id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('FiscaliteGestionFiscaliteBundle:SimulationArticleTH')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find simulationTH entity.');
+        }
+
+        $em->remove($entity);
+        $em->flush();
+
+
+        return $this->redirect($this->generateUrl('simulationTH'));
     }
 
 }

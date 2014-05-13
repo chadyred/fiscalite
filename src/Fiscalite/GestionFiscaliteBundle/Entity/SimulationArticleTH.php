@@ -85,6 +85,11 @@ class SimulationArticleTH {
      * @ORM\Column(name="tauximpositioncommune", type="float", nullable=true)
      */
     private $tauximpositioncommune;
+    
+    /**
+     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Secteur", inversedBy="simulationArticleTH", cascade={"persist"})
+     */
+    private $secteur;
 
     /**
      * Get id
@@ -284,7 +289,7 @@ class SimulationArticleTH {
         return $this->abattementpersonneschargecommunal3;
     }
 
-    public function newSimulationArticleTH($nomSimulation, $abattementgeneralbasecommunale, $abattementpersonneschargecommunal12, $abattementpersonneschargecommunal3, $abattementspecialbasecommunal, $abattementspecialhandicapebasecommunal, $tauximpositioncommune, $nom, $prenom) {
+    public function newSimulationArticleTH($nomSimulation, $abattementgeneralbasecommunale, $abattementpersonneschargecommunal12, $abattementpersonneschargecommunal3, $abattementspecialbasecommunal, $abattementspecialhandicapebasecommunal, $tauximpositioncommune, $nom, $prenom, $secteur) {
         if ($nomSimulation != NULL) {
             $this->setNomSimulation($nomSimulation);
         } else {
@@ -313,16 +318,48 @@ class SimulationArticleTH {
             $this->setTauximpositioncommune($tauximpositioncommune);
         } else {
             $this->setTauximpositioncommune(16.15);
-        }if ($nom != NULL) {
-            $this->setNom($nom);
-        } else {
-            $this->setNom(NULL);
-        }if ($prenom != NULL) {
-            $this->setPrenom($prenom);
-        } else {
-            $this->setPrenom(NULL);
         }
         return $this;
     }
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->secteur = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add secteur
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\Secteur $secteur
+     * @return SimulationArticleTH
+     */
+    public function addSecteur(\Fiscalite\GestionFiscaliteBundle\Entity\Secteur $secteur)
+    {
+        $this->secteur[] = $secteur;
+
+        return $this;
+    }
+
+    /**
+     * Remove secteur
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\Secteur $secteur
+     */
+    public function removeSecteur(\Fiscalite\GestionFiscaliteBundle\Entity\Secteur $secteur)
+    {
+        $this->secteur->removeElement($secteur);
+    }
+
+    /**
+     * Get secteur
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getSecteur()
+    {
+        return $this->secteur;
+    }
 }

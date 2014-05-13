@@ -2,21 +2,27 @@
 {% block contenu %}
 <div class="container-fluid page-container">
     <div class="row">
+        <div class="content-tab col-sm-12">
+            <h2 class="text-center">Taxe foncière</h2>
+        </div>  
+    </div>
+    <div class="row">
         <div class="sidebar content-tab col-sm-6 col-md-3 col-lg-3">{{ form_start(form, {'attr': {'class': 'form-horizontal'} }) }}{{ form_errors(form) }}
-            <div class="form-group">{{ form_label(form.anneetaxation, "Année de taxation : ",{ 'label_attr': { 'class': 'col-sm-6'} }) }}
-                <div class="col-sm-6">{{ form_errors(form.anneetaxation,{ 'attr': { 'class': 'col-sm-12' } }) }}{{ form_widget(form.anneetaxation,{ 'attr': { 'class': 'col-sm-12' } }) }} 
+            <div class="form-group">{{ form_label(form.fichier, "Année de taxation : ",{ 'label_attr': { 'class': 'col-sm-6'} }) }}
+                <div class="col-sm-6">{{ form_errors(form.fichier,{ 'attr': { 'class': 'col-sm-12' } }) }}{{ form_widget(form.fichier,{ 'attr': { 'class': 'col-sm-12' } }) }} 
                 </div>
             </div> 
             <div class="form-group">{{ form_label(form.titreetdesignation, "Titre et Désignation : ",{ 'label_attr': { 'class': 'col-sm-6'} }) }}
                 <div class="col-sm-6">{{ form_errors(form.titreetdesignation,{ 'attr': { 'class': 'col-sm-12' } }) }}{{ form_widget(form.titreetdesignation, {'attr': {'class': 'form-control','data-url': path('fiscalite_ajaxTitreEtDesignation')} }) }}
                 </div>
             </div>
-            <div class="form-group">{{ form_label(form.sommeapayermin, "Somme à payer min : ",{ 'label_attr': { 'class': 'col-sm-6'} }) }}
-                <div class="col-sm-6">{{ form_errors(form.sommeapayermin,{ 'attr': { 'class': 'col-sm-12' } }) }}{{ form_widget(form.sommeapayermin,{ 'attr': { 'class': 'col-sm-12' } }) }} 
-                </div>
-            </div>
-            <div class="form-group">{{ form_label(form.sommeapayermax, "Somme à payer max : ",{ 'label_attr': { 'class': 'col-sm-6'} }) }}
-                <div class="col-sm-6">{{ form_errors(form.sommeapayermax,{ 'attr': { 'class': 'col-sm-12' } }) }}{{ form_widget(form.sommeapayermax,{ 'attr': { 'class': 'col-sm-12' } }) }} 
+            <div class="form-group">{{ form_label(form.sommeapayermin, "Somme à payer : ",{ 'label_attr': { 'class': 'col-sm-6'} }) }}
+                <div class="col-sm-6">
+{{ form_widget(form.sommeapayermin,{ 'attr': { 'class': 'col-sm-4' } }) }}
+{{ form_label(form.sommeapayermax, "à",{ 'label_attr': { 'class': 'col-sm-4' } }) }}
+{{ form_widget(form.sommeapayermax,{ 'attr': { 'class': 'col-sm-4' } }) }}  
+{{ form_errors(form.sommeapayermin,{ 'attr': { 'class': 'col-sm-12' } }) }}
+{{ form_errors(form.sommeapayermax,{ 'attr': { 'class': 'col-sm-12' } }) }} 
                 </div>
             </div>
             <div class="form-group">{{ form_label(form.adresse, "Adresse : ",{ 'label_attr': { 'class': 'col-sm-6'} }) }}
@@ -43,27 +49,28 @@
                 <div class="col-sm-6 col-md-6  col-lg-6">
                     <p>Taux non bâti/Commune : {{TFarticleCommuneIFP.getTXNC()}}% </p>
                 </div> 
-            </div>{% endfor %}{% for TFarticleCommuneSRA2 in paginationSRA2 %}
-            <div class="row">
+            </div>{% endfor %}
+            <div class="row">{% for TFarticleCommuneSRA2 in paginationSRA2 %}
                 <div class="col-sm-6 col-md-6  col-lg-6">
                     <p>Total base bâti/Commune : {{TFarticleCommuneSRA2.getTotBBC()|number_format(0,'',' ')}}€ </p>
-                </div>  
-                <div class="col-sm-6 col-md-6  col-lg-6">
-                    <p>Total cotisation bâti/Commune : {{TFarticleCommuneSRA2.getTotCBC()|number_format(0,'',' ')}}€ </p>
-                </div> 
-            </div>{% endfor %}{% for TFarticleCommuneSRA3 in paginationSRA3 %}
-            <div class="row">
+                </div>  {% endfor %}{% for TFarticleCommuneSRA3 in paginationSRA3 %}
                 <div class="col-sm-6 col-md-6  col-lg-6">
                     <p>Total base non bâti/Commune : {{TFarticleCommuneSRA3.getTotBNC()|number_format(0,'',' ')}}€ </p>
-                </div>  
+                </div> {% endfor %} 
+            </div>
+            <div class="row">{% for TFarticleCommuneSRA2 in paginationSRA2 %}
+                <div class="col-sm-6 col-md-6  col-lg-6">
+                    <p>Total cotisation bâti/Commune : {{TFarticleCommuneSRA2.getTotCBC()|number_format(0,'',' ')}}€ </p>
+                </div> {% endfor %}
+                {% for TFarticleCommuneSRA3 in paginationSRA3 %}
                 <div class="col-sm-6 col-md-6  col-lg-6">
                     <p>Total cotisation non bâti/Commune : {{TFarticleCommuneSRA3.getTotCNC()|number_format(0,'',' ')}}€ </p>
-                </div> 
-            </div>{% endfor %} 
+                </div>{% endfor %} 
+            </div>
             <div class="row">
                 <div class="col-sm-12 col-md-12  col-lg-12">
                     <p>
-                        <a href="{{ path('csvListeTF') }}" target="_blank">
+                        <a href="{{ path('exportrequetetaxefoncierecsv',{'id': id}) }}" target="_blank">
                             <img class="img-csv" src="{{ asset('bundles/fiscalitegestionfiscalite/images/ods.png') }}" alt="CSV" /> 
                         </a>
                     </p>
@@ -85,7 +92,7 @@
 
                     <tr>
                         <td class="text-center">{{article.getFichier().getAnneeTaxation()}}</td>
-                        <td class="text-center"><a href="{{ path('articleTF',{'id': article.getNumerosequentiel()}) }}">{{article.getTitreEtDesignation() ~" "~ article.getSuiteDesignation()}}</a></td>
+                        <td class="text-center"><a href="{{ path('articleTF',{'id': article.getId()}) }}">{{article.getTitreEtDesignation() ~" "~ article.getSuiteDesignation()}}</a></td>
                         <td class="text-center">  
                             <ul class="list-group">
 
@@ -124,7 +131,7 @@
             source: attr
         });
     });
-    </script>          
+</script>          
 <script>
 
     $(document).ready(function() {

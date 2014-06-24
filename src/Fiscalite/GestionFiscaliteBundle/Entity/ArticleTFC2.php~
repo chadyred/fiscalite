@@ -112,7 +112,7 @@ class ArticleTFC2 {
      */
     private $codeDEM;
     /**
-     * @ORM\OneToOne(targetEntity="ArticleTF", inversedBy="articleTFC2", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="ArticleTF", inversedBy="articleTFC2", cascade={"persist","remove"})
      */
     private $articleTF;
 

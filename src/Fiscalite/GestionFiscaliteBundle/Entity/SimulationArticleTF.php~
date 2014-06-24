@@ -3,15 +3,17 @@
 namespace Fiscalite\GestionFiscaliteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * SimulationArticleTF
  *
  * @ORM\Table()
  * @ORM\Entity(repositoryClass="Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTFRepository")
+ * 
  */
-class SimulationArticleTF
-{
+class SimulationArticleTF {
+
     /**
      * @var integer
      *
@@ -24,46 +26,38 @@ class SimulationArticleTF
     /**
      * @var float
      *
-     * @ORM\Column(name="tauxBatiCommune", type="float")
+     * @ORM\Column(name="tauxBatiCommune", type="float", nullable=true)
      */
     private $tauxBatiCommune;
 
     /**
      * @var float
      *
-     * @ORM\Column(name="tauxNonBatiCommune", type="float")
+     * @ORM\Column(name="tauxNonBatiCommune", type="float", nullable=true)
      */
     private $tauxNonBatiCommune;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nomSimulation", type="string", length=255)
+     * @ORM\Column(name="nomSimulation", type="string", length=255, nullable=false)
+     * @Assert\NotBlank(message="Le champ nom doit contenir un nom de simulation valide.")
      */
     private $nomSimulation;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nom", type="string", length=255)
+     * @ORM\Column(name="nom", type="string", length=255, nullable=true)
      */
     private $nom;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="prenom", type="string", length=255)
-     */
-    private $prenom;
-
 
     /**
      * Get id
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -73,8 +67,7 @@ class SimulationArticleTF
      * @param float $tauxBatiCommune
      * @return SimulationArticleTF
      */
-    public function setTauxBatiCommune($tauxBatiCommune)
-    {
+    public function setTauxBatiCommune($tauxBatiCommune) {
         $this->tauxBatiCommune = $tauxBatiCommune;
 
         return $this;
@@ -85,8 +78,7 @@ class SimulationArticleTF
      *
      * @return float 
      */
-    public function getTauxBatiCommune()
-    {
+    public function getTauxBatiCommune() {
         return $this->tauxBatiCommune;
     }
 
@@ -96,8 +88,7 @@ class SimulationArticleTF
      * @param float $tauxNonBatiCommune
      * @return SimulationArticleTF
      */
-    public function setTauxNonBatiCommune($tauxNonBatiCommune)
-    {
+    public function setTauxNonBatiCommune($tauxNonBatiCommune) {
         $this->tauxNonBatiCommune = $tauxNonBatiCommune;
 
         return $this;
@@ -108,8 +99,7 @@ class SimulationArticleTF
      *
      * @return float 
      */
-    public function getTauxNonBatiCommune()
-    {
+    public function getTauxNonBatiCommune() {
         return $this->tauxNonBatiCommune;
     }
 
@@ -119,8 +109,7 @@ class SimulationArticleTF
      * @param string $nomSimulation
      * @return SimulationArticleTF
      */
-    public function setNomSimulation($nomSimulation)
-    {
+    public function setNomSimulation($nomSimulation) {
         $this->nomSimulation = $nomSimulation;
 
         return $this;
@@ -131,8 +120,7 @@ class SimulationArticleTF
      *
      * @return string 
      */
-    public function getNomSimulation()
-    {
+    public function getNomSimulation() {
         return $this->nomSimulation;
     }
 
@@ -142,8 +130,7 @@ class SimulationArticleTF
      * @param string $nom
      * @return SimulationArticleTF
      */
-    public function setNom($nom)
-    {
+    public function setNom($nom) {
         $this->nom = $nom;
 
         return $this;
@@ -154,31 +141,29 @@ class SimulationArticleTF
      *
      * @return string 
      */
-    public function getNom()
-    {
+    public function getNom() {
         return $this->nom;
     }
 
-    /**
-     * Set prenom
-     *
-     * @param string $prenom
-     * @return SimulationArticleTF
-     */
-    public function setPrenom($prenom)
-    {
-        $this->prenom = $prenom;
-
+    public function newSimulationArticleTF($nomSimulation, $tauxBatiCommune, $tauxNonBatiCommune, $nom) {
+        if ($nomSimulation != NULL) {
+            $this->setNomSimulation($nomSimulation);
+        } else {
+            $this->setNomSimulation("SimulationDefault");
+        } if ($tauxBatiCommune != NULL) {
+            $this->setTauxBatiCommune($tauxBatiCommune);
+        } else {
+            $this->setTauxBatiCommune(26.16);
+        }if ($tauxNonBatiCommune != NULL) {
+            $this->setTauxNonBatiCommune($tauxNonBatiCommune);
+        } else {
+            $this->setTauxNonBatiCommune(71.40);
+        }if ($nom != NULL) {
+            $this->setNom($nom);
+        } else {
+            $this->setNom(NULL);
+        }
         return $this;
     }
 
-    /**
-     * Get prenom
-     *
-     * @return string 
-     */
-    public function getPrenom()
-    {
-        return $this->prenom;
-    }
 }

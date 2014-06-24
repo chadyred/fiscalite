@@ -64,22 +64,22 @@ class ArticleTH extends Article {
     private $montantnonvaleureventuelle;
 
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Base", mappedBy="articleTH")
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Base", mappedBy="articleTH", cascade={"persist","remove"})
      */
     private $base;
 
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Cotisation", mappedBy="articleTH")
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Cotisation", mappedBy="articleTH", cascade={"persist","remove"})
      */
     private $cotisation;
 
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Abattement", mappedBy="articleTH")
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Abattement", mappedBy="articleTH", cascade={"persist","remove"})
      */
     private $abattement;
 
     /**
-     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Adresse", mappedBy="articleTH")
+     * @ORM\OneToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Adresse", mappedBy="articleTH", cascade={"persist","remove"})
      */
     private $adresse;
 
@@ -89,7 +89,7 @@ class ArticleTH extends Article {
      * @return integer 
      */
     public function getId() {
-        return $this->id;
+        return parent::getId();
     }
 
     /**
@@ -274,8 +274,7 @@ class ArticleTH extends Article {
                     $this->getAbattement()->getAbattementspecialhandicapeintercommunalite();
             $totalabattement = $totalabattementcommunale + $totalabattementsyndicats + $totalabattementintercommunalite;
             return $totalabattement;
-        }
-        else
+        } else
             return 0;
     }
 
@@ -286,8 +285,7 @@ class ArticleTH extends Article {
                     $this->getAbattement()->getAbattementspecialbasecommunal() +
                     $this->getAbattement()->getAbattementspecialhandicapecommunal();
             return $totalabattementcommunale;
-        }
-        else
+        } else
             return 0;
     }
 
@@ -298,8 +296,7 @@ class ArticleTH extends Article {
                     $this->getAbattement()->getAbattementspecialbasesyndicatstse() +
                     $this->getAbattement()->getAbattementspecialhandicapesyndicatstse();
             return $totalabattementsyndicats;
-        }
-        else
+        } else
             return 0;
     }
 
@@ -310,8 +307,7 @@ class ArticleTH extends Article {
                     $this->getAbattement()->getAbattementspecialbaseintercommunalite() +
                     $this->getAbattement()->getAbattementspecialhandicapeintercommunalite();
             return $totalabattementintercommunalite;
-        }
-        else
+        } else
             return 0;
     }
 
@@ -319,8 +315,7 @@ class ArticleTH extends Article {
         if ($this->getAbattement() != NULL) {
             $totalabattementintercommunalite = 0;
             return $totalabattementintercommunalite;
-        }
-        else
+        } else
             return 0;
     }
 
@@ -366,69 +361,62 @@ class ArticleTH extends Article {
         return $this->codeTAX;
     }
 
+    public function newArticle($chaine, $fichier) {
+        $this->setNumerosequentiel(substr($chaine, 7, 6));
+        $this->setCodeArticle(substr($chaine, 17, 2));
+        $this->setNomprenom(str_replace('-', ' ', substr($chaine, 63, 35)));
+        $this->setSuitenom(str_replace('-', ' ', substr($chaine, 98, 32)));
+        $this->setMontantnetapayer(substr($chaine, 41, 10));
+        $this->setMontantdesfraisderole(substr($chaine, 53, 10));
+        $this->setMontantnonvaleureventuelle(substr($chaine, 51, 2));
+        $this->setCodeTAX(substr($chaine, 262, 1));
+        $this->setFichier($fichier);
+        return $this;
+    }
+
     public function getRepartitionRole($simulation) {
         if ($this->getCodeTAX() == "P") {
             if ($this->getCotisation()->getNbpersonnesacharge() == 0) {
                 if ($this->getCotisation()->getCodeRole() == "  " || $this->getCotisation()->getCodeRole() == "PA" || $this->getCotisation()->getCodeRole() == "DT" || $this->getCotisation()->getCodeRole() == "NV") {
                     $simulation->setNbpers0persacharge($simulation->getNbpers0persacharge() + 1);
                 } else if ($this->getCotisation()->getCodeRole() == "EX" || $this->getCotisation()->getCodeRole() == "ED") {
-                    $simulation->setNbpers0persachargeexoneres($simulation->getNbpers0persachargeexoneres());
+                    $simulation->setNbpers0persachargeexoneres($simulation->getNbpers0persachargeexoneres() + 1);
                 }
             } else if ($this->getCotisation()->getNbpersonnesacharge() == 1) {
                 if ($this->getCotisation()->getCodeRole() == "  " || $this->getCotisation()->getCodeRole() == "PA" || $this->getCotisation()->getCodeRole() == "DT" || $this->getCotisation()->getCodeRole() == "NV") {
                     $simulation->setNbpers1persacharge($simulation->getNbpers1persacharge() + 1);
                 } else if ($this->getCotisation()->getCodeRole() == "EX" || $this->getCotisation()->getCodeRole() == "ED") {
-                    $simulation->setNbpers1persachargeexoneres($simulation->getNbpers1persachargeexoneres());
+                    $simulation->setNbpers1persachargeexoneres($simulation->getNbpers1persachargeexoneres() + 1);
                 }
             } else if ($this->getCotisation()->getNbpersonnesacharge() == 2) {
                 if ($this->getCotisation()->getCodeRole() == "  " || $this->getCotisation()->getCodeRole() == "PA" || $this->getCotisation()->getCodeRole() == "DT" || $this->getCotisation()->getCodeRole() == "NV") {
                     $simulation->setNbpers2persacharge($simulation->getNbpers2persacharge() + 1);
                 } else if ($this->getCotisation()->getCodeRole() == "EX" || $this->getCotisation()->getCodeRole() == "ED") {
-                    $simulation->setNbpers2persachargeexoneres($simulation->getNbpers2persachargeexoneres());
+                    $simulation->setNbpers2persachargeexoneres($simulation->getNbpers2persachargeexoneres() + 1);
                 }
             } else if ($this->getCotisation()->getNbpersonnesacharge() == 3) {
                 if ($this->getCotisation()->getCodeRole() == "  " || $this->getCotisation()->getCodeRole() == "PA" || $this->getCotisation()->getCodeRole() == "DT" || $this->getCotisation()->getCodeRole() == "NV") {
                     $simulation->setNbpers3persacharge($simulation->getNbpers3persacharge() + 1);
                 } else if ($this->getCotisation()->getCodeRole() == "EX" || $this->getCotisation()->getCodeRole() == "ED") {
-                    $simulation->setNbpers3persachargeexoneres($simulation->getNbpers3persachargeexoneres());
+                    $simulation->setNbpers3persachargeexoneres($simulation->getNbpers3persachargeexoneres() + 1);
                 }
             } else if ($this->getCotisation()->getNbpersonnesacharge() == 4) {
                 if ($this->getCotisation()->getCodeRole() == "  " || $this->getCotisation()->getCodeRole() == "PA" || $this->getCotisation()->getCodeRole() == "DT" || $this->getCotisation()->getCodeRole() == "NV") {
                     $simulation->setNbpers4persacharge($simulation->getNbpers4persacharge() + 1);
                 } else if ($this->getCotisation()->getCodeRole() == "EX" || $this->getCotisation()->getCodeRole() == "ED") {
-                    $simulation->setNbpers4persachargeexoneres($simulation->getNbpers4persachargeexoneres());
+                    $simulation->setNbpers4persachargeexoneres($simulation->getNbpers4persachargeexoneres() + 1);
                 }
             } else if ($this->getCotisation()->getNbpersonnesacharge() >= 5) {
                 if ($this->getCotisation()->getCodeRole() == "  " || $this->getCotisation()->getCodeRole() == "PA" || $this->getCotisation()->getCodeRole() == "DT" || $this->getCotisation()->getCodeRole() == "NV") {
                     $simulation->setNbpers5persacharge($simulation->getNbpers5persacharge() + 1);
                 } else if ($this->getCotisation()->getCodeRole() == "EX" || $this->getCotisation()->getCodeRole() == "ED") {
-                    $simulation->setNbpers5persachargeexoneres($simulation->getNbpers5persachargeexoneres());
+                    $simulation->setNbpers5persachargeexoneres($simulation->getNbpers5persachargeexoneres() + 1);
                 }
             }
             if ($this->getCotisation()->getCodeRole() == "  " || $this->getCotisation()->getCodeRole() == "PA" || $this->getCotisation()->getCodeRole() == "DT" || $this->getCotisation()->getCodeRole() == "NV") {
                 $simulation->setNbperstotcumule($simulation->getNbperstotcumule() + 1);
-                if ($this->getAbattement()->getAbattementgeneralbasecommunale() == number_format(($simulation->getVlmCne() * $simulation->getSimulationArticleTH()->getAbattementgeneralbasecommunale()) / 100)) {
-                    $simulation->setAbattementgeneralbasecommunale($simulation->getAbattementgeneralbasecommunale() + number_format(($simulation->getVlmCne() * $simulation->getSimulationArticleTH()->getAbattementgeneralbasecommunale()) / 100));
-                }
                 if ($this->getCotisation()->getNbpersonnesacharge() == 0) {
                     
-                } if ($this->getCotisation()->getNbpersonnesacharge() == 1) {
-                    $simulation->setNbabattementpersonneschargecommunal12($simulation->getNbabattementpersonneschargecommunal12() + 1);
-                    $simulation->setAbattementpersonneschargecommunal12($simulation->getAbattementpersonneschargecommunal12() + $this->getAbattement()->getAbattementpersonneschargecommunnal());
-                } if ($this->getCotisation()->getNbpersonnesacharge() == 2) {
-                    $simulation->setNbabattementpersonneschargecommunal12($simulation->getNbabattementpersonneschargecommunal12() + 1);
-                    $simulation->setAbattementpersonneschargecommunal12($simulation->getAbattementpersonneschargecommunal12() + $this->getAbattement()->getAbattementpersonneschargecommunnal());
-                } if ($this->getCotisation()->getNbpersonnesacharge() >= 3) {
-                    $simulation->setNbabattementpersonneschargecommunal3($simulation->getNbabattementpersonneschargecommunal3() + 1);
-                    $simulation->setAbattementpersonneschargecommunal3($simulation->getAbattementpersonneschargecommunal3() + $this->getAbattement()->getAbattementpersonneschargecommunnal());
-                }
-                if ($this->getAbattement()->getAbattementspecialbasecommunal() != null) {
-                    $simulation->setNbabattementspecialbasecommunal($simulation->getNbabattementspecialbasecommunal() + 1);
-                    $simulation->setAbattementspecialbasecommunal($simulation->getAbattementspecialbasecommunal() + $this->getAbattement()->getAbattementspecialbasecommunal());
-                }
-                if ($this->getAbattement()->getAbattementspecialhandicapecommunal() != null) {
-                    $simulation->setNbabattementspecialhandicapebasecommunal($simulation->getNbabattementspecialhandicapebasecommunal() + 1);
-                    $simulation->setAbattementspecialhandicapebasecommunal($simulation->getAbattementspecialhandicapebasecommunal() + $this->getAbattement()->getAbattementspecialhandicapecommunal());
                 }
             } else if ($this->getCotisation()->getCodeRole() == "EX" || $this->getCotisation()->getCodeRole() == "ED") {
                 $simulation->setNbperstotcumuleexoneres($simulation->getNbperstotcumuleexoneres() + 1);
@@ -446,6 +434,51 @@ class ArticleTH extends Article {
         } else if ($this->getCodeTAX() == "V") {
             $simulation->setAbattementegalenull($simulation->getAbattementegalenull() + 1);
             $simulation->setNbTHLV($simulation->getNbTHLV() + 1);
+        }
+
+        if ($this->getCodeTAX() != "S" || $this->getCodeTAX() != "E" || $this->getCodeTAX() != "V") {
+
+            if ($this->getAbattement() != NULL) {
+                if ($this->getCotisation()->getCodeRole() == "  " || $this->getCotisation()->getCodeRole() == "PA" || $this->getCotisation()->getCodeRole() == "DT" || $this->getCotisation()->getCodeRole() == "NV") {
+                    if ($this->getCotisation()->getVlbruteimposeedeslocauxprincipaux() != null) {
+                        $VLBrute = $this->getCotisation()->getVlbruteimposeedeslocauxprincipaux();
+                    } else {
+                        $VLBrute = $this->getCotisation()->getVlimposeedeslocauxsecondaires();
+                    }
+                    if ($VLBrute <= $this->getAbattement()->getAbattementpersonneschargecommunnal() + $this->getAbattement()->getAbattementgeneralbasecommunale()) {
+                        $simulation->setAbattementpersonneschargecommunal($simulation->getAbattementpersonneschargecommunal() + $VLBrute);
+                        if ($this->getCotisation()->getNbpersonnesacharge() == 1) {
+                            $simulation->setNbabattementpersonneschargecommunal12($simulation->getNbabattementpersonneschargecommunal12() + 1);
+                            $simulation->setAbattementpersonneschargecommunal12($simulation->getAbattementpersonneschargecommunal12() + $VLBrute);
+                        } else if ($this->getCotisation()->getNbpersonnesacharge() == 2) {
+                            $simulation->setNbabattementpersonneschargecommunal12($simulation->getNbabattementpersonneschargecommunal12() + 1);
+                            $simulation->setAbattementpersonneschargecommunal12($simulation->getAbattementpersonneschargecommunal12() + $VLBrute);
+                        } else if ($this->getCotisation()->getNbpersonnesacharge() >= 3) {
+                            $simulation->setNbabattementpersonneschargecommunal3($simulation->getNbabattementpersonneschargecommunal3() + 1);
+                            $simulation->setAbattementpersonneschargecommunal3($simulation->getAbattementpersonneschargecommunal3() + $VLBrute);
+                        }
+                    } else {
+                        if ($this->getCotisation()->getNbpersonnesacharge() == 1) {
+                            $simulation->setNbabattementpersonneschargecommunal12($simulation->getNbabattementpersonneschargecommunal12() + 1);
+                            $simulation->setAbattementpersonneschargecommunal12($simulation->getAbattementpersonneschargecommunal12() + $this->getAbattement()->getAbattementpersonneschargecommunnal());
+                        } else if ($this->getCotisation()->getNbpersonnesacharge() == 2) {
+                            $simulation->setNbabattementpersonneschargecommunal12($simulation->getNbabattementpersonneschargecommunal12() + 1);
+                            $simulation->setAbattementpersonneschargecommunal12($simulation->getAbattementpersonneschargecommunal12() + $this->getAbattement()->getAbattementpersonneschargecommunnal());
+                        } else if ($this->getCotisation()->getNbpersonnesacharge() >= 3) {
+                            $simulation->setNbabattementpersonneschargecommunal3($simulation->getNbabattementpersonneschargecommunal3() + 1);
+                            $simulation->setAbattementpersonneschargecommunal3($simulation->getAbattementpersonneschargecommunal3() + $this->getAbattement()->getAbattementpersonneschargecommunnal());
+                        }
+                        if ($this->getAbattement()->getAbattementspecialbasecommunal() != 0) {
+                            $simulation->setNbabattementspecialbasecommunal($simulation->getNbabattementspecialbasecommunal() + 1);
+                            $simulation->setAbattementspecialbasecommunal($simulation->getAbattementspecialbasecommunal() + $this->getAbattement()->getAbattementspecialbasecommunal());
+                        }
+                        if ($this->getAbattement()->getAbattementspecialhandicapecommunal() != 0) {
+                            $simulation->setNbabattementspecialhandicapebasecommunal($simulation->getNbabattementspecialhandicapebasecommunal() + 1);
+                            $simulation->setAbattementspecialhandicapebasecommunal($simulation->getAbattementspecialhandicapebasecommunal() + $this->getAbattement()->getAbattementspecialhandicapecommunal());
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -469,12 +502,18 @@ class ArticleTH extends Article {
             $total = $VLBrute;
         } else {
             if ($this->getAbattement() != NULL) {
+                if ($this->getCotisation()->getCodeRole() == "  " || $this->getCotisation()->getCodeRole() == "PA" || $this->getCotisation()->getCodeRole() == "DT" || $this->getCotisation()->getCodeRole() == "NV") {
+                    if ($VLBrute <= $abgcCOM) {
+                        $simulation->setAbattementgeneralbasecommunale($simulation->getAbattementgeneralbasecommunale() + $VLBrute);
+                    } else {
+                        $simulation->setAbattementgeneralbasecommunale($simulation->getAbattementgeneralbasecommunale() + $abgcCOM);
+                    }
+                }
                 $nbpers = $this->getCotisation()->getNbpersonnesacharge();
-
                 if ($nbpers == 0) {
-                    //$simulation->setAbattementpersonneschargecommunal($simulation->getAbattementpersonneschargecommunal()+0);
-                    //$simulation->setAbattementpersonneschargecommunal12($simulation->getAbattementpersonneschargecommunal12()+0);
-                    //$simulation->setAbattementpersonneschargecommunal3($simulation->getAbattementpersonneschargecommunal3()+0);
+//$simulation->setAbattementpersonneschargecommunal($simulation->getAbattementpersonneschargecommunal()+0);
+//$simulation->setAbattementpersonneschargecommunal12($simulation->getAbattementpersonneschargecommunal12()+0);
+//$simulation->setAbattementpersonneschargecommunal3($simulation->getAbattementpersonneschargecommunal3()+0);
                     $total = $this->setSoustractionAbattementsPersACharge12($VLBrute, $abgcCOM, 0);
                 } else if ($nbpers == 1) {
                     if (round($nbpers *
@@ -525,6 +564,8 @@ class ArticleTH extends Article {
         if ($total <= 0) {
             $total = 0;
         }
+
+
         return $total;
     }
 
@@ -543,9 +584,9 @@ class ArticleTH extends Article {
                 $nbpers = $this->getCotisation()->getNbpersonnesacharge();
 
                 if ($nbpers == 0) {
-                    //$simulation->setAbattementpersonneschargeintercommunalite($simulation->getAbattementpersonneschargeintercommunalite()+0);
-                    //$simulation->setAbattementpersonneschargeintercommunalite12($simulation->getAbattementpersonneschargeintercommunalite12()+0);
-                    //$simulation->setAbattementpersonneschargeintercommunalite3($simulation->getAbattementpersonneschargeintercommunalite3()+0);
+//$simulation->setAbattementpersonneschargeintercommunalite($simulation->getAbattementpersonneschargeintercommunalite()+0);
+//$simulation->setAbattementpersonneschargeintercommunalite12($simulation->getAbattementpersonneschargeintercommunalite12()+0);
+//$simulation->setAbattementpersonneschargeintercommunalite3($simulation->getAbattementpersonneschargeintercommunalite3()+0);
                     $totalICO = $this->setSoustractionAbattementsPersACharge12($VLBrute, $abgcICO, 0);
                 } else if ($nbpers == 1) {
                     if (round($nbpers *
@@ -613,9 +654,9 @@ class ArticleTH extends Article {
             if ($this->getAbattement() != NULL) {
                 $nbpers = $this->getCotisation()->getNbpersonnesacharge();
                 if ($nbpers == 0) {
-                    //$simulation->setAbattementpersonneschargetse($simulation->getAbattementpersonneschargetse()+0);
-                    //$simulation->setAbattementpersonneschargetse12($simulation->getAbattementpersonneschargetse12()+0);
-                    //$simulation->setAbattementpersonneschargetse3($simulation->getAbattementpersonneschargetse3()+0);
+//$simulation->setAbattementpersonneschargetse($simulation->getAbattementpersonneschargetse()+0);
+//$simulation->setAbattementpersonneschargetse12($simulation->getAbattementpersonneschargetse12()+0);
+//$simulation->setAbattementpersonneschargetse3($simulation->getAbattementpersonneschargetse3()+0);
                     $totalTSE = $this->setSoustractionAbattementsPersACharge12($VLBrute, $abgcTSE, 0);
                 } else if ($nbpers == 1) {
                     if (round($nbpers *
@@ -670,8 +711,8 @@ class ArticleTH extends Article {
     }
 
     public function setTotalCalculSimulationAbattementCommunal(Simulation $simulation) {
-        // SIMULATION DE L'ABATTEMENT
-        //CALCUL DES ABATTEMENTS
+// SIMULATION DE L'ABATTEMENT
+//CALCUL DES ABATTEMENTS
         $abgcCOM = round($simulation->getVlmCne() * $simulation->getSimulationArticleTH()->getAbattementgeneralbasecommunale() / 100, 0);
         $absbCOM = round($simulation->getVlmCne() * $simulation->getSimulationArticleTH()->getAbattementspecialbasecommunal() / 100, 0);
         $abshCOM = round($simulation->getVlmCne() * $simulation->getSimulationArticleTH()->getAbattementspecialhandicapebasecommunal() / 100, 0);
@@ -689,24 +730,24 @@ class ArticleTH extends Article {
         $abshTSE = round($simulation->getVlmTSE() * $simulation->getSimulationArticleTH()->getAbattementspecialhandicapebasecommunal() / 100, 0);
         $abpch12TSE = round($simulation->getVlmTSE() * $simulation->getSimulationArticleTH()->getAbattementpersonneschargecommunal12() / 100, 0);
         $abpch3TSE = round($simulation->getVlmTSE() * $simulation->getSimulationArticleTH()->getAbattementpersonneschargecommunal3() / 100, 0);
-        //APPLICATION DES ABATTEMENTS COMMUNAL
+//APPLICATION DES ABATTEMENTS COMMUNAL
         $total = 0;
         $total = $this->setApplicationAbattementsCommunale($simulation, $abgcCOM, $absbCOM, $abshCOM, $abpch12COM, $abpch3COM, $total);
-        //APPLICATION DES ABATTEMENTS ICO
+//APPLICATION DES ABATTEMENTS ICO
         $totalICO = 0;
         $totalICO = $this->setApplicationAbattementsICO($simulation, $abgcICO, $absbICO, $abshICO, $abpch12ICO, $abpch3ICO, $totalICO);
 
-        //APPLICATION DES ABATTEMENTS TSE
+//APPLICATION DES ABATTEMENTS TSE
         $totalTSE = 0;
         $totalTSE = $this->setApplicationAbattementsTSE($simulation, $abgcTSE, $absbTSE, $abshTSE, $abpch12TSE, $abpch3TSE, $totalTSE);
-        // SIMULATION DE LA BASE
+// SIMULATION DE LA BASE
         $baseTH = $this->getBase();
         $baseTH->setBasenettecommunale($total);
         $baseTH->setBasenetteintercommunalite($totalICO);
         $baseTH->setBasenettetse($totalTSE);
         $simulation->setBaseTH($baseTH);
-        // SIMULATION DE LA COTISATION
-        // PRENDRE EN COMPTE L'EXONERATION
+// SIMULATION DE LA COTISATION
+// PRENDRE EN COMPTE L'EXONERATION
         $cotisationTH = new Cotisation();
         if ($this->getCotisation()->getCodeRole() != "EX") {
             $cotisationTH->setCotisationcommunale(round($simulation->getBaseTH()->getBasenettecommunale() * $simulation->getSimulationArticleTH()->getTauximpositioncommune() / 100, 0));
@@ -720,7 +761,7 @@ class ArticleTH extends Article {
         $cotisationTH->setTotalcotisationsbrutes($cotisationTH->getCotisationcommunale() + $cotisationTH->getCotisationintercommunalite() + $cotisationTH->getCotisationtse());
         $simulation->setCotisationTH($cotisationTH);
 
-        //VERIFICATION DE LA COTISATION
+//VERIFICATION DE LA COTISATION
 //        if ($this->getCotisation()->getCotisationintercommunalite() != $cotisationTH->getCotisationintercommunalite()) {
 //            print ('<tr>');
 //            print ('<td>' . $this->getCotisation()->getNbpersonnesacharge() . '</td>');
@@ -748,17 +789,229 @@ class ArticleTH extends Article {
 
 
         if ($this->getCodeTAX() == "P") {
-            $simulation->setNombrelocauxtaxesensembledeslocauxetdependancesimposablesTHP($simulation->getNombrelocauxtaxesensembledeslocauxetdependancesimposablesTHP() + 1);
+            $simulation->setNombrelocauxtaxesensembledeslocauxetdependancesimposablesTHP($simulation->getNombrelocauxtaxesensembledeslocauxetdependancesimposablesTHP() + $this->getAbattement()->getNblocauxtaxesTHpure());
         } else if ($this->getCodeTAX() == "E") {
-            $simulation->setNombrelocauxtaxesensembledeslocauxetdependancesimposablesTHE($simulation->getNombrelocauxtaxesensembledeslocauxetdependancesimposablesTHE() + 1);
+            $simulation->setNombrelocauxtaxesensembledeslocauxetdependancesimposablesTHE($simulation->getNombrelocauxtaxesensembledeslocauxetdependancesimposablesTHE() + $this->getAbattement()->getNblocauxtaxesTHpure());
         } else if ($this->getCodeTAX() == "S") {
-            $simulation->setNombrelocauxtaxesensembledeslocauxetdependancesimposablesTHS($simulation->getNombrelocauxtaxesensembledeslocauxetdependancesimposablesTHS() + 1);
+            $simulation->setNombrelocauxtaxesensembledeslocauxetdependancesimposablesTHS($simulation->getNombrelocauxtaxesensembledeslocauxetdependancesimposablesTHS() + $this->getAbattement()->getNblocauxtaxesTHpure());
         }
-        if ($this->getCodeTAX() != "V"){
-           $simulation->setNombrelocauxtaxesensembledeslocauxetdependancesimposablesTHS($simulation->getNombrelocauxtaxesensembledeslocauxetdependancesimposablesTHS() + 1);
+        if ($this->getCodeTAX() != "V") {
+            $simulation->setNombresarticlesdurolecorrespondantsensembledeslocauxetdependancesimposables($simulation->getNombresarticlesdurolecorrespondantsensembledeslocauxetdependancesimposables() + 1);
+            $simulation->setValeurlocativebruterevaloriseetotaleensembledeslocauxetdependancesimposables($simulation->getValeurlocativebruterevaloriseetotaleensembledeslocauxetdependancesimposables() + $this->getCotisation()->getVlbruteimposeedeslocauxprincipaux() + $this->getCotisation()->getVlimposeedeslocauxsecondaires());
 
+            if ($this->getCodeTAX() == "P") {
+                $simulation->setNombresarticlesdurolecorrespondantslocauxhabitationproprementdits($simulation->getNombresarticlesdurolecorrespondantslocauxhabitationproprementdits() + 1);
+            }
+            if ($this->getCotisation()->getCodeRole() == "EX" || $this->getCotisation()->getCodeRole() == "ED") {
+                $simulation->setValeurlocativebruterevaloriseedontbasesexonereesensembledeslocauxetdependancesimposables($simulation->getValeurlocativebruterevaloriseedontbasesexonereesensembledeslocauxetdependancesimposables() + $this->getCotisation()->getVlbruteimposeedeslocauxprincipaux() + $this->getCotisation()->getVlimposeedeslocauxsecondaires());
+            }
+        }
+        if ($this->getCodeTAX() == "V") {
+            $simulation->setValeurlocativebruterevaloriseetotalelogementsvacantsimposesalaTHLVsurdeliberationdelacommune($simulation->getValeurlocativebruterevaloriseetotalelogementsvacantsimposesalaTHLVsurdeliberationdelacommune() + $this->getCotisation()->getVlbruteimposeedeslocauxprincipaux() + $this->getCotisation()->getVlimposeedeslocauxsecondaires());
+            $simulation->setNombrelocauxtaxeslogementsvacantsimposesalaTHLVsurdeliberationdelacommuneTHE($simulation->getNombrelocauxtaxeslogementsvacantsimposesalaTHLVsurdeliberationdelacommuneTHE() + 1);
+            $simulation->setNombresarticlesdurolecorrespondantslogementsvacantsimposesalaTHLVsurdeliberationdelacommune($simulation->getNombresarticlesdurolecorrespondantslogementsvacantsimposesalaTHLVsurdeliberationdelacommune() + 1);
+        }
+    }
+
+    public function setTableauTH2(Simulation $simulation) {
+        if ($this->getCotisation()->getCodeRole() != "EX" || $this->getCotisation()->getCodeRole() != "ED") {
+            $simulation->setBaseNetteCommune($simulation->getBaseNetteCommune() + $simulation->getBaseTH()->getBasenettecommunale());
+            $simulation->setBaseNetteSansAjustementCommune($simulation->getBaseNetteSansAjustementCommune() + $simulation->getBaseTH()->getBasenettecommunale());
+            $simulation->setBaseNetteICO($simulation->getBaseNetteICO() + $simulation->getBaseTH()->getBasenetteintercommunalite());
+            $simulation->setBaseNetteSansAjustementICO($simulation->getBaseNetteSansAjustementICO() + $simulation->getBaseTH()->getBasenetteintercommunalite());
+            $simulation->setBaseNetteTSE($simulation->getBaseNetteTSE() + $simulation->getBaseTH()->getBasenettetse());
+            $simulation->setBaseNetteExoTSECommune($simulation->getBaseNetteExoTSECommune() + $simulation->getBaseTH()->getBasenettetse());
+        }
+    }
+
+    public function setTableauTH7(Simulation $simulation) {
+        if ($this->getCodeTAX() == "P") {
+            if ($this->getCotisation()->getCodeRole() == "  ") {
+                if ($this->getCotisation()->getTotalcotisationsbrutes() == null) {
+                    $simulation->setNombreArticlesTHPCotisationsbrutesnulles($simulation->getNombreArticlesTHPCotisationsbrutesnulles() + 1);
+                }
+            } else if ($this->getCotisation()->getCodeRole() == "PA") {
+                $simulation->setNombreArticlesTHPPlafonnements($simulation->getNombreArticlesTHPPlafonnements() + 1);
+                $simulation->setNombreArticlesTHPTotaux($simulation->getNombreArticlesTHPTotaux() + 1);
+                $simulation->setDegrevementsPlafonnementsPlafonnements($simulation->getDegrevementsPlafonnementsPlafonnements() + $this->getCotisation()->getMontantdudegrevementouplafonnementeffectif());
+                $simulation->setDegrevementsPlafonnementsTotaux($simulation->getDegrevementsPlafonnementsTotaux() + $this->getCotisation()->getMontantdudegrevementouplafonnementeffectif());
+                $simulation->setNonValeursTotaux($simulation->getNonValeursTotaux() + $this->getMontantnonvaleureventuelle());
+            } else if ($this->getCotisation()->getCodeRole() == "DT") {
+                $simulation->setDegrevementsPlafonnementsTotaux($simulation->getDegrevementsPlafonnementsTotaux() + $this->getCotisation()->getMontantdudegrevementouplafonnementeffectif());
+                $simulation->setDegrevementsPlafonnementsDegrevementstotaux($simulation->getDegrevementsPlafonnementsDegrevementstotaux() + $this->getCotisation()->getMontantdudegrevementouplafonnementeffectif());
+                $simulation->setNombreArticlesTHPDegrevementstotaux($simulation->getNombreArticlesTHPDegrevementstotaux() + 1);
+                $simulation->setNombreArticlesTHPTotaux($simulation->getNombreArticlesTHPTotaux() + 1);
+            } else if ($this->getCotisation()->getCodeRole() == "NV") {
+                $simulation->setDegrevementsPlafonnementsTotaux($simulation->getDegrevementsPlafonnementsTotaux() + $this->getCotisation()->getMontantdudegrevementouplafonnementeffectif());
+                $simulation->setNonValeursNonValeurs($simulation->getNonValeursNonValeurs() + 1);
+                $simulation->setNombreArticlesNombreArticlesTHPNonValeurs($simulation->setNombreArticlesNombreArticlesTHPNonValeurs() + 1);
+                $simulation->setNombreArticlesTHPTotaux($simulation->getNombreArticlesTHPTotaux() + 1);
+                $simulation->setNonValeursTotaux($simulation->getNonValeursTotaux() + $this->getMontantnonvaleureventuelle());
+            } else if ($this->getCotisation()->getCodeRole() == "EX") {
+                $simulation->setNombreArticlesTHPCommune($simulation->getNombreArticlesTHPCommune() + 1);
+                $simulation->setBasesNettesReductionsCommune($simulation->getBasesNettesReductionsCommune() + $simulation->getBaseTH()->getBasenettecommunale());
+                $simulation->setBasesNettesReductionsICO($simulation->getBasesNettesReductionsICO() + $simulation->getBaseTH()->getBasenetteintercommunalite());
+                if ($this->getCotisation()->getExoTSE() == "E") {
+                    $simulation->setNombreArticlesTHPTSElocalHLMSEM($simulation->getNombreArticlesTHPTSElocalHLMSEM() + 1);
+                    $simulation->setBasesNettesReductionsTSElocalHLMSEM($simulation->getBasesNettesReductionsTSElocalHLMSEM() + $simulation->getBaseTH()->getBasenetteintercommunalite());
+                }
+            } else if ($this->getCotisation()->getCodeRole() == "ED") {
+                
+            }
+        } else if ($this->getCodeTAX() == "E") {
+            if ($this->getCotisation()->getCodeRole() == "  ") {
+                
+            } else if ($this->getCotisation()->getCodeRole() == "PA") {
+                $simulation->setNombreArticlesTHETHSPlafonnements($simulation->getNombreArticlesTHETHSPlafonnements() + 1);
+                $simulation->setDegrevementsPlafonnementsPlafonnements($simulation->getDegrevementsPlafonnementsPlafonnements() + $this->getCotisation()->getMontantdudegrevementouplafonnementeffectif());
+                $simulation->setDegrevementsPlafonnementsTotaux($simulation->getDegrevementsPlafonnementsTotaux() + $this->getCotisation()->getMontantdudegrevementouplafonnementeffectif());
+                $simulation->setNombreArticlesTHETHSTotaux($simulation->getNombreArticlesTHETHSTotaux() + 1);
+                $simulation->setNonValeursTotaux($simulation->getNonValeursTotaux() + $this->getMontantnonvaleureventuelle());
+            } else if ($this->getCotisation()->getCodeRole() == "DT") {
+                $simulation->setDegrevementsPlafonnementsTotaux($simulation->getDegrevementsPlafonnementsTotaux() + $this->getCotisation()->getMontantdudegrevementouplafonnementeffectif());
+                $simulation->setDegrevementsPlafonnementsDegrevementstotaux($simulation->getDegrevementsPlafonnementsDegrevementstotaux() + $this->getCotisation()->getMontantdudegrevementouplafonnementeffectif());
+                $simulation->setNombreArticlesTHETHSDegrevementstotaux($simulation->getNombreArticlesTHETHSDegrevementstotaux() + 1);
+            } else if ($this->getCotisation()->getCodeRole() == "NV") {
+                $simulation->setNonValeursNonValeurs($simulation->getNonValeursNonValeurs() + 1);
+                $simulation->setDegrevementsPlafonnementsTotaux($simulation->getDegrevementsPlafonnementsTotaux() + $this->getCotisation()->getMontantdudegrevementouplafonnementeffectif());
+                $simulation->setNombreArticlesTHETHSNonValeurs($simulation->getNombreArticlesTHETHSNonValeurs() + 1);
+                $simulation->setNombreArticlesTHETHSTotaux($simulation->getNombreArticlesTHETHSTotaux() + 1);
+                $simulation->setNonValeursTotaux($simulation->getNonValeursTotaux() + $this->getMontantnonvaleureventuelle());
+            } else if ($this->getCotisation()->getCodeRole() == "EX") {
+                $simulation->setNombreArticlesTHETHSCommune($simulation->getNombreArticlesTHETHSCommune() + 1);
+                $simulation->setBasesNettesReductionsCommune($simulation->getBasesNettesReductionsCommune() + $simulation->getBaseTH()->getBasenettecommunale());
+                $simulation->setBasesNettesReductionsICO($simulation->getBasesNettesReductionsICO() + $simulation->getBaseTH()->getBasenetteintercommunalite());
+                if ($this->getCotisation()->getExoTSE() == "E") {
+                    $simulation->setNombreArticlesTHETHSTSElocalHLMSEM($simulation->getNombreArticlesTHETHSTSElocalHLMSEM() + 1);
+                    $simulation->setBasesNettesReductionsTSElocalHLMSEM($simulation->getBasesNettesReductionsTSElocalHLMSEM() + $simulation->getBaseTH()->getBasenetteintercommunalite());
+                }
+            } else if ($this->getCotisation()->getCodeRole() == "ED") {
+                
+            }
+        } else if ($this->getCodeTAX() == "S") {
+            if ($this->getCotisation()->getCodeRole() == "  ") {
+                
+            } else if ($this->getCotisation()->getCodeRole() == "PA") {
+                $simulation->setNombreArticlesTHETHSPlafonnements($simulation->getNombreArticlesTHETHSPlafonnements() + 1);
+                $simulation->setNombreArticlesTHETHSTotaux($simulation->getNombreArticlesTHETHSTotaux() + 1);
+                $simulation->setNonValeursTotaux($simulation->getNonValeursTotaux() + $this->getMontantnonvaleureventuelle());
+            } else if ($this->getCotisation()->getCodeRole() == "DT") {
+                $simulation->setNombreArticlesTHETHSDegrevementstotaux($simulation->getNombreArticlesTHETHSDegrevementstotaux() + 1);
+            } else if ($this->getCotisation()->getCodeRole() == "NV") {
+                $simulation->setNonValeursNonValeurs($simulation->getNonValeursNonValeurs() + 1);
+                $simulation->setNonValeursTotaux($simulation->getNonValeursTotaux() + $this->getMontantnonvaleureventuelle());
+                $simulation->setNombreArticlesTHETHSNonValeurs($simulation->getNombreArticlesTHETHSNonValeurs() + 1);
+                $simulation->setNombreArticlesTHETHSTotaux($simulation->getNombreArticlesTHETHSTotaux() + 1);
+            } else if ($this->getCotisation()->getCodeRole() == "EX") {
+                $simulation->setNombreArticlesTHETHSCommune($simulation->getNombreArticlesTHETHSCommune() + 1);
+                $simulation->setBasesNettesReductionsCommune($simulation->getBasesNettesReductionsCommune() + $simulation->getBaseTH()->getBasenettecommunale());
+                $simulation->setBasesNettesReductionsICO($simulation->getBasesNettesReductionsICO() + $simulation->getBaseTH()->getBasenetteintercommunalite());
+                if ($this->getCotisation()->getExoTSE() == "E") {
+                    $simulation->setNombreArticlesTHETHSTSElocalHLMSEM($simulation->getNombreArticlesTHETHSTSElocalHLMSEM() + 1);
+                    $simulation->setBasesNettesReductionsTSElocalHLMSEM($simulation->getBasesNettesReductionsTSElocalHLMSEM() + $simulation->getBaseTH()->getBasenetteintercommunalite());
+                }
+            } else if ($this->getCotisation()->getCodeRole() == "ED") {
+                
+            }
+        } else if ($this->getCodeTAX() == "V") {
+            if ($this->getCotisation()->getCodeRole() == "  ") {
+                
+            } else if ($this->getCotisation()->getCodeRole() == "PA") {
+                
+            } else if ($this->getCotisation()->getCodeRole() == "DT") {
+                
+            } else if ($this->getCotisation()->getCodeRole() == "NV") {
+                $simulation->setNonValeursNonValeurs($simulation->getNonValeursNonValeurs() + 1);
+            } else if ($this->getCotisation()->getCodeRole() == "EX") {
+                
+            } else if ($this->getCotisation()->getCodeRole() == "ED") {
+                
+            }
+        } else {
+            if ($this->getCotisation()->getCodeRole() == "  ") {
+                
+            } else if ($this->getCotisation()->getCodeRole() == "PA") {
+                $simulation->setNonValeursPlafonnements($simulation->getNonValeursPlafonnements() + 1);
+            } else if ($this->getCotisation()->getCodeRole() == "DT") {
+                
+            } else if ($this->getCotisation()->getCodeRole() == "NV") {
+                $simulation->setNonValeursNonValeurs($simulation->getNonValeursNonValeurs() + 1);
+            } else if ($this->getCotisation()->getCodeRole() == "EX") {
+                
+            } else if ($this->getCotisation()->getCodeRole() == "ED") {
+                
+            }
+        }
+    }
+
+    public function setTableauTH8(Simulation $simulation) {
+        if (($this->getCotisation()->getVlimposeedeslocauxsecondaires() + $this->getCotisation()->getVlbruteimposeedeslocauxprincipaux()) > 0) {
+            if ($this->getMontantnetapayer() > 12) {
+                $simulation->setArticlesImposes($simulation->getArticlesImposes() + 1);
+            } else if ($this->getMontantnetapayer() <= 12) {
+                $simulation->setArticlesExoneres($simulation->getArticlesExoneres() + 1);
+            }
+        }
+    }
+
+    public function setTableauTH9(Simulation $simulation) {
+        if ($this->getCodeTAX() == "P") {
+            $simulation->setNombreArticlesTHFraisTHPTHE($simulation->getNombreArticlesTHFraisTHPTHE() + 1);
+            $simulation->setNombreArticlesTHTotal($simulation->getNombreArticlesTHTotal() + 1);
+            $simulation->setMontantReelTHCommune($simulation->getMontantReelTHCommune() + $simulation->getCotisationTH()->getCotisationcommunale());
+            $simulation->setMontantReelTHICO($simulation->getMontantReelTHICO() + $simulation->getCotisationTH()->getCotisationintercommunalite());
+            $simulation->setMontantReelTHTSE($simulation->getMontantReelTHTSE() + $simulation->getCotisationTH()->getCotisationtse());
+            $simulation->setMontantReelTHFraisTHPTHE($simulation->getMontantReelTHFraisTHPTHE() + $this->getMontantdesfraisderole());
+            $simulation->setMontantReelTHPrelt1($simulation->getMontantReelTHPrelt1() + $this->getCotisation()->getMontantprelevementsurfortevl());
+            $simulation->setMontantNetTHTHLVICO($simulation->getMontantNetTHTHLVICO() + $simulation->getCotisationTH()->getCotisationintercommunalite());
+            $simulation->setMontantNetTHTHLVCommune($simulation->getMontantNetTHTHLVCommune() + $simulation->getCotisationTH()->getCotisationcommunale());
+            $simulation->setMontantNetTHTHLVTSE($simulation->getMontantNetTHTHLVTSE() + $simulation->getCotisationTH()->getCotisationtse());
+
+            if ($this->getCotisation()->getMontantprelevementsurfortevl() != 0) {
+                $simulation->setNombreArticlesTHPrelt1($simulation->getNombreArticlesTHPrelt1() + 1);
+            }
+        } else if ($this->getCodeTAX() == "E") {
+            $simulation->setNombreArticlesTHFraisTHPTHE($simulation->getNombreArticlesTHFraisTHPTHE() + 1);
+            $simulation->setNombreArticlesTHTotal($simulation->getNombreArticlesTHTotal() + 1);
+            $simulation->setMontantReelTHCommune($simulation->getMontantReelTHCommune() + $simulation->getCotisationTH()->getCotisationcommunale());
+            $simulation->setMontantReelTHICO($simulation->getMontantReelTHICO() + $simulation->getCotisationTH()->getCotisationintercommunalite());
+            $simulation->setMontantReelTHTSE($simulation->getMontantReelTHTSE() + $simulation->getCotisationTH()->getCotisationtse());
+            $simulation->setMontantReelTHFraisTHPTHE($simulation->getMontantReelTHFraisTHPTHE() + $this->getMontantdesfraisderole());
+            $simulation->setMontantReelTHPrelt1($simulation->getMontantReelTHPrelt1() + $this->getCotisation()->getMontantprelevementsurfortevl());
+            $simulation->setMontantNetTHTHLVICO($simulation->getMontantNetTHTHLVICO() + $simulation->getCotisationTH()->getCotisationintercommunalite());
+            $simulation->setMontantNetTHTHLVCommune($simulation->getMontantNetTHTHLVCommune() + $simulation->getCotisationTH()->getCotisationcommunale());
+            $simulation->setMontantNetTHTHLVTSE($simulation->getMontantNetTHTHLVTSE() + $simulation->getCotisationTH()->getCotisationtse());
+            if ($this->getCotisation()->getMontantprelevementsurfortevl() != 0) {
+                $simulation->setNombreArticlesTHPrelt1($simulation->getNombreArticlesTHPrelt1() + 1);
+            }
+        } else if ($this->getCodeTAX() == "S") {
+            $simulation->setNombreArticlesTHFraisTHS($simulation->getNombreArticlesTHFraisTHS() + 1);
+            $simulation->setNombreArticlesTHTotal($simulation->getNombreArticlesTHTotal() + 1);
+            $simulation->setMontantReelTHCommune($simulation->getMontantReelTHCommune() + $simulation->getCotisationTH()->getCotisationcommunale());
+            $simulation->setMontantReelTHICO($simulation->getMontantReelTHICO() + $simulation->getCotisationTH()->getCotisationintercommunalite());
+            $simulation->setMontantReelTHTSE($simulation->getMontantReelTHTSE() + $simulation->getCotisationTH()->getCotisationtse());
+            $simulation->setMontantReelTHFraisTHS($simulation->getMontantReelTHFraisTHS() + $this->getMontantdesfraisderole());
+            $simulation->setMontantReelTHPrelt1($simulation->getMontantReelTHPrelt1() + $this->getCotisation()->getMontantprelevementsurfortevl());
+            $simulation->setMontantNetTHTHLVICO($simulation->getMontantNetTHTHLVICO() + $simulation->getCotisationTH()->getCotisationintercommunalite());
+            $simulation->setMontantNetTHTHLVTSE($simulation->getMontantNetTHTHLVTSE() + $simulation->getCotisationTH()->getCotisationtse());
+            if ($this->getCotisation()->getMontantprelevementde15surths() != 0) {
+                $simulation->setNombreArticlesTHPreltSupplementaireTHS($simulation->getNombreArticlesTHPreltSupplementaireTHS() + 1);
+            }
+            if ($this->getCotisation()->getMontantprelevementsurfortevl() != 0) {
+                $simulation->setNombreArticlesTHPrelt1($simulation->getNombreArticlesTHPrelt1() + 1);
+            }
+            $simulation->setMontantReelTHPreltSupplementaireTHS($simulation->getMontantReelTHPreltSupplementaireTHS() + $this->getCotisation()->getMontantprelevementde15surths());
+            $simulation->setMontantNetTHTHLVCommune($simulation->getMontantNetTHTHLVCommune() + $simulation->getCotisationTH()->getCotisationcommunale());
+        } else if ($this->getCodeTAX() == "V") {
+            $simulation->setNombreArticlesTHLVFrais8pourcent($simulation->getNombreArticlesTHLVFrais8pourcent() + 1);
+            $simulation->setMontantReelTHLVFrais8pourcent($simulation->getMontantReelTHLVFrais8pourcent() + $this->getMontantdesfraisderole());
+            $simulation->setMontantReelTHLVCommune($simulation->getMontantReelTHLVCommune() + $this->getCotisation()->getCotisationcommunale());
+            $simulation->setNombreArticlesTHLVTotal($simulation->getNombreArticlesTHLVTotal() + 1);
+            $simulation->setMontantReelTHLVTotal($simulation->getMontantReelTHLVTotal() + $simulation->getCotisationTH()->getTotalcotisationsbrutes() + $this->getMontantdesfraisderole());
+            $simulation->setMontantNetTHTHLVCommune($simulation->getMontantNetTHTHLVCommune() + $simulation->getCotisationTH()->getCotisationcommunale());
+            $simulation->setMontantNetTHTHLVICO($simulation->getMontantNetTHTHLVICO() + $simulation->getCotisationTH()->getCotisationintercommunalite());
+            $simulation->setMontantNetTHTHLVTSE($simulation->getMontantNetTHTHLVTSE() + $simulation->getCotisationTH()->getCotisationtse());
         }
     }
 
 }
-

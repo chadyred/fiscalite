@@ -71,7 +71,7 @@ class TFArticleCommuneEnTete {
     private $tXNCA;
     
      /**
-    * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="tFarticlesCommuneEnTete", cascade={"persist"})
+    * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="tFarticlesCommuneEnTete", cascade={"persist","remove"})
     */
     private $fichier;
 
@@ -197,7 +197,7 @@ class TFArticleCommuneEnTete {
         $this->setDateTraitement(substr($chaine, 34, 8));
         $this->setLibDIR(substr($chaine, 42, 30));
         $this->setLibelleCollectivite(substr($chaine, 72, 65));
-        $this->setTXBD(substr($chaine, 185, 8));
+        $this->setTXBD(substr($chaine, 185, 8) / $pourcentage);
         $this->setTXNCA(substr($chaine, 217, 8) / $pourcentage);
     }
 

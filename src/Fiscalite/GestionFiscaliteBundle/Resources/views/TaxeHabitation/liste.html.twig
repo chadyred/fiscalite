@@ -3,7 +3,7 @@
 <div class="container-fluid page-container">
     <div class="row">
         <div class="sidebar content-tab col-sm-12">
-             <h2 class="text-center">Taxe d'habitation</h2>
+            <h2 class="text-center">Taxe d'habitation</h2>
         </div>  
     </div>
     <div class="row">
@@ -20,6 +20,18 @@
                 <div class="col-sm-6">
 {{ form_widget(form.nompersonne, {'attr': {'class': 'form-control','data-url': path('fiscalite_ajaxNompersonne')} }) }}
 {{ form_errors(form.nompersonne,{ 'attr': { 'class': 'col-sm-12' } }) }}
+                </div>        
+            </div>
+            <div class="form-group">{{ form_label(form.numeroimmeubleaft, "N° de la rue : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
+                <div class="col-sm-6">
+{{ form_widget(form.numeroimmeubleaft, {'attr': {'class': 'form-control','data-url': path('fiscalite_ajaxNumeroimmeubleaft')} }) }}
+{{ form_errors(form.numeroimmeubleaft,{ 'attr': { 'class': 'col-sm-12' } }) }}
+                </div>        
+            </div>
+            <div class="form-group">{{ form_label(form.libellevoieaft, "Nom de la rue : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
+                <div class="col-sm-6">
+{{ form_widget(form.libellevoieaft, {'attr': {'class': 'form-control','data-url': path('fiscalite_ajaxLibellevoieaft')} }) }}
+{{ form_errors(form.libellevoieaft,{ 'attr': { 'class': 'col-sm-12' } }) }}
                 </div>        
             </div>
             <div class="form-group">{{ form_label(form.nbpersonnesacharge, "Nombre de personnes à charge : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
@@ -89,6 +101,12 @@
 {{ form_widget(form.montantnetapayermax,{ 'attr': { 'class': 'col-sm-4' } }) }}
 {{ form_errors(form.montantnetapayermin,{ 'attr': { 'class': 'col-sm-12' } }) }}
 {{ form_errors(form.montantnetapayermax,{ 'attr': { 'class': 'col-sm-12' } }) }}
+                </div>
+            </div>
+            <div class="form-group ">{{ form_label(form.secteur, "Secteur : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}           
+                <div class="col-sm-6">
+{{ form_widget(form.secteur,{ 'attr': { 'class': 'col-sm-12' } }) }}
+{{ form_errors(form.secteur,{ 'attr': { 'class': 'col-sm-12' } }) }}
                 </div>
             </div>
             <div class="col-sm-offset-1 col-sm-2">
@@ -271,6 +289,20 @@
     $(document).ready(function() {
         var attr = $('#fiscalite_gestionfiscalitebundle_recherchearticleth_nompersonne').attr('data-url');
         $("#fiscalite_gestionfiscalitebundle_recherchearticleth_nompersonne").autocomplete({
+            minLength: 2,
+            source: attr
+        });
+    });
+    $(document).ready(function() {
+        var attr = $('#fiscalite_gestionfiscalitebundle_recherchearticleth_numeroimmeubleaft').attr('data-url');
+        $("#fiscalite_gestionfiscalitebundle_recherchearticleth_numeroimmeubleaft").autocomplete({
+            minLength: 2,
+            source: attr
+        });
+    });
+    $(document).ready(function() {
+        var attr = $('#fiscalite_gestionfiscalitebundle_recherchearticleth_libellevoieaft').attr('data-url');
+        $("#fiscalite_gestionfiscalitebundle_recherchearticleth_libellevoieaft").autocomplete({
             minLength: 2,
             source: attr
         });

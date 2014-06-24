@@ -162,7 +162,7 @@ class TFArticleTaxationBati {
     private $codeOM;
     // ManyToOne //
     /**
-     * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\ArticleTF", inversedBy="tfarticletaxationbatis", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\ArticleTF", inversedBy="tfarticletaxationbatis", cascade={"persist","remove"})
      */
     private $articleTF;
 
@@ -619,27 +619,6 @@ class TFArticleTaxationBati {
             $this->setCodeOM(substr($chaine, 238, 2));
         }
         return $this;
-    }
-
-    /**
-     * Set tfarticletaxationcompte
-     *
-     * @param \Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationCompte $tfarticletaxationcompte
-     * @return TFArticleTaxationBati
-     */
-    public function setTfarticletaxationcompte(\Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationCompte $tfarticletaxationcompte = null) {
-        $this->tfarticletaxationcompte = $tfarticletaxationcompte;
-
-        return $this;
-    }
-
-    /**
-     * Get tfarticletaxationcompte
-     *
-     * @return \Fiscalite\GestionFiscaliteBundle\Entity\TFArticleTaxationCompte 
-     */
-    public function getTfarticletaxationcompte() {
-        return $this->tfarticletaxationcompte;
     }
 
     /**

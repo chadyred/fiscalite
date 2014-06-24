@@ -18,13 +18,24 @@ class RechercheArticleTHType extends AbstractType {
                 ->add('fichier', 'entity', array(
                     'class' => 'FiscaliteGestionFiscaliteBundle:Fichier',
                     'property' => 'anneetaxation',
-                    'multiple' => true,
+                    'multiple' => false,
                     'required' => false,
                     'empty_value' => 'Année de taxation',
                     'empty_data' => null, 'query_builder' => function(EntityRepository $er) {
                 return $er->createQueryBuilder('c')->orderBy('c.anneetaxation', 'ASC')->groupby('c.anneetaxation');
             }, 'attr' => array('class' => 'col-sm-12')))
-                ->add('nompersonne', 'text', array('required' => false))
+                ->add('secteur', 'entity', array(
+                    'class' => 'FiscaliteGestionFiscaliteBundle:Secteur',
+                    'property' => 'nom',
+                    'multiple' => false,
+                    'required' => false,
+                    'empty_value' => 'Secteurs',
+                    'empty_data' => null, 'query_builder' => function(EntityRepository $er) {
+                return $er->createQueryBuilder('c')->orderBy('c.nom', 'ASC');
+            }, 'attr' => array('class' => 'col-sm-12')))
+                ->add('nompersonne', 'text', array('required' => false,'label' => 'Nom de la personne'))
+                ->add('numeroimmeubleaft', 'text', array('required' => false,'label' => 'N° de la rue'))
+                ->add('libellevoieaft', 'text', array('required' => false,'label' => 'Nom de la rue'))                
                 ->add('nbpersonnesacharge', 'integer', array('required' => false, 'attr' => array('class' => 'col-sm-12')))
                 ->add('basenettemin', 'text', array('required' => false, 'attr' => array('placeholder' => 'min €', 'class' => 'col-sm-12')))
                 ->add('basenettemax', 'text', array('required' => false, 'attr' => array('placeholder' => 'max €', 'class' => 'col-sm-12')))

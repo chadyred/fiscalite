@@ -260,7 +260,7 @@ class TFArticleCommuneIFP
     private $nonBatiEPCI; 
     
     /**
-    * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="tFarticlesCommuneIFP", cascade={"persist"})
+    * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="tFarticlesCommuneIFP", cascade={"persist","remove"})
     */
     private $fichier;
     /**

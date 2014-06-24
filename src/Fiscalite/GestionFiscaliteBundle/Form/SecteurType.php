@@ -11,7 +11,7 @@ class SecteurType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-                ->add('nom', 'text', array('required' => false, 'attr' => array('class' => 'col-xs-12')))
+                ->add('nom', 'text', array('required' => true, 'attr' => array('class' => 'col-xs-12')))
                 ->add('nombreIndividu', 'text', array('required' => false, 'attr' => array('class' => 'col-xs-12')))
                 ->add('typerue', 'entity', array('attr' => array('class' => 'secteurtyperue'),
                     'class' => 'FiscaliteGestionFiscaliteBundle:TypeRue',

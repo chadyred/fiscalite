@@ -26,4 +26,14 @@ class User extends BaseUser {
         $this->roles = array('ROLE_UTILISATEUR');
     }
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 }

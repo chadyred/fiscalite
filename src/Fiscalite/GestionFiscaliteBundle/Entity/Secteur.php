@@ -40,14 +40,19 @@ class Secteur {
     private $nombreIndividu;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TypeRue", cascade={"persist","remove"})
+     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\TypeRue", cascade={"persist"})
      */
     private $typerue;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTH", mappedBy="fichier", cascade={"persist","remove"})
+     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\SimulationArticleTH", mappedBy="secteur", cascade={"persist"})
      */
     private $simulationArticleTH;
+    
+    /**
+    * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTH", mappedBy="secteur", cascade={"persist"})
+    */
+    private $rechercheArticleTH;
 
     /**
      * Get id
@@ -184,4 +189,39 @@ class Secteur {
         return $this->simulationArticleTH;
     }
 
+
+    
+
+    /**
+     * Add rechercheArticleTH
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTH $rechercheArticleTH
+     * @return Secteur
+     */
+    public function addRechercheArticleTH(\Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTH $rechercheArticleTH)
+    {
+        $this->rechercheArticleTH[] = $rechercheArticleTH;
+
+        return $this;
+    }
+
+    /**
+     * Remove rechercheArticleTH
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTH $rechercheArticleTH
+     */
+    public function removeRechercheArticleTH(\Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTH $rechercheArticleTH)
+    {
+        $this->rechercheArticleTH->removeElement($rechercheArticleTH);
+    }
+
+    /**
+     * Get rechercheArticleTH
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getRechercheArticleTH()
+    {
+        return $this->rechercheArticleTH;
+    }
 }

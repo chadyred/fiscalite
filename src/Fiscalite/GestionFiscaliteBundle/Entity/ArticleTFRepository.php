@@ -100,7 +100,7 @@ class ArticleTFRepository extends EntityRepository {
         $qb = $this->createQueryBuilder('c');
         $qb->select('c.titreEtDesignation')
                 ->where('c.titreEtDesignation LIKE :term1')
-                ->setParameter('term1', '%' . $term . '%');
+                ->setParameter('term1', '%' . $term . '%')->addGroupBy('c.titreEtDesignation')->addOrderBy('c.titreEtDesignation','ASC');
         $arrayAss = $qb->getQuery()
                 ->getArrayResult();
         // Transformer le tableau associatif en un tableau standard

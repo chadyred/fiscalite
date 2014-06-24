@@ -12,42 +12,172 @@
                                 <div class="form-group ">
                                     {# Génération du label. #}
                                     {{ form_label(form.nom, "Nom de secteur : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
-                                        <div class="col-sm-6 col-md-6 col-lg-6">
+                                    <div class="col-sm-6 col-md-6 col-lg-6">
                                     {# Affichage des erreurs pour ce champ précis. #}
                                     {{ form_errors(form.nom) }}
                                     {# Génération de l'input. #}
                                     {{ form_widget(form.nom) }}
-                                            </div>
-                                        </div>
-                                    <div class="form-group">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     {# Génération du label. #}
                                     {{ form_label(form.typerue, "Adresse : ",{ 'label_attr': { 'class': 'col-sm-6' } }) }}
                                     <div class="col-sm-6 col-md-6 col-lg-6">
                                     {# Affichage des erreurs pour ce champ précis. #}
                                     {{ form_errors(form.typerue) }}
                                     {# Génération de l'input. #}
-                                    {{ form_widget(form.typerue) }}
-                                    </div>
-                                    <div class="form-group"> 
-                                       {{ form_errors(form) }}
-                                       {{ form_widget(form._token) }}
-                                    </div>        
-                                    <div class="form-group">  
-                                        <div class="col-sm-12 col-md-12 col-lg-12">
-                                            <button class="btn btn-primary col-sm-offset-7" type="submit">Enregistrer</button>
-                                        </div>
-                                    </div>
-                                         
-                                 </fieldset>
-                                        </form>
+                                    {{ form_widget(form.typerue, { 'attr' : {'size' : form.typerue.vars.attr.size is defined ? form.typerue.vars.attr.size : 15 } })}}
                                     </div>
                                 </div>
-              
-                                        </div>
-                                    </div>                      
-                                </div>                            
-                            </div>
+                                <div class="form-group text-center"> 
+                                    <a class="btn btn-primary" onclick="addPolygon();">Dessiner un secteur</a>
+                                </div>
+                                <div class="form-group"> 
+                                    <div id="map-canvas" class="col-sm-12 col-md-12 col-lg-10 col-sm-offset-1 stream-map" style="height: 500px"></div> 
+                                </div>
+                                <div class="form-group"> 
+                                       {{ form_errors(form) }}
+                                       {{ form_widget(form._token) }}
+                                </div>        
+                                <div class="form-group">  
+                                    <div class="col-sm-12 col-md-12 col-lg-12">
+                                        <button class="btn btn-primary col-sm-offset-7" type="submit">Enregistrer</button>
+                                    </div>
+                                </div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>                      
+    </div>                            
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js" type="text/javascript"></script>
+<script src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=geometry"></script>
+
+<script type="text/javascript">
+
+                                        function sleep(milliseconds) {
+                                            var start = new Date().getTime();
+                                            for (var i = 0; i < 1e7; i++) {
+                                                if ((new Date().getTime() - start) > milliseconds) {
+                                                    break;
+                                                }
+                                            }
+                                        }
+                                        var poly, map;
+                                        var markers = [];
+                                        var path = new google.maps.MVCArray;
+                                        function initialize() {
+                                            var geocoder = new google.maps.Geocoder();
+                                            var request = {
+                                                address: '1 place charles de gaulle voreppe',
+                                                region: 'fr', //pour améliorer la qualité des résultats en précisant que l'on cherche principalement en France
+                                                language: 'fr'
+                                            };
+                                            geocoder.geocode(request, function(results, status) {
+                                                if (status === google.maps.GeocoderStatus.OK) {
+                                                    var lat = results[0].geometry.location.lat();
+                                                    var lng = results[0].geometry.location.lng();
+                                                    var fenway = new google.maps.LatLng(lat, lng);
+                                                    var mapOptions = {
+                                                        center: fenway,
+                                                        zoom: 15,
+                                                    };
+                                                    map = new google.maps.Map(
+                                                            document.getElementById('map-canvas'), mapOptions);
+                                                    map.setCenter(fenway);
+                                                    var marker = new google.maps.Marker({
+                                                        position: fenway,
+                                                        map: map,
+                                                        icon: {
+                                                            path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                                                            strokeColor: "blue",
+                                                            scale: 3
+                                                        },
+                                                    });
+                                                    poly = new google.maps.Polygon({
+                                                        strokeWeight: 3,
+                                                        fillColor: '#5555FF'
+                                                    });
+                                                    poly.setMap(map);
+                                                    poly.setPaths(new google.maps.MVCArray([path]));
+                                                    google.maps.event.addListener(map, 'click', addPoint);
+                                                } else {
+                                                    alert("Impossible de trouver l'adresse via Google Maps.");
+                                                }
+                                            });
+                                        }
+                                        function addPoint(event) {
+
+                                            path.insertAt(path.length, event.latLng);
+                                            var marker = new google.maps.Marker({
+                                                position: event.latLng,
+                                                map: map,
+                                                draggable: true
+                                            });
+                                            markers.push(marker);
+                                            marker.setTitle("#" + path.length);
+                                            google.maps.event.addListener(marker, 'click', function() {
+                                                marker.setMap(null);
+                                                for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i)
+                                                    ;
+                                                markers.splice(i, 1);
+                                                path.removeAt(i);
+                                            }
+                                            );
+                                            google.maps.event.addListener(marker, 'dragend', function() {
+                                                for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i)
+                                                    ;
+                                                path.setAt(i, marker.getPosition());
+                                            }
+                                            );
+                                            var arr = new Array;
+                                            $("#fiscalite_typerue option").each(function() {
+                                                arr.push($(this).text().replace('   ', ''));
+                                            });
+                                            for (var i = 0; i < arr.length; i++) {
+                                                var val = arr[i].replace('  ', ' ');
+                                                val = val.replace('  ', ' ');
+                                                val = val.replace('  ', ' ');
+                                                val = val + "38340 Voreppe";
+                                                console.log("val : " + val);
+                                                sleep(1000);
+                                                var geocoder = new google.maps.Geocoder();
+                                                var request = {
+                                                    address: val,
+                                                    region: 'fr'
+                                                };
+                                                geocoder.geocode(request, function(results, status) {
+                                                    console.log("Request : " + request['address']);
+                                                    var statusgeo = google.maps.GeocoderStatus.OK;
+                                                    if (status === statusgeo) {
+                                                        var lat = results[0].geometry.location.lat();
+                                                        var lng = results[0].geometry.location.lng();
+                                                        var oLatLng = new google.maps.LatLng(lat, lng);
+                                                        console.log(lat + " " + lng + " " + val);
+                                                        var mark = new google.maps.Marker({
+                                                            map: map,
+                                                            zoom: 15,
+                                                            position: oLatLng,
+                                                            title: val,
+                                                        });
+                                                        mark.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png')
+                                                        var bool = new google.maps.geometry.poly.containsLocation(oLatLng, poly);
+                                                        if (bool) {
+                                                            console.log("TROUVE : " + val);
+                                                        } else {
+                                                            console.log("pas dans le poly");
+                                                        }
+                                                    } else {
+                                                        console.log("erreur");
+                                                    }
+                                                });
+                                            }
+
+                                        }
+                                        google.maps.event.addDomListener(window, 'load', initialize);
+</script>
 {% endblock %}
 {% block footer %}
-{{ parent() }}
 {% endblock %}

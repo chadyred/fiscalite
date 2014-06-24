@@ -86,8 +86,9 @@ class SimulationArticleTH {
      */
     private $tauximpositioncommune;
     
+    
     /**
-     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Secteur", mappedBy="simulationArticleTH", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Secteur", inversedBy="simulationArticleTH", cascade={"persist"})
      */
     private $secteur;
 

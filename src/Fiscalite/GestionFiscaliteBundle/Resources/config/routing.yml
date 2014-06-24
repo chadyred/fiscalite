@@ -60,6 +60,16 @@ fiscalite_ajaxNompersonne:
     defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeHabitation:getAjaxResultsNompersonne}
     requirements:
         _method: GET  
+fiscalite_ajaxNumeroimmeubleaft:
+    pattern: /fiscalite_ajaxNumeroimmeubleaft
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeHabitation:getAjaxResultsNumeroimmeubleaft}
+    requirements:
+        _method: GET  
+fiscalite_ajaxLibellevoieaft:
+    pattern: /fiscalite_ajaxLibellevoieaft
+    defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeHabitation:getAjaxResultsLibellevoieaft}
+    requirements:
+        _method: GET          
 fiscalite_ajaxTitreEtDesignation:
     pattern: /fiscalite_ajaxTitreEtDesignation
     defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeFonciere:getAjaxResultsTitreEtDesignation}

@@ -59,8 +59,10 @@ class SecteurController extends Controller {
             if ($form->isValid()) {
                 $em = $this->getDoctrine()->getManager();
                 $secteur->setNombreIndividuRue();
-                foreach ($form->get('typerue') as $typerue)
-                    $secteur->addTyperue($typerue);
+                foreach ($form->get('typerue') as $typerue) {
+                    $typerue->setSecteur($secteur);
+                    $em->persist($typerue);
+                }
                 $em->persist($secteur);
                 $em->flush();
                 $this->get('session')->getFlashBag()->add('notice', "Secteur crée avec succès ");

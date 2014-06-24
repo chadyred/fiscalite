@@ -31,7 +31,7 @@ security:
               invalidate_session: false
             anonymous:    true
             remember_me:
-                path: /fiscalite
+                path: /login
                 lifetime: 5000
                 key:        %secret% 
                 

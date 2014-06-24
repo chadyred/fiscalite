@@ -198,7 +198,7 @@ class Abattement {
     
 
     /**
-     * @ORM\OneToOne(targetEntity="ArticleTH",inversedBy="abattement", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="ArticleTH",inversedBy="abattement", cascade={"persist","remove"})
      */
     private $articleTH;
 

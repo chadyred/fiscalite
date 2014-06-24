@@ -132,7 +132,7 @@ class Cotisation {
      * @ORM\Column(name="codeRole", type="string",length=2)
      */
     private $codeRole;
-    
+
     /**
      * @var string
      *
@@ -141,7 +141,7 @@ class Cotisation {
     private $exoTSE;
 
     /**
-     * @ORM\OneToOne(targetEntity="ArticleTH",inversedBy="cotisation", cascade={"persist"})
+     * @ORM\OneToOne(targetEntity="ArticleTH",inversedBy="cotisation", cascade={"persist","remove"})
      */
     private $articleTH;
 
@@ -532,6 +532,27 @@ class Cotisation {
         return $this->codeRole;
     }
 
+    public function newCotisation($chaine) {
+        $this->setNumerosequentiel(substr($chaine, 7, 6));
+        $this->setCotisationcommunale(substr($chaine, 148, 9));
+        $this->setCotisationintercommunalite(substr($chaine, 166, 9));
+        $this->setCotisationsyndicats(substr($chaine, 157, 9));
+        $this->setCotisationtse(substr($chaine, 175, 9));
+        $this->setTotalcotisationsbrutes(substr($chaine, 210, 9));
+        $this->setMontantprelevementsurfortevl(substr($chaine, 219, 9));
+        $this->setMontantprelevementde15surths(substr($chaine, 228, 9));
+        $this->setTotaldesCotisationsFraisPrelevements(substr($chaine, 237, 9));
+        $this->setMontantdudegrevementouplafonnementeffectif(substr($chaine, 246, 9));
+        $this->setVlbruteimposeedeslocauxprincipaux(substr($chaine, 255, 10));
+        $this->setVlbruteexonereeloueemeubleeenZRRenTHP(substr($chaine, 265, 10));
+        $this->setVlimposeedeslocauxsecondaires(substr($chaine, 275, 10));
+        $this->setVlbruteexonereeloueemeubleeenZZRenTHS(substr($chaine, 285, 10));
+        $this->setNbpersonnesacharge(substr($chaine, 295, 2));
+        $this->setCodeRole(substr($chaine, 299, 2));
+        $this->setExoTSE(substr($chaine, 193, 1));
+        return $this;
+    }
+
     public function getRepartitionNombreArticlesDuRole(Simulation $simulation) {
         if ($this->getArticleTH()->getCodeTAX() != "V") {
             if ($simulation->getCotisationTH()->getTotalcotisationsbrutes() >= 0 && $simulation->getCotisationTH()->getTotalcotisationsbrutes() <= 11) {
@@ -616,15 +637,13 @@ class Cotisation {
         }
     }
 
-
     /**
      * Set exoTSE
      *
      * @param string $exoTSE
      * @return Cotisation
      */
-    public function setExoTSE($exoTSE)
-    {
+    public function setExoTSE($exoTSE) {
         $this->exoTSE = $exoTSE;
 
         return $this;
@@ -635,8 +654,8 @@ class Cotisation {
      *
      * @return string 
      */
-    public function getExoTSE()
-    {
+    public function getExoTSE() {
         return $this->exoTSE;
     }
+
 }

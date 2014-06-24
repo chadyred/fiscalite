@@ -35,21 +35,37 @@ class ArticleTHRepository extends EntityRepository {
         return $qb->getQuery()->getResult();
     }
 
-    public function searchListTH($dataAnneetaxation, $dataNompersonne, $dataNbpersonnesacharge
+    public function searchListTH($dataNumeroimmeubleaft, $dataLibellevoieaft, $typerues, $dataSecteur, $dataAnneetaxation, $dataNompersonne, $dataNbpersonnesacharge
     , $dataBasenettemin, $dataBasenettemax, $dataAbattementgeneralbasecommunalemin, $dataAbattementgeneralbasecommunalemax, $dataAbattementpersonneschargecommunalmin, $dataAbattementpersonneschargecommunalmax, $dataAbattementspecialbasecommunalmin, $dataAbattementspecialbasecommunalmax, $dataAbattementspecialhandicapecommunalmin, $dataAbattementspecialhandicapecommunalmax, $dataCotisationcommunalemin, $dataCotisationcommunalemax, $dataMontantnetapayermin, $dataMontantnetapayermax) {
+
+
         $qb = $this->createQueryBuilder('a');
-        if ($dataAnneetaxation != NULL) {
-            $i = 1;
-            foreach ($dataAnneetaxation as $annee) {
-                $qb->join('a.fichier', 'f'.$i.'');
-                $qb->orWhere('f'.$i.'.anneetaxation =:ann')
-                        ->setParameter('ann', $annee->getAnneetaxation());
-                $i++;
+
+        if ($dataSecteur != NULL) {
+            $qb->innerJoin('a.adresse', 'adr');
+            $qb->innerJoin('adr.typerue', 'typer');
+            foreach ($typerues as $typerue) {
+                $qb->orWhere('typer.id =:id');
+                $qb->setParameter('id', $typerue->getId());
             }
+        }
+        if ($dataAnneetaxation != NULL) {
+            $qb->join('a.fichier', 'f');
+            $qb->orWhere('f.anneetaxation =:ann')->setParameter('ann', $dataAnneetaxation->getAnneetaxation());
         }
         if ($dataNompersonne != NULL) {
             $qb->andWhere('a.nomprenom LIKE :nom OR a.suitenom LIKE :nom')
                     ->setParameter('nom', '%' . $dataNompersonne . '%');
+        }
+        if ($dataNumeroimmeubleaft != NULL) {
+            $qb->innerJoin('a.adresse', 'adr');
+            $qb->andWhere('adr.numeroimmeubleaft LIKE :numeroimmeubleaft')
+                    ->setParameter('numeroimmeubleaft', '%' . $dataNumeroimmeubleaft . '%');
+        }
+        if ($dataLibellevoieaft != NULL) {
+            $qb->innerJoin('a.adresse', 'adr');
+            $qb->andWhere('adr.libellevoieaft LIKE :libellevoieaft')
+                    ->setParameter('libellevoieaft', '%' . $dataLibellevoieaft . '%');
         }
         if ($dataNbpersonnesacharge != NULL) {
             $qb->join('a.cotisation', 'c3');
@@ -236,7 +252,7 @@ class ArticleTHRepository extends EntityRepository {
         $qb = $this->createQueryBuilder('c');
         $qb->select('c.nomprenom')
                 ->where('c.nomprenom LIKE :term1')
-                ->setParameter('term1', '%' . $term . '%');
+                ->setParameter('term1', '%' . $term . '%')->addGroupBy('c.nomprenom')->addOrderBy('c.nomprenom', 'ASC');
         $arrayAss = $qb->getQuery()
                 ->getArrayResult();
 

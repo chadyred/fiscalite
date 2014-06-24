@@ -28,14 +28,10 @@ class TypeRue
     private $libelle;
 
     /**
-     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Adresse", mappedBy="typerue", cascade={"persist","remove"})
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Adresse", mappedBy="typerue", cascade={"persist"})
      */
     private $adresses;
     
-   /**
-    * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Secteur", cascade={"persist","remove"})
-    */
-    private $secteur;
     /**
      * Get id
      *

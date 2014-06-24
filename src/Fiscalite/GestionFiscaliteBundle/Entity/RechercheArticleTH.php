@@ -29,6 +29,20 @@ class RechercheArticleTH {
     private $nompersonne;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="numeroimmeubleaft", type="string", length=255, nullable=true)
+     */
+    private $numeroimmeubleaft;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="libellevoieaft", type="string", length=255, nullable=true)
+     */
+    private $libellevoieaft;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="nbpersonnesacharge", type="integer", nullable=true)
@@ -36,7 +50,7 @@ class RechercheArticleTH {
     private $nbpersonnesacharge;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", mappedBy="rechercheArticleTH", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Fichier", inversedBy="rechercheArticleTH", cascade={"persist"})
      */
     private $fichier;
 
@@ -138,12 +152,15 @@ class RechercheArticleTH {
      */
     private $montantnetapayermax;
 
- 
+    /**
+     * @ORM\ManyToOne(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\Secteur", inversedBy="rechercheArticleTH", cascade={"persist"})
+     */
+    private $secteur;
+
     /**
      * Constructor
      */
-    public function __construct()
-    {
+    public function __construct() {
         $this->fichier = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
@@ -152,8 +169,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getId()
-    {
+    public function getId() {
         return $this->id;
     }
 
@@ -163,8 +179,7 @@ class RechercheArticleTH {
      * @param string $nompersonne
      * @return RechercheArticleTH
      */
-    public function setNompersonne($nompersonne)
-    {
+    public function setNompersonne($nompersonne) {
         $this->nompersonne = $nompersonne;
 
         return $this;
@@ -175,8 +190,7 @@ class RechercheArticleTH {
      *
      * @return string 
      */
-    public function getNompersonne()
-    {
+    public function getNompersonne() {
         return $this->nompersonne;
     }
 
@@ -186,8 +200,7 @@ class RechercheArticleTH {
      * @param integer $nbpersonnesacharge
      * @return RechercheArticleTH
      */
-    public function setNbpersonnesacharge($nbpersonnesacharge)
-    {
+    public function setNbpersonnesacharge($nbpersonnesacharge) {
         $this->nbpersonnesacharge = $nbpersonnesacharge;
 
         return $this;
@@ -198,8 +211,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getNbpersonnesacharge()
-    {
+    public function getNbpersonnesacharge() {
         return $this->nbpersonnesacharge;
     }
 
@@ -209,8 +221,7 @@ class RechercheArticleTH {
      * @param integer $basenettemin
      * @return RechercheArticleTH
      */
-    public function setBasenettemin($basenettemin)
-    {
+    public function setBasenettemin($basenettemin) {
         $this->basenettemin = $basenettemin;
 
         return $this;
@@ -221,8 +232,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getBasenettemin()
-    {
+    public function getBasenettemin() {
         return $this->basenettemin;
     }
 
@@ -232,8 +242,7 @@ class RechercheArticleTH {
      * @param integer $basenettemax
      * @return RechercheArticleTH
      */
-    public function setBasenettemax($basenettemax)
-    {
+    public function setBasenettemax($basenettemax) {
         $this->basenettemax = $basenettemax;
 
         return $this;
@@ -244,8 +253,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getBasenettemax()
-    {
+    public function getBasenettemax() {
         return $this->basenettemax;
     }
 
@@ -255,8 +263,7 @@ class RechercheArticleTH {
      * @param integer $abattementgeneralbasecommunalemin
      * @return RechercheArticleTH
      */
-    public function setAbattementgeneralbasecommunalemin($abattementgeneralbasecommunalemin)
-    {
+    public function setAbattementgeneralbasecommunalemin($abattementgeneralbasecommunalemin) {
         $this->abattementgeneralbasecommunalemin = $abattementgeneralbasecommunalemin;
 
         return $this;
@@ -267,8 +274,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getAbattementgeneralbasecommunalemin()
-    {
+    public function getAbattementgeneralbasecommunalemin() {
         return $this->abattementgeneralbasecommunalemin;
     }
 
@@ -278,8 +284,7 @@ class RechercheArticleTH {
      * @param integer $abattementgeneralbasecommunalemax
      * @return RechercheArticleTH
      */
-    public function setAbattementgeneralbasecommunalemax($abattementgeneralbasecommunalemax)
-    {
+    public function setAbattementgeneralbasecommunalemax($abattementgeneralbasecommunalemax) {
         $this->abattementgeneralbasecommunalemax = $abattementgeneralbasecommunalemax;
 
         return $this;
@@ -290,8 +295,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getAbattementgeneralbasecommunalemax()
-    {
+    public function getAbattementgeneralbasecommunalemax() {
         return $this->abattementgeneralbasecommunalemax;
     }
 
@@ -301,8 +305,7 @@ class RechercheArticleTH {
      * @param integer $abattementpersonneschargecommunnalmin
      * @return RechercheArticleTH
      */
-    public function setAbattementpersonneschargecommunnalmin($abattementpersonneschargecommunnalmin)
-    {
+    public function setAbattementpersonneschargecommunnalmin($abattementpersonneschargecommunnalmin) {
         $this->abattementpersonneschargecommunnalmin = $abattementpersonneschargecommunnalmin;
 
         return $this;
@@ -313,8 +316,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getAbattementpersonneschargecommunnalmin()
-    {
+    public function getAbattementpersonneschargecommunnalmin() {
         return $this->abattementpersonneschargecommunnalmin;
     }
 
@@ -324,8 +326,7 @@ class RechercheArticleTH {
      * @param integer $abattementpersonneschargecommunnalmax
      * @return RechercheArticleTH
      */
-    public function setAbattementpersonneschargecommunnalmax($abattementpersonneschargecommunnalmax)
-    {
+    public function setAbattementpersonneschargecommunnalmax($abattementpersonneschargecommunnalmax) {
         $this->abattementpersonneschargecommunnalmax = $abattementpersonneschargecommunnalmax;
 
         return $this;
@@ -336,8 +337,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getAbattementpersonneschargecommunnalmax()
-    {
+    public function getAbattementpersonneschargecommunnalmax() {
         return $this->abattementpersonneschargecommunnalmax;
     }
 
@@ -347,8 +347,7 @@ class RechercheArticleTH {
      * @param integer $abattementspecialbasecommunalmin
      * @return RechercheArticleTH
      */
-    public function setAbattementspecialbasecommunalmin($abattementspecialbasecommunalmin)
-    {
+    public function setAbattementspecialbasecommunalmin($abattementspecialbasecommunalmin) {
         $this->abattementspecialbasecommunalmin = $abattementspecialbasecommunalmin;
 
         return $this;
@@ -359,8 +358,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getAbattementspecialbasecommunalmin()
-    {
+    public function getAbattementspecialbasecommunalmin() {
         return $this->abattementspecialbasecommunalmin;
     }
 
@@ -370,8 +368,7 @@ class RechercheArticleTH {
      * @param integer $abattementspecialbasecommunalmax
      * @return RechercheArticleTH
      */
-    public function setAbattementspecialbasecommunalmax($abattementspecialbasecommunalmax)
-    {
+    public function setAbattementspecialbasecommunalmax($abattementspecialbasecommunalmax) {
         $this->abattementspecialbasecommunalmax = $abattementspecialbasecommunalmax;
 
         return $this;
@@ -382,8 +379,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getAbattementspecialbasecommunalmax()
-    {
+    public function getAbattementspecialbasecommunalmax() {
         return $this->abattementspecialbasecommunalmax;
     }
 
@@ -393,8 +389,7 @@ class RechercheArticleTH {
      * @param integer $abattementspecialhandicapecommunalmin
      * @return RechercheArticleTH
      */
-    public function setAbattementspecialhandicapecommunalmin($abattementspecialhandicapecommunalmin)
-    {
+    public function setAbattementspecialhandicapecommunalmin($abattementspecialhandicapecommunalmin) {
         $this->abattementspecialhandicapecommunalmin = $abattementspecialhandicapecommunalmin;
 
         return $this;
@@ -405,8 +400,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getAbattementspecialhandicapecommunalmin()
-    {
+    public function getAbattementspecialhandicapecommunalmin() {
         return $this->abattementspecialhandicapecommunalmin;
     }
 
@@ -416,8 +410,7 @@ class RechercheArticleTH {
      * @param integer $abattementspecialhandicapecommunalmax
      * @return RechercheArticleTH
      */
-    public function setAbattementspecialhandicapecommunalmax($abattementspecialhandicapecommunalmax)
-    {
+    public function setAbattementspecialhandicapecommunalmax($abattementspecialhandicapecommunalmax) {
         $this->abattementspecialhandicapecommunalmax = $abattementspecialhandicapecommunalmax;
 
         return $this;
@@ -428,8 +421,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getAbattementspecialhandicapecommunalmax()
-    {
+    public function getAbattementspecialhandicapecommunalmax() {
         return $this->abattementspecialhandicapecommunalmax;
     }
 
@@ -439,8 +431,7 @@ class RechercheArticleTH {
      * @param integer $cotisationcommunalemin
      * @return RechercheArticleTH
      */
-    public function setCotisationcommunalemin($cotisationcommunalemin)
-    {
+    public function setCotisationcommunalemin($cotisationcommunalemin) {
         $this->cotisationcommunalemin = $cotisationcommunalemin;
 
         return $this;
@@ -451,8 +442,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getCotisationcommunalemin()
-    {
+    public function getCotisationcommunalemin() {
         return $this->cotisationcommunalemin;
     }
 
@@ -462,8 +452,7 @@ class RechercheArticleTH {
      * @param integer $cotisationcommunalemax
      * @return RechercheArticleTH
      */
-    public function setCotisationcommunalemax($cotisationcommunalemax)
-    {
+    public function setCotisationcommunalemax($cotisationcommunalemax) {
         $this->cotisationcommunalemax = $cotisationcommunalemax;
 
         return $this;
@@ -474,8 +463,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getCotisationcommunalemax()
-    {
+    public function getCotisationcommunalemax() {
         return $this->cotisationcommunalemax;
     }
 
@@ -485,8 +473,7 @@ class RechercheArticleTH {
      * @param integer $montantnetapayermin
      * @return RechercheArticleTH
      */
-    public function setMontantnetapayermin($montantnetapayermin)
-    {
+    public function setMontantnetapayermin($montantnetapayermin) {
         $this->montantnetapayermin = $montantnetapayermin;
 
         return $this;
@@ -497,8 +484,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getMontantnetapayermin()
-    {
+    public function getMontantnetapayermin() {
         return $this->montantnetapayermin;
     }
 
@@ -508,8 +494,7 @@ class RechercheArticleTH {
      * @param integer $montantnetapayermax
      * @return RechercheArticleTH
      */
-    public function setMontantnetapayermax($montantnetapayermax)
-    {
+    public function setMontantnetapayermax($montantnetapayermax) {
         $this->montantnetapayermax = $montantnetapayermax;
 
         return $this;
@@ -520,8 +505,7 @@ class RechercheArticleTH {
      *
      * @return integer 
      */
-    public function getMontantnetapayermax()
-    {
+    public function getMontantnetapayermax() {
         return $this->montantnetapayermax;
     }
 
@@ -531,8 +515,7 @@ class RechercheArticleTH {
      * @param \Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier
      * @return RechercheArticleTH
      */
-    public function addFichier(\Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier)
-    {
+    public function addFichier(\Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier) {
         $this->fichier[] = $fichier;
 
         return $this;
@@ -543,8 +526,7 @@ class RechercheArticleTH {
      *
      * @param \Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier
      */
-    public function removeFichier(\Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier)
-    {
+    public function removeFichier(\Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier) {
         $this->fichier->removeElement($fichier);
     }
 
@@ -553,8 +535,87 @@ class RechercheArticleTH {
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getFichier()
-    {
+    public function getFichier() {
         return $this->fichier;
+    }
+
+    /**
+     * Set secteur
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\Secteur $secteur
+     * @return RechercheArticleTH
+     */
+    public function setSecteur(\Fiscalite\GestionFiscaliteBundle\Entity\Secteur $secteur = null) {
+        $this->secteur = $secteur;
+
+        return $this;
+    }
+
+    /**
+     * Get secteur
+     *
+     * @return \Fiscalite\GestionFiscaliteBundle\Entity\Secteur 
+     */
+    public function getSecteur() {
+        return $this->secteur;
+    }
+
+    /**
+     * Set fichier
+     *
+     * @param \Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier
+     * @return RechercheArticleTH
+     */
+    public function setFichier(\Fiscalite\GestionFiscaliteBundle\Entity\Fichier $fichier = null) {
+        $this->fichier = $fichier;
+
+        return $this;
+    }
+
+
+    /**
+     * Set numeroimmeubleaft
+     *
+     * @param string $numeroimmeubleaft
+     * @return RechercheArticleTH
+     */
+    public function setNumeroimmeubleaft($numeroimmeubleaft)
+    {
+        $this->numeroimmeubleaft = $numeroimmeubleaft;
+
+        return $this;
+    }
+
+    /**
+     * Get numeroimmeubleaft
+     *
+     * @return string 
+     */
+    public function getNumeroimmeubleaft()
+    {
+        return $this->numeroimmeubleaft;
+    }
+
+    /**
+     * Set libellevoieaft
+     *
+     * @param string $libellevoieaft
+     * @return RechercheArticleTH
+     */
+    public function setLibellevoieaft($libellevoieaft)
+    {
+        $this->libellevoieaft = $libellevoieaft;
+
+        return $this;
+    }
+
+    /**
+     * Get libellevoieaft
+     *
+     * @return string 
+     */
+    public function getLibellevoieaft()
+    {
+        return $this->libellevoieaft;
     }
 }

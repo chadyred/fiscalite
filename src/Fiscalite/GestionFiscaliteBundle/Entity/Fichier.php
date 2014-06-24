@@ -84,7 +84,7 @@ class Fichier
     private $tFarticlesCommuneSRA3;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTH", inversedBy="fichier", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="Fiscalite\GestionFiscaliteBundle\Entity\RechercheArticleTH", mappedBy="fichier", cascade={"persist"})
      */
     private $rechercheArticleTH;
     

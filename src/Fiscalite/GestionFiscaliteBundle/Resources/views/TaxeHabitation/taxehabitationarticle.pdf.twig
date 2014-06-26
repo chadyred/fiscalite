@@ -1,0 +1,462 @@
+<pdf Author="Service des finances" Title="Document Taxe d'habitation">
+    <dynamic-page>
+        <placeholders>
+            <header>
+                <div height="50px" width="100%">
+                    <img height="50px" width="80px" src="{{ asset('http://127.0.0.1:8020/web/bundles/fiscalitegestionfiscalite/images/logo_haut_de_page.png') }}" />
+                </div>
+            </header>
+        </placeholders>
+
+    {% block contenu %}
+
+{% set valeurlocativemoyenneCommune = articleCommune[0].getVlmCne() %}
+{% set valeurlocativemoyenneSyndicats = 0 %}
+{% set valeurlocativemoyenneInterCommunalite = articleCommune[0].getVlmICO() %}
+{% set valeurlocativemoyenneTse = articleCommune[0].getVlmDept()  %}
+{% set tauximposition = 16.15/100 %}
+
+{% set tauximpositioncommune = (articleCommune[0].getTauxImpositionCommune()) %}
+{% set tauximpositionsyndicat = (articleCommune[0].getTauxImpositionSyndicats()) %}
+{% set tauximpositionintercommunalite = (articleCommune[0].getTauxImpositionIntercommunalite()) %}
+{% set tauximpositionse = (articleCommune[0].getTauxImpositionTSE()) %}
+
+{% if articleCommuneanneeprecedente!= NULL %}  
+    {% set tauximpositioncommuneanneeprecedente = (articleCommuneanneeprecedente[0].getTauxImpositionCommune()) %}
+    {% set tauximpositionsyndicatanneeprecedente = (articleCommuneanneeprecedente[0].getTauxImpositionSyndicats()) %}
+    {% set tauximpositionintercommunaliteanneeprecedente = (articleCommuneanneeprecedente[0].getTauxImpositionIntercommunalite()) %}
+    {% set tauximpositionseanneeprecedente = (articleCommuneanneeprecedente[0].getTauxImpositionTSE()) %} 
+    {% if autreArticle != NULL %}  
+        {% set cotisationcommuneanneeprecedente = autreArticle[0].getCotisation().getCotisationcommunale() %}
+        {% set cotisationsyndicatanneeprecedente = autreArticle[0].getCotisation().getCotisationsyndicats() %}
+        {% set cotisationintercommunaliteanneeprecedente = autreArticle[0].getCotisation().getCotisationintercommunalite() %}
+        {% set cotisationseanneeprecedente = autreArticle[0].getCotisation().getCotisationtse() %}  
+        {% set montantimpotanneeprecedente = autreArticle[0].getMontantnetapayer() %}
+        {% set plafonnementselonlerevenuanneeprecedente = autreArticle[0].getCotisation().getMontantdudegrevementouplafonnementeffectif() %}
+    {% else %}
+        {% set cotisationcommuneanneeprecedente = 0 %}
+        {% set cotisationsyndicatanneeprecedente = 0 %}
+        {% set cotisationintercommunaliteanneeprecedente = 0 %}
+        {% set cotisationseanneeprecedente = 0 %}  
+        {% set montantimpotanneeprecedente = 0 %}
+        {% set plafonnementselonlerevenuanneeprecedente = 0 %}
+    {% endif %}
+{% else %}
+    {% set tauximpositioncommuneanneeprecedente = 0 %}
+    {% set tauximpositionsyndicatanneeprecedente = 0 %}
+    {% set tauximpositionintercommunaliteanneeprecedente = 0 %}
+    {% set tauximpositionseanneeprecedente = 0 %} 
+    {% set cotisationcommuneanneeprecedente = 0 %}
+    {% set cotisationsyndicatanneeprecedente = 0 %}
+    {% set cotisationintercommunaliteanneeprecedente = 0 %}
+    {% set cotisationseanneeprecedente = 0 %}  
+    {% set montantimpotanneeprecedente = 0 %}
+    {% set plafonnementselonlerevenuanneeprecedente = 0 %}
+
+{% endif %}   
+{% set montantimpot = articleTH.getCotisation().getTotaldesCotisationsFraisPrelevements() %}   
+{% set montantimpotnet = articleTH.getMontantnetapayer() %}
+
+{% set nbpersonnesacharge = articleTH.getCotisation().getNbpersonnesacharge() %}  
+
+{%set basenettecommunale = articleTH.getBase().getBasenettecommunale() %}
+{%set basenettesyndicats = articleTH.getBase().getBasenettesyndicats() %}
+{%set basenetteintercommunalite = articleTH.getBase().getBasenetteintercommunalite() %}
+{%set basenettetse = articleTH.getBase().getBasenettetse() %}  
+{%set totalbasenette = basenettecommunale+basenettesyndicats+basenetteintercommunalite+basenettetse %}  
+
+{%set cotisationcommunale = articleTH.getCotisation().getCotisationcommunale() %}
+{%set cotisationsyndicats = articleTH.getCotisation().getCotisationsyndicats() %}
+{%set cotisationintercommunalite = articleTH.getCotisation().getCotisationintercommunalite() %}
+{%set cotisationtse = articleTH.getCotisation().getCotisationtse() %}  
+{%set totalcotisations = articleTH.getCotisation().getTotalcotisationsbrutes() %}  
+{%set fraisdegestion = articleTH.getMontantdesfraisderole() %}  
+{%set prelevementpourbaseelevee = articleTH.getCotisation().getMontantprelevementsurfortevl() %}  
+{%set prelevementsurresidencessecondaires = articleTH.getCotisation().getMontantprelevementde15surths() %} 
+{%set plafonnementselonlerevenu = articleTH.getCotisation().getMontantdudegrevementouplafonnementeffectif() %}  
+
+{% if (articleTH.getCotisation().getVlbruteimposeedeslocauxprincipaux() != NULL or articleTH.getCotisation().getVlbruteimposeedeslocauxprincipaux() != 0) %}  
+{% set valeurlocativebrutecommunale = articleTH.getCotisation().getVlbruteimposeedeslocauxprincipaux() %}    
+{% set valeurlocativebrutesyndicats = articleTH.getCotisation().getVlbruteimposeedeslocauxprincipaux() %}    
+{% set valeurlocativebruteintercommunalite = articleTH.getCotisation().getVlbruteimposeedeslocauxprincipaux() %}    
+{% set valeurlocativebrutetse = articleTH.getCotisation().getVlbruteimposeedeslocauxprincipaux() %}  
+{% else %}
+{% set valeurlocativebrutecommunale = articleTH.getCotisation().getVlimposeedeslocauxsecondaires() %}    
+{% set valeurlocativebrutesyndicats = articleTH.getCotisation().getVlimposeedeslocauxsecondaires() %}    
+{% set valeurlocativebruteintercommunalite = articleTH.getCotisation().getVlimposeedeslocauxsecondaires() %}    
+{% set valeurlocativebrutetse = articleTH.getCotisation().getVlimposeedeslocauxsecondaires() %} 
+{% endif %}  
+        <br/>
+        <div class="container-fluid page-container">
+            <div class="row">
+                <div class="col-sm-10 col-md-10 col-lg-3 col-lg-offset-1 col-sm-offset-1 col-md-offset-1 content-tab">
+                    <div class="content-header"><h3>Les références</h3></div> 
+                        <strong>Numéro séquentiel : </strong>{{articleTH.getNumerosequentiel()}}<br/>
+                        <strong>Nom, prénom : </strong>{{articleTH.getNomprenom() ~ articleTH.getSuitenom()}}<br/>
+                        <strong>Lieu d'imposition : </strong>{{articleTH.adresse.codevoie ~" "~articleTH.adresse.numeroimmeubleaft ~" "~articleTH.adresse.indicederepetition ~" "~articleTH.adresse.libellevoieaft}}<br/>
+                        <strong>Département : </strong>{{articleTH.getFichier().getCommune().getDepartement()}}<br/>
+                        <strong>Commune : </strong>{{articleTH.getFichier().getCommune().getLibelle()}}<br/>
+                </div>              
+                <div class="row">
+                    <div class="col-sm-10 col-md-5 col-lg-4 col-md-offset-1 col-sm-offset-1 col-lg-offset-1 content-tab"> 
+                        <div class="content-header"><h3>La situation</h3></div>
+{% if (articleTH.getCotisation().getVlbruteimposeedeslocauxprincipaux() !=  NULL) %}
+                            <strong> Valeur locative brute imposées des locaux principaux : </strong>{{articleTH.getCotisation().getVlbruteimposeedeslocauxprincipaux()|number_format(0, ',', ' ') ~ ' €'}}<br/>
+{% else %}
+                            <strong> Valeur locative brute imposées des locaux secondaires : </strong>{{articleTH.getCotisation().getVlimposeedeslocauxsecondaires()|number_format(0, ',', ' ')~ ' €'}}<br/>
+{% endif %}
+                            <strong>Nombre de personnes à charge : </strong>{{nbpersonnesacharge|number_format(0, ',', ' ')}}<br/>
+                            <strong>Montant de votre taxe d'habitation : </strong>{{ montantimpotnet|number_format(0, ',', ' ') ~ ' €'}}<br/>
+                            <strong>Montant total des abattements : </strong>{{articleTH.getAbattementTotal()|number_format(0, ',', ' ')~ ' €'}} <br/> 
+                    </div> 
+                </div>  
+            </div>
+            <div class="row">    
+                <div class="content-tab col-sm-11 col-md-10 col-lg-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-0">
+                    <div class="tabbable tabs-top">
+                        <div class="tab-content">        
+                            <div id="taxehabitation" class="tab-pane active">
+                                <h3>TAXE D'HABITATION {{articleTH.getFichier().getAnneeTaxation()}} - DETAIL DU CALCUL DES COTISATIONS</h3>
+                                <table  class="table table-striped table-hover ">
+
+                                    <tr>
+                                        <td padding="3px" text-align="center" >Elements de calcul</td><td padding="3px" text-align="center" >Commune</td><td padding="3px" text-align="center" >Syndicat de communes</td><td padding="3px" text-align="center" >Intercommunalité</td>
+                                        <td padding="3px" text-align="center" >Taxe spéciale d'équipement</td>
+                                    </tr>
+
+
+                                    <tr>
+                                        <td padding="3px" text-align="center" >Valeur locative brute</td>
+                                        <td padding="3px" text-align="center" >{% if valeurlocativebrutecommunale!=NULL or valeurlocativebrutecommunale!=0 %}{{valeurlocativebrutecommunale}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if valeurlocativebrutesyndicats!=NULL or valeurlocativebrutesyndicats!=0 %}{{valeurlocativebrutesyndicats}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if valeurlocativebruteintercommunalite!=NULL or valeurlocativebruteintercommunalite!=0 %}{{valeurlocativebruteintercommunalite}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if valeurlocativebrutetse!=NULL or valeurlocativebrutetse!=0 %}{{valeurlocativebrutetse}} €{% endif %}</td>
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" >Valeur locative moyenne</td>
+                                        <td padding="3px" text-align="center" >{% if valeurlocativemoyenneCommune!=NULL or valeurlocativemoyenneCommune!=0 %}{{valeurlocativemoyenneCommune}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if valeurlocativemoyenneSyndicats!=NULL or valeurlocativemoyenneSyndicats!=0 %}{{valeurlocativemoyenneSyndicats}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if valeurlocativemoyenneInterCommunalite!=NULL or valeurlocativemoyenneInterCommunalite!=0 %}{{valeurlocativemoyenneInterCommunalite}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if valeurlocativemoyenneTse!=NULL or valeurlocativemoyenneTse!=0 %}{{valeurlocativemoyenneTse}} €{% endif %}</td>                                   
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" >Abattements</td><td padding="3px" text-align="center" ></td><td padding="3px" text-align="center" ></td><td padding="3px" text-align="center" ></td><td padding="3px" text-align="center" ></td>
+                                    </tr>   
+                                    <tr>
+                                        <td padding="3px" text-align="center" >Général à la base</td>
+                                            {% if articleTH.getAbattement() !=NULL %}
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneCommune != 0 and articleTH.getAbattement().getAbattementgeneralbasecommunale()!=0)or(valeurlocativemoyenneCommune != NULL and articleTH.getAbattement().getAbattementgeneralbasecommunale()!=NULL) %}{{(articleTH.getAbattement().getAbattementgeneralbasecommunale()*100/valeurlocativemoyenneCommune)|number_format(0)~"%"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneSyndicats != 0 and articleTH.getAbattement().getAbattementgeneralbasesyndicatstse()!=0)or(valeurlocativemoyenneSyndicats != NULL and articleTH.getAbattement().getAbattementgeneralbasesyndicatstse()!=NULL) %}{{(articleTH.getAbattement().getAbattementgeneralbasesyndicatstse()*100/valeurlocativemoyenneSyndicats)|number_format(0)~"%"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneInterCommunalite != 0 and articleTH.getAbattement().getAbattementgeneralbaseintercommunalite()!=0)or(valeurlocativemoyenneInterCommunalite != NULL and articleTH.getAbattement().getAbattementgeneralbaseintercommunalite()!=NULL) %}{{(articleTH.getAbattement().getAbattementgeneralbaseintercommunalite()*100/valeurlocativemoyenneInterCommunalite)|number_format(0)~"%"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneTse != 0 and articleTH.getAbattement().getAbattementgeneralbasesyndicatstse()!=0)or(valeurlocativemoyenneTse != NULL and articleTH.getAbattement().getAbattementgeneralbasesyndicatstse()!=NULL) %}{{(articleTH.getAbattement().getAbattementgeneralbasesyndicatstse()*100/valeurlocativemoyenneTse)|number_format(0)~"%"}}{%endif%}</td>
+                                            {% else %}
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% endif %}
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% if articleTH.getAbattement() !=NULL %}
+                                        <td padding="3px" text-align="center" >{% if (articleTH.getAbattement().getAbattementgeneralbasecommunale()!=0 )or (articleTH.getAbattement().getAbattementgeneralbasecommunale()!=NULL)%}{{articleTH.getAbattement().getAbattementgeneralbasecommunale()}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" >{% if (articleTH.getAbattement().getAbattementgeneralbaseintercommunalite()!=0 )or (articleTH.getAbattement().getAbattementgeneralbaseintercommunalite()!=NULL)%}{{articleTH.getAbattement().getAbattementgeneralbaseintercommunalite()}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if (articleTH.getAbattement().getAbattementgeneralbasesyndicatstse()!=0 )or (articleTH.getAbattement().getAbattementgeneralbasesyndicatstse()!=NULL)%}{{articleTH.getAbattement().getAbattementgeneralbasesyndicatstse()}} €{% endif %}</td>
+                                            {% else %}
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% endif %}
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" >Personne(s) à charge</td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" >-Par rang 1 ou 2</td>
+                                            {% if articleTH.getAbattement() !=NULL %}
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneCommune != 0 and articleTH.getAbattement().getAbattementpersonneschargecommunnal()!=0)or(valeurlocativemoyenneCommune != NULL and articleTH.getAbattement().getAbattementpersonneschargecommunnal()!=NULL)%}{{(articleTH.getAbattement().getAbattementpersonneschargecommunnal()*100/valeurlocativemoyenneCommune)|number_format(0)~"%"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneSyndicats != 0 and articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()!=0)or(valeurlocativemoyenneSyndicats != NULL and articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()!=NULL) %}{{(articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()*100/valeurlocativemoyenneSyndicats)|number_format(0)~"%"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneInterCommunalite != 0 and articleTH.getAbattement().getAbattementpersonneschargeintercommunalite()!=0)or(valeurlocativemoyenneInterCommunalite != NULL and articleTH.getAbattement().getAbattementpersonneschargeintercommunalite()!=NULL) %}{{(articleTH.getAbattement().getAbattementpersonneschargeintercommunalite()*100/valeurlocativemoyenneInterCommunalite)|number_format(0)~"%"}}{%endif%}</td> 
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneTse != 0 and articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()!=0)or(valeurlocativemoyenneTse != NULL and articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()!=NULL) %}{{(articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()*100/valeurlocativemoyenneTse)|number_format(0)~"%"}}{%endif%}</td>
+                                            {% else %}
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% endif %}
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% if articleTH.getAbattement() !=NULL %}
+                                        <td padding="3px" text-align="center" >{% if nbpersonnesacharge <= 2 and (articleTH.getAbattement().getAbattementpersonneschargecommunnal()!=NULL or articleTH.getAbattement().getAbattementpersonneschargecommunnal()!=0) %}{{articleTH.getAbattement().getAbattementpersonneschargecommunnal() ~" €"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if nbpersonnesacharge <= 2 and (articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()!=NULL or articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()!=0) %}{{articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()~" €"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if nbpersonnesacharge <= 2 and (articleTH.getAbattement().getAbattementpersonneschargeintercommunalite()!=NULL or articleTH.getAbattement().getAbattementpersonneschargeintercommunalite()!=0) %}{{articleTH.getAbattement().getAbattementpersonneschargeintercommunalite()~" €"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if nbpersonnesacharge <= 2 and (articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()!=NULL or articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()!=0) %}{{articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()~" €"}}{%endif%}</td>
+                                            {% else %}
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% endif %}
+                                    </tr>
+                                    <tr>    
+                                        <td padding="3px" text-align="center" >-Par rang 3 ou + pour personne(s)</td>
+                                            {% if articleTH.getAbattement() !=NULL %}
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneCommune != 0 and articleTH.getAbattement().getAbattementpersonneschargecommunnal()!=0)or(valeurlocativemoyenneCommune != NULL and articleTH.getAbattement().getAbattementpersonneschargecommunnal()!=NULL) %}{{(articleTH.getAbattement().getAbattementpersonneschargecommunnal()*100/valeurlocativemoyenneCommune)|number_format(0)~"%"}}{%endif%}</td> 
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneSyndicats != 0 and articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()!=0)or(valeurlocativemoyenneSyndicats != NULL and articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()!=NULL) %}{{(articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()*100/valeurlocativemoyenneSyndicats)|number_format(0)~"%"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneInterCommunalite != 0 and articleTH.getAbattement().getAbattementpersonneschargeintercommunalite()!=0)or(valeurlocativemoyenneInterCommunalite != NULL and articleTH.getAbattement().getAbattementpersonneschargeintercommunalite()!=NULL) %}{{(articleTH.getAbattement().getAbattementspecialbaseintercommunalite()*100/valeurlocativemoyenneInterCommunalite)|number_format(0)~"%"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneTse != 0 and articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()!=0)or(valeurlocativemoyenneTse != NULL and articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()!=NULL) %}{{(articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()*100/valeurlocativemoyenneTse)|number_format(0)~"%"}}{%endif%}</td>
+                                            {% else %}
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% endif %}
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% if articleTH.getAbattement() !=NULL %}
+                                        <td padding="3px" text-align="center" >{% if nbpersonnesacharge >=3 and (articleTH.getAbattement().getAbattementpersonneschargecommunnal()!=NULL or articleTH.getAbattement().getAbattementpersonneschargecommunnal()!=0) %}{{articleTH.getAbattement().getAbattementpersonneschargecommunnal() ~" €"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" >{% if nbpersonnesacharge >=3 and (articleTH.getAbattement().getAbattementpersonneschargeintercommunalite()!=NULL or articleTH.getAbattement().getAbattementpersonneschargeintercommunalite()!=0) %}{{articleTH.getAbattement().getAbattementpersonneschargeintercommunalite()~" €"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if nbpersonnesacharge >=3 and (articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()!=NULL or articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()!=0) %}{{articleTH.getAbattement().getAbattementpersonneschargesyndicatstse()~" €"}}{%endif%}</td>                                                        
+                                            {% else %}
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% endif %}
+                                    </tr>
+
+                                    <tr>
+                                        <td padding="3px" text-align="center" >Spécial à la base</td>
+                                            {% if articleTH.getAbattement() !=NULL %}
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneCommune != 0 and articleTH.getAbattement().getAbattementspecialbasecommunal()!=0)or(valeurlocativemoyenneCommune != NULL and articleTH.getAbattement().getAbattementspecialbasecommunal()!=NULL) %}{{(articleTH.getAbattement().getAbattementspecialbasecommunal()*100/valeurlocativemoyenneCommune)|number_format(0)~"%"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneSyndicats != 0 and articleTH.getAbattement().getAbattementspecialbasesyndicatstse()!=0)or(valeurlocativemoyenneSyndicats != NULL and articleTH.getAbattement().getAbattementspecialbasesyndicatstse()!=NULL) %}{{(articleTH.getAbattement().getAbattementspecialbasesyndicatstse()*100/valeurlocativemoyenneSyndicats)|number_format(0)~"%"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneInterCommunalite != 0 and articleTH.getAbattement().getAbattementspecialbaseintercommunalite()!=0)or(valeurlocativemoyenneInterCommunalite != NULL and articleTH.getAbattement().getAbattementspecialbaseintercommunalite()!=NULL) %}{{(articleTH.getAbattement().getAbattementspecialbaseintercommunalite()*100/valeurlocativemoyenneInterCommunalite)|number_format(0)~"%"}}{%endif%}</td>  
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneTse != 0 and articleTH.getAbattement().getAbattementspecialbasesyndicatstse()!=0)or(valeurlocativemoyenneTse != NULL and articleTH.getAbattement().getAbattementspecialbasesyndicatstse()!=NULL) %}{{(articleTH.getAbattement().getAbattementspecialbasesyndicatstse()*100/valeurlocativemoyenneTse)|number_format(0)~"%"}}{%endif%}</td>
+                                            {% else %}
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% endif %}
+                                    </tr>           
+                                    <tr>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% if articleTH.getAbattement() !=NULL %}                                    
+                                        <td padding="3px" text-align="center" >{% if(articleTH.getAbattement().getAbattementspecialbasecommunal()!=0 )or (articleTH.getAbattement().getAbattementspecialbasecommunal()!=NULL) %}{{articleTH.getAbattement().getAbattementspecialbasecommunal()}} €{% endif %}</td> 
+                                        <td padding="3px" text-align="center" >{% if(articleTH.getAbattement().getAbattementspecialbasesyndicatstse()!=0 )or (articleTH.getAbattement().getAbattementspecialbasesyndicatstse()!=NULL) %}{{articleTH.getAbattement().getAbattementspecialbasesyndicatstse()}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if(articleTH.getAbattement().getAbattementspecialbaseintercommunalite()!=0 )or (articleTH.getAbattement().getAbattementspecialbaseintercommunalite()!=NULL) %}{{articleTH.getAbattement().getAbattementspecialbaseintercommunalite()}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if(articleTH.getAbattement().getAbattementspecialbasesyndicatstse()!=0 )or (articleTH.getAbattement().getAbattementspecialbasesyndicatstse()!=NULL) %}{{articleTH.getAbattement().getAbattementspecialbasesyndicatstse()}} €{% endif %}</td>                                                     
+                                            {% else %}
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% endif %}
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" >Spécial handicapé</td>
+                                            {% if articleTH.getAbattement() !=NULL %}
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneCommune != 0 and articleTH.getAbattement().getAbattementspecialhandicapecommunal()!=0)or(valeurlocativemoyenneCommune != NULL and articleTH.getAbattement().getAbattementspecialhandicapecommunal()!=NULL) %}{{(articleTH.getAbattement().getAbattementspecialhandicapecommunal()*100/valeurlocativemoyenneCommune)|number_format(0)~"%"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneSyndicats != 0 and articleTH.getAbattement().getAbattementspecialhandicapesyndicatstse()!=0)or(valeurlocativemoyenneSyndicats != NULL and articleTH.getAbattement().getAbattementspecialhandicapesyndicatstse()!=NULL) %}{{(articleTH.getAbattement().getAbattementspecialhandicapesyndicatstse()*100/valeurlocativemoyenneSyndicats)|number_format(0)~"%"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneInterCommunalite != 0 and articleTH.getAbattement().getAbattementspecialhandicapeintercommunalite()!=0)or(valeurlocativemoyenneInterCommunalite != NULL and articleTH.getAbattement().getAbattementspecialhandicapeintercommunalite()!=NULL) %}{{(articleTH.getAbattement().getAbattementspecialhandicapeintercommunalite()*100/valeurlocativemoyenneInterCommunalite)|number_format(0)~"%"}}{%endif%}</td>
+                                        <td padding="3px" text-align="center" >{% if (valeurlocativemoyenneTse != 0 and articleTH.getAbattement().getAbattementspecialhandicapesyndicatstse()!=0)or(valeurlocativemoyenneTse != NULL and articleTH.getAbattement().getAbattementspecialhandicapesyndicatstse()!=NULL) %}{{(articleTH.getAbattement().getAbattementspecialhandicapesyndicatstse()*100/valeurlocativemoyenneTse)|number_format(0)~"%"}}{%endif%}</td>
+                                            {% else %}
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% endif %}
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% if articleTH.getAbattement() !=NULL %}
+                                        <td padding="3px" text-align="center" >{% if(articleTH.getAbattement().getAbattementspecialhandicapecommunal()!=0 )or (articleTH.getAbattement().getAbattementspecialhandicapecommunal()!=NULL) %}{{articleTH.getAbattement().getAbattementspecialhandicapecommunal()}} €{% endif %}</td> 
+                                        <td padding="3px" text-align="center" >{% if(articleTH.getAbattement().getAbattementspecialhandicapesyndicatstse()!=0 )or (articleTH.getAbattement().getAbattementspecialhandicapesyndicatstse()!=NULL) %}{{articleTH.getAbattement().getAbattementspecialhandicapesyndicatstse()}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if(articleTH.getAbattement().getAbattementspecialhandicapeintercommunalite()!=0 )or (articleTH.getAbattement().getAbattementspecialhandicapeintercommunalite()!=NULL) %}{{articleTH.getAbattement().getAbattementspecialhandicapeintercommunalite()}} €{% endif %}</td>       
+                                        <td padding="3px" text-align="center" >{% if(articleTH.getAbattement().getAbattementspecialhandicapesyndicatstse()!=0 )or (articleTH.getAbattement().getAbattementspecialhandicapesyndicatstse()!=NULL) %}{{articleTH.getAbattement().getAbattementspecialhandicapesyndicatstse()}} €{% endif %}</td>
+                                            {% else %}
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td>
+                                            {% endif %}
+                                    </tr>                       
+                                    <tr>
+                                        <td padding="3px" text-align="center" >Base nette d'imposition {{articleTH.getFichier().getAnneeTaxation()}}</td>
+                                        <td padding="3px" text-align="center" >{% if basenettecommunale!=NULL or basenettecommunale!=0 %}{{basenettecommunale}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if basenettesyndicats!=NULL or basenettesyndicats!=0 %}{{basenettesyndicats}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if basenetteintercommunalite!=NULL or basenetteintercommunalite!=0 %}{{basenetteintercommunalite}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if basenettetse!=NULL or basenettetse!=0 %}{{basenettetse}} €{% endif %}</td>
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" >Taux d'imposition {{articleTH.getFichier().getAnneeTaxation()}}</td>
+                                        <td padding="3px" text-align="center" >{% if tauximpositioncommune!=NULL or tauximpositioncommune!=0 %}{{tauximpositioncommune}} %{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if tauximpositionsyndicat!=NULL or tauximpositionsyndicat!=0 %}{{tauximpositionsyndicat}} %{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if tauximpositionintercommunalite!=NULL or tauximpositionintercommunalite!=0 %}{{tauximpositionintercommunalite}} %{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if tauximpositionse!=NULL or tauximpositionse!=0 %}{{tauximpositionse}} %{% endif %}</td>
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" >Cotisations {{articleTH.getFichier().getAnneeTaxation()}}</td>
+                                        <td padding="3px" text-align="center" >{% if cotisationcommunale!=NULL or cotisationcommunale!=0 %}{{cotisationcommunale}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if cotisationsyndicats!=NULL or cotisationsyndicats!=0 %}{{cotisationsyndicats}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if cotisationintercommunalite!=NULL or cotisationintercommunalite!=0 %}{{cotisationintercommunalite}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >{% if cotisationtse!=NULL or cotisationtse!=0 %}{{cotisationtse}} €{% endif %}</td>
+                                        <td padding="3px" text-align="center" >Total des cotisations</td>
+                                        <td padding="3px" text-align="center"  {% if totalcotisations==(cotisationcommunale+cotisationsyndicats+cotisationintercommunalite+cotisationtse) %}class="text-success"{% else %}class="text-error"{% endif %}>
+                        {% if totalcotisations!=NULL %}{{totalcotisations}} €{% endif %}
+                                        </td>
+                                    </tr>   
+                                    <tr>
+                                        <td padding="3px" text-align="center" >
+                                            
+                                                Taux d'imposition {{articleTH.getFichier().getAnneeTaxation()-1}}<br/>
+                                                Cotisations {{articleTH.getFichier().getAnneeTaxation()-1}}<br/>
+                                            
+                                        </td>
+                                        <td padding="3px" text-align="center" >
+                                                {% if tauximpositioncommuneanneeprecedente!=NULL or tauximpositioncommuneanneeprecedente!=0 %}{{tauximpositioncommuneanneeprecedente}} %{% endif %}<br/>
+                                                {% if cotisationcommuneanneeprecedente!=NULL or cotisationcommuneanneeprecedente!=0 %}{{cotisationcommuneanneeprecedente}} €{% endif %}<br/>
+                                            </td><td padding="3px" text-align="center" >
+                                                {% if tauximpositionsyndicatanneeprecedente!=NULL or tauximpositionsyndicatanneeprecedente!=0 %}{{tauximpositionsyndicatanneeprecedente}} %{% endif %}<br/>
+                                                {% if cotisationsyndicatanneeprecedente!=NULL or cotisationsyndicatanneeprecedente!=0 %}{{cotisationsyndicatanneeprecedente}} €{% endif %}<br/>
+                                            </td><td padding="3px" text-align="center" >
+                                                {% if tauximpositionintercommunaliteanneeprecedente!=NULL or tauximpositionintercommunaliteanneeprecedente!=0 %}{{tauximpositionintercommunaliteanneeprecedente}} %{% endif %}<br/>
+                                                {% if cotisationintercommunaliteanneeprecedente!=NULL or cotisationintercommunaliteanneeprecedente!=0 %}{{cotisationintercommunaliteanneeprecedente}} €{% endif %}<br/>
+                                            </td><td padding="3px" text-align="center" >
+                                                {% if tauximpositionseanneeprecedente!=NULL or tauximpositionseanneeprecedente!=0 %}{{tauximpositionseanneeprecedente}} %{% endif %}<br/>
+                                                {% if cotisationseanneeprecedente!=NULL or cotisationseanneeprecedente!=0 %}{{cotisationseanneeprecedente}} €{% endif %}<br/>
+                                            </td>
+                                        <td padding="3px" text-align="center" >
+                                                Frais de gestion<br/>
+                                                Prélèvement pour base élevée<br/>
+                                                Prélèvement sur résidences secondaires<br/>
+                                                Plafonnement selon le revenu<br/>
+                                            
+                                        </td><td padding="3px" text-align="center" >
+                                                {% if fraisdegestion!=NULL or fraisdegestion==0 %}{{"+ "~ fraisdegestion ~ " €"}}{% endif %}<br/>
+                                                {% if prelevementpourbaseelevee!=NULL or prelevementpourbaseelevee==0 %}{{"+ "~ prelevementpourbaseelevee ~ " €"}}{% endif %}<br/>
+                                                {% if prelevementsurresidencessecondaires!=NULL or prelevementsurresidencessecondaires==0 %}{{"+ "~ prelevementsurresidencessecondaires ~ " €"}}{% endif %}<br/>
+                                                {% if plafonnementselonlerevenu!=NULL or plafonnementselonlerevenu==0 %}{{"- "~ plafonnementselonlerevenu ~ " €"}}{% endif %}<br/>
+                                            </td>
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" >
+                                            
+                                                Variation en valeur<br/>
+                                                Variation en pourcentage<br/>
+                                            
+                                        </td>
+                                        <td padding="3px" text-align="center" >
+                                                {% if cotisationcommuneanneeprecedente!=NULL or cotisationcommuneanneeprecedente!=0 %}{{cotisationcommunale-cotisationcommuneanneeprecedente}}{% endif %}<br/>
+                                                {% if (cotisationcommunale!=NULL or cotisationcommunale!=0) and (cotisationcommuneanneeprecedente!=NULL or cotisationcommuneanneeprecedente!=0) %}{{(((cotisationcommunale-cotisationcommuneanneeprecedente)/cotisationcommunale)*100)|number_format(2)~"%"}}{% endif %}<br/>
+                                            </td><td padding="3px" text-align="center" >
+                                                {% if cotisationsyndicatanneeprecedente!=NULL or cotisationsyndicatanneeprecedente!=0 %}{{cotisationsyndicats-cotisationsyndicatanneeprecedente}}{% endif %}<br/>
+                                                {% if (cotisationsyndicats!=0 or cotisationsyndicats!=NULL) and (cotisationsyndicatanneeprecedente!=NULL or cotisationsyndicatanneeprecedente!=0) %}{{(((cotisationsyndicats-cotisationsyndicatanneeprecedente)/cotisationsyndicats)*100)|number_format(2)~"%"}}{% endif %}<br/>
+                                            </td><td padding="3px" text-align="center" >
+                                                {% if cotisationintercommunaliteanneeprecedente!=NULL or cotisationintercommunaliteanneeprecedente!=0 %}{{cotisationintercommunalite-cotisationintercommunaliteanneeprecedente}}{% endif %}<br/>
+                                                {% if (cotisationintercommunalite!=0 or cotisationintercommunalite!=NULL) and (cotisationintercommunaliteanneeprecedente!=NULL or cotisationintercommunaliteanneeprecedente!=0) %}{{(((cotisationintercommunalite-cotisationintercommunaliteanneeprecedente)/cotisationintercommunalite)*100)|number_format(2)~"%"}}{% endif %}<br/>
+                                            </td><td padding="3px" text-align="center" >
+                                                {% if cotisationseanneeprecedente!=NULL or cotisationseanneeprecedente!=0 %}{{cotisationtse-cotisationseanneeprecedente}}{% endif %}<br/>
+                                                {% if (cotisationtse!=0 or cotisationtse!=NULL) and (cotisationseanneeprecedente!=NULL or cotisationseanneeprecedente!=0) %}{{(((cotisationtse-cotisationseanneeprecedente)/cotisationtse)*100)|number_format(2)~"%"}}{% endif %}<br/>
+                                            </td>
+
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" >Abattements de référence 2003/{{articleTH.getFichier().getAnneeTaxation()}}</td><td padding="3px" text-align="center" >Commune</td><td padding="3px" text-align="center" >Syndicat</td><td padding="3px" text-align="center" >Intercommunalité</td><td padding="3px" text-align="center" >TSE</td>
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" >
+                                            
+                                                Général à la base<br/>
+                                                Par personne(s) à charge (rang 1 ou 2)<br/>
+                                                Par personne(s) à charge (rang 3 ou +)<br/>
+                                                Spécial à la base<br/>
+                                            
+                                        </td>
+                                        <td padding="3px" text-align="center" ></td><td padding="3px" text-align="center" ></td><td padding="3px" text-align="center" ></td><td padding="3px" text-align="center" ></td>
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center"  colspan="5">EVOLUTION DES IMPOSITIONS ENTRE {{articleTH.getFichier().getAnneeTaxation()-1}} ET {{articleTH.getFichier().getAnneeTaxation()}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" ></td><td padding="3px" text-align="center" >ANNEE {{articleTH.getFichier().getAnneeTaxation()-1}}</td><td padding="3px" text-align="center" >ANNEE {{articleTH.getFichier().getAnneeTaxation()}}</td><td padding="3px" text-align="center" >En valeur</td><td padding="3px" text-align="center" >En pourcentage</td>
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" >
+                                            
+                                                (a)Cotisations<br/>
+                                                (b)Allégements<br/>
+                                                (c) = (a)-(b) Somme à payer<br/>
+                                            
+                                        </td>
+                                        <td padding="3px" text-align="center" >
+                                                {{montantimpotanneeprecedente}}<br/>
+                                                {{plafonnementselonlerevenuanneeprecedente}}<br/>
+                                                {{montantimpotanneeprecedente-plafonnementselonlerevenuanneeprecedente}}<br/>
+                                            
+                                        </td><td padding="3px" text-align="center" >
+                                                {{montantimpot}}<br/>
+                                                {{plafonnementselonlerevenu}}<br/>
+                                                {{montantimpot-plafonnementselonlerevenu}}<br/>
+                                            </td>
+                                        <td padding="3px" text-align="center" >
+                                                {{montantimpot-montantimpotanneeprecedente}}<br/>
+                                                {{plafonnementselonlerevenu-plafonnementselonlerevenuanneeprecedente}}<br/>
+                                                {{montantimpot-montantimpotanneeprecedente-plafonnementselonlerevenu-plafonnementselonlerevenuanneeprecedente}}<br/>
+                                            
+                                        </td>
+                                        <td padding="3px" text-align="center" >
+                                                {% if montantimpot!=NULL or montantimpot!=0 %}{{(((montantimpot-montantimpotanneeprecedente)/montantimpot)*100)|number_format(2)~"%"}}{% endif %}<br/>
+                                                {% if plafonnementselonlerevenu!=NULL or plafonnementselonlerevenu!=0 %}{{(((plafonnementselonlerevenu-plafonnementselonlerevenuanneeprecedente)/plafonnementselonlerevenu)*100)|number_format(2)~"%"}}
+                            {% else %}{{"0%"}}{% endif %}<br/>
+                                                {% if montantimpot!=NULL or montantimpot!=0 %}{{(((montantimpot-montantimpotanneeprecedente)/montantimpot)*100)|number_format(2)~"%"}}{% endif %}<br/>
+                                            
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td padding="3px" text-align="center" >LOCAUX TAXES : NOMBRE  REGIME</td>
+                                        <td padding="3px" text-align="center" >Montant de votre impôt</td>
+                                        <td padding="3px" text-align="center"  {% if montantimpot==(totalcotisations+fraisdegestion+prelevementpourbaseelevee+prelevementsurresidencessecondaires) %}class="text-success"{% else %}class="text-error"{% endif %}>
+                        {{montantimpot}} €
+                                        </td>
+                                    </tr>
+                                    <tr><td padding="3px" text-align="center" >Taux global 2000 corrigé<br/>Cotisation référence 2003<br/> </td><td padding="3px" text-align="center" >Identifiant</td><td padding="3px" text-align="center" >Nature</td><td padding="3px" text-align="center" >DF  AFF</td><td padding="3px" text-align="center" >VL revalorisée</td></tr>
+                                    <tr><td padding="3px" text-align="center" ></td><td padding="3px" text-align="center" ></td><td padding="3px" text-align="center" ></td>
+                                        <td padding="3px" text-align="center" ></td><td padding="3px" text-align="center" >Montant de votre impôt net</td>
+                                        <td padding="3px" text-align="center"  {% if montantimpotnet==(montantimpot-plafonnementselonlerevenu) or 12>(montantimpotnet+(montantimpot-plafonnementselonlerevenu)) %}class="text-success"{% else %}class="text-error"{% endif %}>
+                        {{montantimpotnet}} €
+                                        </td>
+                                    </tr>
+
+
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>
+{% endblock %}
+
+{% block footer %}
+        <placeholders>
+            <footer>
+                <div height="100px" width="100%">
+                    <img height="100px" width="100%" src="{{ asset('http://127.0.0.1:8020/web/bundles/fiscalitegestionfiscalite/images/logo_bas_de_page.png') }}" />
+                </div>
+            </footer>
+        </placeholders>
+{% endblock %}
+
+    </dynamic-page>
+</pdf>    

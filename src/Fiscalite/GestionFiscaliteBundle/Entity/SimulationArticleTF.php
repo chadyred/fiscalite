@@ -150,15 +150,20 @@ class SimulationArticleTF {
             $this->setNomSimulation($nomSimulation);
         } else {
             $this->setNomSimulation("SimulationDefault");
-        } if ($tauxBatiCommune != NULL) {
+        }
+        if ($tauxBatiCommune != NULL) {
+            $tauxBatiCommune = str_replace(',', '.', $tauxBatiCommune);
             $this->setTauxBatiCommune($tauxBatiCommune);
         } else {
             $this->setTauxBatiCommune(26.16);
-        }if ($tauxNonBatiCommune != NULL) {
+        }
+        if ($tauxNonBatiCommune != NULL) {
+            $tauxNonBatiCommune = str_replace(',', '.', $tauxNonBatiCommune);
             $this->setTauxNonBatiCommune($tauxNonBatiCommune);
         } else {
             $this->setTauxNonBatiCommune(71.40);
-        }if ($nom != NULL) {
+        }
+        if ($nom != NULL) {
             $this->setNom($nom);
         } else {
             $this->setNom(NULL);

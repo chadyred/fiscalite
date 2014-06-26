@@ -204,23 +204,29 @@
                 </tr>    
                 <tr>
                     <td>1. Abattement général à la base</td>
-                    <td><div>
-                                  {% if simulation.quotiteAbattementGeneralBaseCommuneSansAjustement >= articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement %}
-                            <span class="label-success" id="quotiteAbattementGeneralBaseCommuneSansAjustement" rel="popover">
-                               {% else %}
-                                <span class="label-danger" id="quotiteAbattementGeneralBaseCommuneSansAjustement" rel="popover">
-                                {% endif %}
-{{simulation.quotiteAbattementGeneralBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>  
-                                <span class="label-default">{{"("~articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement|number_format(0, ',', ' ')~")"}}</span>
-                                <script>$(document).ready(function() {
-                                        $("#quotiteAbattementGeneralBaseCommuneSansAjustement").popover({
-                                            html: true,
-                                            animation: true,
-                                            content: "Abattement général à la base communale x Valeur locative de la commune /  100",
-                                            placement: "left"
-                                        });
-                                    });</script>
-                        </div></td>
+                    <td>
+                        <div>
+                        {% if simulation.quotiteAbattementGeneralBaseCommuneSansAjustement > articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement %}
+                            <span class="label-success" id="quotiteAbattementGeneralBaseCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementGeneralBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>                         
+                            <span class="label-default">{{"("~articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement|number_format(0, ',', ' ')~")"}}</span>
+                        {% elseif simulation.quotiteAbattementGeneralBaseCommuneSansAjustement < articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement %}
+                            <span class="label-danger" id="quotiteAbattementGeneralBaseCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementGeneralBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>  
+                            <span class="label-default">{{"("~articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement|number_format(0, ',', ' ')~")"}}</span>
+                        {% else %}
+                            <span class="" id="quotiteAbattementGeneralBaseCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementGeneralBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>                         
+                        {% endif %}
+                            <script>
+                                $(document).ready(function() {
+                                    $("#quotiteAbattementGeneralBaseCommuneSansAjustement").popover({
+                                        html: true,
+                                        animation: true,
+                                        content: "Abattement général à la base communale x Valeur locative de la commune /  100",
+                                        placement: "left"
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </td>
                     <td>{{simulation.quotiteAbattementGeneralBaseCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
                     <td>{{simulation.simulationArticleTH.abattementgeneralbasecommunale|number_format(0, ',', ' ')}}</td>
                     <td>CF. COMMUNE</td>
@@ -229,24 +235,29 @@
                 </tr>
                 <tr>
                     <td>2. Abattement pour 1 personne à charges</td>
-                    <td><div>
-                            {% if simulation.quotiteAbattementPAC1CommuneSansAjustement >= articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement %}
-                            <span class="label-success" id="quotiteAbattementPAC1CommuneSansAjustement" rel="popover">
-                               {% else %}
-                                <span class="label-danger" id="quotiteAbattementPAC1CommuneSansAjustement" rel="popover">
-                                {% endif %}
-{{simulation.quotiteAbattementPAC1CommuneSansAjustement|number_format(0, ',', ' ')}}</span>  
-                                <span class="label-default">{{"("~(simulation.quotiteAbattementGeneralBaseCommuneSansAjustement
-+articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
-                                <script>$(document).ready(function() {
-                                        $("#quotiteAbattementPAC1CommuneSansAjustement").popover({
-                                            html: true,
-                                            animation: true,
-                                            content: "Abattement général à la base communale + Abattement pour 1 personne à charge x Valeur locative de la commune /  100",
-                                            placement: "left"
-                                        });
-                                    });</script>
-                        </div></td>
+                    <td>
+                        <div>
+                        {% if simulation.quotiteAbattementPAC1CommuneSansAjustement > articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement %}
+                            <span class="label-success" id="quotiteAbattementPAC1CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC1CommuneSansAjustement|number_format(0, ',', ' ')}}</span>                         
+                            <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+                        {% elseif simulation.quotiteAbattementPAC1CommuneSansAjustement < articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement %}
+                            <span class="label-danger" id="quotiteAbattementPAC1CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC1CommuneSansAjustement|number_format(0, ',', ' ')}}</span>  
+                            <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+                        {% else %}
+                            <span class="" id="quotiteAbattementPAC1CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC1CommuneSansAjustement|number_format(0, ',', ' ')}}</span>                         
+                        {% endif %}
+                            <script>
+                                $(document).ready(function() {
+                                    $("#quotiteAbattementPAC1CommuneSansAjustement").popover({
+                                        html: true,
+                                        animation: true,
+                                        content: "Abattement général à la base communale + Abattement pour 1 personne à charge x Valeur locative de la commune /  100",
+                                        placement: "left"
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </td>
                     <td>{{simulation.quotiteAbattementPAC1CommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
                     <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal12|number_format(0, ',', ' ')}}</td>
                     <td></td>
@@ -257,20 +268,20 @@
                     <td>3. Abattement pour 2 personnes à charges</td>
                     <td><div>
 {% if simulation.quotiteAbattementPAC2CommuneSansAjustement >= articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement) %}
-                            <span class="label-success" id="quotiteAbattementPAC2CommuneSansAjustement" rel="popover">
+                            <span class="label-success" id="quotiteAbattementPAC2CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC2CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
 {% else %}
-                                <span class="label-danger" id="quotiteAbattementPAC2CommuneSansAjustement" rel="popover">
+                            <span class="label-danger" id="quotiteAbattementPAC2CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC2CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
+
 {% endif %}
-{{simulation.quotiteAbattementPAC2CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-                                <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement))|number_format(0, ',', ' ')~")"}}</span>
-                                <script>$(document).ready(function() {
-                                        $("#quotiteAbattementPAC2CommuneSansAjustement").popover({
-                                            html: true,
-                                            animation: true,
-                                            content: "Abattement pour 1 personne à charge  + Abattement pour 2 personnes à charge x Valeur locative de la commune /  100",
-                                            placement: "left"
-                                        });
-                                    });</script>
+                            <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement))|number_format(0, ',', ' ')~")"}}</span>
+                            <script>$(document).ready(function() {
+                                    $("#quotiteAbattementPAC2CommuneSansAjustement").popover({
+                                        html: true,
+                                        animation: true,
+                                        content: "Abattement pour 1 personne à charge  + Abattement pour 2 personnes à charge x Valeur locative de la commune /  100",
+                                        placement: "left"
+                                    });
+                                });</script>
                         </div></td>
                     <td>{{simulation.quotiteAbattementPAC2CommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
                     <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal12|number_format(0, ',', ' ')}}</td>
@@ -282,21 +293,20 @@
                     <td>4. Abattement pour 3 personnes à charges</td>
                     <td><div>
 {% if simulation.quotiteAbattementPAC3CommuneSansAjustement >= articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)+articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement %}
-                            <span class="label-success" id="quotiteAbattementPAC3CommuneSansAjustement" rel="popover">
+                            <span class="label-success" id="quotiteAbattementPAC3CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC3CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
 {% else %}
-                                <span class="label-danger" id="quotiteAbattementPAC3CommuneSansAjustement" rel="popover">
+                            <span class="label-danger" id="quotiteAbattementPAC3CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC3CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
 {% endif %}
-{{simulation.quotiteAbattementPAC3CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-                                <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)+articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+                            <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)+articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
 
-                                <script>$(document).ready(function() {
-                                        $("#quotiteAbattementPAC3CommuneSansAjustement").popover({
-                                            html: true,
-                                            animation: true,
-                                            content: "Abattement pour 3 personnes à charge x Valeur locative de la commune /  100",
-                                            placement: "left"
-                                        });
-                                    });</script>
+                            <script>$(document).ready(function() {
+                                    $("#quotiteAbattementPAC3CommuneSansAjustement").popover({
+                                        html: true,
+                                        animation: true,
+                                        content: "Abattement pour 3 personnes à charge x Valeur locative de la commune /  100",
+                                        placement: "left"
+                                    });
+                                });</script>
                         </div></td>
                     <td>{{simulation.quotiteAbattementPAC3CommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
                     <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal3|number_format(0, ',', ' ')}}</td>
@@ -308,20 +318,19 @@
                     <td>5. Abattement supp. par pers. à charge à partir de la 4e</td>
                     <td><div>
 {% if simulation.quotiteAbattementPAC4SuppCommuneSansAjustement >= articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement %}
-                            <span class="label-success" id="quotiteAbattementPAC4SuppCommuneSansAjustement" rel="popover">
+                            <span class="label-success" id="quotiteAbattementPAC4SuppCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC4SuppCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
 {% else %}
-                                <span class="label-danger" id="quotiteAbattementPAC4SuppCommuneSansAjustement" rel="popover">
+                            <span class="label-danger" id="quotiteAbattementPAC4SuppCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC4SuppCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
 {% endif %}                                                
-{{simulation.quotiteAbattementPAC4SuppCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-                                <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
-                                <script>$(document).ready(function() {
-                                        $("#quotiteAbattementPAC4SuppCommuneSansAjustement").popover({
-                                            html: true,
-                                            animation: true,
-                                            content: "Abattement supplémentaire pour 3 personnes à charge x Valeur locative de la commune /  100",
-                                            placement: "left"
-                                        });
-                                    });</script>
+                            <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+                            <script>$(document).ready(function() {
+                                    $("#quotiteAbattementPAC4SuppCommuneSansAjustement").popover({
+                                        html: true,
+                                        animation: true,
+                                        content: "Abattement supplémentaire pour 3 personnes à charge x Valeur locative de la commune /  100",
+                                        placement: "left"
+                                    });
+                                });</script>
                         </div></td>
                     <td>{{simulation.quotiteAbattementPAC4SuppCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
                     <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal3|number_format(0, ',', ' ')}}</td>
@@ -333,20 +342,19 @@
                     <td>6. Abattement spécial à la base</td>
                     <td><div>
 {% if simulation.quotiteAbattementSpecialBaseCommuneSansAjustement >= articleCommuneTH.quotiteAbattementSpecialBaseCommuneSansAjustement %}
-                            <span class="label-success" id="quotiteAbattementSpecialBaseCommuneSansAjustement" rel="popover">
+                            <span class="label-success" id="quotiteAbattementSpecialBaseCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementSpecialBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
 {% else %}
-                                <span class="label-danger" id="quotiteAbattementSpecialBaseCommuneSansAjustement" rel="popover">
+                            <span class="label-danger" id="quotiteAbattementSpecialBaseCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementSpecialBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
 {% endif %}                             
-{{simulation.quotiteAbattementSpecialBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-                                <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementSpecialBaseCommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
-                                <script>$(document).ready(function() {
-                                        $("#quotiteAbattementSpecialBaseCommuneSansAjustement").popover({
-                                            html: true,
-                                            animation: true,
-                                            content: "NON VOTÉ",
-                                            placement: "left"
-                                        });
-                                    });</script>
+                            <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementSpecialBaseCommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+                            <script>$(document).ready(function() {
+                                    $("#quotiteAbattementSpecialBaseCommuneSansAjustement").popover({
+                                        html: true,
+                                        animation: true,
+                                        content: "NON VOTÉ",
+                                        placement: "left"
+                                    });
+                                });</script>
                         </div></td>
                     <td>{{simulation.quotiteAbattementSpecialBaseCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
                     <td>{{simulation.simulationArticleTH.abattementspecialbasecommunal|number_format(0, ',', ' ')}}</td>
@@ -358,20 +366,19 @@
                     <td>7. Abattement spécial handicapé </td>
                     <td><div>
 {% if simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement >= articleCommuneTH.quotiteAbattementSpecialHandicapeCommuneSansAjustement %}
-                            <span class="label-success" id="quotiteAbattementSpecialHandicapeCommuneSansAjustement" rel="popover">
+                            <span class="label-success" id="quotiteAbattementSpecialHandicapeCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
 {% else %}
-                                <span class="label-danger" id="quotiteAbattementSpecialHandicapeCommuneSansAjustement" rel="popover">
+                            <span class="label-danger" id="quotiteAbattementSpecialHandicapeCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
 {% endif %}                                 
-{{simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-                                <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementSpecialHandicapeCommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
-                                <script>$(document).ready(function() {
-                                        $("#quotiteAbattementSpecialHandicapeCommuneSansAjustement").popover({
-                                            html: true,
-                                            animation: true,
-                                            content: "Abattement spécial handicapé x Valeur locative de la commune /  100",
-                                            placement: "left"
-                                        });
-                                    });</script>
+                            <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementSpecialHandicapeCommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+                            <script>$(document).ready(function() {
+                                    $("#quotiteAbattementSpecialHandicapeCommuneSansAjustement").popover({
+                                        html: true,
+                                        animation: true,
+                                        content: "Abattement spécial handicapé x Valeur locative de la commune /  100",
+                                        placement: "left"
+                                    });
+                                });</script>
                         </div></td>
                     <td>{{simulation.quotiteAbattementSpecialHandicapeCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
                     <td>{{simulation.simulationArticleTH.abattementspecialhandicapebasecommunal|number_format(0, ',', ' ')}}</td>
@@ -535,107 +542,757 @@
                     <th>Intercommunalité</th><th>Frais et prélèvements</th></tr>  
                 <tr>
                     <td>De 0 à 11</td>
-                    <td>{{ simulation.nombreArticlesDuRole011|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement011|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE011|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesICO011|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement011|number_format(0, ',', ' ')}}</td>
+                    <td>
+                    {% if simulation.nombreArticlesDuRole011|number_format(0, ',', ' ') > simulation.getVecteurBDD(0,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.nombreArticlesDuRole011|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(0,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.nombreArticlesDuRole011|number_format(0, ',', ' ') < simulation.getVecteurBDD(0,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.nombreArticlesDuRole011|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(0,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.nombreArticlesDuRole011|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsMisesEnRecouvrement011|number_format(0, ',', ' ') > simulation.getVecteurBDD(13,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsMisesEnRecouvrement011|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(13,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsMisesEnRecouvrement011|number_format(0, ',', ' ') < simulation.getVecteurBDD(13,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsMisesEnRecouvrement011|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(13,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsMisesEnRecouvrement011|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE011|number_format(0, ',', ' ') > simulation.getVecteurBDD(26,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE011|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(26,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE011|number_format(0, ',', ' ') < simulation.getVecteurBDD(26,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE011|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(26,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE011|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesICO011|number_format(0, ',', ' ') > simulation.getVecteurBDD(39,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesICO011|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(39,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesICO011|number_format(0, ',', ' ') < simulation.getVecteurBDD(39,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesICO011|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(39,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesICO011|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesFraisDePrelevement011|number_format(0, ',', ' ') > simulation.getVecteurBDD(52,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement011|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(52,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesFraisDePrelevement011|number_format(0, ',', ' ') < simulation.getVecteurBDD(52,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement011|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(52,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement011|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
                 </tr>    
                 <tr>
                     <td>De 12 à 99</td>
-                    <td>{{ simulation.nombreArticlesDuRole1299|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement1299|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1299|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesICO1299|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement1299|number_format(0, ',', ' ')}}</td>
+                    <td>
+                    {% if simulation.nombreArticlesDuRole1299|number_format(0, ',', ' ') > simulation.getVecteurBDD(1,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.nombreArticlesDuRole1299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(1,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.nombreArticlesDuRole1299|number_format(0, ',', ' ') < simulation.getVecteurBDD(1,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.nombreArticlesDuRole1299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(1,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.nombreArticlesDuRole1299|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsMisesEnRecouvrement1299|number_format(0, ',', ' ') > simulation.getVecteurBDD(14,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsMisesEnRecouvrement1299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(14,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsMisesEnRecouvrement1299|number_format(0, ',', ' ') < simulation.getVecteurBDD(14,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsMisesEnRecouvrement1299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(14,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsMisesEnRecouvrement1299|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>                   
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1299|number_format(0, ',', ' ') > simulation.getVecteurBDD(27,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(27,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1299|number_format(0, ',', ' ') < simulation.getVecteurBDD(27,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(27,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1299|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesICO1299|number_format(0, ',', ' ') > simulation.getVecteurBDD(40,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesICO1299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(40,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesICO1299|number_format(0, ',', ' ') < simulation.getVecteurBDD(40,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesICO1299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(40,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesICO1299|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesFraisDePrelevement1299|number_format(0, ',', ' ') > simulation.getVecteurBDD(53,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement1299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(53,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesFraisDePrelevement1299|number_format(0, ',', ' ') < simulation.getVecteurBDD(53,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement1299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(53,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement1299|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <td>De 100 à 199</td>
-                    <td>{{ simulation.nombreArticlesDuRole100199|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement100199|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE100199|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesICO100199|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement100199|number_format(0, ',', ' ')}}</td>
+                    <td>
+                    {% if simulation.nombreArticlesDuRole100199|number_format(0, ',', ' ') > simulation.getVecteurBDD(2,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.nombreArticlesDuRole100199|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(2,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.nombreArticlesDuRole100199|number_format(0, ',', ' ') < simulation.getVecteurBDD(2,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.nombreArticlesDuRole100199|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(2,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.nombreArticlesDuRole100199|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsMisesEnRecouvrement100199|number_format(0, ',', ' ') > simulation.getVecteurBDD(15,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsMisesEnRecouvrement100199|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(15,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsMisesEnRecouvrement100199|number_format(0, ',', ' ') < simulation.getVecteurBDD(15,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsMisesEnRecouvrement100199|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(15,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsMisesEnRecouvrement100199|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>         
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE100199|number_format(0, ',', ' ') > simulation.getVecteurBDD(28,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE100199|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(28,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE100199|number_format(0, ',', ' ') < simulation.getVecteurBDD(28,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE100199|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(28,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE100199|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>              
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesICO100199|number_format(0, ',', ' ') > simulation.getVecteurBDD(41,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesICO100199|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(41,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesICO100199|number_format(0, ',', ' ') < simulation.getVecteurBDD(41,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesICO100199|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(41,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesICO100199|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesFraisDePrelevement100199|number_format(0, ',', ' ') > simulation.getVecteurBDD(54,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement100199|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(54,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesFraisDePrelevement100199|number_format(0, ',', ' ') < simulation.getVecteurBDD(54,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement100199|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(54,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement100199|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
                 </tr>    
                 <tr>
                     <td>De 200 à 299</td>
-                    <td>{{ simulation.nombreArticlesDuRole200299|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement200299|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE200299|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesICO200299|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement200299|number_format(0, ',', ' ')}}</td>
+                    <td>
+                    {% if simulation.nombreArticlesDuRole200299|number_format(0, ',', ' ') > simulation.getVecteurBDD(3,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.nombreArticlesDuRole200299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(3,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.nombreArticlesDuRole200299|number_format(0, ',', ' ') < simulation.getVecteurBDD(3,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.nombreArticlesDuRole200299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(3,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.nombreArticlesDuRole200299|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsMisesEnRecouvrement200299|number_format(0, ',', ' ') > simulation.getVecteurBDD(16,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsMisesEnRecouvrement200299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(16,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsMisesEnRecouvrement200299|number_format(0, ',', ' ') < simulation.getVecteurBDD(16,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsMisesEnRecouvrement200299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(16,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsMisesEnRecouvrement200299|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>                  
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE200299|number_format(0, ',', ' ') > simulation.getVecteurBDD(29,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE200299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(29,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE200299|number_format(0, ',', ' ') < simulation.getVecteurBDD(29,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE200299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(29,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE200299|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>                    
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesICO200299|number_format(0, ',', ' ') > simulation.getVecteurBDD(42,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesICO200299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(42,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesICO200299|number_format(0, ',', ' ') < simulation.getVecteurBDD(42,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesICO200299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(42,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesICO200299|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesFraisDePrelevement200299|number_format(0, ',', ' ') > simulation.getVecteurBDD(55,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement200299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(55,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesFraisDePrelevement200299|number_format(0, ',', ' ') < simulation.getVecteurBDD(55,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement200299|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(55,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement200299|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <td>De 300 à 399</td>
-                    <td>{{ simulation.nombreArticlesDuRole300399|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement300399|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE300399|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesICO300399|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement300399|number_format(0, ',', ' ')}}</td>
+                    <td>
+                    {% if simulation.nombreArticlesDuRole300399|number_format(0, ',', ' ') > simulation.getVecteurBDD(4,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.nombreArticlesDuRole300399|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(4,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.nombreArticlesDuRole300399|number_format(0, ',', ' ') < simulation.getVecteurBDD(4,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.nombreArticlesDuRole300399|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(4,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.nombreArticlesDuRole300399|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsMisesEnRecouvrement300399|number_format(0, ',', ' ') > simulation.getVecteurBDD(17,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsMisesEnRecouvrement300399|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(17,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsMisesEnRecouvrement300399|number_format(0, ',', ' ') < simulation.getVecteurBDD(17,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsMisesEnRecouvrement300399|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(17,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsMisesEnRecouvrement300399|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>        
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE300399|number_format(0, ',', ' ') > simulation.getVecteurBDD(30,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE300399|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(30,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE300399|number_format(0, ',', ' ') < simulation.getVecteurBDD(30,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE300399|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(30,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE300399|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesICO300399|number_format(0, ',', ' ') > simulation.getVecteurBDD(43,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesICO300399|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(43,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesICO300399|number_format(0, ',', ' ') < simulation.getVecteurBDD(43,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesICO300399|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(43,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesICO300399|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesFraisDePrelevement300399|number_format(0, ',', ' ') > simulation.getVecteurBDD(56,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement300399|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(56,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesFraisDePrelevement300399|number_format(0, ',', ' ') < simulation.getVecteurBDD(56,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement300399|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(56,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement300399|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
                 </tr>    
                 <tr>
                     <td>De 400 à 499</td>
-                    <td>{{ simulation.nombreArticlesDuRole400499|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement400499|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE400499|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesICO400499|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement400499|number_format(0, ',', ' ')}}</td>
+                    <td>
+                    {% if simulation.nombreArticlesDuRole400499|number_format(0, ',', ' ') > simulation.getVecteurBDD(5,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.nombreArticlesDuRole400499|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(5,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.nombreArticlesDuRole400499|number_format(0, ',', ' ') < simulation.getVecteurBDD(5,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.nombreArticlesDuRole400499|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(5,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.nombreArticlesDuRole400499|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsMisesEnRecouvrement400499|number_format(0, ',', ' ') > simulation.getVecteurBDD(18,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsMisesEnRecouvrement400499|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(18,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsMisesEnRecouvrement400499|number_format(0, ',', ' ') < simulation.getVecteurBDD(18,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsMisesEnRecouvrement400499|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(18,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsMisesEnRecouvrement400499|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>                    
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE400499|number_format(0, ',', ' ') > simulation.getVecteurBDD(31,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE400499|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(31,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE400499|number_format(0, ',', ' ') < simulation.getVecteurBDD(31,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE400499|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(31,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE400499|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesICO400499|number_format(0, ',', ' ') > simulation.getVecteurBDD(44,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesICO400499|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(44,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesICO400499|number_format(0, ',', ' ') < simulation.getVecteurBDD(44,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesICO400499|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(44,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesICO400499|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesFraisDePrelevement400499|number_format(0, ',', ' ') > simulation.getVecteurBDD(57,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement400499|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(57,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesFraisDePrelevement400499|number_format(0, ',', ' ') < simulation.getVecteurBDD(57,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement400499|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(57,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement400499|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <td>De 500 à 599</td>
-                    <td>{{ simulation.nombreArticlesDuRole500599|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement500599|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE500599|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesICO500599|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement500599|number_format(0, ',', ' ')}}</td>
+                    <td>
+                    {% if simulation.nombreArticlesDuRole500599|number_format(0, ',', ' ') > simulation.getVecteurBDD(6,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.nombreArticlesDuRole500599|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(6,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.nombreArticlesDuRole500599|number_format(0, ',', ' ') < simulation.getVecteurBDD(6,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.nombreArticlesDuRole500599|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(6,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.nombreArticlesDuRole500599|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsMisesEnRecouvrement500599|number_format(0, ',', ' ') > simulation.getVecteurBDD(19,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsMisesEnRecouvrement500599|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(19,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsMisesEnRecouvrement500599|number_format(0, ',', ' ') < simulation.getVecteurBDD(19,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsMisesEnRecouvrement500599|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(19,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsMisesEnRecouvrement500599|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>                    
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE500599|number_format(0, ',', ' ') > simulation.getVecteurBDD(32,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE500599|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(32,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE500599|number_format(0, ',', ' ') < simulation.getVecteurBDD(32,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE500599|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(32,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE500599|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesICO500599|number_format(0, ',', ' ') > simulation.getVecteurBDD(45,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesICO500599|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(45,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesICO500599|number_format(0, ',', ' ') < simulation.getVecteurBDD(45,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesICO500599|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(45,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesICO500599|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesFraisDePrelevement500599|number_format(0, ',', ' ') > simulation.getVecteurBDD(58,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement500599|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(58,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesFraisDePrelevement500599|number_format(0, ',', ' ') < simulation.getVecteurBDD(58,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement500599|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(58,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement500599|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
                 </tr>    
                 <tr>
                     <td>De 600 à 699</td>
-                    <td>{{ simulation.nombreArticlesDuRole600699|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement600699|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE600699|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesICO600699|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement600699|number_format(0, ',', ' ')}}</td>
+                    <td>
+                    {% if simulation.nombreArticlesDuRole600699|number_format(0, ',', ' ') > simulation.getVecteurBDD(7,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.nombreArticlesDuRole600699|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(7,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.nombreArticlesDuRole600699|number_format(0, ',', ' ') < simulation.getVecteurBDD(7,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.nombreArticlesDuRole600699|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(7,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.nombreArticlesDuRole600699|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsMisesEnRecouvrement600699|number_format(0, ',', ' ') > simulation.getVecteurBDD(20,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsMisesEnRecouvrement600699|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(20,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsMisesEnRecouvrement600699|number_format(0, ',', ' ') < simulation.getVecteurBDD(20,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsMisesEnRecouvrement600699|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(20,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsMisesEnRecouvrement600699|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>                    
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE600699|number_format(0, ',', ' ') > simulation.getVecteurBDD(33,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE600699|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(33,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE600699|number_format(0, ',', ' ') < simulation.getVecteurBDD(33,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE600699|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(33,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE600699|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesICO600699|number_format(0, ',', ' ') > simulation.getVecteurBDD(46,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesICO600699|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(46,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesICO600699|number_format(0, ',', ' ') < simulation.getVecteurBDD(46,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesICO600699|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(46,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesICO600699|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesFraisDePrelevement600699|number_format(0, ',', ' ') > simulation.getVecteurBDD(59,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement600699|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(59,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesFraisDePrelevement600699|number_format(0, ',', ' ') < simulation.getVecteurBDD(59,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement600699|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(59,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement600699|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <td>De 700 à 799</td>
-                    <td>{{ simulation.nombreArticlesDuRole700799|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement700799|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE700799|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesICO700799|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement700799|number_format(0, ',', ' ')}}</td>
+                    <td>
+                    {% if simulation.nombreArticlesDuRole700799|number_format(0, ',', ' ') > simulation.getVecteurBDD(8,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.nombreArticlesDuRole700799|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(8,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.nombreArticlesDuRole700799|number_format(0, ',', ' ') < simulation.getVecteurBDD(8,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.nombreArticlesDuRole700799|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(8,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.nombreArticlesDuRole700799|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsMisesEnRecouvrement700799|number_format(0, ',', ' ') > simulation.getVecteurBDD(21,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsMisesEnRecouvrement700799|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(21,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.nombreArticlesDuRole700799|number_format(0, ',', ' ') < simulation.getVecteurBDD(21,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsMisesEnRecouvrement700799|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(21,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsMisesEnRecouvrement700799|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE700799|number_format(0, ',', ' ') > simulation.getVecteurBDD(34,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE700799|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(34,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE700799|number_format(0, ',', ' ') < simulation.getVecteurBDD(34,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE700799|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(34,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE700799|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>            
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesICO700799|number_format(0, ',', ' ') > simulation.getVecteurBDD(47,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesICO700799|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(47,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesICO700799|number_format(0, ',', ' ') < simulation.getVecteurBDD(47,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesICO700799|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(47,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesICO700799|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesFraisDePrelevement700799|number_format(0, ',', ' ') > simulation.getVecteurBDD(60,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement700799|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(60,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesFraisDePrelevement700799|number_format(0, ',', ' ') < simulation.getVecteurBDD(60,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement700799|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(60,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement700799|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
                 </tr>    
                 <tr>
                     <td>De 800 à 899</td>
-                    <td>{{ simulation.nombreArticlesDuRole800899|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement800899|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE800899|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesICO800899|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement800899|number_format(0, ',', ' ')}}</td>
+                    <td>
+                    {% if simulation.nombreArticlesDuRole800899|number_format(0, ',', ' ') > simulation.getVecteurBDD(9,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.nombreArticlesDuRole800899|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(9,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.nombreArticlesDuRole800899|number_format(0, ',', ' ') < simulation.getVecteurBDD(9,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.nombreArticlesDuRole800899|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(9,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.nombreArticlesDuRole800899|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsMisesEnRecouvrement800899|number_format(0, ',', ' ') > simulation.getVecteurBDD(22,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsMisesEnRecouvrement800899|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(22,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsMisesEnRecouvrement800899|number_format(0, ',', ' ') < simulation.getVecteurBDD(22,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsMisesEnRecouvrement800899|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(22,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsMisesEnRecouvrement800899|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>                    
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE800899|number_format(0, ',', ' ') > simulation.getVecteurBDD(35,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE800899|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(35,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE800899|number_format(0, ',', ' ') < simulation.getVecteurBDD(35,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE800899|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(35,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE800899|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesICO800899|number_format(0, ',', ' ') > simulation.getVecteurBDD(48,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesICO800899|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(48,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesICO800899|number_format(0, ',', ' ') < simulation.getVecteurBDD(48,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesICO800899|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(48,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesICO800899|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesFraisDePrelevement800899|number_format(0, ',', ' ') > simulation.getVecteurBDD(61,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement800899|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(61,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesFraisDePrelevement800899|number_format(0, ',', ' ') < simulation.getVecteurBDD(61,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement800899|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(61,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement800899|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <td>De 900 à 999</td>
-                    <td>{{ simulation.nombreArticlesDuRole900999|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement900999|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE900999|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesICO900999|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement900999|number_format(0, ',', ' ')}}</td>
+                    <td>
+                    {% if simulation.nombreArticlesDuRole900999|number_format(0, ',', ' ') > simulation.getVecteurBDD(10,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.nombreArticlesDuRole900999|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(10,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.nombreArticlesDuRole900999|number_format(0, ',', ' ') < simulation.getVecteurBDD(10,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.nombreArticlesDuRole900999|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(10,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.nombreArticlesDuRole900999|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsMisesEnRecouvrement900999|number_format(0, ',', ' ') > simulation.getVecteurBDD(23,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsMisesEnRecouvrement900999|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(23,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsMisesEnRecouvrement900999|number_format(0, ',', ' ') < simulation.getVecteurBDD(23,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsMisesEnRecouvrement900999|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(23,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsMisesEnRecouvrement900999|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>                    
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE900999|number_format(0, ',', ' ') > simulation.getVecteurBDD(36,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE900999|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(36,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE900999|number_format(0, ',', ' ') < simulation.getVecteurBDD(36,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE900999|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(36,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE900999|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesICO900999|number_format(0, ',', ' ') > simulation.getVecteurBDD(49,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesICO900999|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(49,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesICO900999|number_format(0, ',', ' ') < simulation.getVecteurBDD(49,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesICO900999|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(49,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesICO900999|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesFraisDePrelevement900999|number_format(0, ',', ' ') > simulation.getVecteurBDD(62,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement900999|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(62,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesFraisDePrelevement900999|number_format(0, ',', ' ') < simulation.getVecteurBDD(62,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement900999|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(62,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement900999|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
                 </tr>    
                 <tr>
                     <td>De 1000 et plus</td>
-                    <td>{{ simulation.nombreArticlesDuRole1000plus|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrement1000plus|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1000plus|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesICO1000plus|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement1000plus|number_format(0, ',', ' ')}}</td>
+                    <td>
+                    {% if simulation.nombreArticlesDuRole1000plus|number_format(0, ',', ' ') > simulation.getVecteurBDD(11,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.nombreArticlesDuRole1000plus|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(11,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.nombreArticlesDuRole1000plus|number_format(0, ',', ' ') < simulation.getVecteurBDD(11,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.nombreArticlesDuRole1000plus|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(11,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.nombreArticlesDuRole1000plus|number_format(0, ',', ' ')}}</span>
+                    {% endif %}        
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsMisesEnRecouvrement1000plus|number_format(0, ',', ' ') > simulation.getVecteurBDD(24,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsMisesEnRecouvrement1000plus|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(24,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsMisesEnRecouvrement1000plus|number_format(0, ',', ' ') < simulation.getVecteurBDD(24,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsMisesEnRecouvrement1000plus|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(24,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsMisesEnRecouvrement1000plus|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>                    
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1000plus|number_format(0, ',', ' ') > simulation.getVecteurBDD(37,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1000plus|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(37,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1000plus|number_format(0, ',', ' ') < simulation.getVecteurBDD(37,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1000plus|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(37,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSE1000plus|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesICO1000plus|number_format(0, ',', ' ') > simulation.getVecteurBDD(50,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesICO1000plus|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(50,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesICO1000plus|number_format(0, ',', ' ') < simulation.getVecteurBDD(50,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesICO1000plus|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(50,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesICO1000plus|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesFraisDePrelevement1000plus|number_format(0, ',', ' ') > simulation.getVecteurBDD(63,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement1000plus|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(63,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesFraisDePrelevement1000plus|number_format(0, ',', ' ') < simulation.getVecteurBDD(63,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesFraisDePrelevement1000plus|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(63,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevement1000plus|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
                 </tr>
                 <tr>
                     <td>Total.....</td>
-                    <td>{{ simulation.nombreArticlesDuRoleTotal|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsMisesEnRecouvrementTotal|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSETotal|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesICOTotal|number_format(0, ',', ' ')}}</td>
-                    <td>{{ simulation.repartitionCotisationsBrutesFraisDePrelevementTotal|number_format(0, ',', ' ')}}</td>
+                    <td>
+                    {% if simulation.nombreArticlesDuRoleTotal|number_format(0, ',', ' ') > simulation.getVecteurBDD(12,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.nombreArticlesDuRoleTotal|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(12,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.nombreArticlesDuRoleTotal|number_format(0, ',', ' ') < simulation.getVecteurBDD(12,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.nombreArticlesDuRoleTotal|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(12,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.nombreArticlesDuRoleTotal|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsMisesEnRecouvrementTotal|number_format(0, ',', ' ') > simulation.getVecteurBDD(25,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsMisesEnRecouvrementTotal|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(25,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsMisesEnRecouvrementTotal|number_format(0, ',', ' ') < simulation.getVecteurBDD(25,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsMisesEnRecouvrementTotal|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(25,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsMisesEnRecouvrementTotal|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>                    
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSETotal|number_format(0, ',', ' ') > simulation.getVecteurBDD(38,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSETotal|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(38,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSETotal|number_format(0, ',', ' ') < simulation.getVecteurBDD(38,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSETotal|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(38,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesCommunesSyndicatsEtTSETotal|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesICOTotal|number_format(0, ',', ' ') > simulation.getVecteurBDD(51,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesICOTotal|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(51,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesICOTotal|number_format(0, ',', ' ') < simulation.getVecteurBDD(51,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesICOTotal|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(51,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesICOTotal|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
+                    <td>
+                    {% if simulation.repartitionCotisationsBrutesFraisDePrelevementTotal|number_format(0, ',', ' ') > simulation.getVecteurBDD(64,6)|number_format(0, ',', ' ') %}
+                        <span class="label-success">{{ simulation.repartitionCotisationsBrutesFraisDePrelevementTotal|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(64,6)|number_format(0, ',', ' ')}}</span>
+                    {% elseif simulation.repartitionCotisationsBrutesFraisDePrelevementTotal|number_format(0, ',', ' ') < simulation.getVecteurBDD(64,6)|number_format(0, ',', ' ') %}
+                        <span class="label-danger">{{ simulation.repartitionCotisationsBrutesFraisDePrelevementTotal|number_format(0, ',', ' ')}}</span><br/>
+                        <span class="label-default">{{ simulation.getVecteurBDD(64,6)|number_format(0, ',', ' ')}}</span>
+                    {% else %}
+                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevementTotal|number_format(0, ',', ' ')}}</span>
+                    {% endif %}
+                    </td>
                 </tr>
             </table>
         </div>

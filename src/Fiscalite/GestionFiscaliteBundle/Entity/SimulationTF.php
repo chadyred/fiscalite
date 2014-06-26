@@ -5,6 +5,7 @@ namespace Fiscalite\GestionFiscaliteBundle\Entity;
 class SimulationTF {
 
     private $vecteur;
+    private $vecteurBDD;
     private $nombredecomptesdeproprietaireLocauxdhabitationordinaire;
     private $nombredepevLocauxdhabitationordinaire;
     private $baseimposeeLocauxdhabitationordinaire;
@@ -41,10 +42,17 @@ class SimulationTF {
 
     function __construct() {
         $this->vecteur = array();
+        $this->vecteurBDD = array();
         for ($i = 0; $i <= 35; $i++) {
             $this->vecteur[$i] = array();
             for ($j = 0; $j <= 12; $j++) {
                 $this->vecteur[$i][$j] = 0;
+            }
+        }
+        for ($i = 0; $i <= 35; $i++) {
+            $this->vecteurBDD[$i] = array();
+            for ($j = 0; $j <= 12; $j++) {
+                $this->vecteurBDD[$i][$j] = 0;
             }
         }
     }
@@ -55,6 +63,14 @@ class SimulationTF {
 
     public function setVecteur($x, $y, $var) {
         $this->vecteur[$x][$y] = $var;
+    }
+    
+    public function getVecteurBDD($x, $y) {
+        return $this->vecteurBDD[$x][$y];
+    }
+
+    public function setVecteurBDD($x, $y, $var) {
+        $this->vecteurBDD[$x][$y] = $var;
     }
 
     public function getNombredecomptesdeproprietaireLocauxdhabitationordinaire() {

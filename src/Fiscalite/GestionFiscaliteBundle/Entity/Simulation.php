@@ -110,9 +110,9 @@ class Simulation {
     private $nbpers5persachargeexoneres;
     private $nbperstotcumuleexoneres;
 // TABLEAU 5 ////
-
-    private $abattementgeneralbasecommunale;
-    private $abattementpersonneschargecommunal12;
+    private $vecteurBDD;
+    private $abattementgeneralbasecommunale; // 0
+    private $abattementpersonneschargecommunal12; // 1
     private $abattementpersonneschargecommunal3;
     private $abattementpersonneschargecommunal;
     private $abattementspecialbasecommunal;
@@ -121,8 +121,8 @@ class Simulation {
     private $nbabattementpersonneschargecommunal12;
     private $nbabattementpersonneschargecommunal3;
     private $nbabattementpersonneschargecommunal;
-    private $nbabattementspecialbasecommunal;
-    private $nbabattementspecialhandicapebasecommunal;
+    private $nbabattementspecialbasecommunal; // 10
+    private $nbabattementspecialhandicapebasecommunal; 
     private $abattementgeneralbaseintercommunalite;
     private $abattementpersonneschargeintercommunalite12;
     private $abattementpersonneschargeintercommunalite3;
@@ -131,7 +131,7 @@ class Simulation {
     private $abattementspecialhandicapebaseintercommunalite;
     private $nbabattementgeneralbaseintercommunalite;
     private $nbabattementpersonneschargeintercommunalite12;
-    private $nbabattementpersonneschargeintercommunalite3;
+    private $nbabattementpersonneschargeintercommunalite3; // 20
     private $nbabattementpersonneschargeintercommunalite;
     private $nbabattementspecialbaseintercommunalite;
     private $nbabattementspecialhandicapebaseintercommunalite;
@@ -141,15 +141,15 @@ class Simulation {
     private $abattementpersonneschargetse;
     private $abattementspecialbasetse;
     private $abattementspecialhandicapebasetse;
-    private $nbabattementgeneralbasetse;
+    private $nbabattementgeneralbasetse; // 30
     private $nbabattementpersonneschargetse12;
     private $nbabattementpersonneschargetse3;
     private $nbabattementpersonneschargetse;
     private $nbabattementspecialbasetse;
     private $nbabattementspecialhandicapebasetse;
-    private $abattementegalenull;
+    private $abattementegalenull; //36
 // TALBEAU 6 ////
-    private $nombreArticlesDuRole011;
+    private $nombreArticlesDuRole011;//0
     private $nombreArticlesDuRole1299;
     private $nombreArticlesDuRole100199;
     private $nombreArticlesDuRole200299;
@@ -159,7 +159,7 @@ class Simulation {
     private $nombreArticlesDuRole600699;
     private $nombreArticlesDuRole700799;
     private $nombreArticlesDuRole800899;
-    private $nombreArticlesDuRole900999;
+    private $nombreArticlesDuRole900999;//10
     private $nombreArticlesDuRole1000plus;
     private $nombreArticlesDuRoleTotal;
     private $repartitionCotisationsMisesEnRecouvrement011;
@@ -169,7 +169,7 @@ class Simulation {
     private $repartitionCotisationsMisesEnRecouvrement300399;
     private $repartitionCotisationsMisesEnRecouvrement400499;
     private $repartitionCotisationsMisesEnRecouvrement500599;
-    private $repartitionCotisationsMisesEnRecouvrement600699;
+    private $repartitionCotisationsMisesEnRecouvrement600699;//20
     private $repartitionCotisationsMisesEnRecouvrement700799;
     private $repartitionCotisationsMisesEnRecouvrement800899;
     private $repartitionCotisationsMisesEnRecouvrement900999;
@@ -179,7 +179,7 @@ class Simulation {
     private $repartitionCotisationsBrutesCommunesSyndicatsEtTSE1299;
     private $repartitionCotisationsBrutesCommunesSyndicatsEtTSE100199;
     private $repartitionCotisationsBrutesCommunesSyndicatsEtTSE200299;
-    private $repartitionCotisationsBrutesCommunesSyndicatsEtTSE300399;
+    private $repartitionCotisationsBrutesCommunesSyndicatsEtTSE300399;//30
     private $repartitionCotisationsBrutesCommunesSyndicatsEtTSE400499;
     private $repartitionCotisationsBrutesCommunesSyndicatsEtTSE500599;
     private $repartitionCotisationsBrutesCommunesSyndicatsEtTSE600699;
@@ -189,7 +189,7 @@ class Simulation {
     private $repartitionCotisationsBrutesCommunesSyndicatsEtTSE1000plus;
     private $repartitionCotisationsBrutesCommunesSyndicatsEtTSETotal;
     private $repartitionCotisationsBrutesICO011;
-    private $repartitionCotisationsBrutesICO1299;
+    private $repartitionCotisationsBrutesICO1299;//40
     private $repartitionCotisationsBrutesICO100199;
     private $repartitionCotisationsBrutesICO200299;
     private $repartitionCotisationsBrutesICO300399;
@@ -199,7 +199,7 @@ class Simulation {
     private $repartitionCotisationsBrutesICO700799;
     private $repartitionCotisationsBrutesICO800899;
     private $repartitionCotisationsBrutesICO900999;
-    private $repartitionCotisationsBrutesICO1000plus;
+    private $repartitionCotisationsBrutesICO1000plus;//50
     private $repartitionCotisationsBrutesICOTotal;
     private $repartitionCotisationsBrutesFraisDePrelevement011;
     private $repartitionCotisationsBrutesFraisDePrelevement1299;
@@ -209,30 +209,30 @@ class Simulation {
     private $repartitionCotisationsBrutesFraisDePrelevement400499;
     private $repartitionCotisationsBrutesFraisDePrelevement500599;
     private $repartitionCotisationsBrutesFraisDePrelevement600699;
-    private $repartitionCotisationsBrutesFraisDePrelevement700799;
+    private $repartitionCotisationsBrutesFraisDePrelevement700799;//60
     private $repartitionCotisationsBrutesFraisDePrelevement800899;
     private $repartitionCotisationsBrutesFraisDePrelevement900999;
     private $repartitionCotisationsBrutesFraisDePrelevement1000plus;
     private $repartitionCotisationsBrutesFraisDePrelevementTotal;
-    private $tauximpositioncommune;
+    private $tauximpositioncommune;//65
     private $cotisationcommunal;
     private $cotisationcommunalannee;
     private $basenetteimposition;
     private $basenetteimpositioncommunaleannee;
-    private $articleTHabattementgeneralbasecommunale;
+    private $articleTHabattementgeneralbasecommunale;//70
     private $articleTHabattementspecialbasecommunal;
     private $articleTHabattementspecialhandicapebasecommunal;
     private $articleTHabattementpersonneschargecommunal;
     private $nbTHLV;
-    private $nbcontribuablesabattementspecialbase;
+    private $nbcontribuablesabattementspecialbase;//75
     private $nbcontribuablesabattementspecialhandicapebasecommunal;
-    private $SimulationArticleTH;
+    private $SimulationArticleTH;//77
     private $VlmCne;
     private $VlmICO;
-    private $VlmTSE;
+    private $VlmTSE;//80
     private $abattementsTH;
     private $baseTH;
-    private $cotisationTH;
+    private $cotisationTH;//83
     // TABLEAU 7 ////
     private $nombreArticlesTHPExonerationDOM;
     private $nombreArticlesTHPCommune;
@@ -318,6 +318,24 @@ class Simulation {
     private $montantNetTHTHLVICO;
     private $montantNetTHTHLVTSE;
 
+    function __construct() {
+        $this->vecteurBDD = array();
+        for ($i = 0; $i <= 100; $i++) {
+            $this->vecteurBDD[$i] = array();
+            for ($j = 0; $j <= 6; $j++) {
+                $this->vecteurBDD[$i][$j] = 0;
+            }
+        }
+    }
+    
+    public function getVecteurBDD($x, $y) {
+        return $this->vecteurBDD[$x][$y];
+    }
+
+    public function setVecteurBDD($x, $y, $var) {
+        $this->vecteurBDD[$x][$y] = $var;
+    }
+    
     public function getMontantReelTHFraisTHPTHE() {
         return $this->montantReelTHFraisTHPTHE;
     }

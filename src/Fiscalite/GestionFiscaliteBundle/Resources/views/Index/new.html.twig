@@ -17,12 +17,16 @@
                     <p>{{"Fichier "~fichier.getNom() ~" enregistré avec succès."}} </p>
                 </div>     
                 <div class="fiscalite-links form-group">
-                    <div class="col-sm-10">
-                        <a class="fiscalite-button btn btn-info" href="{{ path('taxehabitationliste') }}"> Consulter </a>
-                        <a class="fiscalite-button btn btn-info" target="_blank" href=""> Simulation </a>
-
+                    <div class="controls">
+                        <div class="row">
+                            <div class="col-sm-12"><a class="fiscalite-button btn btn-info" target="_blank" href="{{ path('taxehabitationliste') }}"> Consulter les taxes d'habitation</a>
+                                <a class="fiscalite-button btn btn-info" target="_blank" href="{{ path('taxefonciereliste') }}"> Consulter les taxes foncières</a></div>
+                            <br/>
+                            <div class="col-sm-12"><a class="fiscalite-button btn btn-info" target="_blank" href="{{ path('simulationTH') }}"> Simulation de la taxe d'habitation </a>
+                                <a class="fiscalite-button btn btn-info" target="_blank" href="{{ path('simulationTF') }}"> Simulation de la taxe foncière </a></div>
+                        </div>
                     </div>
-                </div>        
+                </div>    
             </div> 
             <div class="row">   
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}

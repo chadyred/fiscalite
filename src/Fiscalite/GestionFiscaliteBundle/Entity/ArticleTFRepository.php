@@ -12,13 +12,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class ArticleTFRepository extends EntityRepository {
 
-    public function search($dataAnneetaxation, $dataTitreEtDesignation, $dataSommeAPayermin, $dataSommeAPayermax) {
-       $qb = $this->createQueryBuilder('a');
-       if ($dataAnneetaxation != NULL) {
+    public function search($dataAnneetaxation, $dataTitreEtDesignation, $dataSommeAPayermin, $dataSommeAPayermax, $adresse) {
+        $qb = $this->createQueryBuilder('a');
+        if ($dataAnneetaxation != NULL) {
             $i = 1;
             foreach ($dataAnneetaxation as $annee) {
-                $qb->join('a.fichier', 'f'.$i.'');
-                $qb->orWhere('f'.$i.'.anneetaxation =:ann')
+                $qb->join('a.fichier', 'f' . $i . '');
+                $qb->orWhere('f' . $i . '.anneetaxation =:ann')
                         ->setParameter('ann', $annee->getAnneetaxation());
                 $i++;
             }
@@ -35,6 +35,12 @@ class ArticleTFRepository extends EntityRepository {
             $qb->andWhere('a.sommeAPayer <= :sommeAPayer2')
                     ->setParameter('sommeAPayer2', $dataSommeAPayermax);
         }
+        if ($adresse != NULL) {
+            $qb->join('a.tfarticletaxationbatis', 'bati');
+            $qb->andWhere('bati.libVoie LIKE :libVoie')
+                    ->setParameter('libVoie', '%' . $adresse . '%');
+        }
+
         $qb->orderBy('a.titreEtDesignation', 'ASC');
         return $qb->getQuery()->getResult();
     }
@@ -57,7 +63,7 @@ class ArticleTFRepository extends EntityRepository {
         if ($articleTF != NULL) {
             $qb->join('a.fichier', 'f')
                     ->andWhere('f.anneetaxation =:year ')
-                    ->setParameter('year', $articleTF->getFichier()->getAnneetaxation() -1);
+                    ->setParameter('year', $articleTF->getFichier()->getAnneetaxation() - 1);
             $qb->andWhere('a.titreEtDesignation =:titreEtDesignation')
                     ->setParameter('titreEtDesignation', $articleTF->getTitreEtDesignation());
             $qb->andWhere('a.suiteDesignation =:suiteDesignation')
@@ -100,7 +106,7 @@ class ArticleTFRepository extends EntityRepository {
         $qb = $this->createQueryBuilder('c');
         $qb->select('c.titreEtDesignation')
                 ->where('c.titreEtDesignation LIKE :term1')
-                ->setParameter('term1', '%' . $term . '%')->addGroupBy('c.titreEtDesignation')->addOrderBy('c.titreEtDesignation','ASC');
+                ->setParameter('term1', '%' . $term . '%')->addGroupBy('c.titreEtDesignation')->addOrderBy('c.titreEtDesignation', 'ASC');
         $arrayAss = $qb->getQuery()
                 ->getArrayResult();
         // Transformer le tableau associatif en un tableau standard
@@ -111,7 +117,7 @@ class ArticleTFRepository extends EntityRepository {
         return $array;
     }
 
-    public function searchListTFSimulation($nom,$dataAnneetaxation) {
+    public function searchListTFSimulation($nom, $dataAnneetaxation) {
         $qb = $this->createQueryBuilder('a');
         $qb->join('a.fichier', 'f1');
         $qb->andWhere('f1.anneetaxation =:ann')

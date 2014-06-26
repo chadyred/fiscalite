@@ -447,34 +447,51 @@ class ArticleTH extends Article {
                     }
                     if ($VLBrute <= $this->getAbattement()->getAbattementpersonneschargecommunnal() + $this->getAbattement()->getAbattementgeneralbasecommunale()) {
                         $simulation->setAbattementpersonneschargecommunal($simulation->getAbattementpersonneschargecommunal() + $VLBrute);
+                        $simulation->setVecteurBDD(3, 5, $simulation->getVecteurBDD(3, 5) + $VLBrute);
                         if ($this->getCotisation()->getNbpersonnesacharge() == 1) {
                             $simulation->setNbabattementpersonneschargecommunal12($simulation->getNbabattementpersonneschargecommunal12() + 1);
+                            $simulation->setVecteurBDD(7, 5, $simulation->getVecteurBDD(7, 5) + 1);
                             $simulation->setAbattementpersonneschargecommunal12($simulation->getAbattementpersonneschargecommunal12() + $VLBrute);
+                            $simulation->setVecteurBDD(1, 5, $simulation->getVecteurBDD(1, 5) + $VLBrute);
                         } else if ($this->getCotisation()->getNbpersonnesacharge() == 2) {
                             $simulation->setNbabattementpersonneschargecommunal12($simulation->getNbabattementpersonneschargecommunal12() + 1);
+                            $simulation->setVecteurBDD(7, 5, $simulation->getVecteurBDD(7, 5) + 1);
                             $simulation->setAbattementpersonneschargecommunal12($simulation->getAbattementpersonneschargecommunal12() + $VLBrute);
+                            $simulation->setVecteurBDD(1, 5, $simulation->getVecteurBDD(1, 5) + $VLBrute);
                         } else if ($this->getCotisation()->getNbpersonnesacharge() >= 3) {
                             $simulation->setNbabattementpersonneschargecommunal3($simulation->getNbabattementpersonneschargecommunal3() + 1);
+                            $simulation->setVecteurBDD(8, 5, $simulation->getVecteurBDD(8, 5) + 1);
                             $simulation->setAbattementpersonneschargecommunal3($simulation->getAbattementpersonneschargecommunal3() + $VLBrute);
+                            $simulation->setVecteurBDD(2, 5, $simulation->getVecteurBDD(2, 5) + $VLBrute);
                         }
                     } else {
                         if ($this->getCotisation()->getNbpersonnesacharge() == 1) {
                             $simulation->setNbabattementpersonneschargecommunal12($simulation->getNbabattementpersonneschargecommunal12() + 1);
+                            $simulation->setVecteurBDD(7, 5, $simulation->getVecteurBDD(7, 5) + 1);
                             $simulation->setAbattementpersonneschargecommunal12($simulation->getAbattementpersonneschargecommunal12() + $this->getAbattement()->getAbattementpersonneschargecommunnal());
+                            $simulation->setVecteurBDD(1, 5, $simulation->getVecteurBDD(1, 5) + $this->getAbattement()->getAbattementpersonneschargecommunnal());
                         } else if ($this->getCotisation()->getNbpersonnesacharge() == 2) {
                             $simulation->setNbabattementpersonneschargecommunal12($simulation->getNbabattementpersonneschargecommunal12() + 1);
+                            $simulation->setVecteurBDD(7, 5, $simulation->getVecteurBDD(7, 5) + 1);
                             $simulation->setAbattementpersonneschargecommunal12($simulation->getAbattementpersonneschargecommunal12() + $this->getAbattement()->getAbattementpersonneschargecommunnal());
+                            $simulation->setVecteurBDD(1, 5, $simulation->getVecteurBDD(1, 5) + $this->getAbattement()->getAbattementpersonneschargecommunnal());
                         } else if ($this->getCotisation()->getNbpersonnesacharge() >= 3) {
                             $simulation->setNbabattementpersonneschargecommunal3($simulation->getNbabattementpersonneschargecommunal3() + 1);
+                            $simulation->setVecteurBDD(8, 5, $simulation->getVecteurBDD(8, 5) + 1);
                             $simulation->setAbattementpersonneschargecommunal3($simulation->getAbattementpersonneschargecommunal3() + $this->getAbattement()->getAbattementpersonneschargecommunnal());
+                            $simulation->setVecteurBDD(2, 5, $simulation->getVecteurBDD(2, 5) + $this->getAbattement()->getAbattementpersonneschargecommunnal());
                         }
                         if ($this->getAbattement()->getAbattementspecialbasecommunal() != 0) {
                             $simulation->setNbabattementspecialbasecommunal($simulation->getNbabattementspecialbasecommunal() + 1);
+                            $simulation->setVecteurBDD(10, 5, $simulation->getVecteurBDD(10, 5) + 1);
                             $simulation->setAbattementspecialbasecommunal($simulation->getAbattementspecialbasecommunal() + $this->getAbattement()->getAbattementspecialbasecommunal());
+                            $simulation->setVecteurBDD(4, 5, $simulation->getVecteurBDD(4, 5) + $this->getAbattement()->getAbattementspecialbasecommunal());
                         }
                         if ($this->getAbattement()->getAbattementspecialhandicapecommunal() != 0) {
                             $simulation->setNbabattementspecialhandicapebasecommunal($simulation->getNbabattementspecialhandicapebasecommunal() + 1);
+                            $simulation->setVecteurBDD(11, 5, $simulation->getVecteurBDD(11, 5) + 1);
                             $simulation->setAbattementspecialhandicapebasecommunal($simulation->getAbattementspecialhandicapebasecommunal() + $this->getAbattement()->getAbattementspecialhandicapecommunal());
+                            $simulation->setVecteurBDD(5, 5, $simulation->getVecteurBDD(5, 5) + $this->getAbattement()->getAbattementspecialhandicapecommunal());
                         }
                     }
                 }

@@ -48,14 +48,15 @@ class SimulationController extends Controller {
                 $abattementspecialbasecommunal = $form->get('abattementspecialbasecommunal')->getData();
                 $abattementspecialhandicapebasecommunal = $form->get('abattementspecialhandicapebasecommunal')->getData();
                 $tauximpositioncommune = $form->get('tauximpositioncommune')->getData();
+                $secteur = $form->get('secteur')->getData();
                 $simulationTH->newSimulationArticleTH($nomSimulation, $abattementgeneralbasecommunale, $abattementpersonneschargecommunal12, $abattementpersonneschargecommunal3, $abattementspecialbasecommunal, $abattementspecialhandicapebasecommunal, $tauximpositioncommune, $nom, $prenom, $secteur);
                 $em = $this->getDoctrine()->getManager();
-                $em->persist($simulationTH);
                 $secteurs = $simulationTH->getSecteur();
                 foreach ($secteurs as $secteur) {
                     $secteur->addSimulationArticleTH($simulationTH);
                     $em->persist($secteur);
                 }
+                $em->persist($simulationTH);
                 $em->flush();
 
                 return $this->redirect($this->generateUrl('resultatTH', array('id' => $simulationTH->getId())));

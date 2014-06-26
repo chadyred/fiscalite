@@ -15,8 +15,8 @@ class SimulationArticleTFType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
                 ->add('nomSimulation', 'text', array('required' => true, 'attr' => array('placeholder' => 'Nom de la nouvelle simulation')))
-                ->add('tauxBatiCommune','integer', array('required' => false, 'attr' => array('placeholder' => '26,16 %')))
-                ->add('tauxNonBatiCommune', 'integer', array('required' => false, 'attr' => array('placeholder' => '71,40 %')))
+                ->add('tauxBatiCommune','text', array('required' => false, 'attr' => array('placeholder' => '26,16%')))
+                ->add('tauxNonBatiCommune', 'text', array('required' => false, 'attr' => array('placeholder' => '71,40%')))
                 ->add('nom','text', array('required' => false, 'attr' => array('placeholder' => 'Titre et désignation')))
         ;
     }

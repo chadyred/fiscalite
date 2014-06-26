@@ -97,8 +97,8 @@ class TaxeFonciereController extends Controller {
     public function articleAction($id) {
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
         $articleTFC1 = $repository->findOneBy(array('id' => $id));
-        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTFC2');
-        $articleTFC2 = $repository->findOneBy(array('id' => $id));
+        $articleTFC2 = NULL;
+        $articleTFC2 = $articleTFC1->getArticleTFC2();
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneIFP');
         $commune = $repository->findAll();
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneIFP');
@@ -312,9 +312,9 @@ class TaxeFonciereController extends Controller {
 
     public function pdfArticleTFAction($id) {
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
-        $articleTFC1 = $repository->findOneBy(array('numerosequentiel' => $id));
-        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTFC2');
-        $articleTFC2 = $repository->findOneBy(array('numerosequentiel' => $id));
+        $articleTFC1 = $repository->findOneBy(array('id' => $id));
+        $articleTFC2 = NULL;
+        $articleTFC2 = $articleTFC1->getArticleTFC2();
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneIFP');
         $commune = $repository->findAll();
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneIFP');
@@ -469,7 +469,7 @@ class TaxeFonciereController extends Controller {
         }
         $facade = $this->get('ps_pdf.facade');
         $response = new Response();
-        $this->render('FiscaliteGestionFiscaliteBundle:TaxeFonciere:taxefoncierearticle.html.twig', array('id' => $id, 'articleTF' => $articleTFC1, 'articleTFC2' => $articleTFC2, 'articleTH' => $listeArticleTH, 'commune' => $commune[0], 'TFarticleCommuneIFPanneeprecedente' => $TFarticleCommuneIFPanneeprecedente, 'cotisationproprietesbaties' => $cotisationproprietesbaties,
+        $this->render('FiscaliteGestionFiscaliteBundle:TaxeFonciere:taxefoncierearticle.pdf.twig', array('id' => $id, 'articleTF' => $articleTFC1, 'articleTFC2' => $articleTFC2, 'articleTH' => $listeArticleTH, 'commune' => $commune[0], 'TFarticleCommuneIFPanneeprecedente' => $TFarticleCommuneIFPanneeprecedente, 'cotisationproprietesbaties' => $cotisationproprietesbaties,
             'articleTFAnneePrecedente' => $articleTFAnneePrecedente, 'cotisationproprietesbatiesAnneePrecedente' => $cotisationproprietesbatiesAnneePrecedente,
             'cotisationproprietesnonbaties' => $cotisationproprietesnonbaties, 'cotisationproprietesnonbatiesAnneePrecedente' => $cotisationproprietesnonbatiesAnneePrecedente,
             'articleCommune' => $articleCommuneTH, 'autreArticle' => $autreArticleTH, 'articleCommuneanneeprecedente' => $articleCommuneanneeprecedente), $response);

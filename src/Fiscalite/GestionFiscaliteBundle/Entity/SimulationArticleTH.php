@@ -316,6 +316,7 @@ class SimulationArticleTH {
         } else {
             $this->setAbattementspecialhandicapebasecommunal(10);
         }if ($tauximpositioncommune != NULL) {
+            $tauximpositioncommune = str_replace(',', '.', $tauximpositioncommune);
             $this->setTauximpositioncommune($tauximpositioncommune);
         } else {
             $this->setTauximpositioncommune(16.15);

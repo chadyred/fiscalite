@@ -29,12 +29,6 @@
                         </div>
                     </div>
                 </form>
-                <div class="fiscalite-links form-group">
-                    <div class="controls">
-                        <a class="fiscalite-button btn btn-info" target="_blank" href="{{ path('taxehabitationliste') }}"> Consulter </a>
-                        <a class="fiscalite-button btn btn-info" target="_blank" href="{{ path('simulationTH') }}"> Simulation </a>
-                    </div>
-                </div>  
 {% endif %}
             </div> 
             <div class="row">   
@@ -51,7 +45,7 @@
                 </div>
 {% endif %}
 {% if is_granted("ROLE_ADMIN") %}
-                
+
                 <div class="front-signup col-sm-5 col-md-5  col-lg-5 pull-right content-tab">
                     <h2 class="col-sm-12"><strong>Inscrire </strong>un nouvel utilisateur sur Fiscalité</h2>
 {% block register %}

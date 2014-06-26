@@ -183,45 +183,193 @@ class TaxeHabitationController extends Controller {
                     'cotisationproprietesbaties' => $cotisationproprietesbaties, 'articleTFAnneePrecedente' => $articleTFAnneePrecedente,
                     'cotisationproprietesbatiesAnneePrecedente' => $cotisationproprietesbatiesAnneePrecedente,
                     'cotisationproprietesnonbaties' => $cotisationproprietesnonbaties,
-                    'cotisationproprietesnonbatiesAnneePrecedente' => $cotisationproprietesnonbatiesAnneePrecedente,));
+                    'cotisationproprietesnonbatiesAnneePrecedente' => $cotisationproprietesnonbatiesAnneePrecedente));
     }
 
     public function pdfAction($id) {
-        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Base');
-        $base = $repository->findOneBy(array('id' => $id));
-        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleCommune');
-        $articleCommune = $repository->searchbyfichier($base->getArticleTH()->getFichier());
-        $articleCommuneanneeprecedente = $repository->searchbyfichierAnneePrecedente($base->getArticleTH()->getFichier());
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
-        $autreArticle = $repository->searchAutreArticle($base->getArticleTH()->getNomprenom(), $base->getArticleTH()->getSuitenom(), $base->getArticleTH()->getAdresse()->getLibellevoieaft());
-
+        $articleTH = $repository->findOneBy(array('id' => $id));
+        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleCommune');
+        $articleCommuneTH = $repository->searchbyfichier($articleTH->getFichier());
+        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleCommune');
+        $articleCommuneanneeprecedente = $repository->searchbyfichierAnneePrecedente($articleTH->getFichier());
+        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
+        $autreArticleTH = $repository->searchAutreArticle($articleTH->getNomprenom(), $articleTH->getSuitenom(), $articleTH->getAdresse()->getLibellevoieaft());
+        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
+        $articleTF = $repository->searchArticleTF($articleTH);
+        $TFarticleCommuneIFP = NULL;
+        if ($articleTF != NULL) {
+            $articleTF = $articleTF[0];
+            $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneIFP');
+            $TFarticleCommuneIFP = $repository->findAll();
+            $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:TFArticleCommuneIFP');
+            $TFarticleCommuneIFPanneeprecedente = $repository->RechercherTFArticleCommuneIFPAnneePrecedente($articleTF->getFichier());
+            if ($TFarticleCommuneIFPanneeprecedente != null)
+                $TFarticleCommuneIFPanneeprecedente = $TFarticleCommuneIFPanneeprecedente[0];
+            else
+                $TFarticleCommuneIFPanneeprecedente = null;
+            ////ANNEE COURANTE
+            //BATI
+            $cotisationC = 0;
+            $cotisationS = 0;
+            $cotisationIC = 0;
+            $cotisationD = 0;
+            $cotisationTSE = 0;
+            $cotisationOM = 0;
+            $cotisationTATFPNB = 0;
+            $cotisationCA = 0;
+            foreach ($articleTF->getTfarticletaxationbatis() as $articletaxationbatis) {
+                $cotisationC = $cotisationC + $articletaxationbatis->getCotisationC();
+                $cotisationS = $cotisationS + $articletaxationbatis->getCotisationS();
+                $cotisationIC = $cotisationIC + $articletaxationbatis->getCotisationIC();
+                $cotisationD = $cotisationD + $articletaxationbatis->getCotisationD();
+                $cotisationTSE = $cotisationTSE + $articletaxationbatis->getCotisationTSEetTSEGP();
+                $cotisationOM = $cotisationOM + $articletaxationbatis->getCotisationOM();
+            }
+            $cotisationproprietesbaties['cotisationC'] = $cotisationC;
+            $cotisationproprietesbaties['cotisationS'] = $cotisationS;
+            $cotisationproprietesbaties['cotisationIC'] = $cotisationIC;
+            $cotisationproprietesbaties['cotisationD'] = $cotisationD;
+            $cotisationproprietesbaties['cotisationTSE'] = $cotisationTSE;
+            $cotisationproprietesbaties['cotisationOM'] = $cotisationOM;
+            //NON BATI
+            $cotisationC = 0;
+            $cotisationS = 0;
+            $cotisationIC = 0;
+            $cotisationD = 0;
+            $cotisationTSE = 0;
+            $cotisationOM = 0;
+            $cotisationTATFPNB = 0;
+            $cotisationCA = 0;
+            $total = 0;
+            $cotisationproprietesnonbaties['cotisationC'] = $cotisationC;
+            $cotisationproprietesnonbaties['cotisationS'] = $cotisationS;
+            $cotisationproprietesnonbaties['cotisationIC'] = $cotisationIC;
+            $cotisationproprietesnonbaties['cotisationTATFPNB'] = $cotisationTATFPNB;
+            $cotisationproprietesnonbaties['cotisationTSE'] = $cotisationTSE;
+            $cotisationproprietesnonbaties['cotisationCA'] = $cotisationCA;
+            $cotisationproprietesnonbaties['total'] = $total;
+            foreach ($articleTF->getTfarticletaxationnonbatis() as $articletaxationnonbatis) {
+                $cotisationC = $cotisationC + $articletaxationnonbatis->getCotisationC();
+                $cotisationS = $cotisationS + $articletaxationnonbatis->getCotisationS();
+                $cotisationIC = $cotisationIC + $articletaxationnonbatis->getCotisationIC();
+                $cotisationTATFPNB = $cotisationTATFPNB + $articletaxationnonbatis->getCotisationTATFPNB();
+                $cotisationTSE = $cotisationTSE + $articletaxationnonbatis->getCotisationTSE();
+                $cotisationCA = $cotisationCA + $articletaxationnonbatis->getCotisationCA();
+                $total = $total + $articletaxationnonbatis->getTotal();
+            }
+            $cotisationproprietesnonbaties['cotisationC'] = $cotisationC;
+            $cotisationproprietesnonbaties['cotisationS'] = $cotisationS;
+            $cotisationproprietesnonbaties['cotisationIC'] = $cotisationIC;
+            $cotisationproprietesnonbaties['cotisationTATFPNB'] = $cotisationTATFPNB;
+            $cotisationproprietesnonbaties['cotisationTSE'] = $cotisationTSE;
+            $cotisationproprietesnonbaties['cotisationCA'] = $cotisationCA;
+            $cotisationproprietesnonbaties['total'] = $total;
+            //ANNEE PRECEDENTE
+            $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTF');
+            $articleTFAnneePrecedente = $repository->rechercherArticleAnneePrecedente($articleTF);
+            //BATI
+            $cotisationC = 0;
+            $cotisationS = 0;
+            $cotisationIC = 0;
+            $cotisationD = 0;
+            $cotisationTSE = 0;
+            $cotisationOM = 0;
+            $cotisationTATFPNB = 0;
+            $cotisationCA = 0;
+            $cotisationproprietesbatiesAnneePrecedente['cotisationC'] = $cotisationC;
+            $cotisationproprietesbatiesAnneePrecedente['cotisationS'] = $cotisationS;
+            $cotisationproprietesbatiesAnneePrecedente['cotisationIC'] = $cotisationIC;
+            $cotisationproprietesbatiesAnneePrecedente['cotisationD'] = $cotisationD;
+            $cotisationproprietesbatiesAnneePrecedente['cotisationTSE'] = $cotisationTSE;
+            $cotisationproprietesbatiesAnneePrecedente['cotisationOM'] = $cotisationOM;
+            $cotisationproprietesnonbatiesAnneePrecedente['cotisationC'] = $cotisationC;
+            $cotisationproprietesnonbatiesAnneePrecedente['cotisationS'] = $cotisationS;
+            $cotisationproprietesnonbatiesAnneePrecedente['cotisationIC'] = $cotisationIC;
+            $cotisationproprietesnonbatiesAnneePrecedente['cotisationTATFPNB'] = $cotisationTATFPNB;
+            $cotisationproprietesnonbatiesAnneePrecedente['cotisationTSE'] = $cotisationTSE;
+            $cotisationproprietesnonbatiesAnneePrecedente['cotisationCA'] = $cotisationCA;
+            if ($articleTFAnneePrecedente != NULL) {
+                foreach ($articleTFAnneePrecedente[0]->getTfarticletaxationbatis() as $articletaxationbatisAnneePrecedente) {
+                    $cotisationC = $cotisationC + $articletaxationbatisAnneePrecedente->getCotisationC();
+                    $cotisationS = $cotisationS + $articletaxationbatisAnneePrecedente->getCotisationS();
+                    $cotisationIC = $cotisationIC + $articletaxationbatisAnneePrecedente->getCotisationIC();
+                    $cotisationD = $cotisationD + $articletaxationbatisAnneePrecedente->getCotisationD();
+                    $cotisationTSE = $cotisationTSE + $articletaxationbatisAnneePrecedente->getCotisationTSEetTSEGP();
+                    $cotisationOM = $cotisationOM + $articletaxationbatisAnneePrecedente->getCotisationOM();
+                }
+                $cotisationproprietesbatiesAnneePrecedente['cotisationC'] = $cotisationC;
+                $cotisationproprietesbatiesAnneePrecedente['cotisationS'] = $cotisationS;
+                $cotisationproprietesbatiesAnneePrecedente['cotisationIC'] = $cotisationIC;
+                $cotisationproprietesbatiesAnneePrecedente['cotisationD'] = $cotisationD;
+                $cotisationproprietesbatiesAnneePrecedente['cotisationTSE'] = $cotisationTSE;
+                $cotisationproprietesbatiesAnneePrecedente['cotisationOM'] = $cotisationOM;
+                //NON BATI
+                $cotisationC = 0;
+                $cotisationS = 0;
+                $cotisationIC = 0;
+                $cotisationD = 0;
+                $cotisationTSE = 0;
+                $cotisationOM = 0;
+                $cotisationTATFPNB = 0;
+                $cotisationCA = 0;
+                foreach ($articleTFAnneePrecedente[0]->getTfarticletaxationnonbatis() as $articletaxationnonbatisAnneePrecedente) {
+                    $cotisationC = $cotisationC + $articletaxationnonbatisAnneePrecedente->getCotisationC();
+                    $cotisationS = $cotisationS + $articletaxationnonbatisAnneePrecedente->getCotisationS();
+                    $cotisationIC = $cotisationIC + $articletaxationnonbatisAnneePrecedente->getCotisationIC();
+                    $cotisationTATFPNB = $cotisationTATFPNB + $articletaxationnonbatisAnneePrecedente->getCotisationTATFPNB();
+                    $cotisationTSE = $cotisationTSE + $articletaxationnonbatisAnneePrecedente->getCotisationTSE();
+                    $cotisationCA = $cotisationCA + $articletaxationnonbatisAnneePrecedente->getCotisationCA();
+                }
+                $cotisationproprietesnonbatiesAnneePrecedente['cotisationC'] = $cotisationC;
+                $cotisationproprietesnonbatiesAnneePrecedente['cotisationS'] = $cotisationS;
+                $cotisationproprietesnonbatiesAnneePrecedente['cotisationIC'] = $cotisationIC;
+                $cotisationproprietesnonbatiesAnneePrecedente['cotisationTATFPNB'] = $cotisationTATFPNB;
+                $cotisationproprietesnonbatiesAnneePrecedente['cotisationTSE'] = $cotisationTSE;
+                $cotisationproprietesnonbatiesAnneePrecedente['cotisationCA'] = $cotisationCA;
+                $articleTFAnneePrecedente = $articleTFAnneePrecedente[0];
+            }
+        } else {
+            $articleTFAnneePrecedente = NULL;
+            $TFarticleCommuneIFPanneeprecedente = NULL;
+            $cotisationproprietesbaties = NULL;
+            $cotisationproprietesbatiesAnneePrecedente = NULL;
+            $cotisationproprietesnonbaties = NULL;
+            $cotisationproprietesnonbatiesAnneePrecedente = NULL;
+        }
         $facade = $this->get('ps_pdf.facade');
         $response = new Response();
-        $this->render(('FiscaliteGestionFiscaliteBundle:TaxeHabitation:taxehabitation.pdf.twig'), array('id' => $id, 'base' => $base, 'articleCommune' => $articleCommune,
-            'autreArticle' => $autreArticle, 'articleCommuneanneeprecedente' => $articleCommuneanneeprecedente), $response);
+        $this->render(('FiscaliteGestionFiscaliteBundle:TaxeHabitation:taxehabitationarticle.pdf.twig'), array('id' => $id, 'articleTH' => $articleTH, 'articleTF' => $articleTF,
+            'articleCommune' => $articleCommuneTH, 'autreArticle' => $autreArticleTH,
+            'articleCommuneanneeprecedente' => $articleCommuneanneeprecedente,
+            'TFarticleCommuneIFP' => $TFarticleCommuneIFP[0], 'TFarticleCommuneIFPanneeprecedente' => $TFarticleCommuneIFPanneeprecedente,
+            'cotisationproprietesbaties' => $cotisationproprietesbaties, 'articleTFAnneePrecedente' => $articleTFAnneePrecedente,
+            'cotisationproprietesbatiesAnneePrecedente' => $cotisationproprietesbatiesAnneePrecedente,
+            'cotisationproprietesnonbaties' => $cotisationproprietesnonbaties,
+            'cotisationproprietesnonbatiesAnneePrecedente' => $cotisationproprietesnonbatiesAnneePrecedente), $response);
         $xml = $response->getContent();
         $content = $facade->render($xml);
         return new Response($content, 200, array('content-type' => 'application/pdf'));
     }
 
     public function csvAction($id) {
-        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:Base');
-        $base = $repository->findOneBy(array('id' => $id));
-        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleCommune');
-        $articleCommune = $repository->searchbyfichier($base->getArticleTH()->getFichier());
-        $articleCommuneanneeprecedente = $repository->searchbyfichierAnneePrecedente($base->getArticleTH()->getFichier());
         $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
-        $autreArticle = $repository->searchAutreArticle($base->getArticleTH()->getNomprenom(), $base->getArticleTH()->getSuitenom(), $base->getArticleTH()->getAdresse()->getLibellevoieaft());
+        $articleTH = $repository->findOneBy(array('id' => $id));
+        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleCommune');
+        $articleCommune = $repository->searchbyfichier($articleTH->getFichier());
+        $articleCommuneanneeprecedente = $repository->searchbyfichierAnneePrecedente($articleTH->getFichier());
+        $repository = $this->getDoctrine()->getManager()->getRepository('FiscaliteGestionFiscaliteBundle:ArticleTH');
+        $autreArticle = $repository->searchAutreArticle($articleTH->getNomprenom(), $articleTH->getSuitenom(), $articleTH->getAdresse()->getLibellevoieaft());
         $iterableResult = array(
-            $base->getNumerosequentiel(),
-            $base->getArticleTH()->getNomprenom(),
-            $base->getArticleTH()->getSuitenom(),
-            $base->getArticleTH()->getAdresse()->getCodevoie(),
-            $base->getArticleTH()->getAdresse()->getNumeroimmeubleaft(),
-            $base->getArticleTH()->getAdresse()->getIndicederepetition(),
-            $base->getArticleTH()->getAdresse()->getLibellevoieaft(),
-            $base->getArticleTH()->getFichier()->getCommune()->getDepartement(),
-            $base->getArticleTH()->getFichier()->getCommune()->getLibelle());
+            $articleTH->getNumerosequentiel(),
+            $articleTH->getNomprenom(),
+            $articleTH->getSuitenom(),
+            $articleTH->getAdresse()->getCodevoie(),
+            $articleTH->getAdresse()->getNumeroimmeubleaft(),
+            $articleTH->getAdresse()->getIndicederepetition(),
+            $articleTH->getAdresse()->getLibellevoieaft(),
+            $articleTH->getFichier()->getCommune()->getDepartement(),
+            $articleTH->getFichier()->getCommune()->getLibelle());
         $handle = fopen('php://memory', 'r+');
         $header = array();
         fputcsv($handle, $iterableResult);

@@ -135,3 +135,15 @@ exportrequetetaxefoncierecsv:
     pattern:  /exportrequetetaxefoncierecsv/{id}
     defaults: { _controller: FiscaliteGestionFiscaliteBundle:TaxeFonciere:exportrequetetaxefoncierecsv }
     requirements: { _method: get }    
+    
+FiscaliteGestionFiscaliteBundle_typerue:
+        resource: "@FiscaliteGestionFiscaliteBundle/Resources/config/routing/typerue.yml"
+        prefix:   /typerue
+
+fiscalite_maj_typerue:
+    pattern:  /typerue/majtyperuejson
+    defaults: { _controller: "FiscaliteGestionFiscaliteBundle:TypeRue:majtyperuejson" }    
+ 
+fiscalite_getlatlng:
+    pattern:  /secteur/getlatlng
+    defaults: { _controller: "FiscaliteGestionFiscaliteBundle:Secteur:getlatlng" }        

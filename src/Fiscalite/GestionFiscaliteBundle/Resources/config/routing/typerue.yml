@@ -1,0 +1,30 @@
+typerue:
+    path:     /
+    defaults: { _controller: "FiscaliteGestionFiscaliteBundle:TypeRue:index" }
+
+typerue_show:
+    path:     /{id}/show
+    defaults: { _controller: "FiscaliteGestionFiscaliteBundle:TypeRue:show" }
+
+typerue_new:
+    path:     /new
+    defaults: { _controller: "FiscaliteGestionFiscaliteBundle:TypeRue:new" }
+
+typerue_create:
+    path:     /create
+    defaults: { _controller: "FiscaliteGestionFiscaliteBundle:TypeRue:create" }
+    requirements: { _method: post }
+
+typerue_edit:
+    path:     /{id}/edit
+    defaults: { _controller: "FiscaliteGestionFiscaliteBundle:TypeRue:edit" }
+
+typerue_update:
+    path:     /{id}/update
+    defaults: { _controller: "FiscaliteGestionFiscaliteBundle:TypeRue:update" }
+    requirements: { _method: post|put }
+
+typerue_delete:
+    path:     /{id}/delete
+    defaults: { _controller: "FiscaliteGestionFiscaliteBundle:TypeRue:delete" }
+    requirements: { _method: post|delete }

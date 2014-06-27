@@ -628,12 +628,93 @@ class Cotisation {
                 $simulation->setRepartitionCotisationsBrutesICO1000plus($simulation->getRepartitionCotisationsBrutesICO1000plus() + $this->getCotisationintercommunalite());
                 $simulation->setRepartitionCotisationsBrutesFraisDePrelevement1000plus($simulation->getRepartitionCotisationsBrutesFraisDePrelevement1000plus() + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
             }
+            
+            if ($this->getTotalcotisationsbrutes() >= 0 && $this->getTotalcotisationsbrutes() <= 11) {
+                $simulation->setVecteurBDD(0, 6, $simulation->getVecteurBDD(0, 6) + 1);
+                $simulation->setVecteurBDD(13, 6, $simulation->getVecteurBDD(13, 6) + $this->getTotalcotisationsbrutes());
+                $simulation->setVecteurBDD(26, 6, $simulation->getVecteurBDD(26, 6) + $this->getCotisationcommunale() + $this->getCotisationsyndicats() + $this->getCotisationtse());
+                $simulation->setVecteurBDD(39, 6, $simulation->getVecteurBDD(39, 6) + $this->getCotisationintercommunalite());
+                $simulation->setVecteurBDD(52, 6, $simulation->getVecteurBDD(52, 6) + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
+            } else if ($this->getTotalcotisationsbrutes() >= 12 && $this->getTotalcotisationsbrutes() <= 99) {
+                $simulation->setVecteurBDD(1, 6, $simulation->getVecteurBDD(1, 6) + 1);
+                $simulation->setVecteurBDD(14, 6, $simulation->getVecteurBDD(14, 6) + $this->getTotalcotisationsbrutes());
+                $simulation->setVecteurBDD(27, 6, $simulation->getVecteurBDD(27, 6) + $this->getCotisationcommunale() + $this->getCotisationsyndicats() + $this->getCotisationtse());
+                $simulation->setVecteurBDD(40, 6, $simulation->getVecteurBDD(40, 6) + $this->getCotisationintercommunalite());
+                $simulation->setVecteurBDD(53, 6, $simulation->getVecteurBDD(53, 6) + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
+            } else if ($this->getTotalcotisationsbrutes() >= 100 && $this->getTotalcotisationsbrutes() <= 199) {
+                $simulation->setVecteurBDD(2, 6, $simulation->getVecteurBDD(2, 6) + 1);
+                $simulation->setVecteurBDD(15, 6, $simulation->getVecteurBDD(15, 6) + $this->getTotalcotisationsbrutes());
+                $simulation->setVecteurBDD(28, 6, $simulation->getVecteurBDD(28, 6) + $this->getCotisationcommunale() + $this->getCotisationsyndicats() + $this->getCotisationtse());
+                $simulation->setVecteurBDD(41, 6, $simulation->getVecteurBDD(41, 6) + $this->getCotisationintercommunalite());
+                $simulation->setVecteurBDD(54, 6, $simulation->getVecteurBDD(54, 6) + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
+            } else if ($this->getTotalcotisationsbrutes() >= 200 && $this->getTotalcotisationsbrutes() <= 299) {
+                $simulation->setVecteurBDD(3, 6, $simulation->getVecteurBDD(3, 6) + 1);
+                $simulation->setVecteurBDD(16, 6, $simulation->getVecteurBDD(16, 6) + $this->getTotalcotisationsbrutes());
+                $simulation->setVecteurBDD(29, 6, $simulation->getVecteurBDD(29, 6) + $this->getCotisationcommunale() + $this->getCotisationsyndicats() + $this->getCotisationtse());
+                $simulation->setVecteurBDD(42, 6, $simulation->getVecteurBDD(42, 6) + $this->getCotisationintercommunalite());
+                $simulation->setVecteurBDD(55, 6, $simulation->getVecteurBDD(55, 6) + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
+            } else if ($this->getTotalcotisationsbrutes() >= 300 && $this->getTotalcotisationsbrutes() <= 399) {
+                $simulation->setVecteurBDD(4, 6, $simulation->getVecteurBDD(4, 6) + 1);
+                $simulation->setVecteurBDD(17, 6, $simulation->getVecteurBDD(17, 6) + $this->getTotalcotisationsbrutes());
+                $simulation->setVecteurBDD(30, 6, $simulation->getVecteurBDD(30, 6) + $this->getCotisationcommunale() + $this->getCotisationsyndicats() + $this->getCotisationtse());
+                $simulation->setVecteurBDD(43, 6, $simulation->getVecteurBDD(43, 6) + $this->getCotisationintercommunalite());
+                $simulation->setVecteurBDD(56, 6, $simulation->getVecteurBDD(56, 6) + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
+            } else if ($this->getTotalcotisationsbrutes() >= 400 && $this->getTotalcotisationsbrutes() <= 499) {
+                $simulation->setVecteurBDD(5, 6, $simulation->getVecteurBDD(5, 6) + 1);
+                $simulation->setVecteurBDD(18, 6, $simulation->getVecteurBDD(18, 6) + $this->getTotalcotisationsbrutes());
+                $simulation->setVecteurBDD(31, 6, $simulation->getVecteurBDD(31, 6) + $this->getCotisationcommunale() + $this->getCotisationsyndicats() + $this->getCotisationtse());
+                $simulation->setVecteurBDD(44, 6, $simulation->getVecteurBDD(44, 6) + $this->getCotisationintercommunalite());
+                $simulation->setVecteurBDD(57, 6, $simulation->getVecteurBDD(57, 6) + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
+            } else if ($this->getTotalcotisationsbrutes() >= 500 && $this->getTotalcotisationsbrutes() <= 599) {
+                $simulation->setVecteurBDD(6, 6, $simulation->getVecteurBDD(6, 6) + 1);
+                $simulation->setVecteurBDD(19, 6, $simulation->getVecteurBDD(19, 6) + $this->getTotalcotisationsbrutes());
+                $simulation->setVecteurBDD(32, 6, $simulation->getVecteurBDD(32, 6) + $this->getCotisationcommunale() + $this->getCotisationsyndicats() + $this->getCotisationtse());
+                $simulation->setVecteurBDD(45, 6, $simulation->getVecteurBDD(45, 6) + $this->getCotisationintercommunalite());
+                $simulation->setVecteurBDD(58, 6, $simulation->getVecteurBDD(58, 6) + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
+            } else if ($this->getTotalcotisationsbrutes() >= 600 && $this->getTotalcotisationsbrutes() <= 699) {
+                $simulation->setVecteurBDD(7, 6, $simulation->getVecteurBDD(7, 6) + 1);
+                $simulation->setVecteurBDD(20, 6, $simulation->getVecteurBDD(20, 6) + $this->getTotalcotisationsbrutes());
+                $simulation->setVecteurBDD(33, 6, $simulation->getVecteurBDD(33, 6) + $this->getCotisationcommunale() + $this->getCotisationsyndicats() + $this->getCotisationtse());
+                $simulation->setVecteurBDD(46, 6, $simulation->getVecteurBDD(46, 6) + $this->getCotisationintercommunalite());
+                $simulation->setVecteurBDD(59, 6, $simulation->getVecteurBDD(59, 6) + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
+            } else if ($this->getTotalcotisationsbrutes() >= 700 && $this->getTotalcotisationsbrutes() <= 799) {
+                $simulation->setVecteurBDD(8, 6, $simulation->getVecteurBDD(8, 6) + 1);
+                $simulation->setVecteurBDD(21, 6, $simulation->getVecteurBDD(21, 6) + $this->getTotalcotisationsbrutes());
+                $simulation->setVecteurBDD(34, 6, $simulation->getVecteurBDD(34, 6) + $this->getCotisationcommunale() + $this->getCotisationsyndicats() + $this->getCotisationtse());
+                $simulation->setVecteurBDD(47, 6, $simulation->getVecteurBDD(47, 6) + $this->getCotisationintercommunalite());
+                $simulation->setVecteurBDD(60, 6, $simulation->getVecteurBDD(60, 6) + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
+            } else if ($this->getTotalcotisationsbrutes() >= 800 && $this->getTotalcotisationsbrutes() <= 899) {
+                $simulation->setVecteurBDD(9, 6, $simulation->getVecteurBDD(9, 6) + 1);
+                $simulation->setVecteurBDD(22, 6, $simulation->getVecteurBDD(22, 6) + $this->getTotalcotisationsbrutes());
+                $simulation->setVecteurBDD(35, 6, $simulation->getVecteurBDD(35, 6) + $this->getCotisationcommunale() + $this->getCotisationsyndicats() + $this->getCotisationtse());
+                $simulation->setVecteurBDD(48, 6, $simulation->getVecteurBDD(48, 6) + $this->getCotisationintercommunalite());
+                $simulation->setVecteurBDD(61, 6, $simulation->getVecteurBDD(61, 6) + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
+            } else if ($this->getTotalcotisationsbrutes() >= 900 && $this->getTotalcotisationsbrutes() <= 999) {
+                $simulation->setVecteurBDD(10, 6, $simulation->getVecteurBDD(10, 6) + 1);
+                $simulation->setVecteurBDD(23, 6, $simulation->getVecteurBDD(23, 6) + $this->getTotalcotisationsbrutes());
+                $simulation->setVecteurBDD(36, 6, $simulation->getVecteurBDD(36, 6) + $this->getCotisationcommunale() + $this->getCotisationsyndicats() + $this->getCotisationtse());
+                $simulation->setVecteurBDD(49, 6, $simulation->getVecteurBDD(49, 6) + $this->getCotisationintercommunalite());
+                $simulation->setVecteurBDD(62, 6, $simulation->getVecteurBDD(62, 6) + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
+            } else if ($this->getTotalcotisationsbrutes() >= 1000) {
+                $simulation->setVecteurBDD(11, 6, $simulation->getVecteurBDD(11, 6) + 1);
+                $simulation->setVecteurBDD(24, 6, $simulation->getVecteurBDD(24, 6) + $this->getTotalcotisationsbrutes());
+                $simulation->setVecteurBDD(37, 6, $simulation->getVecteurBDD(37, 6) + $this->getCotisationcommunale() + $this->getCotisationsyndicats() + $this->getCotisationtse());
+                $simulation->setVecteurBDD(50, 6, $simulation->getVecteurBDD(50, 6) + $this->getCotisationintercommunalite());
+                $simulation->setVecteurBDD(63, 6, $simulation->getVecteurBDD(63, 6) + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
+            }
+            
+            
             $simulation->setNombreArticlesDuRoleTotal($simulation->getNombreArticlesDuRoleTotal() + 1);
+            $simulation->setVecteurBDD(12, 6, $simulation->getVecteurBDD(12, 6) + 1);
             $simulation->setRepartitionCotisationsMisesEnRecouvrementTotal($simulation->getRepartitionCotisationsMisesEnRecouvrementTotal() + $simulation->getCotisationTH()->getTotalcotisationsbrutes());
+            $simulation->setVecteurBDD(25, 6, $simulation->getVecteurBDD(25, 6) + $this->getTotalcotisationsbrutes());
             $simulation->setRepartitionCotisationsBrutesCommunesSyndicatsEtTSETotal($simulation->getRepartitionCotisationsBrutesCommunesSyndicatsEtTSETotal() + $simulation->getCotisationTH()->getCotisationcommunale() + $simulation->getCotisationTH()->getCotisationtse() + $simulation->getCotisationTH()->getCotisationsyndicats());
+            $simulation->setVecteurBDD(38, 6, $simulation->getVecteurBDD(38, 6) + $this->getCotisationcommunale() + $this->getCotisationsyndicats() + $this->getCotisationtse());
             $simulation->setRepartitionCotisationsBrutesICOTotal($simulation->getRepartitionCotisationsBrutesICOTotal() + $this->getCotisationintercommunalite());
+            $simulation->setVecteurBDD(51, 6, $simulation->getVecteurBDD(51, 6) + $this->getCotisationintercommunalite());
             $simulation->setRepartitionCotisationsBrutesFraisDePrelevementTotal(
                     $simulation->getRepartitionCotisationsBrutesFraisDePrelevementTotal() + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
+            $simulation->setVecteurBDD(64, 6, $simulation->getVecteurBDD(64, 6) + $this->getArticleTH()->getMontantdesfraisderole() + $this->getMontantprelevementde15surths() + $this->getMontantprelevementsurfortevl());
         }
     }
 

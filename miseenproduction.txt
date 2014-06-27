@@ -1,0 +1,15 @@
+php app/console doctrine:schema:update --force
+php app/console assets:install web --symlink
+php app/console assetic:dump --force
+php app/console assetic:dump --env=prod --no-debug
+php app/console assets:install web --symlink
+rm -rf app/cache/*
+rm -rf app/logs/*
+chmod -R 777 app/cache
+chmod -R 777 app/logs
+php app/console cache:clear
+php app/console cache:clear --env=prod
+chmod -R 777 app/cache
+chmod -R 777 app/logs
+chmod -R 777 app/cache/*
+

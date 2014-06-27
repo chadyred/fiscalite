@@ -112,39 +112,52 @@
                 </tr>
                 <tr>
                     <td>VL moyenne</td>
-                    <td><div>
-                                 {% if simulation.VlmCne >= articleCommuneTH.getVlmCne() %}
-                            <span class="label-success" id="VlmCne" rel="popover">
-                               {% else %}
-                                <span class="label-danger" id="VlmCne" rel="popover">
-                                {% endif %}
-{{simulation.VlmCne|number_format(0, ',', ' ')}}</span>  <span class="label-default">{{"("~articleCommuneTH.getVlmCne()|number_format(0, ',', ' ')~")"}}</span>
-                                <script>$(document).ready(function() {
-                                        $("#VlmCne").popover({
-                                            html: true,
-                                            animation: true,
-                                            content: "Valeur locative moyenne pour la commune dans l'article de la commune",
-                                            placement: "left"
-                                        });
-                                    });</script>
-                        </div> </td>
+                    <td>
+                        <div>
+                        {% if simulation.VlmCne > articleCommuneTH.getVlmCne() %}
+                            <span class="label-success" id="VlmCne" rel="popover">{{simulation.VlmCne|number_format(0, ',', ' ')}}</span>                         
+                            <span class="label-default">{{articleCommuneTH.getVlmCne()|number_format(0, ',', ' ')}}</span>
+                        {% elseif simulation.VlmCne < articleCommuneTH.getVlmCne() %}
+                            <span class="label-danger" id="VlmCne" rel="popover">{{simulation.VlmCne|number_format(0, ',', ' ')}}</span>                         
+                            <span class="label-default">{{articleCommuneTH.getVlmCne()|number_format(0, ',', ' ')}}</span>
+                        {% else %}
+                            <span class="" id="VlmCne" rel="popover">{{simulation.VlmCne|number_format(0, ',', ' ')}}</span>                         
+                        {% endif %}
+                            <script>
+                                $(document).ready(function() {
+                                    $("#VlmCne").popover({
+                                        html: true,
+                                        animation: true,
+                                        content: "Valeur locative moyenne pour la commune dans l'article de la commune",
+                                        placement: "left"
+                                    });
+                                });
+                            </script>
+                        </div>
+                    </td>
                     <td></td>
-                    <td><div>
-                            {% if simulation.VlmICO >= articleCommuneTH.getVlmICO() %}
-                            <span class="label-success" id="VlmICO" rel="popover">
-                               {% else %}
-                                <span class="label-danger" id="VlmICO" rel="popover">    
-                                    {% endif %}
-{{simulation.VlmICO|number_format(0, ',', ' ')}}</span>  <span class="label-default">{{"("~articleCommuneTH.getVlmICO()|number_format(0, ',', ' ')~")"}}</span>
-                                <script>$(document).ready(function() {
-                                        $("#VlmICO").popover({
-                                            html: true,
-                                            animation: true,
-                                            content: "Valeur locative moyenne pour l'intercommunalité dans l'article de la commune",
-                                            placement: "left"
-                                        });
-                                    });</script>
-                        </div></td>
+                    <td>
+                        <div>
+                        {% if simulation.VlmICO > articleCommuneTH.getVlmICO() %}
+                            <span class="label-success" id="VlmICO" rel="popover">{{simulation.VlmICO|number_format(0, ',', ' ')}}</span>                         
+                            <span class="label-default">{{articleCommuneTH.getVlmICO()|number_format(0, ',', ' ')}}</span>
+                        {% elseif simulation.VlmICO < articleCommuneTH.getVlmICO() %}
+                            <span class="label-danger" id="VlmICO" rel="popover">{{simulation.VlmICO|number_format(0, ',', ' ')}}</span>                         
+                            <span class="label-default">{{articleCommuneTH.getVlmICO()|number_format(0, ',', ' ')}}</span>
+                        {% else %}
+                            <span class="" id="VlmICO" rel="popover">{{simulation.VlmICO|number_format(0, ',', ' ')}}</span>                         
+                        {% endif %}
+                            <script>
+                                $(document).ready(function() {
+                                    $("#VlmICO").popover({
+                                        html: true,
+                                        animation: true,
+                                        content: "Valeur locative moyenne pour l'intercommunalité dans l'article de la commune",
+                                        placement: "left"
+                                    });
+                                });</script>
+                        </div>
+                    </td>
                     <td></td>
                 </tr>    
                 <tr>
@@ -266,22 +279,27 @@
                 </tr>    
                 <tr>
                     <td>3. Abattement pour 2 personnes à charges</td>
-                    <td><div>
-{% if simulation.quotiteAbattementPAC2CommuneSansAjustement >= articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement) %}
-                            <span class="label-success" id="quotiteAbattementPAC2CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC2CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-{% else %}
-                            <span class="label-danger" id="quotiteAbattementPAC2CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC2CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-
-{% endif %}
+                    <td>
+                        <div>
+                        {% if simulation.quotiteAbattementPAC2CommuneSansAjustement > (articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)) %}
+                            <span class="label-success" id="quotiteAbattementPAC2CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC2CommuneSansAjustement|number_format(0, ',', ' ')}}</span>                         
                             <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement))|number_format(0, ',', ' ')~")"}}</span>
-                            <script>$(document).ready(function() {
+                        {% elseif simulation.quotiteAbattementPAC2CommuneSansAjustement < (articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)) %}
+                            <span class="label-danger" id="quotiteAbattementPAC2CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC2CommuneSansAjustement|number_format(0, ',', ' ')}}</span>  
+                            <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement))|number_format(0, ',', ' ')~")"}}</span>
+                        {% else %}
+                            <span class="" id="quotiteAbattementPAC2CommuneSansAjustement" rel="popover">{{(articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement))|number_format(0, ',', ' ')}}</span>                         
+                        {% endif %}
+                            <script>
+                                $(document).ready(function() {
                                     $("#quotiteAbattementPAC2CommuneSansAjustement").popover({
                                         html: true,
                                         animation: true,
                                         content: "Abattement pour 1 personne à charge  + Abattement pour 2 personnes à charge x Valeur locative de la commune /  100",
                                         placement: "left"
                                     });
-                                });</script>
+                                });
+                            </script>
                         </div></td>
                     <td>{{simulation.quotiteAbattementPAC2CommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
                     <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal12|number_format(0, ',', ' ')}}</td>
@@ -291,15 +309,19 @@
                 </tr>
                 <tr>
                     <td>4. Abattement pour 3 personnes à charges</td>
-                    <td><div>
-{% if simulation.quotiteAbattementPAC3CommuneSansAjustement >= articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)+articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement %}
-                            <span class="label-success" id="quotiteAbattementPAC3CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC3CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-{% else %}
-                            <span class="label-danger" id="quotiteAbattementPAC3CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC3CommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-{% endif %}
+                    <td>
+                        <div>
+                        {% if simulation.quotiteAbattementPAC3CommuneSansAjustement > (articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)+articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement) %}
+                            <span class="label-success" id="quotiteAbattementPAC3CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC3CommuneSansAjustement|number_format(0, ',', ' ')}}</span>                         
                             <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)+articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
-
-                            <script>$(document).ready(function() {
+                        {% elseif simulation.quotiteAbattementPAC3CommuneSansAjustement < (articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)+articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement) %}
+                            <span class="label-danger" id="quotiteAbattementPAC3CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC3CommuneSansAjustement|number_format(0, ',', ' ')}}</span>  
+                            <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementGeneralBaseCommuneSansAjustement+(2*articleCommuneTH.quotiteAbattementPAC12CommuneSansAjustement)+articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+                        {% else %}
+                            <span class="" id="quotiteAbattementPAC3CommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC3CommuneSansAjustement|number_format(0, ',', ' ')}}</span>                         
+                        {% endif %}
+                            <script>
+                                $(document).ready(function() {
                                     $("#quotiteAbattementPAC3CommuneSansAjustement").popover({
                                         html: true,
                                         animation: true,
@@ -307,7 +329,8 @@
                                         placement: "left"
                                     });
                                 });</script>
-                        </div></td>
+                        </div>
+                    </td>
                     <td>{{simulation.quotiteAbattementPAC3CommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
                     <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal3|number_format(0, ',', ' ')}}</td>
                     <td></td>
@@ -316,22 +339,29 @@
                 </tr>    
                 <tr>
                     <td>5. Abattement supp. par pers. à charge à partir de la 4e</td>
-                    <td><div>
-{% if simulation.quotiteAbattementPAC4SuppCommuneSansAjustement >= articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement %}
-                            <span class="label-success" id="quotiteAbattementPAC4SuppCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC4SuppCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-{% else %}
-                            <span class="label-danger" id="quotiteAbattementPAC4SuppCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC4SuppCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-{% endif %}                                                
+                    <td>
+                        <div>
+                        {% if simulation.quotiteAbattementPAC4SuppCommuneSansAjustement > articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement %}
+                            <span class="label-success" id="quotiteAbattementPAC4SuppCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC4SuppCommuneSansAjustement}}</span>                         
                             <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
-                            <script>$(document).ready(function() {
+                        {% elseif simulation.quotiteAbattementPAC4SuppCommuneSansAjustement < articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement %}
+                            <span class="label-danger" id="quotiteAbattementPAC4SuppCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC4SuppCommuneSansAjustement|number_format(0, ',', ' ')}}</span>  
+                            <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementPAC3CommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+                        {% else %}
+                            <span id="quotiteAbattementPAC4SuppCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementPAC4SuppCommuneSansAjustement|number_format(0, ',', ' ')}}</span>                         
+                        {% endif %}
+                            <script>
+                                $(document).ready(function() {
                                     $("#quotiteAbattementPAC4SuppCommuneSansAjustement").popover({
                                         html: true,
                                         animation: true,
                                         content: "Abattement supplémentaire pour 3 personnes à charge x Valeur locative de la commune /  100",
                                         placement: "left"
                                     });
-                                });</script>
-                        </div></td>
+                                });
+                            </script>
+                        </div>
+                    </td>
                     <td>{{simulation.quotiteAbattementPAC4SuppCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
                     <td>{{simulation.simulationArticleTH.abattementpersonneschargecommunal3|number_format(0, ',', ' ')}}</td>
                     <td></td>
@@ -340,22 +370,29 @@
                 </tr>
                 <tr>
                     <td>6. Abattement spécial à la base</td>
-                    <td><div>
-{% if simulation.quotiteAbattementSpecialBaseCommuneSansAjustement >= articleCommuneTH.quotiteAbattementSpecialBaseCommuneSansAjustement %}
-                            <span class="label-success" id="quotiteAbattementSpecialBaseCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementSpecialBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-{% else %}
-                            <span class="label-danger" id="quotiteAbattementSpecialBaseCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementSpecialBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-{% endif %}                             
+                    <td>
+                        <div>
+                        {% if simulation.quotiteAbattementSpecialBaseCommuneSansAjustement > articleCommuneTH.quotiteAbattementSpecialBaseCommuneSansAjustement %}
+                            <span class="label-success" id="quotiteAbattementSpecialBaseCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementSpecialBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>                         
                             <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementSpecialBaseCommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
-                            <script>$(document).ready(function() {
+                        {% elseif simulation.quotiteAbattementSpecialBaseCommuneSansAjustement < articleCommuneTH.quotiteAbattementSpecialBaseCommuneSansAjustement %}
+                            <span class="label-danger" id="quotiteAbattementSpecialBaseCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementSpecialBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>  
+                            <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementSpecialBaseCommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+                        {% else %}
+                            <span id="quotiteAbattementSpecialBaseCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementSpecialBaseCommuneSansAjustement|number_format(0, ',', ' ')}}</span>                         
+                        {% endif %}
+                            <script>
+                                $(document).ready(function() {
                                     $("#quotiteAbattementSpecialBaseCommuneSansAjustement").popover({
                                         html: true,
                                         animation: true,
                                         content: "NON VOTÉ",
                                         placement: "left"
                                     });
-                                });</script>
-                        </div></td>
+                                });
+                            </script>
+                        </div>
+                    </td>
                     <td>{{simulation.quotiteAbattementSpecialBaseCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
                     <td>{{simulation.simulationArticleTH.abattementspecialbasecommunal|number_format(0, ',', ' ')}}</td>
                     <td></td>
@@ -364,22 +401,29 @@
                 </tr>    
                 <tr>
                     <td>7. Abattement spécial handicapé </td>
-                    <td><div>
-{% if simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement >= articleCommuneTH.quotiteAbattementSpecialHandicapeCommuneSansAjustement %}
-                            <span class="label-success" id="quotiteAbattementSpecialHandicapeCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-{% else %}
-                            <span class="label-danger" id="quotiteAbattementSpecialHandicapeCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement|number_format(0, ',', ' ')}}</span>
-{% endif %}                                 
+                    <td>
+                        <div> 
+                        {% if simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement|number_format(0, ',', ' ') > articleCommuneTH.quotiteAbattementSpecialHandicapeCommuneSansAjustement|number_format(0, ',', ' ') %}
+                            <span class="label-success" id="quotiteAbattementSpecialHandicapeCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement|number_format(0, ',', ' ')}}</span>                         
                             <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementSpecialHandicapeCommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
-                            <script>$(document).ready(function() {
+                        {% elseif simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement < articleCommuneTH.quotiteAbattementSpecialHandicapeCommuneSansAjustement %}
+                            <span class="label-danger" id="quotiteAbattementSpecialHandicapeCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement|number_format(0, ',', ' ')}}</span>  
+                            <span class="label-default">{{"("~(articleCommuneTH.quotiteAbattementSpecialHandicapeCommuneSansAjustement)|number_format(0, ',', ' ')~")"}}</span>
+                        {% else %}
+                            <span id="quotiteAbattementSpecialHandicapeCommuneSansAjustement" rel="popover">{{simulation.quotiteAbattementSpecialHandicapeCommuneSansAjustement|number_format(0, ',', ' ')}}</span>                         
+                        {% endif %}
+                            <script>
+                                $(document).ready(function() {
                                     $("#quotiteAbattementSpecialHandicapeCommuneSansAjustement").popover({
                                         html: true,
                                         animation: true,
                                         content: "Abattement spécial handicapé x Valeur locative de la commune /  100",
                                         placement: "left"
                                     });
-                                });</script>
-                        </div></td>
+                                });
+                            </script>
+                        </div>
+                    </td>
                     <td>{{simulation.quotiteAbattementSpecialHandicapeCommuneAvecAjustement|number_format(0, ',', ' ')}}</td>
                     <td>{{simulation.simulationArticleTH.abattementspecialhandicapebasecommunal|number_format(0, ',', ' ')}}</td>
                     <td></td>
@@ -407,27 +451,27 @@
                 </tr>
                 <tr>
                     <td>Imposés ou dégrevés</td>
-                    <td>{{simulation.afferentsresidencessecondaires}}</td>
-                    <td>{{simulation.afferentsdependancesprincipales}}</td>
-                    <td>{{simulation.nbpers0persacharge}}</td>
-                    <td>{{simulation.nbpers1persacharge}}</td>
-                    <td>{{simulation.nbpers2persacharge}}</td>
-                    <td>{{simulation.nbpers3persacharge}}</td>
-                    <td>{{simulation.nbpers4persacharge}}</td>
-                    <td>{{simulation.nbpers5persacharge}}</td>
-                    <td>{{simulation.nbperstotcumule}}</td>
+                    <td>{{simulation.afferentsresidencessecondaires|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.afferentsdependancesprincipales|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbpers0persacharge|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbpers1persacharge|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbpers2persacharge|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbpers3persacharge|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbpers4persacharge|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbpers5persacharge|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbperstotcumule|number_format(0, ',', ' ')}}</td>
                 </tr>
                 <tr>
                     <td>Exonérés</td>
                     <td></td>
-                    <td>{{simulation.afferentsdependancesprincipalesexoneres}}</td>
-                    <td>{{simulation.nbpers0persachargeexoneres}}</td>
-                    <td>{{simulation.nbpers1persachargeexoneres}}</td>
-                    <td>{{simulation.nbpers2persachargeexoneres}}</td>
-                    <td>{{simulation.nbpers3persachargeexoneres}}</td>
-                    <td>{{simulation.nbpers4persachargeexoneres}}</td>
-                    <td>{{simulation.nbpers5persachargeexoneres}}</td>
-                    <td>{{simulation.nbperstotcumuleexoneres}}</td>
+                    <td>{{simulation.afferentsdependancesprincipalesexoneres|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbpers0persachargeexoneres|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbpers1persachargeexoneres|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbpers2persachargeexoneres|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbpers3persachargeexoneres|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbpers4persachargeexoneres|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbpers5persachargeexoneres|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbperstotcumuleexoneres|number_format(0, ',', ' ')}}</td>
                 </tr>
             </table>
         </div>
@@ -442,17 +486,17 @@
                 </tr>    
                 <tr>
                     <td>Nombre d'articles du rôle</td>
-                    <td>{{simulation.nbperstotcumule}}</td>
-                    <td>{{simulation.nbperstotcumule}}</td>
+                    <td>{{simulation.nbperstotcumule|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbperstotcumule|number_format(0, ',', ' ')}}</td>
                     <td></td>
-                    <td>{{simulation.nbperstotcumule}}</td>
+                    <td>{{simulation.nbperstotcumule|number_format(0, ',', ' ')}}</td>
                 </tr>
                 <tr>
                     <td>Total des abattements</td>
-                    <td>{{simulation.abattementgeneralbasecommunale}}</td>
-                    <td>{{simulation.abattementgeneralbasecommunale}}</td>
+                    <td>{{simulation.abattementgeneralbasecommunale|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.abattementgeneralbasecommunale|number_format(0, ',', ' ')}}</td>
                     <td></td>
-                    <td>{{simulation.abattementgeneralbasecommunale}}</td>
+                    <td>{{simulation.abattementgeneralbasecommunale|number_format(0, ',', ' ')}}</td>
                 </tr>
                 <tr>
                     <td colspan="5">Abattement pour charges de famille</td>
@@ -462,17 +506,17 @@
                 </tr>
                 <tr>
                     <td>Nombre de personnes</td>
-                    <td>{{simulation.nbabattementpersonneschargecommunal12}}</td>
-                    <td>{{simulation.nbabattementpersonneschargecommunal12}}</td>
+                    <td>{{simulation.nbabattementpersonneschargecommunal12|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbabattementpersonneschargecommunal12|number_format(0, ',', ' ')}}</td>
                     <td></td>
-                    <td>{{simulation.nbabattementpersonneschargecommunal12}}</td>
+                    <td>{{simulation.nbabattementpersonneschargecommunal12|number_format(0, ',', ' ')}}</td>
                 </tr>
                 <tr>
                     <td>Total des abattements</td>
-                    <td>{{simulation.abattementpersonneschargecommunal12}}</td>
-                    <td>{{simulation.abattementpersonneschargecommunal12}}</td>
+                    <td>{{simulation.abattementpersonneschargecommunal12|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.abattementpersonneschargecommunal12|number_format(0, ',', ' ')}}</td>
                     <td></td>
-                    <td>{{simulation.abattementpersonneschargecommunal12}}</td>
+                    <td>{{simulation.abattementpersonneschargecommunal12|number_format(0, ',', ' ')}}</td>
                 </tr>
                 <tr>
                     <td>b.Personnes à partir du 3e rang (3e pers. et au delà)</td>
@@ -483,51 +527,51 @@
                 </tr>
                 <tr>
                     <td>Nombre de personnes</td>
-                    <td>{{simulation.nbabattementpersonneschargecommunal3}}</td>
-                    <td>{{simulation.nbabattementpersonneschargecommunal3}}</td>
+                    <td>{{simulation.nbabattementpersonneschargecommunal3|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbabattementpersonneschargecommunal3|number_format(0, ',', ' ')}}</td>
                     <td></td>
-                    <td>{{simulation.nbabattementpersonneschargecommunal3}}</td>
+                    <td>{{simulation.nbabattementpersonneschargecommunal3|number_format(0, ',', ' ')}}</td>
                 </tr>
                 <tr>
                     <td>Total des abattements</td>
-                    <td>{{simulation.abattementpersonneschargecommunal3}}</td>
-                    <td>{{simulation.abattementpersonneschargecommunal3}}</td>
+                    <td>{{simulation.abattementpersonneschargecommunal3|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.abattementpersonneschargecommunal3|number_format(0, ',', ' ')}}</td>
                     <td></td>
-                    <td>{{simulation.abattementpersonneschargecommunal3}}</td>
+                    <td>{{simulation.abattementpersonneschargecommunal3|number_format(0, ',', ' ')}}</td>
                 </tr>
                 <tr>
                     <td colspan="5">Abattement spécial à la base</td>                        
                 </tr>
                 <tr>
                     <td>Nombre de contribuables remplissant les conditions pour en bénéficier en 2012</td>
-                    <td>{{simulation.abattementegalenull}}{{simulation.nbabattementspecialbasecommunal}}</td>
-                    <td>{{simulation.nbabattementspecialbasecommunal}}</td>
+                    <td>{{simulation.abattementegalenull|number_format(0, ',', ' ')}}{{simulation.nbabattementspecialbasecommunal|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbabattementspecialbasecommunal|number_format(0, ',', ' ')}}</td>
                     <td></td>
-                    <td>{{simulation.nbabattementspecialbasecommunal}}</td>
+                    <td>{{simulation.nbabattementspecialbasecommunal|number_format(0, ',', ' ')}}</td>
                 </tr>
                 <tr>
                     <td>Total des abattements appliqués dans le rôle de 2012</td>
-                    <td>{{simulation.abattementspecialbasecommunal}}</td>
-                    <td>{{simulation.abattementspecialbasecommunal}}</td>
+                    <td>{{simulation.abattementspecialbasecommunal|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.abattementspecialbasecommunal|number_format(0, ',', ' ')}}</td>
                     <td></td>
-                    <td>{{simulation.abattementspecialbasecommunal}}</td>
+                    <td>{{simulation.abattementspecialbasecommunal|number_format(0, ',', ' ')}}</td>
                 </tr>
                 <tr>
                     <td colspan="5">Abattement spécial handicapé</td>
                 </tr>
                 <tr>
                     <td>Nombre de contribuables remplissant les conditions pour en bénéficier en 2012</td>
-                    <td>{{simulation.nbabattementspecialhandicapebasecommunal}}</td>
-                    <td>{{simulation.nbabattementspecialhandicapebasecommunal}}</td>
+                    <td>{{simulation.nbabattementspecialhandicapebasecommunal|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.nbabattementspecialhandicapebasecommunal|number_format(0, ',', ' ')}}</td>
                     <td></td>
-                    <td>{{simulation.nbabattementspecialhandicapebasecommunal}}</td>
+                    <td>{{simulation.nbabattementspecialhandicapebasecommunal|number_format(0, ',', ' ')}}</td>
                 </tr>
                 <tr>
                     <td>Total des abattements appliqués dans le rôle de 2012</td>
-                    <td>{{simulation.abattementspecialhandicapebasecommunal}}</td>
-                    <td>{{simulation.abattementspecialhandicapebasecommunal}}</td>
+                    <td>{{simulation.abattementspecialhandicapebasecommunal|number_format(0, ',', ' ')}}</td>
+                    <td>{{simulation.abattementspecialhandicapebasecommunal|number_format(0, ',', ' ')}}</td>
                     <td></td>
-                    <td>{{simulation.abattementspecialhandicapebasecommunal}}</td>
+                    <td>{{simulation.abattementspecialhandicapebasecommunal|number_format(0, ',', ' ')}}</td>
                 </tr>
             </table>
         </div>
@@ -1279,7 +1323,7 @@
                         <span class="label-danger">{{ simulation.repartitionCotisationsBrutesICOTotal|number_format(0, ',', ' ')}}</span><br/>
                         <span class="label-default">{{ simulation.getVecteurBDD(51,6)|number_format(0, ',', ' ')}}</span>
                     {% else %}
-                        <span>{{ simulation.repartitionCotisationsBrutesICOTotal|number_format(0, ',', ' ')}}</span>
+                        <span>{{ simulation.repartitionCotisationsBrutesICOTotal|number_format(0, ',', ' ')}} (résultat non simulé)</span>
                     {% endif %}
                     </td>
                     <td>
@@ -1290,7 +1334,7 @@
                         <span class="label-danger">{{ simulation.repartitionCotisationsBrutesFraisDePrelevementTotal|number_format(0, ',', ' ')}}</span><br/>
                         <span class="label-default">{{ simulation.getVecteurBDD(64,6)|number_format(0, ',', ' ')}}</span>
                     {% else %}
-                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevementTotal|number_format(0, ',', ' ')}}</span>
+                        <span>{{ simulation.repartitionCotisationsBrutesFraisDePrelevementTotal|number_format(0, ',', ' ')}} (résultat non simulé)</span>
                     {% endif %}
                     </td>
                 </tr>

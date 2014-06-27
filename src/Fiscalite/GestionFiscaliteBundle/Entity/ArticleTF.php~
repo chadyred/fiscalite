@@ -918,6 +918,7 @@ class ArticleTF extends Article {
         $sommeTotalBati = 0;
         $cotisationFraisCompris = 0;
         $cotisationCommune = 0;
+        $cotisationCommuneBDD = 0;
         $cotisationSyndicats = 0;
         $cotisationIntercommunalite = 0;
         $cotisationD = 0;
@@ -939,6 +940,7 @@ class ArticleTF extends Article {
             $sommeTotalBati+=$bati->getTotalCotisationBatiesHorsFrais();
             $baseCommune += $bati->getBaseC();
             $cotisationCommune += round($bati->getBaseC() * $simulation->getSimulationArticleTF()->getTauxBatiCommune() / 100);
+            $cotisationCommuneBDD += $bati->getCotisationC();
             $cotisationSyndicats += $bati->getCotisationS();
             $cotisationIntercommunalite += $bati->getCotisationIC();
             $cotisationD += $bati->getCotisationD();
@@ -959,6 +961,7 @@ class ArticleTF extends Article {
             $simulation->setVecteur(5, 2, $simulation->getVecteur(5, 2) + 1);
             $simulation->setVecteur(5, 3, $simulation->getVecteur(5, 3) + $cotisationFraisCompris);
             $simulation->setVecteur(5, 4, $simulation->getVecteur(5, 4) + $cotisationCommune);
+            $simulation->setVecteurBDD(5, 4, $simulation->getVecteurBDD(5, 4) + $cotisationCommuneBDD);
             $simulation->setVecteur(5, 5, $simulation->getVecteur(5, 5) + $cotisationSyndicats);
             $simulation->setVecteur(5, 6, $simulation->getVecteur(5, 6) + $cotisationIntercommunalite);
             $simulation->setVecteur(5, 7, $simulation->getVecteur(5, 7) + $cotisationD);
@@ -971,6 +974,7 @@ class ArticleTF extends Article {
             $simulation->setVecteur(6, 2, $simulation->getVecteur(6, 2) + 1);
             $simulation->setVecteur(6, 3, $simulation->getVecteur(6, 3) + $cotisationFraisCompris);
             $simulation->setVecteur(6, 4, $simulation->getVecteur(6, 4) + $cotisationCommune);
+            $simulation->setVecteurBDD(6, 4, $simulation->getVecteurBDD(6, 4) + $cotisationCommuneBDD);
             $simulation->setVecteur(6, 5, $simulation->getVecteur(6, 5) + $cotisationSyndicats);
             $simulation->setVecteur(6, 6, $simulation->getVecteur(6, 6) + $cotisationIntercommunalite);
             $simulation->setVecteur(6, 7, $simulation->getVecteur(6, 7) + $cotisationD);
@@ -983,6 +987,7 @@ class ArticleTF extends Article {
             $simulation->setVecteur(7, 2, $simulation->getVecteur(7, 2) + 1);
             $simulation->setVecteur(7, 3, $simulation->getVecteur(7, 3) + $cotisationFraisCompris);
             $simulation->setVecteur(7, 4, $simulation->getVecteur(7, 4) + $cotisationCommune);
+            $simulation->setVecteurBDD(7, 4, $simulation->getVecteurBDD(7, 4) + $cotisationCommuneBDD);
             $simulation->setVecteur(7, 5, $simulation->getVecteur(7, 5) + $cotisationSyndicats);
             $simulation->setVecteur(7, 6, $simulation->getVecteur(7, 6) + $cotisationIntercommunalite);
             $simulation->setVecteur(7, 7, $simulation->getVecteur(7, 7) + $cotisationD);
@@ -995,6 +1000,7 @@ class ArticleTF extends Article {
             $simulation->setVecteur(8, 2, $simulation->getVecteur(8, 2) + 1);
             $simulation->setVecteur(8, 3, $simulation->getVecteur(8, 3) + $cotisationFraisCompris);
             $simulation->setVecteur(8, 4, $simulation->getVecteur(8, 4) + $cotisationCommune);
+            $simulation->setVecteurBDD(8, 4, $simulation->getVecteurBDD(8, 4) + $cotisationCommuneBDD);
             $simulation->setVecteur(8, 5, $simulation->getVecteur(8, 5) + $cotisationSyndicats);
             $simulation->setVecteur(8, 6, $simulation->getVecteur(8, 6) + $cotisationIntercommunalite);
             $simulation->setVecteur(8, 7, $simulation->getVecteur(8, 7) + $cotisationD);
@@ -1007,6 +1013,7 @@ class ArticleTF extends Article {
             $simulation->setVecteur(9, 2, $simulation->getVecteur(9, 2) + 1);
             $simulation->setVecteur(9, 3, $simulation->getVecteur(9, 3) + $cotisationFraisCompris);
             $simulation->setVecteur(9, 4, $simulation->getVecteur(9, 4) + $cotisationCommune);
+            $simulation->setVecteurBDD(9, 4, $simulation->getVecteurBDD(9, 4) + $cotisationCommuneBDD);
             $simulation->setVecteur(9, 5, $simulation->getVecteur(9, 5) + $cotisationSyndicats);
             $simulation->setVecteur(9, 6, $simulation->getVecteur(9, 6) + $cotisationIntercommunalite);
             $simulation->setVecteur(9, 7, $simulation->getVecteur(9, 7) + $cotisationD);
@@ -1019,6 +1026,7 @@ class ArticleTF extends Article {
             $simulation->setVecteur(10, 2, $simulation->getVecteur(10, 2) + 1);
             $simulation->setVecteur(10, 3, $simulation->getVecteur(10, 3) + $cotisationFraisCompris);
             $simulation->setVecteur(10, 4, $simulation->getVecteur(10, 4) + $cotisationCommune);
+            $simulation->setVecteurBDD(10, 4, $simulation->getVecteurBDD(10, 4) + $cotisationCommuneBDD);
             $simulation->setVecteur(10, 5, $simulation->getVecteur(10, 5) + $cotisationSyndicats);
             $simulation->setVecteur(10, 6, $simulation->getVecteur(10, 6) + $cotisationIntercommunalite);
             $simulation->setVecteur(10, 7, $simulation->getVecteur(10, 7) + $cotisationD);
@@ -1032,6 +1040,7 @@ class ArticleTF extends Article {
         $simulation->setVecteur(11, 2, $simulation->getVecteur(11, 2) + 1);
         $simulation->setVecteur(11, 3, $simulation->getVecteur(11, 3) + $cotisationFraisCompris);
         $simulation->setVecteur(11, 4, $simulation->getVecteur(11, 4) + $cotisationCommune);
+        $simulation->setVecteurBDD(11, 4, $simulation->getVecteurBDD(11, 4) + $cotisationCommuneBDD);
         $simulation->setVecteur(11, 5, $simulation->getVecteur(11, 5) + $cotisationSyndicats);
         $simulation->setVecteur(11, 6, $simulation->getVecteur(11, 6) + $cotisationIntercommunalite);
         $simulation->setVecteur(11, 7, $simulation->getVecteur(11, 7) + $cotisationD);
@@ -1042,6 +1051,7 @@ class ArticleTF extends Article {
         $simulation->setVecteur(11, 12, $simulation->getVecteur(11, 12) + $cotisationTEOMRBRCRD);
 
         $simulation->setVecteur(3, 4, $simulation->getVecteur(3, 4) + $cotisationCommune);
+        $simulation->setVecteurBDD(3, 4, $simulation->getVecteurBDD(3, 4) + $cotisationCommuneBDD);
         $simulation->setVecteur(3, 5, $simulation->getVecteur(3, 5) + $cotisationSyndicats);
         $simulation->setVecteur(3, 6, $simulation->getVecteur(3, 6) + $cotisationIntercommunalite);
         $simulation->setVecteur(3, 7, $simulation->getVecteur(3, 7) + $cotisationD);
@@ -1065,6 +1075,7 @@ class ArticleTF extends Article {
         $sommeTotalNonBati = 0;
         $cotisationFraisCompris = 0;
         $cotisationCommune = 0;
+        $cotisationCommuneBDD = 0;
         $cotisationSyndicats = 0;
         $cotisationIntercommunalite = 0;
         $cotisationD = 0;
@@ -1090,6 +1101,7 @@ class ArticleTF extends Article {
             $sommeTotalNonBati+=$nonbati->getTotal();
             $baseCommune+= $nonbati->getBaseC() + $nonbati->getBaseImposableTACetSyndicat();
             $cotisationCommune += round(($nonbati->getBaseC() + $nonbati->getBaseImposableTACetSyndicat()) * $simulation->getSimulationArticleTF()->getTauxNonBatiCommune() / 100);
+            $cotisationCommuneBDD += $nonbati->getCotisationC();
             $cotisationSyndicats += $nonbati->getCotisationS();
             $cotisationIntercommunalite += $nonbati->getCotisationIC();
             $cotisationD += $nonbati->getCotisationTATFPNB();
@@ -1097,11 +1109,11 @@ class ArticleTF extends Article {
             $cotisationTSEGP += $nonbati->getCotisationGlobaleTSE();
             $cotisationCA += $nonbati->getCotisationCA();
             $cotisationCAAA +=$nonbati->getCotisationCAAADF() + $nonbati->getCotisationCAAADP();
-            $baseIntercommunalite += $nonbati->getBaseIC()+$nonbati->getBaseImposableTAIC();
+            $baseIntercommunalite += $nonbati->getBaseIC() + $nonbati->getBaseImposableTAIC();
             $baseD += $nonbati->getBaseTATFPNB();
             $baseTSE += $nonbati->getBaseTSE();
-            $baseCA += $nonbati->getBaseCA()+$nonbati->getBaseImposableTAChambreAgriculture();
-            $baseCAAA +=$nonbati->getBaseCAAA()+$nonbati->getBaseImposableTACAAA();
+            $baseCA += $nonbati->getBaseCA() + $nonbati->getBaseImposableTAChambreAgriculture();
+            $baseCAAA +=$nonbati->getBaseCAAA() + $nonbati->getBaseImposableTACAAA();
             $baseTerrainsConstr+= $nonbati->getBaseTerrainsConstr();
         }
 
@@ -1113,6 +1125,7 @@ class ArticleTF extends Article {
             $simulation->setVecteur(16, 2, $simulation->getVecteur(16, 2) + 1);
             $simulation->setVecteur(16, 3, $simulation->getVecteur(16, 3) + $cotisationFraisCompris);
             $simulation->setVecteur(16, 4, $simulation->getVecteur(16, 4) + $cotisationCommune);
+            $simulation->setVecteurBDD(16, 4, $simulation->getVecteurBDD(16, 4) + $cotisationCommuneBDD);
             $simulation->setVecteur(16, 5, $simulation->getVecteur(16, 5) + $cotisationSyndicats);
             $simulation->setVecteur(16, 6, $simulation->getVecteur(16, 6) + $cotisationIntercommunalite);
             $simulation->setVecteur(16, 7, $simulation->getVecteur(16, 7) + $cotisationD);
@@ -1124,6 +1137,7 @@ class ArticleTF extends Article {
             $simulation->setVecteur(17, 2, $simulation->getVecteur(17, 2) + 1);
             $simulation->setVecteur(17, 3, $simulation->getVecteur(17, 3) + $cotisationFraisCompris);
             $simulation->setVecteur(17, 4, $simulation->getVecteur(17, 4) + $cotisationCommune);
+            $simulation->setVecteurBDD(17, 4, $simulation->getVecteurBDD(17, 4) + $cotisationCommuneBDD);
             $simulation->setVecteur(17, 5, $simulation->getVecteur(17, 5) + $cotisationSyndicats);
             $simulation->setVecteur(17, 6, $simulation->getVecteur(17, 6) + $cotisationIntercommunalite);
             $simulation->setVecteur(17, 7, $simulation->getVecteur(17, 7) + $cotisationD);
@@ -1135,6 +1149,7 @@ class ArticleTF extends Article {
             $simulation->setVecteur(18, 2, $simulation->getVecteur(18, 2) + 1);
             $simulation->setVecteur(18, 3, $simulation->getVecteur(18, 3) + $cotisationFraisCompris);
             $simulation->setVecteur(18, 4, $simulation->getVecteur(18, 4) + $cotisationCommune);
+            $simulation->setVecteurBDD(18, 4, $simulation->getVecteurBDD(18, 4) + $cotisationCommuneBDD);
             $simulation->setVecteur(18, 5, $simulation->getVecteur(18, 5) + $cotisationSyndicats);
             $simulation->setVecteur(18, 6, $simulation->getVecteur(18, 6) + $cotisationIntercommunalite);
             $simulation->setVecteur(18, 7, $simulation->getVecteur(18, 7) + $cotisationD);
@@ -1146,6 +1161,7 @@ class ArticleTF extends Article {
             $simulation->setVecteur(19, 2, $simulation->getVecteur(19, 2) + 1);
             $simulation->setVecteur(19, 3, $simulation->getVecteur(19, 3) + $cotisationFraisCompris);
             $simulation->setVecteur(19, 4, $simulation->getVecteur(19, 4) + $cotisationCommune);
+            $simulation->setVecteurBDD(19, 4, $simulation->getVecteurBDD(19, 4) + $cotisationCommuneBDD);
             $simulation->setVecteur(19, 5, $simulation->getVecteur(19, 5) + $cotisationSyndicats);
             $simulation->setVecteur(19, 6, $simulation->getVecteur(19, 6) + $cotisationIntercommunalite);
             $simulation->setVecteur(19, 7, $simulation->getVecteur(19, 7) + $cotisationD);
@@ -1157,6 +1173,7 @@ class ArticleTF extends Article {
             $simulation->setVecteur(20, 2, $simulation->getVecteur(20, 2) + 1);
             $simulation->setVecteur(20, 3, $simulation->getVecteur(20, 3) + $cotisationFraisCompris);
             $simulation->setVecteur(20, 4, $simulation->getVecteur(20, 4) + $cotisationCommune);
+            $simulation->setVecteurBDD(20, 4, $simulation->getVecteurBDD(20, 4) + $cotisationCommuneBDD);
             $simulation->setVecteur(20, 5, $simulation->getVecteur(20, 5) + $cotisationSyndicats);
             $simulation->setVecteur(20, 6, $simulation->getVecteur(20, 6) + $cotisationIntercommunalite);
             $simulation->setVecteur(20, 7, $simulation->getVecteur(20, 7) + $cotisationD);
@@ -1168,6 +1185,7 @@ class ArticleTF extends Article {
         $simulation->setVecteur(21, 2, $simulation->getVecteur(21, 2) + 1);
         $simulation->setVecteur(21, 3, $simulation->getVecteur(21, 3) + $cotisationFraisCompris);
         $simulation->setVecteur(21, 4, $simulation->getVecteur(21, 4) + $cotisationCommune);
+        $simulation->setVecteurBDD(21, 4, $simulation->getVecteurBDD(21, 4) + $cotisationCommuneBDD);
         $simulation->setVecteur(21, 5, $simulation->getVecteur(21, 5) + $cotisationSyndicats);
         $simulation->setVecteur(21, 6, $simulation->getVecteur(21, 6) + $cotisationIntercommunalite);
         $simulation->setVecteur(21, 7, $simulation->getVecteur(21, 7) + $cotisationD);
@@ -1203,7 +1221,9 @@ class ArticleTF extends Article {
     public function setTableauTF2Taux(SimulationTF $simulation) {
         $baseCommune = $simulation->getArticleCommuneSRA3()->getTotBNC();
         $cotisationCommune = round($baseCommune * $simulation->getSimulationArticleTF()->getTauxNonBatiCommune() / 100);
+        $cotisationCommuneBDD = $simulation->getArticleCommuneSRA3()->getTotCNC();
         $simulation->setVecteur(14, 4, $simulation->getVecteur(14, 4) + $cotisationCommune);
+        $simulation->setVecteurBDD(14, 4, $simulation->getVecteurBDD(14, 4) + $cotisationCommuneBDD);
         $cotisationSyndicats = $simulation->getArticleCommuneSRA3()->getTotCNS();
         $cotisationIntercommunalite = $simulation->getArticleCommuneSRA3()->getTotCNI();
         $simulation->setVecteur(14, 5, $simulation->getVecteur(14, 5) + $cotisationSyndicats);

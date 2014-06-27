@@ -12,6 +12,8 @@ class TypeRueType extends AbstractType
     {
         $builder
             ->add('libelle', 'text', array('required' => false, 'attr' => array('class' => 'span12')))
+                ->add('latitude', 'text', array('required' => false, 'attr' => array('class' => 'span12')))
+                ->add('longitude', 'text', array('required' => false, 'attr' => array('class' => 'span12')))
         ;
     }
 

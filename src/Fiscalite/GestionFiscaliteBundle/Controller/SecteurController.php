@@ -127,4 +127,28 @@ class SecteurController extends Controller {
         ));
     }
 
+    /**
+     * Deletes a Mail entity.
+     *
+     */
+    public function getlatlngAction() {
+        $session = $this->getRequest()->getSession();
+        $request = $this->getRequest();
+        $id = $request->get('id');
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('FiscaliteGestionFiscaliteBundle:TypeRue')->findOneBy(array('id' => $id));
+        if ($entity!=NULL) {
+            
+            $libelle1 = $entity->getLibelle();
+            $lat1 = $entity->getLatitude();
+            $lng1 = $entity->getLongitude();
+        } else {
+            $id = 1;
+            $libelle1 = '1 place charles de gaulle voreppe';
+            $lat1 = 0;
+            $lng1 = 0;
+        }
+        return new JsonResponse(array('id' => $id, 'libelle' => $libelle1, 'lat' => $lat1, 'lng' => $lng1));
+    }
+
 }

@@ -29,9 +29,6 @@
                                     {{ form_widget(form.typerue, { 'attr' : {'size' : form.typerue.vars.attr.size is defined ? form.typerue.vars.attr.size : 15 } })}}
                                     </div>
                                 </div>
-                                <div class="form-group text-center"> 
-                                    <a class="btn btn-primary" onclick="addPolygon();">Dessiner un secteur</a>
-                                </div>
                                 <div class="form-group"> 
                                     <div id="map-canvas" class="col-sm-12 col-md-12 col-lg-10 col-sm-offset-1 stream-map" style="height: 500px"></div> 
                                 </div>
@@ -65,10 +62,14 @@
                                                 }
                                             }
                                         }
+                                        var bool = false;
+                                        var lat, lng;
                                         var poly, map;
                                         var markers = [];
                                         var path = new google.maps.MVCArray;
+
                                         function initialize() {
+
                                             var geocoder = new google.maps.Geocoder();
                                             var request = {
                                                 address: '1 place charles de gaulle voreppe',
@@ -107,14 +108,82 @@
                                                     alert("Impossible de trouver l'adresse via Google Maps.");
                                                 }
                                             });
+
+                                            var oLatLng;
+                                            var successId;
+                                            $("#fiscalite_typerue option").each(function() {
+                                                var val = $(this).val();
+                                                $.ajax({
+                                                    type: 'GET',
+                                                    data: {'id': val},
+                                                    dataType: 'json',
+                                                    url: "{{ path('fiscalite_getlatlng') }}",
+                                                    success: function(data) {
+                                                        successId = data['id'];
+                                                        oLatLng = new google.maps.LatLng(data['lat'], data['lng']);
+                                                        var mark = new google.maps.Marker({
+                                                            map: map,
+                                                            zoom: 15,
+                                                            position: oLatLng,
+                                                            title: data['libelle']
+                                                        });
+                                                        //console.log(mark);
+                                                        mark.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');
+                                                        bool = google.maps.geometry.poly.containsLocation(oLatLng, poly);
+                                                        if (bool) {
+                                                            if (val === successId) {
+                                                                $(this).attr('selected', true);
+                                                                console.log("val :" + val + " <=> id : " + successId + "bool : " + bool);
+                                                            }
+                                                        }
+                                                    }
+                                                });
+
+
+                                            });
                                         }
                                         function addPoint(event) {
+                                            var oLatLng;
+                                            var successId;
+                                            $("#fiscalite_typerue option").each(function() {
+                                                var val = $(this).val();
+                                                var option = $(this);
+                                                $.ajax({
+                                                    type: 'GET',
+                                                    data: {'id': val},
+                                                    dataType: 'json',
+                                                    url: "{{ path('fiscalite_getlatlng') }}",
+                                                    success: function(data) {
+                                                        successId = data['id'];
+                                                        oLatLng = new google.maps.LatLng(data['lat'], data['lng']);
+                                                        {#var mark = new google.maps.Marker({
+                                                            map: map,
+                                                            zoom: 15,
+                                                            position: oLatLng,
+                                                            title: data['libelle']
+                                                        });
+                                                        //console.log(mark);
+                                                        mark.setIcon('http://maps.google.com/mapfiles/ms/icons/green-dot.png');#}
+                                                        bool = google.maps.geometry.poly.containsLocation(oLatLng, poly);
+                                                        if (bool) {
+                                                            if (val === successId) {
+                                                                option.attr('selected', true);
+                                                                //console.log("val :" + val + " <=> id : " + successId + "bool : " + bool);
+                                                            }
+                                                        } else {
+                                                            option.attr('selected', false);
 
+                                                        }
+                                                    }
+                                                });
+
+
+                                            });
                                             path.insertAt(path.length, event.latLng);
                                             var marker = new google.maps.Marker({
                                                 position: event.latLng,
                                                 map: map,
-                                                draggable: true
+                                                draggable: true,
                                             });
                                             markers.push(marker);
                                             marker.setTitle("#" + path.length);
@@ -124,26 +193,22 @@
                                                     ;
                                                 markers.splice(i, 1);
                                                 path.removeAt(i);
-                                            }
-                                            );
+
+                                            });
                                             google.maps.event.addListener(marker, 'dragend', function() {
                                                 for (var i = 0, I = markers.length; i < I && markers[i] != marker; ++i)
                                                     ;
                                                 path.setAt(i, marker.getPosition());
-                                            }
-                                            );
-                                            var arr = new Array;
-                                            $("#fiscalite_typerue option").each(function() {
-                                                arr.push($(this).text().replace('   ', ''));
                                             });
-                                            for (var i = 0; i < arr.length; i++) {
-                                                var val = arr[i].replace('  ', ' ');
-                                                val = val.replace('  ', ' ');
-                                                val = val.replace('  ', ' ');
-                                                val = val + "38340 Voreppe";
-                                                console.log("val : " + val);
-                                                sleep(1000);
-                                                var geocoder = new google.maps.Geocoder();
+
+                                            //for (var i = 0; i < 10; i++) {
+
+
+
+                                            //sleep(1000);
+
+
+                                               {# var geocoder = new google.maps.Geocoder();
                                                 var request = {
                                                     address: val,
                                                     region: 'fr'
@@ -172,9 +237,8 @@
                                                     } else {
                                                         console.log("erreur");
                                                     }
-                                                });
-                                            }
-
+                                                });#}
+                                            // }
                                         }
                                         google.maps.event.addDomListener(window, 'load', initialize);
 </script>

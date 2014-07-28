@@ -1460,12 +1460,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataAdminBundle.git",
-                "reference": "3945b5794000e22b25e7c66774d8ea63eb919aa5"
+                "reference": "d5b8fa79ad057c3d2d8cf6750a29520a438605dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/3945b5794000e22b25e7c66774d8ea63eb919aa5",
-                "reference": "3945b5794000e22b25e7c66774d8ea63eb919aa5",
+                "url": "https://api.github.com/repos/sonata-project/SonataAdminBundle/zipball/d5b8fa79ad057c3d2d8cf6750a29520a438605dd",
+                "reference": "d5b8fa79ad057c3d2d8cf6750a29520a438605dd",
                 "shasum": ""
             },
             "require": {
@@ -1531,7 +1531,7 @@
                 "bootstrap",
                 "sonata"
             ],
-            "time": "2014-07-18 14:00:40"
+            "time": "2014-07-25 11:30:11"
         },
         {
             "name": "sonata-project/block-bundle",
@@ -1663,12 +1663,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sonata-project/SonataCoreBundle.git",
-                "reference": "82daabfa9ea48158e6f57cb703fe9a32011b9358"
+                "reference": "d0519c3f0d26d68df1c2c38196ab735d898a73ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/82daabfa9ea48158e6f57cb703fe9a32011b9358",
-                "reference": "82daabfa9ea48158e6f57cb703fe9a32011b9358",
+                "url": "https://api.github.com/repos/sonata-project/SonataCoreBundle/zipball/d0519c3f0d26d68df1c2c38196ab735d898a73ca",
+                "reference": "d0519c3f0d26d68df1c2c38196ab735d898a73ca",
                 "shasum": ""
             },
             "require": {
@@ -1704,13 +1704,12 @@
             ],
             "authors": [
                 {
-                    "name": "Thomas Rabaix",
-                    "email": "thomas.rabaix@sonata-project.org",
-                    "homepage": "http://sonata-project.org"
-                },
-                {
                     "name": "Sonata Community",
                     "homepage": "https://github.com/sonata-project/SonataCoreBundle/contributors"
+                },
+                {
+                    "name": "Thomas Rabaix",
+                    "email": "thomas.rabaix@sonata-project.org"
                 }
             ],
             "description": "Symfony SonataCoreBundle",
@@ -1718,7 +1717,7 @@
             "keywords": [
                 "sonata"
             ],
-            "time": "2014-07-10 12:21:27"
+            "time": "2014-07-23 07:47:18"
         },
         {
             "name": "sonata-project/doctrine-orm-admin-bundle",
@@ -2016,20 +2015,21 @@
         },
         {
             "name": "symfony/icu",
-            "version": "v1.2.1",
+            "version": "v1.2.2",
             "target-dir": "Symfony/Component/Icu",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Icu.git",
-                "reference": "98e197da54df1f966dd5e8a4992135703569c987"
+                "reference": "d4d85d6055b87f394d941b45ddd3a9173e1e3d2a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Icu/zipball/98e197da54df1f966dd5e8a4992135703569c987",
-                "reference": "98e197da54df1f966dd5e8a4992135703569c987",
+                "url": "https://api.github.com/repos/symfony/Icu/zipball/d4d85d6055b87f394d941b45ddd3a9173e1e3d2a",
+                "reference": "d4d85d6055b87f394d941b45ddd3a9173e1e3d2a",
                 "shasum": ""
             },
             "require": {
+                "ext-intl": "*",
                 "lib-icu": ">=4.4",
                 "php": ">=5.3.3",
                 "symfony/intl": "~2.3"
@@ -2060,7 +2060,7 @@
                 "icu",
                 "intl"
             ],
-            "time": "2013-10-04 10:06:38"
+            "time": "2014-07-25 09:58:17"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -2184,12 +2184,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/symfony.git",
-                "reference": "397687f345f4ea83f344a54275f4bc328ac2d4b4"
+                "reference": "7af25630bb9e61ed46f8203acc206fa5e3db32c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/symfony/zipball/397687f345f4ea83f344a54275f4bc328ac2d4b4",
-                "reference": "397687f345f4ea83f344a54275f4bc328ac2d4b4",
+                "url": "https://api.github.com/repos/symfony/symfony/zipball/7af25630bb9e61ed46f8203acc206fa5e3db32c9",
+                "reference": "7af25630bb9e61ed46f8203acc206fa5e3db32c9",
                 "shasum": ""
             },
             "require": {
@@ -2278,14 +2278,12 @@
             ],
             "authors": [
                 {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
-                },
-                {
                     "name": "Symfony Community",
                     "homepage": "http://symfony.com/contributors"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "The Symfony PHP framework",
@@ -2293,7 +2291,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2014-07-18 09:03:26"
+            "time": "2014-07-26 19:31:28"
         },
         {
             "name": "twig/extensions",
